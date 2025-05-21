@@ -1,23 +1,15 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
-
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export default function MessagesDashboard() {
 	return (
@@ -79,10 +71,7 @@ function ClientComponent() {
 
 		const guildCards = guildDataArray.map((guild) =>
 			guild.in_db === true ? (
-				<a
-					href={`/guild?guildID=${guild.id}`}
-					key={guild.id}
-				>
+				<a href={`/guild?guildID=${guild.id}`} key={guild.id}>
 					<Card className="hover:bg-white/2 transition-all mx-5">
 						<CardHeader className="place-items-center">
 							<Avatar className=" w-20 h-20">
@@ -152,7 +141,8 @@ function ClientComponent() {
 					Looks like the Discord Bot can't communicate with the Dashboard.
 					<br />
 					Please make sure that you followed the setup instructions correctly
-					and that the bot is up and running!<br />
+					and that the bot is up and running!
+					<br />
 					<br />
 					Are you facing other issues? Check our GitHub and seek support!
 					<br />

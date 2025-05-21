@@ -2,22 +2,22 @@ const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 
 async function fetchID(req, res, client) {
-	let success_message = { code: "success" };
-	let error_message = { code: "error" };
-	let body = req.body;
-	let guildID = req.params.guildID;
+	const success_message = { code: "success" };
+	const error_message = { code: "error" };
+	const body = req.body;
+	const guildID = req.params.guildID;
 
 	debug({ text: `ID Fetching Request Received for Guild ID: ${guildID}` });
 
 	try {
-		let channels = body[0].channels;
-		let users = body[0].users;
-		let newArray = { newChannels: [], newUsers: [] };
-		let guild = client.guilds.cache.get(`${String(guildID)}`);
+		const channels = body[0].channels;
+		const users = body[0].users;
+		const newArray = { newChannels: [], newUsers: [] };
+		const guild = client.guilds.cache.get(`${String(guildID)}`);
 
 		channels.forEach(async (channel) => {
 			try {
-				let discordChannel = await client.channels.fetch(channel);
+				const discordChannel = await client.channels.fetch(channel);
 				newArray.newChannels.push({
 					id: channel,
 					name: `${discordChannel.name}`,
@@ -30,7 +30,7 @@ async function fetchID(req, res, client) {
 
 		users.forEach(async (user) => {
 			try {
-				let discordUser = client.users.cache.get(user);
+				const discordUser = client.users.cache.get(user);
 				newArray.newUsers.push({ id: user, name: discordUser.username });
 				debug({ text: `Added Succesfully User: ${user}` });
 			} catch (err) {

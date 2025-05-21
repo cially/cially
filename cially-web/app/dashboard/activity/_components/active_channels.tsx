@@ -1,10 +1,5 @@
 "use client";
-import {
-	PolarAngleAxis,
-	PolarGrid,
-	Radar,
-	RadarChart,
-} from "recharts";
+import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
 
 import {
 	Card,

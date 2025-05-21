@@ -1,7 +1,5 @@
-import {
-	Card
-} from "@/components/ui/card";
 import { Activity } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function GeneralMessageDataCard({ chartData }) {

@@ -18,7 +18,7 @@ module.exports = {
 		debug({
 			text: `User Joined: \nGuild: ${member.guild.name}, ${member.guild.id}, Members: ${member.guild.memberCount}\nMember: ${member.id}, ${member.displayName}`,
 		});
-		let info = {
+		const info = {
 			guildID: member.guild.id,
 			memberID: member.id,
 			memberCount: member.guild.memberCount,

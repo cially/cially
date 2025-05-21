@@ -1,10 +1,5 @@
 "use client";
-import { CartesianGrid, XAxis } from "recharts";
-import {
-	Bar,
-	BarChart,
-	LabelList,
-} from "recharts";
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from "recharts";
 
 import {
 	Card,

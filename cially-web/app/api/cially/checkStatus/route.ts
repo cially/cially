@@ -10,8 +10,14 @@ export async function GET(
 
 		const controllerPocketbase = new AbortController();
 		const controllerDiscordBot = new AbortController();
-		const timeoutIdPocketbase = setTimeout(() => controllerPocketbase.abort(), 5000);
-		const timeoutIdDiscordBot = setTimeout(() => controllerDiscordBot.abort(), 5000);
+		const timeoutIdPocketbase = setTimeout(
+			() => controllerPocketbase.abort(),
+			5000,
+		);
+		const timeoutIdDiscordBot = setTimeout(
+			() => controllerDiscordBot.abort(),
+			5000,
+		);
 
 		try {
 			const pocketbase_response = await fetch(

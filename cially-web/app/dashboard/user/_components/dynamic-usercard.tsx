@@ -1,11 +1,7 @@
 "use client";
 
-import {
-	Card,
-	CardContent,
-	CardHeader,
-} from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export default function DynamicUserCard({ userData }) {
 	return (
@@ -51,7 +47,8 @@ export default function DynamicUserCard({ userData }) {
 							<div>
 								Creation Date:{" "}
 								<div className="inline text-gray-300">
-									{(userData[0].creationDate).slice(0, 10)} at {(userData[0].creationDate).slice(11, 19)} UTC
+									{userData[0].creationDate.slice(0, 10)} at{" "}
+									{userData[0].creationDate.slice(11, 19)} UTC
 								</div>
 							</div>
 						</div>
@@ -74,7 +71,6 @@ export default function DynamicUserCard({ userData }) {
 									#{userData[0].dataArray[0].activeChannel[0].channel}
 								</div>
 							</div>
-							
 						</div>
 					</div>
 				</CardContent>

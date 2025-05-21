@@ -4,13 +4,13 @@ const { error } = require("../../../terminal/error");
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
-let collection_name = process.env.MEMBER_JOINS_COLLECTION;
-let guild_collection_name = process.env.GUILD_COLLECTION
+const collection_name = process.env.MEMBER_JOINS_COLLECTION;
+const guild_collection_name = process.env.GUILD_COLLECTION;
 const { registerGuild } = require("./logic/registerGuild");
 
 async function guildMemberAdd(req, res, client) {
 	// Parse the request body and debug it
-	let body = req.body;
+	const body = req.body;
 
 	const { guildID, memberID, memberCount } = body;
 
@@ -29,13 +29,13 @@ async function guildMemberAdd(req, res, client) {
 
 		debug({ text: `Guild has been found and is ready to add data to it` });
 
-		const uniqueMemberSearch = await pb.collection(collection_name).getList(1, 5, {
-			filter: `memberID >= "${memberID}"`,
-		});
+		const uniqueMemberSearch = await pb
+			.collection(collection_name)
+			.getList(1, 5, {
+				filter: `memberID >= "${memberID}"`,
+			});
 
-
-		let isUnique = (uniqueMemberSearch.items.length == 0) ? true : false
-
+		const isUnique = uniqueMemberSearch.items.length == 0 ? true : false;
 
 		try {
 			const itemData = {

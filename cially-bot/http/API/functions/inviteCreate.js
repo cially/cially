@@ -5,12 +5,12 @@ const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
-let collection_name = process.env.INVITE_COLLECTION;
+const collection_name = process.env.INVITE_COLLECTION;
 const { registerGuild } = require("./logic/registerGuild");
 
 async function inviteCreate(req, res, client) {
 	// Parse the request body and debug it
-	let body = req.body;
+	const body = req.body;
 
 	const { guildID, channelID, authorID } = body;
 
@@ -32,7 +32,7 @@ async function inviteCreate(req, res, client) {
 			const itemData = {
 				guildID: guild.id,
 				channelID: channelID,
-				authorID: authorID
+				authorID: authorID,
 			};
 			const newInvite = await pb.collection(collection_name).create(itemData);
 			debug({ text: ` Invite has been added in the database` });

@@ -1,7 +1,5 @@
-import {
-	Card,
-} from "@/components/ui/card";
 import { Activity } from "lucide-react";
+import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
 export default function GeneralActivityData({ chartData }) {
@@ -24,7 +22,7 @@ export default function GeneralActivityData({ chartData }) {
 		);
 	}
 
-	let ArrayChartData = Array(chartData)[0];
+	const ArrayChartData = Array(chartData)[0];
 	console.log(ArrayChartData);
 
 	return (

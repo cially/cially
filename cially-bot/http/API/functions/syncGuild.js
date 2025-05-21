@@ -8,10 +8,10 @@ const guild_collection_name = process.env.GUILD_COLLECTION;
 const { registerGuild } = require("./logic/registerGuild");
 
 async function syncGuild(req, res, client) {
-	let success_message = { code: "success" };
-	let error_message = { code: "error" };
+	const success_message = { code: "success" };
+	const error_message = { code: "error" };
 
-	let guildID = req.params.guildID;
+	const guildID = req.params.guildID;
 
 	debug({ text: `Syncronization Request Received for Guild ID: ${guildID}` });
 
@@ -27,15 +27,15 @@ async function syncGuild(req, res, client) {
 						// Check to see if the bot is in the guild
 						if (guild.discordID) {
 							async function setNewData() {
-								let Guild = client.guilds.cache.get(
+								const Guild = client.guilds.cache.get(
 									`${String(guild.discordID)}`,
 								);
-								let channels = Guild.channels.cache.size;
-								let roles = Guild.roles.cache.size;
-								let bans = Guild.bans.cache.size;
-								let owner = await Guild.fetchOwner();
-								let icon_url = await Guild.iconURL();
-								let vanity_url = Guild.vanityURLCode;
+								const channels = Guild.channels.cache.size;
+								const roles = Guild.roles.cache.size;
+								const bans = Guild.bans.cache.size;
+								const owner = await Guild.fetchOwner();
+								const icon_url = await Guild.iconURL();
+								const vanity_url = Guild.vanityURLCode;
 
 								await Guild.members.fetch();
 								const statusCount = {
@@ -45,8 +45,8 @@ async function syncGuild(req, res, client) {
 									offline: 0,
 								};
 
-								Guild.members.cache.forEach(member => {
-									const status = member.presence?.status || 'offline';
+								Guild.members.cache.forEach((member) => {
+									const status = member.presence?.status || "offline";
 									if (statusCount[status] !== undefined) {
 										statusCount[status]++;
 									}
@@ -61,7 +61,7 @@ async function syncGuild(req, res, client) {
 											return -1;
 										});
 								}
-								let vanity_uses = await fetchVanityData();
+								const vanity_uses = await fetchVanityData();
 
 								debug({ text: `Syncing Guild: ${Guild.name}, ${Guild.id}` });
 								const newData = {
@@ -80,7 +80,7 @@ async function syncGuild(req, res, client) {
 									vanity_uses: vanity_uses,
 									online: statusCount.online + statusCount.dnd,
 									offline: statusCount.offline,
-									idle: statusCount.idle
+									idle: statusCount.idle,
 								};
 								try {
 									const updatedRecord = await pb

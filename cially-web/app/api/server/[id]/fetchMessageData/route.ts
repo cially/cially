@@ -34,8 +34,8 @@ export async function GET(
 				});
 
 			for (const message of fourWeeksMessagesLog) {
-				let creation_date = String(message.created).slice(0, 19);
-				let creation_date_js = new Date(
+				const creation_date = String(message.created).slice(0, 19);
+				const creation_date_js = new Date(
 					Date.UTC(
 						Number.parseInt(creation_date.slice(0, 4)),
 						Number.parseInt(creation_date.slice(5, 7)) - 1,

@@ -1,21 +1,20 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Search } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
 	Form,
 	FormControl,
 	FormField,
 	FormItem,
-	FormMessage
+	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Search } from "lucide-react";
-import { useSearchParams } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import LoadingUserCard from "./_components/loading-usercard";
-
 
 const formSchema = z.object({
 	id: z.string().min(5, {
@@ -83,7 +82,7 @@ function ClientComponent() {
 												<Input
 													placeholder="User ID"
 													{...field}
-													className="peer pr-24" 
+													className="peer pr-24"
 												/>
 											</FormControl>
 
@@ -137,6 +136,4 @@ function ClientComponent() {
 			<ErrorUserCard />
 		</>
 	);
-
-	
 }

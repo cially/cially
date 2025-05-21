@@ -1,14 +1,12 @@
 "use client";
 
-import GuildNotFound from "@/app/_components/_events/guildNotFound";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import GuildNotFound from "@/app/_components/_events/guildNotFound";
 import ActiveChannels from "../activity/_components/active_channels";
 import ActiveHours from "../activity/_components/active_hours";
 import ActiveUsers from "../activity/_components/active_users";
 import GeneralActivityData from "./_components/general_data";
-
-
 
 // FIXME Error when there are no messages
 
@@ -72,9 +70,8 @@ function ClientComponent() {
 					Thanks for using Cially Dashboard!
 				</div>
 			</>
-		)
+		);
 	}
-
 
 	const data_channels = chartData.finalData[0].ChannelData;
 	const data_users = chartData.finalData[0].ActiveUsersData;
@@ -109,5 +106,5 @@ function ClientComponent() {
 				Thanks for using Cially Dashboard!
 			</div>
 		</>
-	)
+	);
 }

@@ -6,7 +6,7 @@ const url = process.env.POCKETBASE_URL;
 
 // Pocketbase Initialization
 const pb = new PocketBase(url);
-let guild_collection_name = process.env.GUILD_COLLECTION;
+const guild_collection_name = process.env.GUILD_COLLECTION;
 const get = require("simple-get");
 const { debug } = require("../../../../terminal/debug");
 const { error } = require("../../../../terminal/error");

@@ -7,22 +7,22 @@ const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function fetchGuilds(req, res, client) {
-	let success_message = { code: "success" };
-	let error_message = { code: "error" };
+	const success_message = { code: "success" };
+	const error_message = { code: "error" };
 	debug({ text: `Server Fetching Request Received` });
 
 	try {
-		let guilds_in_database = [];
+		const guilds_in_database = [];
 		const guilds = await pb.collection(guild_collection_name).getFullList({});
 		guilds.forEach((guild) => {
 			guilds_in_database.push(guild.discordID);
 		});
 
 		try {
-			let discord_guilds = client.guilds.cache;
-			let guildsArray = [];
+			const discord_guilds = client.guilds.cache;
+			const guildsArray = [];
 			discord_guilds.forEach(async (guild) => {
-				let icon = await guild.iconURL();
+				const icon = await guild.iconURL();
 				if (guilds_in_database.includes(guild.id)) {
 					await guildsArray.push({
 						name: guild.name,

@@ -1,7 +1,5 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import {
-	Card
-} from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import {
 	Tooltip,
 	TooltipContent,
@@ -10,21 +8,21 @@ import {
 } from "@/components/ui/tooltip";
 
 export default function BottomCard({ guild }) {
-	let correct_date =
+	const correct_date =
 		guild.creation_date.slice(0, 4) +
 		"/" +
 		guild.creation_date.slice(5, 7) +
 		"/" +
 		guild.creation_date.slice(11, 13);
-	let correct_available = guild.available === "true" ? "Yes" : "No";
-	let partner_correct = guild.discord_partner === "true" ? "Yes" : "No";
-	let correct_description = guild.description
+	const correct_available = guild.available === "true" ? "Yes" : "No";
+	const partner_correct = guild.discord_partner === "true" ? "Yes" : "No";
+	const correct_description = guild.description
 		? guild.description
 		: "No Description";
-	let correct_vanity_url = guild.vanity_url
+	const correct_vanity_url = guild.vanity_url
 		? `discord.gg/${guild.vanity_url}`
 		: "No Vanity URL";
-	let correct_vanity_uses = guild.vanity_uses
+	const correct_vanity_uses = guild.vanity_uses
 		? guild.vanity_uses !== -1
 			? guild.vanity_uses
 			: "No Permissions to View"

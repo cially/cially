@@ -13,7 +13,7 @@ body {
 .bg-gr {
 	background: radial-gradient(
 		at 20% 25%,
-		rgb(5, 15, 40) 0%, 
+		rgb(5, 15, 40) 0%,
 		rgb(12, 12, 12) 46%,
 		rgba(18, 18, 18, 1) 100%
 	);
@@ -40,7 +40,7 @@ body {
 .bg-gr-brown {
 	background: radial-gradient(
 		at 20% 25%,
-		rgb(26, 17, 10) 0%, 
+		rgb(26, 17, 10) 0%,
 		rgb(12, 12, 12) 46%,
 		rgba(18, 18, 18, 1) 100%
 	);
@@ -60,8 +60,6 @@ body {
 		rgba(18, 18, 18, 1) 100%
 	);
 } */
-
-
 
 @theme inline {
 	--color-background: hsl(var(--background));

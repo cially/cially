@@ -18,12 +18,11 @@ module.exports = {
 				.filter((word) => word.length > 0);
 
 			// Get the number of images/videos
-			const mediaAttachments = message.attachments.filter(attachment => {
-				const type = attachment.contentType || '';
-				return type.startsWith('image/') || type.startsWith('video/');
+			const mediaAttachments = message.attachments.filter((attachment) => {
+				const type = attachment.contentType || "";
+				return type.startsWith("image/") || type.startsWith("video/");
 			});
-			const totalMedia = mediaAttachments.size
-			
+			const totalMedia = mediaAttachments.size;
 
 			//Logs
 			debug({
@@ -31,13 +30,13 @@ module.exports = {
 			});
 
 			// HTTP
-			let info = {
+			const info = {
 				guildID: message.guild.id,
 				messageID: message.id,
 				messageLength: totalWords.length,
 				channelID: message.channelId,
 				authorID: message.author.id,
-				attachments: totalMedia
+				attachments: totalMedia,
 			};
 			sendPostRequest({
 				data: info,

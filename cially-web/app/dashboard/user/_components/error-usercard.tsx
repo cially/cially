@@ -1,19 +1,14 @@
 "use client";
 
-import { Skeleton } from "@/components/ui/skeleton";
-import {
-	Card,
-	CardContent,
-	CardHeader,
-} from "@/components/ui/card";
-import { Avatar } from "@/components/ui/avatar";
 import { AlertCircle } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Avatar } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ErrorUserCard() {
 	return (
 		<div className="place-self-center w-full mt-3 ">
-			
 			<Card className="mx-5">
 				<CardHeader>
 					<div className="grid grid-cols-2">
@@ -40,7 +35,9 @@ export default function ErrorUserCard() {
 					<AlertCircle className="h-4 w-4" />
 					<AlertTitle>Error</AlertTitle>
 					<AlertDescription>
-						<p className="text-gray-500 text-xs">Could not find that user in the database!</p>
+						<p className="text-gray-500 text-xs">
+							Could not find that user in the database!
+						</p>
 					</AlertDescription>
 				</Alert>
 			</div>

@@ -1,16 +1,8 @@
 "use client";
 
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle,
-} from "@/components/ui/card";
-
 import { DatabaseBackup, PaletteIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import {
 	AlertDialog,
 	AlertDialogAction,
@@ -22,10 +14,15 @@ import {
 	AlertDialogTitle,
 	AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { handleThemeChange } from "./setThemeFunction";
-
 
 export default function SettingsPage() {
 	const router = useRouter();
@@ -54,8 +51,6 @@ export default function SettingsPage() {
 			setDeleteStatus("Deletion failed due to a network error.");
 		}
 	};
-
-	
 
 	return (
 		<>

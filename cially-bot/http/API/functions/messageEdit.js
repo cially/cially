@@ -8,7 +8,7 @@ const guild_collection_name = process.env.GUILD_COLLECTION;
 const { registerGuild } = require("./logic/registerGuild");
 
 async function messageEdit(req, res, client) {
-	let body = req.body;
+	const body = req.body;
 	const { guildID } = body;
 
 	debug({ text: `New POST req: \n${JSON.stringify(body)}` });
@@ -24,13 +24,13 @@ async function messageEdit(req, res, client) {
 			.getFirstListItem(`discordID='${guildID}'`, {});
 		debug({ text: `Guild has been found and is ready to add data to it` });
 
+		const new_general_data = {
+			message_edits: guild.message_edits + 1,
+		};
 
-		let new_general_data = {
-			"message_edits": guild.message_edits + 1,
-
-		}
-
-		const newGeneralData = await pb.collection(`${guild_collection_name}`).update(`${guild.id}`, new_general_data)
+		const newGeneralData = await pb
+			.collection(`${guild_collection_name}`)
+			.update(`${guild.id}`, new_general_data);
 		debug({
 			text: `General Guild Data has been updated in the database`,
 		});

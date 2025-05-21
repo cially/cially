@@ -1,18 +1,17 @@
 "use client";
-import GuildNotFound from "@/app/_components/_events/guildNotFound";
-import LoadingSVG from "@/app/_components/_events/loading-page";
-import { useEffect, useState } from "react";
-
-import { Badge } from "@/components/ui/badge";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
 
 import { CheckCircle, Database, Rss, XCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import GuildNotFound from "@/app/_components/_events/guildNotFound";
+import LoadingSVG from "@/app/_components/_events/loading-page";
+import { Badge } from "@/components/ui/badge";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 
 export default function Status() {
 	const [statusData, setStatusData] = useState([{ amount: 69 }]);

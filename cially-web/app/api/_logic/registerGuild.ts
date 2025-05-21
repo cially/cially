@@ -6,7 +6,7 @@ const url = process.env.POCKETBASE_URL;
 
 // Pocketbase Initialization
 const pb = new PocketBase(url);
-let guild_collection_name = process.env.GUILDS_COLLECTION;
+const guild_collection_name = process.env.GUILDS_COLLECTION;
 
 export default async function registerGuild(guildID) {
 	console.log("[DEBUG] Guild is not in the database. Attempting to add it...");

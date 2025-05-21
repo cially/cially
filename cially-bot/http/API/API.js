@@ -10,9 +10,9 @@ const { guildMemberRemove } = require("./functions/guildMemberRemove");
 const { guildMemberAdd } = require("./functions/guildMemberAdd");
 const { fetchID } = require("./functions/fetchID");
 const { fetchGuilds } = require("./functions/fetchGuilds");
-const { messageDelete } = require("./functions/messageDelete")
-const { messageEdit } = require("./functions/messageEdit")
-const { fetchUserData } = require("./functions/fetchUserData")
+const { messageDelete } = require("./functions/messageDelete");
+const { messageEdit } = require("./functions/messageEdit");
+const { fetchUserData } = require("./functions/fetchUserData");
 
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
@@ -45,15 +45,15 @@ async function API(client) {
 	app.post("/guildMemberRemove/:guildID", (req, res) => {
 		guildMemberRemove(req, res, client);
 	});
-	
+
 	app.post("/fetchID/:guildID", (req, res) => {
 		fetchID(req, res, client);
 	});
-	
+
 	app.post("/messageDelete/:guildID", (req, res) => {
 		messageDelete(req, res, client);
 	});
-	
+
 	app.post("/messageEdit/:guildID", (req, res) => {
 		messageEdit(req, res, client);
 	});

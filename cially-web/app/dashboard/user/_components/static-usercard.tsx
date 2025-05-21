@@ -1,11 +1,7 @@
 "use client";
 
-import {
-	Card,
-	CardContent,
-	CardHeader,
-} from "@/components/ui/card";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 export default function StaticUserCard() {
 	return (

@@ -1,4 +1,3 @@
-import { describe } from "node:test";
 import PocketBase from "pocketbase";
 
 // Pocketbase Initialization
