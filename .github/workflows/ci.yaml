@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  quality:
+  check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
