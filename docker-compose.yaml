@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   cially-bot:
-    image: ghcr.io/skellgreco/cially-bot:latest
+    image: ghcr.io/cially/cially-bot:latest
     container_name: cially-bot
     restart: unless-stopped
     environment:
@@ -26,7 +26,7 @@ services:
       - cially-network
 
   cially-web:
-    image: ghcr.io/skellgreco/cially-web:latest
+    image: ghcr.io/cially/cially-web:latest
     container_name: cially-web
     restart: unless-stopped
     environment:
