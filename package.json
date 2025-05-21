@@ -1,20 +1,21 @@
 {
-  "name": "cially",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "check": "pnpm run -r check",
-    "check:fix": "pnpm run -r check:fix",
-    "docker:bot": "docker --target cially-bot -t cially-bot .",
-    "docker:web": "docker --target cially-web -t cially-web .",
-    "up": "taze -r -I"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "packageManager": "pnpm@10.10.0",
-  "devDependencies": {
-    "taze": "^19.0.4"
-  }
+	"name": "cially",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"check": "pnpm run -r check",
+		"check:fix": "pnpm run -r check:fix",
+		"docker:bot": "docker --target cially-bot -t cially-bot .",
+		"docker:web": "docker --target cially-web -t cially-web .",
+		"up": "taze -r -I"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"packageManager": "pnpm@10.10.0",
+	"devDependencies": {
+		"@biomejs/biome": "2.0.0-beta.5",
+		"taze": "^19.0.4"
+	}
 }
