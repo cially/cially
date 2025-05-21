@@ -6,6 +6,8 @@ import BottomCard from "./_main-components/bottom-card";
 import MemberBlock from "./_main-components/member-card";
 import MessagesBlock from "./_main-components/messages-card";
 
+import { Skeleton } from "@/components/ui/skeleton";
+
 interface GuildData {
 	name: string;
 	id: string;
@@ -45,8 +47,35 @@ function DashboardClientComponent() {
 		}
 	}, [guildID]);
 
-	if (loading) {
-		return <div>Loading...</div>;
+	if (!guildData) {
+		return (
+		<>
+			<div className="mt-10 mr-4 ml-10 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
+				<div>
+					<div className="rows-span-1 grid grid-rows-3 sm:grid-cols-8 sm:grid-rows-none ">
+						<div className="text-4xl sm:col-span-2 ">
+							<Skeleton className="w-30 h-5" />
+							<div className="mt-2 font-normal text-gray-400 text-xs">
+								<Skeleton className="w-15 h-3" />
+
+							</div>
+						</div>
+						<div className="mr-4 sm:col-span-2 sm:col-start-4">
+								<Skeleton className="w-50 h-25 rounded-2xl" />
+						</div>
+						<div className="mr-4 sm:col-span-2 sm:col-start-6">
+								<Skeleton className="w-50 h-25 rounded-2xl" />
+						</div>
+					</div>
+				</div>
+
+				<div className="row-span-3 sm:row-span-1">
+					<Skeleton className="w-full h-25 rounded-2xl place-self-center mt-30" />
+					
+				</div>
+			</div>
+		</>
+		)
 	}
 
 	if (error) {
