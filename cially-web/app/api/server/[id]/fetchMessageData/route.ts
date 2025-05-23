@@ -136,9 +136,6 @@ export async function GET(
 				}
 			}
 			weekData = weekData.toReversed();
-
-			console.log("oioioi");
-
 			let fourWeekData = [];
 
 			let w = 0;
