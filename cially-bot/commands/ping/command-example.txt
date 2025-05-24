@@ -1,8 +1,8 @@
 // Template
 
 const { SlashCommandBuilder } = require("discord.js")
-const { debug } = require('../terminal/debug');
-const { error } = require('../terminal/error');
+const { debug } = require('../../terminal/debug');
+const { error } = require('../../terminal/error');
 
 module.exports = {
 	data: new SlashCommandBuilder()
