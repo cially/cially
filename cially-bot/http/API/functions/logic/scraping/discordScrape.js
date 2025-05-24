@@ -1,9 +1,8 @@
 const { debug } = require("../../../../../terminal/debug");
 const { error } = require("../../../../../terminal/error");
 
-async function discordScrape({client, guildID}) {
+async function discordScrape({ client, guildID }) {
   try {
-
     const discordGuild = await client.guilds.fetch(guildID);
     let channels = await discordGuild.channels.fetch();
     channels = Array.from(channels.values());
@@ -45,7 +44,19 @@ async function discordScrape({client, guildID}) {
 
     // convert timestamp to PocketBase format (ISO 8601)
     const toPocketBaseDate = (timestamp) => {
-      return new Date(timestamp).toISOString();
+        const date = new Date(timestamp);
+
+        const pad = (num, size = 2) => String(num).padStart(size, "0");
+
+        const year = date.getUTCFullYear();
+        const month = pad(date.getUTCMonth() + 1);
+        const day = pad(date.getUTCDate());
+        const hours = pad(date.getUTCHours());
+        const minutes = pad(date.getUTCMinutes());
+        const seconds = pad(date.getUTCSeconds());
+        const milliseconds = pad(date.getUTCMilliseconds(), 3);
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}Z`;
     };
 
     async function scrapeChannel(channelId) {
@@ -134,14 +145,14 @@ async function discordScrape({client, guildID}) {
 
               const messageData = {
                 messageID: message.id,
-                authorID: message.author.id,
+                author: message.author.id,
                 guildID: guildID,
                 messageLength: message.content
                   .trim()
                   .split(/\s+/)
                   .filter((word) => word.length > 0).length,
                 channelID: message.channelId,
-                creationDate: toPocketBaseDate(message.createdTimestamp),
+                created: toPocketBaseDate(message.createdTimestamp),
               };
 
               messages.push(messageData);
@@ -332,11 +343,6 @@ async function discordScrape({client, guildID}) {
       const daySpan = Math.ceil(
         (newestTimestamp - oldestTimestamp) / (1000 * 60 * 60 * 24)
       );
-
-      console.log(`\n=== TIME SPAN ===`);
-      console.log(`Oldest message: ${new Date(oldestTimestamp).toISOString()}`);
-      console.log(`Newest message: ${new Date(newestTimestamp).toISOString()}`);
-      console.log(`Total span: ${daySpan} days`);
     }
 
     const result = {
