@@ -47,6 +47,7 @@ async function messageCreate(req, res, client) {
 			guildID: guild.id,
 			channelID: channelID,
 			messageLength: messageLength,
+			messageID: messageID
 		};
 
 		const newMessage = await retryRequest(() =>
