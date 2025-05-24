@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT;
-const { debug } = require("../../terminal/debug");
-const { error } = require("../../terminal/error");
 const { syncGuild } = require("./functions/syncGuild");
 const { messageCreate } = require("./functions/messageCreate");
 const { inviteCreate } = require("./functions/inviteCreate");
@@ -13,6 +11,7 @@ const { fetchGuilds } = require("./functions/fetchGuilds");
 const { messageDelete } = require("./functions/messageDelete");
 const { messageEdit } = require("./functions/messageEdit");
 const { fetchUserData } = require("./functions/fetchUserData");
+const { serverScrape } = require("./functions/serverScrape")
 
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
@@ -64,6 +63,10 @@ async function API(client) {
 
 	app.post("/fetchUserData/:guildID", (req, res) => {
 		fetchUserData(req, res, client);
+	});
+
+	app.get("/serverScrape", (req, res) => {
+		serverScrape(req, res, client);
 	});
 
 	app.listen(port, () => {
