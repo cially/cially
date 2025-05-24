@@ -16,14 +16,25 @@ async function pbCollectionAutoDelete(guildID) {
       filter: `guildID?="${guild.id}"`,
     });
 
-    console.log(message_records)
+    console.log(message_records);
 
     async function bulkDeletion() {
-      const batch = pb.createBatch();
-      for await(const message of message_records) {
-        batch.collection("messages").delete(message.id);
-        console.log(`added ${message.id} to the batch`);
+      let batch = pb.createBatch();
+      let i = 1;
+      for await (const message of message_records) {
+        if (i < 20000) {
+          batch.collection("messages").delete(message.id);
+          console.log(`added ${message.id} to the batch`);
+          i = i + 1
+        } else {
+            await batch.send();
+            console.log("Max batch capacity reached. Creating a new batch...")
+            batch = pb.createBatch();
+            batch.collection("messages").delete(message.id);
+            i = 1
+        }
       }
+
 
       await console.log("batch over. ready to send");
 
