@@ -42,12 +42,29 @@ async function messageCreate(req, res, client) {
 			text: `Guild Data Item has been found and is ready to add data to it`,
 		});
 
+		const currentPocketBaseDate = () => {
+        const date = new Date();
+
+        const pad = (num, size = 2) => String(num).padStart(size, "0");
+
+        const year = date.getUTCFullYear();
+        const month = pad(date.getUTCMonth() + 1);
+        const day = pad(date.getUTCDate());
+        const hours = pad(date.getUTCHours());
+        const minutes = pad(date.getUTCMinutes());
+        const seconds = pad(date.getUTCSeconds());
+        const milliseconds = pad(date.getUTCMilliseconds(), 3);
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}Z`;
+    };
+
 		const itemData = {
 			author: authorID,
 			guildID: guild.id,
 			channelID: channelID,
 			messageLength: messageLength,
-			messageID: messageID
+			messageID: messageID,
+			messageCreation: currentPocketBaseDate(),
 		};
 
 		const newMessage = await retryRequest(() =>

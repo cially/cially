@@ -29,8 +29,8 @@ export async function GET(
 			const fourWeeksMessagesLog = await pb
 				.collection(collection_name)
 				.getFullList({
-					filter: `guildID ?= "${guild.id}" && created>'${fourWeeksAgoDate_formatted}'`,
-					sort: "created",
+					filter: `guildID ?= "${guild.id}" && messageCreation>'${fourWeeksAgoDate_formatted}'`,
+					sort: "messageCreation",
 				});
 
 			for (const message of fourWeeksMessagesLog) {
