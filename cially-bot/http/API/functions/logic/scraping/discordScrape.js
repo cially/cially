@@ -1,8 +1,11 @@
 const { debug } = require("../../../../../terminal/debug");
 const { error } = require("../../../../../terminal/error");
+const { pbAddNewData } = require("./pbAddNewData"); // Import your PocketBase function
+const { pbCollectionAutoDelete } = require("./pbCollectionAutoDelete")
 
 async function discordScrape({ client, guildID }) {
   try {
+    pbCollectionAutoDelete(guildID)
     const discordGuild = await client.guilds.fetch(guildID);
     let channels = await discordGuild.channels.fetch();
     channels = Array.from(channels.values());
@@ -20,9 +23,10 @@ async function discordScrape({ client, guildID }) {
     }
 
     // Scrape Options and Limits
-    const maxTotalMessages = 50000;
+    const maxTotalMessages = 1000000;
     const maxAgeWeeks = 4;
     const waitFor = 1069;
+    const batchSize = 10000; // Save every 10k messages
 
     const cutoffDate = new Date();
     cutoffDate.setDate(cutoffDate.getDate() - maxAgeWeeks * 7);
@@ -30,7 +34,8 @@ async function discordScrape({ client, guildID }) {
 
     let currentChannel = 0;
     let totalMessagesScraped = 0;
-    let allMessages = [];
+    let currentBatch = []; 
+    let totalBatchesSaved = 0;
     let reachedGlobalLimit = false;
     let rateLimited = false;
 
@@ -59,12 +64,31 @@ async function discordScrape({ client, guildID }) {
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}Z`;
     };
 
+    async function saveBatch() {
+      if (currentBatch.length === 0) return;
+      
+      console.log(`\n=== SAVING BATCH ${totalBatchesSaved + 1} ===`);
+      console.log(`Saving ${currentBatch.length} messages to database...`);
+      
+      try {
+        await pbAddNewData({ guildID: guildID, data: currentBatch });
+        totalBatchesSaved++;
+        console.log(`✅ Batch ${totalBatchesSaved} saved successfully! (${currentBatch.length} messages)`);
+        console.log(`📊 Total messages saved so far: ${totalBatchesSaved * batchSize + (currentBatch.length < batchSize ? currentBatch.length : 0)}`);
+        
+        currentBatch = [];
+      } catch (saveError) {
+        console.error(`Failed to save batch ${totalBatchesSaved + 1}:`, saveError);
+        throw saveError; 
+      }
+    }
+
     async function scrapeChannel(channelId) {
       try {
         if (rateLimited) {
           console.log(`Skipping channel ${channelId} - bot is rate limited`);
           return {
-            messages: [],
+            messagesScraped: 0,
             hitTimeLimit: false,
             hitGlobalLimit: false,
             rateLimited: true,
@@ -75,7 +99,7 @@ async function discordScrape({ client, guildID }) {
         if (!channel || channel.type !== 0) {
           console.log(`Skipping channel ${channelId} - not a text channel`);
           return {
-            messages: [],
+            messagesScraped: 0,
             hitTimeLimit: false,
             hitGlobalLimit: false,
             rateLimited: false,
@@ -84,7 +108,7 @@ async function discordScrape({ client, guildID }) {
 
         console.log(`Scraping channel: ${channel.name} (${channelId})`);
 
-        let messages = [];
+        let channelMessagesScraped = 0;
         let lastMessageId = null;
         let hasMoreMessages = true;
         let hitTimeLimit = false;
@@ -98,11 +122,10 @@ async function discordScrape({ client, guildID }) {
             break;
           }
 
-          const remainingGlobalMessages =
-            maxTotalMessages - totalMessagesScraped;
-          const batchSize = Math.min(100, remainingGlobalMessages);
+          const remainingGlobalMessages = maxTotalMessages - totalMessagesScraped;
+          const fetchBatchSize = Math.min(100, remainingGlobalMessages);
 
-          const options = { limit: batchSize };
+          const options = { limit: fetchBatchSize };
 
           if (lastMessageId) {
             options.before = lastMessageId;
@@ -155,20 +178,26 @@ async function discordScrape({ client, guildID }) {
                 created: toPocketBaseDate(message.createdTimestamp),
               };
 
-              messages.push(messageData);
+              currentBatch.push(messageData);
               totalMessagesScraped++;
+              channelMessagesScraped++;
               validMessagesInBatch++;
+
+              if (currentBatch.length >= batchSize) {
+                console.log(`\nReached batch size of ${batchSize}, saving to database...`);
+                await saveBatch();
+              }
             }
 
             lastMessageId = messageArray[messageArray.length - 1]?.id;
 
             if (
               hasMoreMessages &&
-              fetchedMessages.size === batchSize &&
+              fetchedMessages.size === fetchBatchSize &&
               !rateLimited
             ) {
               console.log(
-                `Waiting ${waitFor}ms before next batch... (${messages.length} messages scraped from ${channel.name} so far)`
+                `Waiting ${waitFor}ms before next batch... (${channelMessagesScraped} messages scraped from ${channel.name} so far, ${currentBatch.length} in current batch)`
               );
               await wait(waitFor);
             }
@@ -206,11 +235,11 @@ async function discordScrape({ client, guildID }) {
           ? " (rate limited)"
           : "";
         console.log(
-          `Scraped ${messages.length} messages from ${channel.name}${statusText}`
+          `Scraped ${channelMessagesScraped} messages from ${channel.name}${statusText}`
         );
 
         return {
-          messages,
+          messagesScraped: channelMessagesScraped,
           hitTimeLimit,
           hitGlobalLimit,
           rateLimited,
@@ -226,7 +255,7 @@ async function discordScrape({ client, guildID }) {
           );
           rateLimited = true;
           return {
-            messages: [],
+            messagesScraped: 0,
             hitTimeLimit: false,
             hitGlobalLimit: false,
             rateLimited: true,
@@ -234,7 +263,7 @@ async function discordScrape({ client, guildID }) {
         } else {
           console.error(`Error scraping channel ${channelId}:`, error);
           return {
-            messages: [],
+            messagesScraped: 0,
             hitTimeLimit: false,
             hitGlobalLimit: false,
             rateLimited: false,
@@ -264,9 +293,9 @@ async function discordScrape({ client, guildID }) {
         console.log(
           `Global progress: ${totalMessagesScraped}/${maxTotalMessages} messages scraped so far`
         );
+        console.log(`Current batch: ${currentBatch.length}/${batchSize} messages`);
 
         const result = await scrapeChannel(channelId);
-        allMessages.push(...result.messages);
 
         if (result.hitGlobalLimit) {
           console.log(
@@ -310,44 +339,26 @@ async function discordScrape({ client, guildID }) {
       }
     }
 
+    // Save any remaining messages in the final batch
+    if (currentBatch.length > 0) {
+      console.log(`\n🔄 Saving final batch of ${currentBatch.length} messages...`);
+      await saveBatch();
+    }
+
     console.log(`\n=== SCRAPING COMPLETE ===`);
     console.log(`Total channels processed: ${currentChannel}`);
     console.log(`Total messages scraped: ${totalMessagesScraped}`);
+    console.log(`Total batches saved: ${totalBatchesSaved}`);
     console.log(`Global limit reached: ${reachedGlobalLimit ? "Yes" : "No"}`);
     console.log(`Rate limited: ${rateLimited ? "Yes" : "No"}`);
     console.log(
       `Time cutoff: ${cutoffDate.toISOString()} (${maxAgeWeeks} weeks ago)`
     );
 
-    const messagesByChannel = {};
-
-    allMessages.forEach((msg) => {
-      const channelId = msg.channelID;
-      if (!messagesByChannel[channelId]) {
-        messagesByChannel[channelId] = 0;
-      }
-      messagesByChannel[channelId]++;
-    });
-
-    console.log("\n=== CHANNEL BREAKDOWN ===");
-    Object.entries(messagesByChannel).forEach(([channelId, count]) => {
-      console.log(`${channelId}: ${count} messages`);
-    });
-
-    if (allMessages.length > 0) {
-      const allDates = allMessages.map((msg) =>
-        new Date(msg.creationDate).getTime()
-      );
-      const oldestTimestamp = Math.min(...allDates);
-      const newestTimestamp = Math.max(...allDates);
-      const daySpan = Math.ceil(
-        (newestTimestamp - oldestTimestamp) / (1000 * 60 * 60 * 24)
-      );
-    }
-
     const result = {
       metadata: {
         totalMessages: totalMessagesScraped,
+        totalBatchesSaved: totalBatchesSaved,
         channelsProcessed: currentChannel,
         totalChannels: channelArray.length,
         globalLimitReached: reachedGlobalLimit,
@@ -355,15 +366,17 @@ async function discordScrape({ client, guildID }) {
         timeLimitWeeks: maxAgeWeeks,
         cutoffDate: cutoffDate.toISOString(),
         scrapedAt: new Date().toISOString(),
+        batchSize: batchSize,
       },
-      messages: allMessages,
+      // Note: We don't return all messages anymore since they're saved in batches
+      messages: [], // Empty since messages are saved directly to DB
     };
 
-    console.log("\n=== JSON OUTPUT ===");
+    console.log("\n=== METADATA OUTPUT ===");
     console.log(JSON.stringify(result, null, 2));
 
     debug({
-      text: `Scraping server ended. Total messages: ${totalMessagesScraped}, Rate limited: ${rateLimited}, Global limit reached: ${reachedGlobalLimit}`,
+      text: `Scraping server ended. Total messages: ${totalMessagesScraped}, Batches saved: ${totalBatchesSaved}, Rate limited: ${rateLimited}, Global limit reached: ${reachedGlobalLimit}`,
     });
 
     return result;
@@ -371,10 +384,23 @@ async function discordScrape({ client, guildID }) {
     console.log("Something went wrong. Cancelling scrape procedure");
     console.log(err);
 
+    // Try to save any remaining messages in the current batch before failing
+    if (currentBatch && currentBatch.length > 0) {
+      console.log(`\n🔄 Emergency save: Attempting to save ${currentBatch.length} messages from current batch...`);
+      try {
+        await saveBatch();
+        console.log("✅ Emergency save successful!");
+      } catch (emergencyError) {
+        console.log("❌ Emergency save failed:", emergencyError);
+      }
+    }
+
     return {
       error: true,
       message: err.message,
       scrapedAt: new Date().toISOString(),
+      totalMessagesScraped: totalMessagesScraped,
+      totalBatchesSaved: totalBatchesSaved,
     };
   }
 }
