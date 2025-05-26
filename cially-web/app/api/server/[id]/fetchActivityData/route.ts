@@ -121,7 +121,7 @@ export async function GET(
 
 			let o = 0;
 
-			while (o < 25) {
+			while (o < 24) {
 				if (o < 10) {
 					activeHourData.push({ hour: `0${o}`, amount: 0 });
 				} else {

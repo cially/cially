@@ -22,5 +22,5 @@ export const hourData = [
 	{ hour: "20", amount: 0 },
 	{ hour: "21", amount: 0 },
 	{ hour: "22", amount: 0 },
-	{ hour: "24", amount: 0 },
+	{ hour: "23", amount: 0 },
 ];
