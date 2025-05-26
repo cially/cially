@@ -9,7 +9,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { API } = require("../http/API/API");
 const {
-	setAllScrapeStatusesTrue,
+	setAllScrapeStatusesFalse,
 } = require("../http/API/functions/logic/scraping/switchScrapeStatus");
 
 // Main Event
@@ -43,7 +43,7 @@ module.exports = {
 		API(client);
 
 		// Set all scrape statuses to false in case some scraping procedure got cut off
-		setAllScrapeStatusesTrue();
+		setAllScrapeStatusesFalse();
 	},
 };
 

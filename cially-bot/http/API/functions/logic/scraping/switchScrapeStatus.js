@@ -24,10 +24,10 @@ async function switchScrapeStatus(guildID) {
 	}
 }
 
-async function setAllScrapeStatusesTrue() {
+async function setAllScrapeStatusesFalse() {
 	try {
 		const result = await pb.collection(guild_collection_name).getFullList({
-			filter: 'beingScraped != true', // Optional: Only update if not already true
+			filter: 'beingScraped != false', 
 		});
 
 		if (result.length === 0) {
@@ -38,7 +38,7 @@ async function setAllScrapeStatusesTrue() {
 		for (const guild of result) {
 			try {
 				await pb.collection(guild_collection_name).update(guild.id, {
-					beingScraped: true,
+					beingScraped: false,
 				});
 				debug({ text: `Set beingScraped to true for Guild: ${guild.discordID}` });
 			} catch (updateError) {
@@ -53,4 +53,4 @@ async function setAllScrapeStatusesTrue() {
 }
 
 
-module.exports = { switchScrapeStatus, setAllScrapeStatusesTrue };
+module.exports = { switchScrapeStatus, setAllScrapeStatusesFalse };
