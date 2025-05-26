@@ -24,6 +24,25 @@ async function switchScrapeStatus(guildID) {
 	}
 }
 
+async function enableScrapeStatus(guildID) {
+	try {
+		const guild = await pb
+			.collection(guild_collection_name)
+			.getFirstListItem(`discordID?="${guildID}"`, {});
+
+		const data = {
+			beingScraped: true,
+		};
+		await pb.collection(guild_collection_name).update(guild.id, data);
+		debug({ text: `Set scrapeStatus to true for Guild: ${guildID}` });
+	} catch (err) {
+		error({
+			text: `Failed to set scrapeStatus to true for Guild: ${guildID}`,
+		});
+		console.log(err);
+	}
+}
+
 async function setAllScrapeStatusesFalse() {
 	try {
 		const result = await pb.collection(guild_collection_name).getFullList({
@@ -31,7 +50,7 @@ async function setAllScrapeStatusesFalse() {
 		});
 
 		if (result.length === 0) {
-			debug({ text: "All guilds are already marked as beingScraped: true" });
+			debug({ text: "All guilds are already marked as beingScraped: false" });
 			return;
 		}
 
@@ -40,7 +59,7 @@ async function setAllScrapeStatusesFalse() {
 				await pb.collection(guild_collection_name).update(guild.id, {
 					beingScraped: false,
 				});
-				debug({ text: `Set beingScraped to true for Guild: ${guild.discordID}` });
+				debug({ text: `Set beingScraped to false for Guild: ${guild.discordID}` });
 			} catch (updateError) {
 				error({ text: `Failed to update Guild: ${guild.discordID}` });
 				console.log(updateError);
@@ -53,4 +72,4 @@ async function setAllScrapeStatusesFalse() {
 }
 
 
-module.exports = { switchScrapeStatus, setAllScrapeStatusesFalse };
+module.exports = { enableScrapeStatus, switchScrapeStatus, setAllScrapeStatusesFalse };

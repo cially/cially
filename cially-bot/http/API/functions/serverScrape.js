@@ -13,7 +13,7 @@ async function serverScrape(req, res, client) {
 		return await res.status(201).json(data);
 	} catch (err) {
 		error({
-			text: `Something went wrong after trying to scrape data of Guild: ${guildID}`,
+			text: `Something went wrong after trying to scrape data of Guild`,
 		});
 		console.log(err);
 	}
