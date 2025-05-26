@@ -13,19 +13,23 @@ export async function GET(
 ) {
 	const { id } = await params;
 	try {
-        const guild = await pb
-			.collection(guild_collection_name)
-			.getFirstListItem(`discordID='${id}'`, {});
-        
-        if (guild.beingScraped === false) {
-            await fetch(`${process.env.NEXT_PUBLIC_BOT_API_URL}/serverScrape/${id}`);
-            const data = {
-                "beingScraped": true,
-            }
-            await pb.collection(guild_collection_name).update(guild.id, data);
-        }
+		const guild = await pb
+		.collection(guild_collection_name)
+		.getFirstListItem(`discordID='${id}'`, {});
+		
+		console.log(id)
+		console.log(guild.beingScraped);
 
-		return Response.json("success");
+		if (guild.beingScraped === false) {
+			await fetch(`${process.env.NEXT_PUBLIC_BOT_API_URL}/serverScrape/${id}`);
+			const data = {
+				beingScraped: true,
+			};
+			await pb.collection(guild_collection_name).update(guild.id, data);
+			return Response.json("success");
+		} else {
+			return Response.json("On going scrape going on");
+		}
 	} catch (err) {
 		console.log(err);
 		return Response.json({
