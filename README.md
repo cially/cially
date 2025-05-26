@@ -77,7 +77,7 @@ All ongoing synchronization and data enrichment—such as resolving names or syn
 ### Manual Setup
 #### Pocketbase Instance
 1. Install [Pocketbase 0.26.0](https://github.com/pocketbase/pocketbase/releases/tag/v0.26.6)
-2. Run `./pocketbase serve` to start the backend
+2. Run `./pocketbase serve` in the folder where the `.exe` file is located to start the backend
 3. Open the URL displayed on your terminal and create an admin account
 4. Then follow the *Initial Setup* instructions that can be found above
 
@@ -89,7 +89,7 @@ All ongoing synchronization and data enrichment—such as resolving names or syn
 #### Website
 1. Clone the `./cially-webserver` directory where you want the Website Code to run on
 2. Rename `.env.example` file to `.env` and replace each value. There are instructions for each variable so you will know what to change
-3. Run `npm run build` to build the website. 
+3. Run `npm run build` to build the website or `npm run dev` to start a local development server.
 
 > [!TIP]
 > If you are using a VPS (or any other kind of machine to run all the services 24/7) you should use Docker for easier setup. Manual installation is not really suggested for beginners.
