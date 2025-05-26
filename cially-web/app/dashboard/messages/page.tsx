@@ -7,6 +7,7 @@ import GeneralMessageDataCard from "./_components/_message-charts/general_data";
 import Last4Weeks from "./_components/_message-charts/last_4weeks";
 import Last7d from "./_components/_message-charts/last_7d";
 import Last24h from "./_components/_message-charts/last_24hrs";
+import ImportDialogCard from "./_components/_message-charts/importDialog";
 
 export default function MessagesActivityPage() {
 	return (
@@ -76,6 +77,7 @@ function ClientComponent() {
 
 			<div className="sm:ml-5 sm:mr-5">
 				<GeneralMessageDataCard chartData={data_general} />
+				<ImportDialogCard guildID={guildID}/>
 			</div>
 
 			<div className="mt-5 pb-5 text-center text-gray-600 text-xs">

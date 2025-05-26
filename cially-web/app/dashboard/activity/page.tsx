@@ -73,6 +73,7 @@ function ClientComponent() {
 		);
 	}
 
+	
 	const data_channels = chartData.finalData[0].ChannelData;
 	const data_users = chartData.finalData[0].ActiveUsersData;
 	const data_hours = chartData.finalData[0].ActiveHourData;

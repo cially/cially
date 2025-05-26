@@ -43,8 +43,8 @@ function ClientComponent() {
 					<div className="text-2xl  text-center">Available Guilds</div>
 					<div className="text-sm text-gray-400 text-center">
 						Please Select the Guild you would like to view
-					</div>
 
+					</div>
 					<div className="mb-10" />
 
 					<div className="grid gap-y-5 grid-cols-1 sm:grid-cols-3 mx-10">

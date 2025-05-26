@@ -31,15 +31,15 @@ export async function GET(
 				const today_msg_records = await pb
 					.collection(message_collection_name)
 					.getFullList({
-						filter: `guildID ?= "${guild.id}" && created>'${date}'`,
-						sort: "created",
+						filter: `guildID ?= "${guild.id}" && messageCreation>'${date}'`,
+						sort: "messageCreation",
 					});
 
 				const yesterday_msg_records = await pb
 					.collection(message_collection_name)
 					.getFullList({
-						filter: `guildID ?= "${guild.id}" && created>'${previous_date}' && created<'${date}'`,
-						sort: "created",
+						filter: `guildID ?= "${guild.id}" && messageCreation>'${previous_date}' && messageCreation<'${date}'`,
+						sort: "messageCreation",
 					});
 
 				const msg_day_difference =

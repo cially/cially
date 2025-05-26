@@ -29,12 +29,12 @@ export async function GET(
 			const fourWeeksMessagesLog = await pb
 				.collection(collection_name)
 				.getFullList({
-					filter: `guildID ?= "${guild.id}" && created>'${fourWeeksAgoDate_formatted}'`,
-					sort: "created",
+					filter: `guildID ?= "${guild.id}" && messageCreation>'${fourWeeksAgoDate_formatted}'`,
+					sort: "messageCreation",
 				});
 
 			for (const message of fourWeeksMessagesLog) {
-				const creation_date = String(message.created).slice(0, 19);
+				const creation_date = String(message.messageCreation).slice(0, 19);
 				const creation_date_js = new Date(
 					Date.UTC(
 						Number.parseInt(creation_date.slice(0, 4)),
@@ -136,9 +136,6 @@ export async function GET(
 				}
 			}
 			weekData = weekData.toReversed();
-
-			console.log("oioioi");
-
 			let fourWeekData = [];
 
 			let w = 0;

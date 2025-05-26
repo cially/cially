@@ -52,6 +52,8 @@ export default function Last4Weeks({ chartData }) {
 		);
 	}
 
+	try {
+
 	const ArrayChartData = Array(chartData)[0];
 
 	const startingDate = new Date(Date.now() - 0 * 24 * 60 * 60 * 1000);
@@ -150,4 +152,20 @@ export default function Last4Weeks({ chartData }) {
 			</CardFooter>
 		</Card>
 	);
+} catch (err) {
+	return (
+		<Card>
+			<CardHeader>
+				<CardTitle>Last 4 weeks days</CardTitle>
+				<CardDescription>
+					Showing total messages for the last 4 weeks
+				</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<div className="text-center">Not enough data</div>
+			</CardContent>
+			
+		</Card>
+	)
+}
 }
