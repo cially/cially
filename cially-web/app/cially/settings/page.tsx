@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/a11y/noStaticElementInteractions: Theme Color Button */
+/** biome-ignore-all lint/a11y/useKeyWithClickEvents: Theme Color Buttons */
 "use client";
 
 import { DatabaseBackup, PaletteIcon } from "lucide-react";
@@ -22,7 +24,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { handleThemeChange } from "./setThemeFunction";
+import { handleThemeChange } from "./_logic/setThemeFunction";
 
 export default function SettingsPage() {
 	const router = useRouter();
@@ -75,22 +77,18 @@ export default function SettingsPage() {
 					</CardHeader>
 					<CardContent>
 						<div className="grid grid-cols-2 sm:grid-cols-4 place-self-center gap-x-5 sm:gap-x-10 gap-y-5 sm:gap-y-0">
-							{/* biome-ignore lint/a11y/useKeyWithClickEvents: Unreasonable Error */}
 							<div
 								className="w-15 h-15 rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
 								onClick={() => handleThemeChange("blue")}
 							/>
-							{/* biome-ignore lint/a11y/useKeyWithClickEvents: Unreasonable Error */}
 							<div
 								className="w-15 h-15 rounded-full bg-gradient-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
 								onClick={() => handleThemeChange("pink")}
 							/>
-							{/* biome-ignore lint/a11y/useKeyWithClickEvents: Unreasonable Error */}
 							<div
 								className="w-15 h-15 rounded-full bg-gradient-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
 								onClick={() => handleThemeChange("gray")}
 							/>
-							{/* biome-ignore lint/a11y/useKeyWithClickEvents: Unreasonable Error */}
 							<div
 								className="w-15 h-15 rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
 								onClick={() => handleThemeChange("brown")}
