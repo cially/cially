@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT;
+const bodyParser = require("body-parser");
+
 const { syncGuild } = require("./functions/syncGuild");
 const { messageCreate } = require("./functions/messageCreate");
 const { inviteCreate } = require("./functions/inviteCreate");
@@ -11,15 +13,7 @@ const { fetchGuilds } = require("./functions/fetchGuilds");
 const { messageDelete } = require("./functions/messageDelete");
 const { messageEdit } = require("./functions/messageEdit");
 const { fetchUserData } = require("./functions/fetchUserData");
-const { serverScrape } = require("./functions/serverScrape")
-
-const PocketBase = require("pocketbase/cjs");
-const url = process.env.POCKETBASE_URL;
-const pb = new PocketBase(url);
-
-const bodyParser = require("body-parser");
-const multer = require("multer"); // v1.0.5
-const upload = multer(); // for parsing multipart/form-data
+const { serverScrape } = require("./functions/serverScrape");
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -65,7 +59,7 @@ async function API(client) {
 		fetchUserData(req, res, client);
 	});
 
-	app.get("/serverScrape", (req, res) => {
+	app.get("/serverScrape/:guildID", (req, res) => {
 		serverScrape(req, res, client);
 	});
 
