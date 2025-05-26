@@ -33,7 +33,6 @@ async function pbCollectionAutoDelete(guildID) {
 			.collection(guild_collection_name)
 			.getFirstListItem(`discordID?="${guildID}"`, {});
 
-		console.log(guild);
 
 		const message_records = await pb.collection(collection_name).getFullList({
 			filter: `guildID?="${guild.id}"`,

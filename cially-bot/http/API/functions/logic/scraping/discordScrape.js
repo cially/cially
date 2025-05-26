@@ -2,6 +2,7 @@ const { debug } = require("../../../../../terminal/debug");
 const { error } = require("../../../../../terminal/error");
 const { pbAddNewData } = require("./pbAddNewData");
 const { pbCollectionAutoDelete } = require("./pbCollectionAutoDelete");
+const { switchScrapeStatus } = require("./switchScrapeStatus");
 
 async function saveBatch() {
 	if (currentBatch.length === 0) return;
@@ -413,6 +414,8 @@ async function discordScrape({ client, guildID }) {
 			totalMessagesScraped: totalMessagesScraped,
 			totalBatchesSaved: totalBatchesSaved,
 		};
+	} finally {
+		switchScrapeStatus(guildID);
 	}
 }
 

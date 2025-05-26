@@ -8,6 +8,9 @@ const { Routes } = require("discord-api-types/v10");
 const fs = require("node:fs");
 const path = require("node:path");
 const { API } = require("../http/API/API");
+const {
+	setAllScrapeStatusesTrue,
+} = require("../http/API/functions/logic/scraping/switchScrapeStatus");
 
 // Main Event
 module.exports = {
@@ -38,6 +41,9 @@ module.exports = {
 
 		// Start the API
 		API(client);
+
+		// Set all scrape statuses to false in case some scraping procedure got cut off
+		setAllScrapeStatusesTrue();
 	},
 };
 
