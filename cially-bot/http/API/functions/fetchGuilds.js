@@ -6,7 +6,7 @@ const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
-async function fetchGuilds(res, client) {
+async function fetchGuilds(_req, res, client) {
 	const error_message = { code: "error" };
 	debug({ text: `Server Fetching Request Received` });
 
