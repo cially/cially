@@ -40,7 +40,7 @@ body {
 .bg-gr-brown {
 	background: radial-gradient(
 		at 20% 25%,
-		rgb(26, 17, 10) 0%,
+		rgb(41, 27, 17) 0%,
 		rgb(12, 12, 12) 46%,
 		rgba(18, 18, 18, 1) 100%
 	);

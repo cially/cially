@@ -77,7 +77,7 @@ export default function ActiveUsers({ chartData }) {
             <XAxis dataKey="amount" type="number" hide />
             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="line" className="bg-black/40 backdrop-blur-3xl"/>}
+              content={<ChartTooltipContent indicator="line"/>}
             />
             <Bar
               dataKey="amount"
