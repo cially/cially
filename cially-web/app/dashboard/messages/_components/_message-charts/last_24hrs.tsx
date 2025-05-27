@@ -101,8 +101,8 @@ export default function Last24h({ chartData }) {
               <XAxis
                 dataKey="hour"
                 type="number"
-                domain={[0, 24]}
-                ticks={[0, 3, 6, 9, 12, 15, 18, 21, 24]}
+                domain={[0, 23]}
+                ticks={[0, 3, 6, 9, 12, 15, 18, 21]}
                 tickFormatter={(value) => String(value).padStart(2, "0")}
                 tickLine={true}
                 axisLine={true}

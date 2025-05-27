@@ -22,12 +22,14 @@ export default function ImportDialogCard(guildID) {
 
   const handleSumbit = async (guildID) => {
     try {
-      const response = await fetch(`/api/server/${guildID.guildID}/scrapeMessages`);
-      console.log(guildID.guildID)
+      const response = await fetch(
+        `/api/server/${guildID.guildID}/scrapeMessages`
+      );
+      console.log(guildID.guildID);
 
       if (response.ok) {
         console.log("Succesfull Response from /");
-        // router.push("/");
+        router.push("/");
       } else {
         const errorData = await response.json();
         console.log(errorData);
@@ -44,13 +46,13 @@ export default function ImportDialogCard(guildID) {
             <FolderClock className="inline mr-2" />
             Retrieve Data
           </div>
-          <div className="font-sans text-sm mt-1 text-white/60 mt-2">
+          <div className="font-sans text-sm text-white/50 mt-2">
             <div>
               With Cially, you can retrieve all messages from your Discord
               server from the past 4 weeks for more accurate insights!
             </div>
-            <div className="text-red-400 inline">ATTENTION:</div> For larger
-            servers, this process may take up to 30 minutes to complete.
+            For larger servers, this process may take up to 30 minutes to
+            complete.
             <div className="my-5" />
             <AlertDialog>
               <AlertDialogTrigger asChild>

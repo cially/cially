@@ -36,13 +36,13 @@ function ClientComponent() {
 	if (chartData.notFound) {
 		return <GuildNotFound />;
 	}
-	if (!chartData.finalData /* || chartData.finalData */) {
+	if (!chartData.finalData) {
 		return (
 			<>
 				<div className="mt-10 ml-10 text-2xl">Messages Analytics</div>
 				<hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
-				<div className="mt-10 grid max-w-80 grid-rows-3 gap-y-4 sm:mr-5 sm:ml-5 sm:max-w-full sm:grid-cols-3 sm:grid-rows-none sm:gap-x-3 sm:gap-y-0">
+				<div className="mt-10 grid max-w-80 grid-rows-3 gap-y-4 sm:mx-5 sm:max-w-full sm:grid-cols-3 sm:grid-rows-none sm:gap-x-3 sm:gap-y-0">
 					<Last24h />
 					<Last7d />
 					<Last4Weeks />
@@ -69,7 +69,7 @@ function ClientComponent() {
 			<div className="mt-10 ml-10 text-2xl">Messages Analytics</div>
 			<hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
-			<div className="mt-10 grid max-w-80 grid-rows-3 gap-y-4 sm:mr-5 sm:ml-5 sm:max-w-full sm:grid-cols-3 sm:grid-rows-none sm:gap-x-3 sm:gap-y-0">
+			<div className="mt-10 grid max-w-100 grid-rows-3 gap-y-4 sm:mx-5 sm:max-w-full sm:grid-cols-3 sm:grid-rows-none sm:gap-x-3 sm:gap-y-0">
 				<Last24h chartData={data_24h} />
 				<Last7d chartData={data_7d} />
 				<Last4Weeks chartData={data_4w} />
