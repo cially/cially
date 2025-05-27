@@ -1,4 +1,3 @@
-// Imports
 const { Events } = require("discord.js");
 const cfonts = require("cfonts");
 const { debug } = require("../terminal/debug");
@@ -12,7 +11,6 @@ const {
 	setAllScrapeStatusesFalse,
 } = require("../http/API/functions/logic/scraping/switchScrapeStatus");
 
-// Main Event
 module.exports = {
 	name: Events.ClientReady,
 	once: true,
@@ -29,14 +27,13 @@ module.exports = {
 			env: "node",
 		});
 
-		// Logs
 		debug({ text: `Client Found: ${client.user.tag}` });
 		console.log(
 			`[SUCCESS] `.green +
 				`The Bot is Running! \n\n-----------LOGS------------\n\n`,
 		);
 
-		// Sync of slash commands
+		// Sync slash commands
 		syncCommands(client);
 
 		// Start the API

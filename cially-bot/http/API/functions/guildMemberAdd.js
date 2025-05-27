@@ -1,22 +1,21 @@
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
+const { registerGuild } = require("./logic/registerGuild");
 
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
+
 const collection_name = process.env.MEMBER_JOINS_COLLECTION;
 const guild_collection_name = process.env.GUILD_COLLECTION;
-const { registerGuild } = require("./logic/registerGuild");
 
-async function guildMemberAdd(req, res, client) {
-	// Parse the request body and debug it
+async function guildMemberAdd(req, res) {
 	const body = req.body;
 
-	const { guildID, memberID, memberCount } = body;
+	const { guildID, memberID } = body;
 
 	debug({ text: `New POST Request: \n${JSON.stringify(body)}` });
 
-	// Response to the request. Be kind and don't leave my boy Discord Bot on seen :)
 	const roger = {
 		response: `Message Received with the following details: GI: ${guildID}`,
 	};
@@ -35,7 +34,7 @@ async function guildMemberAdd(req, res, client) {
 				filter: `memberID >= "${memberID}"`,
 			});
 
-		const isUnique = uniqueMemberSearch.items.length == 0 ? true : false;
+		const isUnique = uniqueMemberSearch.items.length === 0;
 
 		try {
 			const itemData = {
@@ -43,7 +42,7 @@ async function guildMemberAdd(req, res, client) {
 				memberID: `${memberID}`,
 				unique: isUnique,
 			};
-			const newInvite = await pb.collection(collection_name).create(itemData);
+			await pb.collection(collection_name).create(itemData);
 			debug({ text: `Member Addition has been added in the database.` });
 		} catch (error) {
 			console.log(error);

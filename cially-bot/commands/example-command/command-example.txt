@@ -1,4 +1,5 @@
 // Template
+// Make sure to create a new folder for each command
 
 const { SlashCommandBuilder } = require("discord.js")
 const { debug } = require('../../terminal/debug');

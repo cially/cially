@@ -1,13 +1,14 @@
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
+const { registerGuild } = require("./logic/registerGuild");
 
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
-const guild_collection_name = process.env.GUILD_COLLECTION;
-const { registerGuild } = require("./logic/registerGuild");
 
-async function messageDelete(req, res, client) {
+const guild_collection_name = process.env.GUILD_COLLECTION;
+
+async function messageDelete(req, res) {
 	const body = req.body;
 	const { guildID } = body;
 
@@ -28,7 +29,7 @@ async function messageDelete(req, res, client) {
 			message_deletions: guild.message_deletions + 1,
 		};
 
-		const newGeneralData = await pb
+		await pb
 			.collection(`${guild_collection_name}`)
 			.update(`${guild.id}`, new_general_data);
 		debug({
@@ -49,7 +50,6 @@ async function messageDelete(req, res, client) {
 		text: `End of logic. Stopping the communication and returning a res to the Bot`,
 	});
 
-	// Express response
 	return res.status(201).json(roger);
 }
 

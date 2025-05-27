@@ -1,15 +1,13 @@
-// Imports
-const PocketBase = require("pocketbase/cjs");
-
-// Initialize Pocketbase URL
-const url = process.env.POCKETBASE_URL;
-
-// Pocketbase Initialization
-const pb = new PocketBase(url);
-const guild_collection_name = process.env.GUILD_COLLECTION;
 const get = require("simple-get");
+
 const { debug } = require("../../../../terminal/debug");
 const { error } = require("../../../../terminal/error");
+
+const PocketBase = require("pocketbase/cjs");
+const url = process.env.POCKETBASE_URL;
+const pb = new PocketBase(url);
+
+const guild_collection_name = process.env.GUILD_COLLECTION;
 const API_URL = process.env.API_URL;
 
 async function registerGuild(guildID) {
@@ -17,9 +15,7 @@ async function registerGuild(guildID) {
 
 	const guildData = { discordID: guildID };
 	try {
-		const newGuild = await pb
-			.collection(guild_collection_name)
-			.create(guildData);
+		await pb.collection(guild_collection_name).create(guildData);
 		debug({ text: `Guild has been added to the database` });
 
 		try {
@@ -29,12 +25,12 @@ async function registerGuild(guildID) {
 			};
 
 			// HTTP Request
-			get.get(opts, (err, res) => {
+			get.get(opts, (res) => {
 				try {
 					res.pipe(process.stdout);
 
 					// Wait for API Response
-					res.on("data", (chunk) => {
+					res.on("data", () => {
 						debug({ text: `Response received and HTTP communication ended` });
 					});
 				} catch (err) {
@@ -57,7 +53,6 @@ async function registerGuild(guildID) {
 				}
 			});
 		} catch (err) {
-			// Yes, it needs 2 error handlers from some reason..
 			error({
 				text: `Something went wrong while trying to communicate with the API: \n${err}`,
 			});

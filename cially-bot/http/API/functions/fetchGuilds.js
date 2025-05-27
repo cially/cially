@@ -6,8 +6,7 @@ const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
-async function fetchGuilds(req, res, client) {
-	const success_message = { code: "success" };
+async function fetchGuilds(_req, res, client) {
 	const error_message = { code: "error" };
 	debug({ text: `Server Fetching Request Received` });
 
@@ -39,11 +38,10 @@ async function fetchGuilds(req, res, client) {
 					});
 				}
 			});
-
-			// Do not remove this line bellow cause things will brake for some reason
+			
+			// Do not remove this line below nor the "await" cause things will brake for some reason
 			await debug({ text: `Completed Fetching Available Guilds` });
-
-			res.send({ AvailableGuilds: guildsArray });
+			await res.send({ AvailableGuilds: guildsArray });
 		} catch (err) {
 			error({
 				text: `Failed to communicate with the Discord API. /fetchGuilds`,

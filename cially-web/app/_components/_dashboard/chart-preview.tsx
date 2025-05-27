@@ -26,6 +26,7 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
+
 export function MessageChart({ chartData }) {
 	return (
 		<>

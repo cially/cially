@@ -1,9 +1,11 @@
+const { debug } = require("../../../../../terminal/debug");
+const { error } = require("../../../../../terminal/error");
+
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
+
 const guild_collection_name = process.env.GUILD_COLLECTION;
-const { debug } = require("../../../../../terminal/debug");
-const { error } = require("../../../../../terminal/error");
 
 async function switchScrapeStatus(guildID) {
 	try {
@@ -46,7 +48,7 @@ async function enableScrapeStatus(guildID) {
 async function setAllScrapeStatusesFalse() {
 	try {
 		const result = await pb.collection(guild_collection_name).getFullList({
-			filter: 'beingScraped != false', 
+			filter: "beingScraped != false",
 		});
 
 		if (result.length === 0) {
@@ -59,7 +61,9 @@ async function setAllScrapeStatusesFalse() {
 				await pb.collection(guild_collection_name).update(guild.id, {
 					beingScraped: false,
 				});
-				debug({ text: `Set beingScraped to false for Guild: ${guild.discordID}` });
+				debug({
+					text: `Set beingScraped to false for Guild: ${guild.discordID}`,
+				});
 			} catch (updateError) {
 				error({ text: `Failed to update Guild: ${guild.discordID}` });
 				console.log(updateError);
@@ -71,5 +75,8 @@ async function setAllScrapeStatusesFalse() {
 	}
 }
 
-
-module.exports = { enableScrapeStatus, switchScrapeStatus, setAllScrapeStatusesFalse };
+module.exports = {
+	enableScrapeStatus,
+	switchScrapeStatus,
+	setAllScrapeStatusesFalse,
+};

@@ -1,11 +1,7 @@
-// Imports
 const { Events } = require("discord.js");
-const cfonts = require("cfonts");
 const { debug } = require("../terminal/debug");
-const { error } = require("../terminal/error");
 const { sendPostRequest } = require("../http/postRequest");
 
-// Event
 module.exports = {
 	name: Events.MessageCreate,
 	once: false,
@@ -24,12 +20,10 @@ module.exports = {
 			});
 			const totalMedia = mediaAttachments.size;
 
-			//Logs
 			debug({
 				text: `New Message: \nAuthor: ${message.author.username}\nGuild: ${message.guild.name}, ${message.guild.id}\nMessage ID: ${message.id} \nMessage Length: ${totalWords.length} \nChannel: ${message.channel.name}, ${message.channelId}\nAttachments: ${totalMedia}`,
 			});
 
-			// HTTP
 			const info = {
 				guildID: message.guild.id,
 				messageID: message.id,
