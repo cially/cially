@@ -2,7 +2,6 @@ const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 
 async function fetchID(req, res, client) {
-	const success_message = { code: "success" };
 	const error_message = { code: "error" };
 	const body = req.body;
 	const guildID = req.params.guildID;
@@ -13,7 +12,6 @@ async function fetchID(req, res, client) {
 		const channels = body[0].channels;
 		const users = body[0].users;
 		const newArray = { newChannels: [], newUsers: [] };
-		const guild = client.guilds.cache.get(`${String(guildID)}`);
 
 		channels.forEach(async (channel) => {
 			try {
@@ -40,7 +38,7 @@ async function fetchID(req, res, client) {
 
 		// I dont know why, but without this debug line things break
 		// Please do not remove :)
-		await debug({ text: `IDs fetched. Ready to send response` });
+		debug({ text: `IDs fetched. Ready to send response` });
 
 		await res.send(newArray);
 	} catch (err) {

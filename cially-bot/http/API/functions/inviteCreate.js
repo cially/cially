@@ -1,22 +1,21 @@
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
+const { registerGuild } = require("./logic/registerGuild");
 
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
+
 const guild_collection_name = process.env.GUILD_COLLECTION;
 const collection_name = process.env.INVITE_COLLECTION;
-const { registerGuild } = require("./logic/registerGuild");
 
 async function inviteCreate(req, res, client) {
-	// Parse the request body and debug it
 	const body = req.body;
 
 	const { guildID, channelID, authorID } = body;
 
 	debug({ text: `New POST Request: \n${JSON.stringify(body)}` });
 
-	// Response to the request. Be kind and don't leave my boy Discord Bot on seen :)
 	const roger = {
 		response: `Message Received with the following details: GI: ${guildID}`,
 	};
@@ -34,7 +33,7 @@ async function inviteCreate(req, res, client) {
 				channelID: channelID,
 				authorID: authorID,
 			};
-			const newInvite = await pb.collection(collection_name).create(itemData);
+			await pb.collection(collection_name).create(itemData);
 			debug({ text: ` Invite has been added in the database` });
 		} catch (error) {
 			console.log(error);

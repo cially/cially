@@ -1,5 +1,4 @@
 const { debug } = require("../../../../terminal/debug");
-const { error } = require("../../../../terminal/error");
 
 async function retryRequest(fn, retries = 25, baseDelay = 1000) {
 	let attempt = 0;

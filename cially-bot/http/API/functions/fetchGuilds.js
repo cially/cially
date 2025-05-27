@@ -4,10 +4,10 @@ const { error } = require("../../../terminal/error");
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
+
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
-async function fetchGuilds(req, res, client) {
-	const success_message = { code: "success" };
+async function fetchGuilds(res, client) {
 	const error_message = { code: "error" };
 	debug({ text: `Server Fetching Request Received` });
 
@@ -31,7 +31,7 @@ async function fetchGuilds(req, res, client) {
 						in_db: true,
 					});
 				} else {
-					await guildsArray.push({
+					guildsArray.push({
 						name: guild.name,
 						id: guild.id,
 						icon: icon,
@@ -41,7 +41,7 @@ async function fetchGuilds(req, res, client) {
 			});
 
 			// Do not remove this line bellow cause things will brake for some reason
-			await debug({ text: `Completed Fetching Available Guilds` });
+			debug({ text: `Completed Fetching Available Guilds` });
 
 			res.send({ AvailableGuilds: guildsArray });
 		} catch (err) {

@@ -9,10 +9,10 @@ const collection_name = process.env.MESSAGE_COLLECTION;
 const { registerGuild } = require("./logic/registerGuild");
 const { retryRequest } = require("./logic/retryRequest");
 
-// Disabled Auto Cancellation
+// Disabled Auto Cancellation because of issues when multiple messages are being sent
 pb.autoCancellation(false);
 
-async function messageCreate(req, res, client) {
+async function messageCreate(req, res) {
 	const body = req.body;
 	const {
 		guildID,
@@ -43,20 +43,20 @@ async function messageCreate(req, res, client) {
 		});
 
 		const currentPocketBaseDate = () => {
-        const date = new Date();
+			const date = new Date();
 
-        const pad = (num, size = 2) => String(num).padStart(size, "0");
+			const pad = (num, size = 2) => String(num).padStart(size, "0");
 
-        const year = date.getUTCFullYear();
-        const month = pad(date.getUTCMonth() + 1);
-        const day = pad(date.getUTCDate());
-        const hours = pad(date.getUTCHours());
-        const minutes = pad(date.getUTCMinutes());
-        const seconds = pad(date.getUTCSeconds());
-        const milliseconds = pad(date.getUTCMilliseconds(), 3);
+			const year = date.getUTCFullYear();
+			const month = pad(date.getUTCMonth() + 1);
+			const day = pad(date.getUTCDate());
+			const hours = pad(date.getUTCHours());
+			const minutes = pad(date.getUTCMinutes());
+			const seconds = pad(date.getUTCSeconds());
+			const milliseconds = pad(date.getUTCMilliseconds(), 3);
 
-        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}Z`;
-    };
+			return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}Z`;
+		};
 
 		const itemData = {
 			author: authorID,
@@ -67,9 +67,7 @@ async function messageCreate(req, res, client) {
 			messageCreation: currentPocketBaseDate(),
 		};
 
-		const newMessage = await retryRequest(() =>
-			pb.collection(collection_name).create(itemData),
-		);
+		await retryRequest(() => pb.collection(collection_name).create(itemData));
 
 		debug({
 			text: `Message has been added in the database. ID: ${messageID}`,
