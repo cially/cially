@@ -84,8 +84,8 @@ function ClientComponent() {
 			<div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
 			<hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
-			<div className="h-[90%]">
-				<div className="grid grid-cols-1 w-[40%] sm:w-[85%] sm:grid-cols-2 ml-10 mr-5 mt-10 gap-5">
+			<div className="h-[100%] mx-5">
+				<div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 mt-10 gap-5">
 					<div>
 						<ActiveChannels chartData={data_channels} />
 					</div>
@@ -94,7 +94,7 @@ function ClientComponent() {
 					</div>
 				</div>
 
-				<div className="ml-10 mr-5 mt-5 w-[40%] sm:w-[85%]">
+				<div className=" mt-5 w-[100%]">
 					<ActiveHours chartData={data_hours} />
 
 					<div className="mt-5">
