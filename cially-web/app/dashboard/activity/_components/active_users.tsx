@@ -1,5 +1,5 @@
 "use client";
-import { Bar, BarChart, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, XAxis, YAxis, CartesianGrid, LabelList } from "recharts";
 
 import {
   Card,
@@ -23,7 +23,10 @@ const chartConfig = {
     label: "Desktop",
     color: "#03d5ff",
   },
-} satisfies ChartConfig;
+  label: {
+    color: "hsl(var(--background))",
+  },
+} satisfies ChartConfig
 
 export default function ActiveUsers({ chartData }) {
   if (!chartData) {
@@ -52,38 +55,54 @@ export default function ActiveUsers({ chartData }) {
           <CardDescription>Last 4 weeks</CardDescription>
         </CardHeader>
         <CardContent className="pb-2">
-          <ChartContainer config={chartConfig} className="w-full">
-            <BarChart
-              accessibilityLayer
-              data={chartData}
+           <ChartContainer config={chartConfig}>
+          <BarChart
+            accessibilityLayer
+            data={chartData}
+            layout="vertical"
+            margin={{
+              right: 16,
+            }}
+          >
+            <CartesianGrid horizontal={false} />
+            <YAxis
+              dataKey="author"
+              type="category"
+              tickLine={false}
+              tickMargin={10}
+              axisLine={false}
+              tickFormatter={(value) => value.slice(0, 3)}
+              hide
+            />
+            <XAxis dataKey="amount" type="number" hide />
+            <ChartTooltip
+              cursor={false}
+              content={<ChartTooltipContent indicator="line"/>}
+            />
+            <Bar
+              dataKey="amount"
               layout="vertical"
-              margin={{ left: 10, right: 10 }}
-              barCategoryGap={20}
+              fill="var(--color-desktop)"
+              radius={4}
             >
-              <YAxis
+              <LabelList
                 dataKey="author"
-                type="category"
-                tickLine={false}
-                axisLine={false}
-                tick={{
-                  fill: "#cbd5e1",
-                  fontSize: 14,
-                  fontWeight: 500,
-                }}
+                position="insideRight"
+                offset={8}
+                className="fill-white"
+                fontSize={12}
               />
-              <XAxis dataKey="amount" type="number" hide />
-              <ChartTooltip
-                cursor={{ fill: "rgba(255, 255, 255, 0.05)" }}
-                content={<ChartTooltipContent hideLabel />}
-              />
-              <Bar
+              <LabelList
                 dataKey="amount"
-                layout="vertical"
-                radius={[5, 5, 5, 5]}
-                fill="#03d5ff"
+                position="right"
+                offset={8}
+                className="fill-foreground"
+                fontSize={12}
               />
-            </BarChart>
-          </ChartContainer>
+            </Bar>
+          </BarChart>
+        </ChartContainer>
+
         </CardContent>
         <CardFooter className="mt-auto flex items-center justify-center gap-2 text-sm">
           <div className="font-medium">

@@ -80,12 +80,12 @@ function ClientComponent({ isGuild }) {
 		},
 	];
 	return (
-		<Sidebar className="rounded-lg border border-white/0 bg-white/4 backdrop-blur-md">
+		<Sidebar className="border border-white/0 sm:bg-white/3 sm:backdrop-blur-2xl">
 			<SidebarHeader>
 				<a href="/">
 					<img src="/logo-png.png" className="w-20 place-self-center"></img>
 				</a>
-				<hr></hr>
+				{/* <hr></hr> */}
 			</SidebarHeader>
 			<SidebarContent>
 				{isGuild ? (

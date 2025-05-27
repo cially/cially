@@ -44,10 +44,10 @@ export default function Status() {
 					<div>
 						<div className="text-2xl mt-4 ml-2">Status</div>
 						<div className="text-sm text-white/50 mt-1 ml-2">
-							Check if Cially's Services are operating normally
+							Check if all the services are operating normally
 						</div>
 					</div>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 max-w-4xl mx-auto -ml-0 mr-10">
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 max-w-4xl">
 						<Card className="transition-all duration-300 hover:shadow-md">
 							<CardHeader className="pb-2">
 								<div className="flex items-center">
@@ -86,8 +86,8 @@ export default function Status() {
 						<Card className="transition-all duration-300 hover:shadow-md">
 							<CardHeader className="pb-2">
 								<div className="flex items-center">
-									<div className="bg-purple-100 dark:bg-purple-900 p-2 rounded-lg mr-3">
-										<Rss className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+									<div className="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg mr-3">
+										<Rss className="w-5 h-5 text-blue-600 dark:text-blue-400" />
 									</div>
 									<div>
 										<CardTitle className="text-lg">

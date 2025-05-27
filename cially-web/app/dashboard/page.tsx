@@ -52,7 +52,7 @@ function DashboardClientComponent() {
       <>
         <div className="mt-10 mr-4 ml-10 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
           <div>
-            <div className="rows-span-1 grid grid-rows-3 sm:grid-cols-8 sm:grid-rows-none ">
+            <div className="rows-span-1 grid grid-rows-3 sm:grid-cols-8 sm:grid-rows-none gap-y-3 ">
               <div className="text-4xl sm:col-span-2 ">
                 <Skeleton className="w-30 h-5" />
                 <div className="mt-2 font-normal text-gray-400 text-xs">
@@ -92,7 +92,7 @@ function DashboardClientComponent() {
 
   return (
     <>
-      <div className="mt-10 mr-4 ml-10 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
+      <div className="mt-10 mx-5 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
         <div>
           <div className="rows-span-1 grid grid-rows-3 sm:grid-cols-8 sm:grid-rows-none ">
             <div className="text-4xl sm:col-span-2 ">
@@ -101,10 +101,10 @@ function DashboardClientComponent() {
                 Currently viewing {guildData.name}
               </div>
             </div>
-            <div className="mr-4 sm:col-span-2 sm:col-start-4">
+            <div className="mr-0 sm:mr-4 sm:col-span-2 sm:col-start-5">
               <MemberBlock guild={guildData} />
             </div>
-            <div className="mr-4 sm:col-span-2 sm:col-start-6">
+            <div className="mr-0 sm:mr-4 sm:col-span-2 sm:col-start-7">
               <MessagesBlock guild={guildData} />
             </div>
           </div>
