@@ -1,9 +1,6 @@
-// Imports
 const { Events, MessageFlags } = require("discord.js");
-const { debug } = require("../terminal/debug");
 const { error } = require("../terminal/error");
 
-// Event
 module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction) {
