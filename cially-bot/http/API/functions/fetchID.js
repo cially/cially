@@ -36,9 +36,8 @@ async function fetchID(req, res, client) {
 			}
 		});
 
-		// I dont know why, but without this debug line things break
-		// Please do not remove :)
-		debug({ text: `IDs fetched. Ready to send response` });
+		// Please do not remove this line nor the "await" cause things will brake for some reason:)
+		await debug({ text: `IDs fetched. Ready to send response` });
 
 		await res.send(newArray);
 	} catch (err) {

@@ -4,7 +4,6 @@ const { error } = require("../../../terminal/error");
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
-
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function fetchGuilds(res, client) {
@@ -31,7 +30,7 @@ async function fetchGuilds(res, client) {
 						in_db: true,
 					});
 				} else {
-					guildsArray.push({
+					await guildsArray.push({
 						name: guild.name,
 						id: guild.id,
 						icon: icon,
@@ -39,11 +38,10 @@ async function fetchGuilds(res, client) {
 					});
 				}
 			});
-
-			// Do not remove this line bellow cause things will brake for some reason
-			debug({ text: `Completed Fetching Available Guilds` });
-
-			res.send({ AvailableGuilds: guildsArray });
+			
+			// Do not remove this line below nor the "await" cause things will brake for some reason
+			await debug({ text: `Completed Fetching Available Guilds` });
+			await res.send({ AvailableGuilds: guildsArray });
 		} catch (err) {
 			error({
 				text: `Failed to communicate with the Discord API. /fetchGuilds`,

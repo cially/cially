@@ -1,9 +1,13 @@
 const { debug } = require("../terminal/debug");
 const { error } = require("../terminal/error");
+
+const path = require("node:path");
+require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 const get = require("simple-get");
 
 const API_URL = process.env.API_URL;
 
+// Main Event
 function sendPostRequest({ data, guildId, type }) {
 	try {
 		debug({ text: `HTTP Request sent` });
@@ -18,14 +22,15 @@ function sendPostRequest({ data, guildId, type }) {
 		};
 
 		// HTTP Request
-		get.post(opts, (res) => {
+		get.post(opts, (_err, res) => {
 			try {
 				res.pipe(process.stdout);
+
+				// Wait for API Response
 				res.on("data", () => {
 					debug({ text: `Response received and HTTP communication ended` });
 				});
 			} catch (err) {
-				// Special Error handling for cases where the user mistyped the API URL
 				if (
 					String(err.message).includes(
 						`Cannot read properties of undefined (reading 'pipe')`,
