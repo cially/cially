@@ -32,12 +32,12 @@ async function fetchUserData(req, res, client) {
 			debug({ text: `User Data fetched. Ready to send response` });
 
 			await res.send(dataArray);
-		} catch (err) {
+		} catch (_err) {
 			debug({ text: `Failed to fetch Channel Name` });
 			dataArray.push({ channel: { id: channelID, name: channelID } });
 			await res.send(dataArray);
 		}
-	} catch (err) {
+	} catch (_err) {
 		debug({ text: `Failed to fetch User Data` });
 		res.send(error_message);
 	}

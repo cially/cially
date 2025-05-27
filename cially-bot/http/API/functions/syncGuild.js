@@ -51,7 +51,7 @@ async function syncGuild(req, res, client) {
 								.then((res) => {
 									return res.uses;
 								})
-								.catch((err) => {
+								.catch(() => {
 									return -1;
 								});
 						}

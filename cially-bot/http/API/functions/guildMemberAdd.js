@@ -34,7 +34,7 @@ async function guildMemberAdd(req, res) {
 				filter: `memberID >= "${memberID}"`,
 			});
 
-		const isUnique = uniqueMemberSearch.items.length === 0 ? true : false;
+		const isUnique = uniqueMemberSearch.items.length === 0;
 
 		try {
 			const itemData = {

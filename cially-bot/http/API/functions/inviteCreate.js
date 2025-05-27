@@ -9,7 +9,7 @@ const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 const collection_name = process.env.INVITE_COLLECTION;
 
-async function inviteCreate(req, res, client) {
+async function inviteCreate(req, res) {
 	const body = req.body;
 
 	const { guildID, channelID, authorID } = body;

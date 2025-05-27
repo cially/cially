@@ -18,10 +18,10 @@ function sendPostRequest({ data, guildId, type }) {
 		};
 
 		// HTTP Request
-		get.post(opts, (err, res) => {
+		get.post(opts, (res) => {
 			try {
 				res.pipe(process.stdout);
-				res.on("data", (chunk) => {
+				res.on("data", () => {
 					debug({ text: `Response received and HTTP communication ended` });
 				});
 			} catch (err) {

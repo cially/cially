@@ -21,7 +21,7 @@ async function fetchID(req, res, client) {
 					name: `${discordChannel.name}`,
 				});
 				debug({ text: `Added Succesfully Channel: ${channel}` });
-			} catch (err) {
+			} catch (_err) {
 				debug({ text: `Failed to add Channel: ${channel}` });
 			}
 		});
@@ -31,7 +31,7 @@ async function fetchID(req, res, client) {
 				const discordUser = client.users.cache.get(user);
 				newArray.newUsers.push({ id: user, name: discordUser.username });
 				debug({ text: `Added Succesfully User: ${user}` });
-			} catch (err) {
+			} catch (_err) {
 				debug({ text: `Failed to add User: ${user}` });
 			}
 		});

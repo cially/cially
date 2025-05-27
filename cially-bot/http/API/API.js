@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 async function API(client) {
 	// Main Listener
 	app.listen(port, () => {
-		console.log(`[SUCCESS] `.green + `The API is running on port: ${port}! \n`);
+		console.log(`${`[SUCCESS] `.green}The API is running on port: ${port}! \n`);
 	});
 
 	// GET Routes
