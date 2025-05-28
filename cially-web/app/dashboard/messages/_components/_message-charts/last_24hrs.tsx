@@ -75,7 +75,7 @@ export default function Last24h({ chartData }) {
     const chartConfig = {
       hour: {
         label: "hour",
-        color: "#03d5ff",
+        color: "#0370ff",
       },
     } satisfies ChartConfig;
 
