@@ -20,7 +20,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const chartConfig = {
   amount: {
     label: "amount",
-    color: "#03d5ff",
+    color: "#0370ff",
   },
 } satisfies ChartConfig;
 
