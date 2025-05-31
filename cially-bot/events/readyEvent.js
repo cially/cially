@@ -10,6 +10,7 @@ const { API } = require("../http/API/API");
 const {
 	setAllScrapeStatusesFalse,
 } = require("../http/API/functions/logic/scraping/switchScrapeStatus");
+const { messageOrganizer } = require("../cronJobs/messageOrganizer")
 
 module.exports = {
 	name: Events.ClientReady,
@@ -41,6 +42,9 @@ module.exports = {
 
 		// Set all scrape statuses to false in case some scraping procedure got cut off
 		setAllScrapeStatusesFalse();
+
+		// Run message organizer
+		messageOrganizer();
 	},
 };
 
