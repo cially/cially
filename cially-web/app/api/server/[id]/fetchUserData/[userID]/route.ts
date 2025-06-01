@@ -5,10 +5,12 @@ const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 
 const guild_collection_name = process.env.GUILDS_COLLECTION;
-const message_collection_name = process.env.MESSAGE_COLLECTION;
 const MEMBER_JOINS_COLLECTION = process.env.MEMBER_JOINS_COLLECTION;
 const MEMBER_LEAVES_COLLECTION = process.env.MEMBER_LEAVES_COLLECTION;
 const INVITE_COLLECTION = process.env.INVITE_COLLECTION;
+// Updated collection names for new schema
+const user_stats_collection = "user_stats";
+const channel_stats_collection = "channel_stats";
 
 // Main GET Event
 export async function GET(
@@ -38,84 +40,117 @@ export async function GET(
 			filter: `authorID ?= "${userID}" && guildID?="${guild.id}"`,
 		});
 
-		const member_messages = await pb
-			.collection(message_collection_name)
+		// Fetch user stats directly from user_stats collection
+		const userStats = await pb
+			.collection(user_stats_collection)
+			.getFirstListItem(`authorID='${userID}' && guildID?="${guild.id}"`, {});
+
+		const totalMessages = userStats.totalMessages || 0;
+		const totalMessageLength = userStats.totalMessageLength || 0;
+		const avgMessageLength =
+			totalMessages > 0 ? Math.round(totalMessageLength / totalMessages) : 0;
+
+		// Find user's most active channel by getting all channel stats and checking which has most messages from this user
+		// Since channel_stats doesn't track per-user data, we need to find the most active channel overall
+		// This is a limitation of the new schema - we lose per-user channel activity
+		const channelStats = await pb
+			.collection(channel_stats_collection)
 			.getFullList({
-				filter: `author ?= "${userID}" && guildID?="${guild.id}"`,
+				filter: `guildID ?= "${guild.id}"`,
+				sort: "-amount",
 			});
 
+		// Take the most active channel as fallback (since we can't get user-specific channel activity)
+		const mostActiveChannel = channelStats.length > 0 ? channelStats[0] : null;
+
 		const dataArray = [];
-		let avgMessageLength = 0;
-
-		for (const item of member_messages) {
-			avgMessageLength = avgMessageLength + item.messageLength;
-		}
-
-		avgMessageLength = Math.round(avgMessageLength / member_messages.length);
 
 		let activeChannels = [];
 
-		for (const message of member_messages) {
-			const channel = message.channelID;
-			const position = activeChannels.findIndex(
-				(item) => item.channel === channel,
-			);
-			if (position !== -1) {
-				activeChannels[position].amount = activeChannels[position].amount + 1;
-			} else {
-				activeChannels.push({ channel: channel, amount: 1 });
-			}
-		}
-
-		activeChannels.sort((a, b) => b.amount - a.amount);
-		activeChannels = activeChannels.slice(0, 1);
-
-		const discordDataOUT = [
-			{
-				userID: userID,
-				channelID: activeChannels[0].channel,
-			},
-		];
-
-		const discordDataIN_Req = await fetch(
-			`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchUserData/${id}`,
-			{
-				body: JSON.stringify(discordDataOUT),
-				headers: {
-					"Content-Type": "application/json",
+		if (mostActiveChannel) {
+			const discordDataOUT = [
+				{
+					userID: userID,
+					channelID: mostActiveChannel.channelID,
 				},
-				method: "POST",
-			},
-		);
-		const discordDataIN = await discordDataIN_Req.json();
-		const username = discordDataIN[0].username;
-		const globalName = discordDataIN[0].globalName;
-		const avatar = discordDataIN[0].avatar;
-		const creationDate = discordDataIN[0].creationDate;
+			];
 
-		activeChannels.push({
-			channel: discordDataIN[1].channel.name,
-			amount: activeChannels[0].amount,
-		});
-		activeChannels = activeChannels.slice(1, 2);
+			const discordDataIN_Req = await fetch(
+				`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchUserData/${id}`,
+				{
+					body: JSON.stringify(discordDataOUT),
+					headers: {
+						"Content-Type": "application/json",
+					},
+					method: "POST",
+				},
+			);
+			const discordDataIN = await discordDataIN_Req.json();
+			const username = discordDataIN[0].username;
+			const globalName = discordDataIN[0].globalName;
+			const avatar = discordDataIN[0].avatar;
+			const creationDate = discordDataIN[0].creationDate;
 
-		dataArray.push({
-			totalJoins: member_joins.length,
-			totalLeaves: member_leaves.length,
-			totalInvites: member_invites.length,
-			totalMessages: member_messages.length,
-			averageMessageLength: avgMessageLength,
-			activeChannel: activeChannels,
-		});
+			activeChannels.push({
+				channel: discordDataIN[1].channel.name,
+				amount: mostActiveChannel.amount, // Note: This is total channel activity, not user-specific
+			});
 
-		return Response.json({
-			userID,
-			username,
-			globalName,
-			avatar,
-			creationDate,
-			dataArray,
-		});
+			dataArray.push({
+				totalJoins: member_joins.length,
+				totalLeaves: member_leaves.length,
+				totalInvites: member_invites.length,
+				totalMessages: totalMessages,
+				averageMessageLength: avgMessageLength,
+				activeChannel: activeChannels,
+			});
+
+			return Response.json({
+				userID,
+				username,
+				globalName,
+				avatar,
+				creationDate,
+				dataArray,
+			});
+		} else {
+			// Fallback when no channel data available
+			const discordDataOUT = [{ userID: userID }];
+
+			const discordDataIN_Req = await fetch(
+				`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchUserData/${id}`,
+				{
+					body: JSON.stringify(discordDataOUT),
+					headers: {
+						"Content-Type": "application/json",
+					},
+					method: "POST",
+				},
+			);
+			const discordDataIN = await discordDataIN_Req.json();
+			const username = discordDataIN[0].username;
+			const globalName = discordDataIN[0].globalName;
+			const avatar = discordDataIN[0].avatar;
+			const creationDate = discordDataIN[0].creationDate;
+
+			dataArray.push({
+				totalJoins: member_joins.length,
+				totalLeaves: member_leaves.length,
+				totalInvites: member_invites.length,
+				totalMessages: totalMessages,
+				averageMessageLength: avgMessageLength,
+				activeChannel: [],
+			});
+
+			return Response.json({
+				userID,
+				username,
+				globalName,
+				avatar,
+				creationDate,
+				dataArray,
+			});
+		}
 	} catch (err) {
 		return Response.json({
 			error: 404,
