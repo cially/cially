@@ -46,7 +46,7 @@ services:
       - cially-network
 
   pocketbase:
-    image: ghcr.io/keksiqc/pocketbase:0.26.6
+    image: ghcr.io/keksiqc/pocketbase:0.28.2
     container_name: cially-pocketbase
     restart: unless-stopped
     command:
