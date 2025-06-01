@@ -2,7 +2,10 @@ const { debug } = require("../../../../../terminal/debug");
 const { error } = require("../../../../../terminal/error");
 const { pbAddNewData } = require("./pbAddNewData");
 const { pbCollectionAutoDelete } = require("./pbCollectionAutoDelete");
-const { switchScrapeStatus, enableScrapeStatus } = require("./switchScrapeStatus");
+const {
+	switchScrapeStatus,
+	enableScrapeStatus,
+} = require("./switchScrapeStatus");
 
 async function discordScrape({ client, guildID }) {
 	enableScrapeStatus(guildID);
@@ -11,7 +14,7 @@ async function discordScrape({ client, guildID }) {
 	const maxTotalMessages = 1000000;
 	const maxAgeWeeks = 4;
 	const waitFor = 1069;
-	const batchSize = 10000; // Save every 10k messages
+	const batchSize = 1000; // Save every 1k messages
 
 	const cutoffDate = new Date();
 	cutoffDate.setDate(cutoffDate.getDate() - maxAgeWeeks * 7);
@@ -99,7 +102,9 @@ async function discordScrape({ client, guildID }) {
 
 			while (hasMoreMessages && !rateLimited) {
 				if (totalMessagesScraped >= maxTotalMessages) {
-					debug({ text: `Reached global message limit of ${maxTotalMessages}` });
+					debug({
+						text: `Reached global message limit of ${maxTotalMessages}`,
+					});
 					hitGlobalLimit = true;
 					reachedGlobalLimit = true;
 					break;
