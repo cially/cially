@@ -1,5 +1,4 @@
 import PocketBase from "pocketbase";
-import { hourData } from "./_lazy-import/hourdata";
 
 // Pocketbase Initialization
 const url = process.env.POCKETBASE_URL;
@@ -7,6 +6,7 @@ const pb = new PocketBase(url);
 
 const collection_name = process.env.MESSAGE_COLLECTION;
 const guild_collection_name = process.env.GUILDS_COLLECTION;
+const hourly_stats_collection = "hourly_stats"; // New collection name
 
 // Main GET Event
 export async function GET(
@@ -24,162 +24,150 @@ export async function GET(
 			.getFirstListItem(`discordID='${id}'`, {});
 
 		try {
-			const messagesArray = [];
+			// Get hourly stats for today
+			const todayDate = new Date();
+			const todayDate_formatted = `${todayDate.getUTCFullYear()}-${(todayDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${todayDate.getUTCDate().toString().padStart(2, "0")}`;
 
-			const fourWeeksMessagesLog = await pb
-				.collection(collection_name)
+			const hourlyStats = await pb
+				.collection(hourly_stats_collection)
 				.getFullList({
-					filter: `guildID ?= "${guild.id}" && messageCreation>'${fourWeeksAgoDate_formatted}'`,
-					sort: "messageCreation",
+					filter: `guildID ?= "${guild.id}" && date='${todayDate_formatted}'`,
+					sort: "hour",
 				});
 
-			for (const message of fourWeeksMessagesLog) {
-				const creation_date = String(message.messageCreation).slice(0, 19);
-				const creation_date_js = new Date(
-					Date.UTC(
-						Number.parseInt(creation_date.slice(0, 4)),
-						Number.parseInt(creation_date.slice(5, 7)) - 1,
-						Number.parseInt(creation_date.slice(8, 10)),
-					),
+			// Transform hourly stats to match expected format and ensure all 24 hours are represented
+			const hourData = [];
+			for (let i = 0; i < 24; i++) {
+				const hourString = i.toString().padStart(2, "0");
+				const existingStat = hourlyStats.find(
+					(stat) => stat.hour === hourString,
 				);
 
-				const creation_date_js_ms = creation_date_js.getTime();
-
-				messagesArray.push({
-					message_id: message.id,
-					author: message.author,
-					channelID: `${message.channelID}`,
-					created: creation_date_js_ms,
-					created_formatted: creation_date,
+				hourData.push({
+					hour: hourString,
+					amount: Number(existingStat?.messages) || 0,
+					joins: Number(existingStat?.joins) || 0,
+					leaves: Number(existingStat?.leaves) || 0,
+					unique_users: Number(existingStat?.unique_users) || 0,
 				});
 			}
 
-			const todayMessages = [];
-			const todayDate = new Date();
-			const todayDateUTC = new Date(
-				Date.UTC(
-					todayDate.getUTCFullYear(),
-					todayDate.getUTCMonth(),
-					todayDate.getUTCDate(),
-				),
-			);
-			const todayDate_ms = todayDateUTC.getTime();
-
-			for (const message of messagesArray) {
-				if (message.created === todayDate_ms) {
-					todayMessages.push({
-						message_id: message.id,
-						author: message.author,
-						channelID: `${message.channelID}`,
-						created: message.created,
-						created_formatted: message.created_formatted,
-					});
-				}
-			}
-
-			for (const record of todayMessages) {
-				const minutes = [record.created_formatted.slice(11, 13)];
-				for (const minute of minutes) {
-					const position = hourData.findIndex((item) => item.hour === minute);
-					if (position !== -1) {
-						hourData[position].amount = hourData[position].amount + 1;
-					} else {
-						hourData.push({ hour: minute, amount: 1 });
-					}
-				}
-			}
-
-			hourData.sort((a, b) => a.hour - b.hour);
-
-			const monthlyMessages = [];
-			const LastWeekDateUTC = new Date(
-				Date.UTC(
-					todayDate.getUTCFullYear(),
-					todayDate.getUTCMonth() - 1,
-					todayDate.getUTCDate(),
-				),
-			);
-			const LastWeekDateUTC_ms = LastWeekDateUTC.getTime();
-
-			for (const message of messagesArray) {
-				if (message.created >= LastWeekDateUTC_ms) {
-					monthlyMessages.push({
-						message_id: message.id,
-						author: message.author,
-						channelID: `${message.channelID}`,
-						created: message.created,
-						created_formatted: message.created_formatted,
-					});
-				}
-			}
-
+			// Get weekly data (current week starting from Monday)
 			let weekData = [];
+			const today = new Date();
 
-			let u = 0;
+			// Find the Monday of current week (0 = Sunday, 1 = Monday, etc.)
+			const dayOfWeek = today.getUTCDay();
+			const daysFromMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // If Sunday, go back 6 days, otherwise go back (dayOfWeek - 1) days
+			const mondayDate = new Date(
+				today.getTime() - daysFromMonday * 24 * 60 * 60 * 1000,
+			);
 
-			while (u < 8) {
-				const uDaysAgoDate = new Date(Date.now() - u * 24 * 60 * 60 * 1000);
-				const uDaysAgoDate_formatted = `${(uDaysAgoDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${uDaysAgoDate.getUTCDate().toString().padStart(2, "0")}`;
-				weekData.push({ date: `${uDaysAgoDate_formatted}`, amount: 0 });
-				u = u + 1;
+			// Get data for each day of the week (Monday to Sunday)
+			for (let i = 0; i < 7; i++) {
+				const currentDate = new Date(
+					mondayDate.getTime() + i * 24 * 60 * 60 * 1000,
+				);
+				const currentDate_formatted = `${currentDate.getUTCFullYear()}-${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
+				const displayDate = `${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
+
+				// Get hourly stats for this day
+				const dayStats = await pb
+					.collection(hourly_stats_collection)
+					.getFullList({
+						filter: `guildID ?= "${guild.id}" && date='${currentDate_formatted}'`,
+					});
+
+				// Sum up the day's statistics
+				const dayTotal = dayStats.reduce(
+					(acc, stat) => ({
+						messages: acc.messages + (Number(stat.messages) || 0),
+						joins: acc.joins + (Number(stat.joins) || 0),
+						leaves: acc.leaves + (Number(stat.leaves) || 0),
+						unique_users: Math.max(
+							acc.unique_users,
+							Number(stat.unique_users) || 0,
+						), // Take max for unique users
+					}),
+					{ messages: 0, joins: 0, leaves: 0, unique_users: 0 },
+				);
+
+				weekData.push({
+					date: displayDate,
+					amount: dayTotal.messages,
+					joins: dayTotal.joins,
+					leaves: dayTotal.leaves,
+					unique_users: dayTotal.unique_users,
+				});
 			}
 
-			for (const record of monthlyMessages) {
-				const monthly_msgs = [record.created_formatted.slice(5, 10)];
-				for (const monthly_msg of monthly_msgs) {
-					const position = weekData.findIndex(
-						(item) => item.date === monthly_msg,
-					);
-					if (position !== -1) {
-						weekData[position].amount = weekData[position].amount + 1;
-					}
-				}
-			}
-			weekData = weekData.toReversed();
+			// Get four week data (last 22 days, grouped by weeks)
 			let fourWeekData = [];
-
 			let w = 0;
+
 			while (w < 22) {
 				const startingDate = new Date(Date.now() - w * 24 * 60 * 60 * 1000);
-				const startingDate_formatted = `${startingDate.getUTCFullYear().toString().padStart(2, "0")}-${(startingDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${startingDate.getUTCDate().toString().padStart(2, "0")}`;
-				const startingDate_ms = startingDate.getTime();
+				const startingDate_formatted = `${startingDate.getUTCFullYear()}-${(startingDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${startingDate.getUTCDate().toString().padStart(2, "0")}`;
 				const startingDate_factor = startingDate.toLocaleDateString("en-US", {
 					month: "short",
 					day: "numeric",
 				});
 
 				const endingDate = new Date(Date.now() - (7 + w) * 24 * 60 * 60 * 1000);
-				const endingDate_formatted = `${endingDate.getUTCFullYear().toString().padStart(2, "0")}-${(endingDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${endingDate.getUTCDate().toString().padStart(2, "0")}`;
-				const endingDate_ms = endingDate.getTime();
+				const endingDate_formatted = `${endingDate.getUTCFullYear()}-${(endingDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${endingDate.getUTCDate().toString().padStart(2, "0")}`;
+
+				// Get stats for the week range
+				const weekStats = await pb
+					.collection(hourly_stats_collection)
+					.getFullList({
+						filter: `guildID ?= "${guild.id}" && date >= '${endingDate_formatted}' && date <= '${startingDate_formatted}'`,
+					});
+
+				// Sum up the week's statistics
+				const weekTotal = weekStats.reduce(
+					(acc, stat) => ({
+						messages: acc.messages + (Number(stat.messages) || 0),
+						joins: acc.joins + (Number(stat.joins) || 0),
+						leaves: acc.leaves + (Number(stat.leaves) || 0),
+						unique_users: Math.max(
+							acc.unique_users,
+							Number(stat.unique_users) || 0,
+						),
+					}),
+					{ messages: 0, joins: 0, leaves: 0, unique_users: 0 },
+				);
 
 				fourWeekData.push({
-					factor: `${startingDate_factor}`,
-					starting_date: { startingDate_formatted, startingDate_ms },
-					finishing_date: { endingDate_formatted, endingDate_ms },
-					amount: 0,
+					factor: startingDate_factor,
+					starting_date: {
+						startingDate_formatted,
+						startingDate_ms: startingDate.getTime(),
+					},
+					finishing_date: {
+						endingDate_formatted,
+						endingDate_ms: endingDate.getTime(),
+					},
+					amount: weekTotal.messages,
+					joins: weekTotal.joins,
+					leaves: weekTotal.leaves,
+					unique_users: weekTotal.unique_users,
 				});
 				w = w + 7;
 			}
-
-			for (const record of monthlyMessages) {
-				const creation_date = new Date(record.created_formatted.slice(0, 10));
-				const creation_date_ms = creation_date.getTime();
-				const position = fourWeekData.findIndex(
-					(item) =>
-						item.starting_date.startingDate_ms >= creation_date_ms &&
-						item.finishing_date.endingDate_ms <= creation_date_ms,
-				);
-				if (position !== -1) {
-					fourWeekData[position].amount = fourWeekData[position].amount + 1;
-				} else {
-					return;
-				}
-			}
 			fourWeekData = fourWeekData.toReversed();
+			const totalMessages = await pb
+				.collection("hourly_stats")
+				.getFullList({
+					filter: `guildID ?= "${guild.id}"`,
+				})
+				.then((hours) =>
+					hours.reduce((sum, hour) => sum + (hour.messages || 0), 0),
+				);
 
+			// Get general data from guild collection
 			const generalDataArray = [];
 			generalDataArray.push({
-				total_messages: guild.total_messages,
+				total_messages: totalMessages,
 				message_deletions: guild.message_deletions,
 				message_edits: guild.message_edits,
 				total_attachments: guild.total_attachments,
@@ -203,8 +191,11 @@ export async function GET(
 		if (err.status === 400) {
 			const notFound = [{ errorCode: 404 }];
 			console.log(err);
-
 			return Response.json({ notFound });
 		}
+		// Handle other errors
+		const serverError = [{ errorCode: 500 }];
+		console.log(err);
+		return Response.json({ serverError });
 	}
 }

@@ -4,17 +4,17 @@ import PocketBase from "pocketbase";
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 
-const collection_name = process.env.MESSAGE_COLLECTION;
 const guild_collection_name = process.env.GUILDS_COLLECTION;
+// Updated collection names for new schema
+const channel_stats_collection = "channel_stats";
+const user_stats_collection = "user_stats";
+const hourly_stats_collection = "hourly_stats";
 
 // Main GET Event
 export async function GET(
 	request: Request,
 	{ params }: { params: Promise<{ id: string }> },
 ) {
-	const fourWeeksAgoDate = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000);
-	const fourWeeksAgoDate_formatted = `${fourWeeksAgoDate.getUTCFullYear()}-${(fourWeeksAgoDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${fourWeeksAgoDate.getUTCDate().toString().padStart(2, "0")}`;
-
 	const { id } = await params;
 
 	try {
@@ -23,129 +23,61 @@ export async function GET(
 			.getFirstListItem(`discordID='${id}'`, {});
 
 		try {
-			const messagesArray = [];
-
-			const todayDate = new Date();
-			const todayDateUTC = new Date(
-				Date.UTC(
-					todayDate.getUTCFullYear(),
-					todayDate.getUTCMonth(),
-					todayDate.getUTCDate(),
-				),
-			);
-			const todayDate_ms = todayDateUTC.getTime();
-
-			const fourWeeksMessagesLog = await pb
-				.collection(collection_name)
+			// Fetch channel stats directly from channel_stats collection
+			const channelStats = await pb
+				.collection(channel_stats_collection)
 				.getFullList({
-					filter: `guildID ?= "${guild.id}" && messageCreation>'${fourWeeksAgoDate_formatted}'`,
-					sort: "messageCreation",
+					filter: `guildID ?= "${guild.id}"`,
+					sort: "-amount",
 				});
 
-			for (const message of fourWeeksMessagesLog) {
-				const creation_date = String(message.messageCreation).slice(0, 19);
-				const creation_date_js = new Date(
-					Date.UTC(
-						parseInt(creation_date.slice(0, 4)),
-						parseInt(creation_date.slice(5, 7)) - 1,
-						parseInt(creation_date.slice(8, 10)),
-					),
-				);
-				const creation_date_js_ms = creation_date_js.getTime();
+			// Take top 5 channels
+			const activeChannels = channelStats.slice(0, 5).map(channel => ({
+				channel: channel.channelID,
+				originalId: channel.channelID,
+				amount: channel.amount,
+			}));
 
-				messagesArray.push({
-					message_id: message.id,
-					author: message.author,
-					channelID: `${message.channelID}`,
-					created: creation_date_js_ms,
-					created_formatted: creation_date,
+			// Fetch user stats directly from user_stats collection
+			const userStats = await pb
+				.collection(user_stats_collection)
+				.getFullList({
+					filter: `guildID ?= "${guild.id}"`,
+					sort: "-totalMessages",
 				});
-			}
 
-			const monthlyMessages = [];
-			const LastWeekDateUTC = new Date(
-				Date.UTC(
-					todayDate.getUTCFullYear(),
-					todayDate.getUTCMonth() - 1,
-					todayDate.getUTCDate(),
-				),
-			);
+			// Take top 5 users
+			const activeUsers = userStats.slice(0, 5).map(user => ({
+				author: user.authorID,
+				originalId: user.authorID,
+				amount: user.totalMessages,
+			}));
 
-			const LastWeekDateUTC_ms = LastWeekDateUTC.getTime();
+			// Fetch hourly stats and aggregate by hour
+			const hourlyStats = await pb
+				.collection(hourly_stats_collection)
+				.getFullList({
+					filter: `guildID ?= "${guild.id}"`,
+				});
 
-			for (const message of messagesArray) {
-				if (message.created >= LastWeekDateUTC_ms) {
-					monthlyMessages.push({
-						message_id: message.id,
-						author: message.author,
-						channelID: `${message.channelID}`,
-						created: message.created,
-						created_formatted: message.created_formatted,
-					});
-				}
-			}
-
-			let activeChannels = [];
-
-			for (const message of monthlyMessages) {
-				const channel = message.channelID;
-				const position = activeChannels.findIndex(
-					(item) => item.channel === channel,
-				);
-				if (position !== -1) {
-					activeChannels[position].amount = activeChannels[position].amount + 1;
-				} else {
-					activeChannels.push({ channel: channel, amount: 1 });
-				}
-			}
-			activeChannels.sort((a, b) => b.amount - a.amount);
-			activeChannels = activeChannels.slice(0, 5);
-
-			let activeUsers = [];
-
-			for (const message of monthlyMessages) {
-				const messageAuthor = message.author;
-				const position = activeUsers.findIndex(
-					(item) => item.author === messageAuthor,
-				);
-				if (position !== -1) {
-					activeUsers[position].amount = activeUsers[position].amount + 1;
-				} else {
-					activeUsers.push({ author: messageAuthor, amount: 1 });
-				}
-			}
-			activeUsers.sort((a, b) => b.amount - a.amount);
-			activeUsers = activeUsers.slice(0, 5);
-
+			// Initialize hourly data structure
 			const activeHourData = [];
-
-			let o = 0;
-
-			while (o < 24) {
-				if (o < 10) {
-					activeHourData.push({ hour: `0${o}`, amount: 0 });
-				} else {
-					activeHourData.push({ hour: `${o}`, amount: 0 });
-				}
-				o = o + 1;
+			for (let hour = 0; hour < 24; hour++) {
+				activeHourData.push({ 
+					hour: hour.toString().padStart(2, '0'), 
+					amount: 0 
+				});
 			}
 
-			for (const record of monthlyMessages) {
-				const minutes = [record.created_formatted.slice(11, 13)];
-				for (const minute of minutes) {
-					const position = activeHourData.findIndex(
-						(item) => item.hour === minute,
-					);
-					if (position !== -1) {
-						activeHourData[position].amount =
-							activeHourData[position].amount + 1;
-					} else {
-						activeHourData.push({ hour: minute, amount: 1 });
-					}
+			// Aggregate messages by hour
+			for (const stat of hourlyStats) {
+				const hourIndex = parseInt(stat.hour);
+				if (hourIndex >= 0 && hourIndex < 24) {
+					activeHourData[hourIndex].amount += stat.messages || 0;
 				}
 			}
-			activeHourData.sort((a, b) => a.hour - b.hour);
 
+			// Prepare data for Discord API call
 			const discordDataOUT = [{ channels: [], users: [] }];
 			for (const item of activeChannels) {
 				discordDataOUT[0].channels.push(item.channel);
@@ -154,6 +86,7 @@ export async function GET(
 				discordDataOUT[0].users.push(item.author);
 			}
 
+			// Fetch Discord names/info
 			const discordDataIN_Req = await fetch(
 				`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchID/${guild.discordID}`,
 				{
@@ -166,6 +99,7 @@ export async function GET(
 			);
 			const discordDataIN = await discordDataIN_Req.json();
 
+			// Map Discord names
 			const channelMap = {};
 			const userMap = {};
 
@@ -181,21 +115,18 @@ export async function GET(
 				}
 			}
 
-			activeChannels = activeChannels.map((channel) => {
-				return {
-					channel: channelMap[channel.channel] || channel.channel,
-					originalId: channel.channel,
-					amount: channel.amount,
-				};
-			});
+			// Update with Discord names
+			const finalActiveChannels = activeChannels.map((channel) => ({
+				channel: channelMap[channel.channel] || channel.channel,
+				originalId: channel.originalId,
+				amount: channel.amount,
+			}));
 
-			activeUsers = activeUsers.map((user) => {
-				return {
-					author: userMap[user.author] || user.author,
-					originalId: user.author,
-					amount: user.amount,
-				};
-			});
+			const finalActiveUsers = activeUsers.map((user) => ({
+				author: userMap[user.author] || user.author,
+				originalId: user.originalId,
+				amount: user.amount,
+			}));
 
 			const generalData = [
 				{
@@ -208,8 +139,8 @@ export async function GET(
 
 			const finalData = [];
 			finalData.push({
-				ChannelData: activeChannels,
-				ActiveUsersData: activeUsers,
+				ChannelData: finalActiveChannels,
+				ActiveUsersData: finalActiveUsers,
 				ActiveHourData: activeHourData,
 				ID: discordDataIN,
 				GeneralData: generalData,

@@ -41,6 +41,8 @@ module.exports = {
 
 		// Set all scrape statuses to false in case some scraping procedure got cut off
 		setAllScrapeStatusesFalse();
+
+		
 	},
 };
 

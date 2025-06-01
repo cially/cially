@@ -44,6 +44,24 @@ export async function GET(
 			response.push({ bot: "offline" });
 		}
 
+		try {
+			const discord_response = await fetch(
+				"https://discordstatus.com/api/v2/components.json",
+			);
+			const data = await discord_response.json();
+
+			const API_Component = data.components.find((c) => c.name === "API");
+			const API_Status = API_Component.status;
+			if (API_Status === "operational") {
+				response.push({ discord: "online" });
+			} else {
+				response.push({ discord: "outage" });
+			}
+		} catch (err) {
+			console.log(err);
+			response.push({ discord: "offline" });
+		}
+
 		return Response.json(response);
 	} catch (error) {
 		const response = [];
