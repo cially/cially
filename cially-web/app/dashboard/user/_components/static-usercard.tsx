@@ -33,12 +33,7 @@ export default function StaticUserCard() {
 							<div>
 								Total Messages: <div className="inline text-gray-300">129</div>
 							</div>
-							<div>
-								Creation Date:{" "}
-								<div className="inline text-gray-300">
-									2023-10-2 at 18:29:02 UTC
-								</div>
-							</div>
+							
 						</div>
 						<div className="place-self-start">
 							<div>
@@ -49,9 +44,11 @@ export default function StaticUserCard() {
 								Invites Created: <div className="inline text-gray-300">10</div>
 							</div>
 							<div>
-								Most Active Channel:{" "}
-								<div className="inline text-gray-300">#general</div>
-							</div>
+								Creation Date:{" "}
+								<div className="inline text-gray-300">
+									2023-10-2 at 18:29:02 UTC
+								</div>
+							</div>	
 						</div>
 					</div>
 				</CardContent>

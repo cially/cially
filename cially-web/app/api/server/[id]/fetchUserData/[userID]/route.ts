@@ -91,10 +91,6 @@ export async function GET(
 			const avatar = discordDataIN[0].avatar;
 			const creationDate = discordDataIN[0].creationDate;
 
-			activeChannels.push({
-				channel: discordDataIN[1].channel.name,
-				amount: mostActiveChannel.amount, // Note: This is total channel activity, not user-specific
-			});
 
 			dataArray.push({
 				totalJoins: member_joins.length,
@@ -102,7 +98,6 @@ export async function GET(
 				totalInvites: member_invites.length,
 				totalMessages: totalMessages,
 				averageMessageLength: avgMessageLength,
-				activeChannel: activeChannels,
 			});
 
 			return Response.json({
