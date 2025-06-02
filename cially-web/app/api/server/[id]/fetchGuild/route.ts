@@ -28,22 +28,37 @@ export async function GET(
 					.collection(guild_collection_name)
 					.getFirstListItem(`discordID='${id}'`, {});
 
+				
+
 				const today_msg_records = await pb
-					.collection(message_collection_name)
+					.collection("hourly_stats")
 					.getFullList({
-						filter: `guildID ?= "${guild.id}" && messageCreation>'${date}'`,
-						sort: "messageCreation",
+						filter: `guildID = '${guild.id}' && date = '${date}'`,
+						sort: "-date",
 					});
+
+				let today_msgs = 0
+
+				for (const today_msg_record of today_msg_records) {
+					today_msgs = today_msgs + today_msg_record.messages
+				}
 
 				const yesterday_msg_records = await pb
-					.collection(message_collection_name)
+					.collection("hourly_stats")
 					.getFullList({
-						filter: `guildID ?= "${guild.id}" && messageCreation>'${previous_date}' && messageCreation<'${date}'`,
-						sort: "messageCreation",
+						filter: `guildID = '${guild.id}' && date = '${previous_date}'`,
+						sort: "-date",
 					});
 
+				let yesterday_msgs = 0
+
+				for (const yesterday_msg_record of yesterday_msg_records) {
+					yesterday_msgs = yesterday_msgs + yesterday_msg_record.messages
+				}
+
 				const msg_day_difference =
-					today_msg_records.length - yesterday_msg_records.length;
+					today_msgs - yesterday_msgs
+
 
 				const guildFound = [
 					{
@@ -61,19 +76,21 @@ export async function GET(
 						description: guild.description,
 						vanity_url: guild.vanity_url,
 						vanity_uses: guild.vanity_uses,
-						today_msg: today_msg_records.length,
+						today_msg: today_msgs,
 						msg_day_difference: msg_day_difference,
 					},
 				];
 				return Response.json({ guildFound });
 			} catch (err) {
 				if (err.status === 400) {
+					console.log(err)
 					const notFound = [{ errorCode: 404 }];
 					return Response.json({ notFound });
 				}
 			}
 		} else {
 			const notFound = [{ errorCode: 404 }];
+			
 			return Response.json({ notFound });
 		}
 	} catch (err) {

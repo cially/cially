@@ -55,33 +55,23 @@ export default function Last7d({ chartData }) {
   try {
     const ArrayChartData = Array(chartData)[0];
 
-    const startingDate = new Date(Date.now() - 0 * 24 * 60 * 60 * 1000);
-    const startingDate_formatted = `${(startingDate.getUTCMonth() + 1)
-      .toString()
-      .padStart(2, "0")}-${startingDate
-      .getUTCDate()
-      .toString()
-      .padStart(2, "0")}`;
+	const startingDate = new Date(Date.now() - 0 * 24 * 60 * 60 * 1000);
+	const startingDate_formatted = `${(startingDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${startingDate.getUTCDate().toString().padStart(2, "0")}`;
 
-    const previousDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
-    const previousDate_formatted = `${(previousDate.getUTCMonth() + 1)
-      .toString()
-      .padStart(2, "0")}-${previousDate
-      .getUTCDate()
-      .toString()
-      .padStart(2, "0")}`;
+	const previousDate = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000);
+	const previousDate_formatted = `${(previousDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${previousDate.getUTCDate().toString().padStart(2, "0")}`;
 
-    const currentAmount_index = ArrayChartData.findIndex(
-      (item) => item.date === startingDate_formatted
-    );
-    const currentAmount = ArrayChartData[currentAmount_index].amount;
+	const currentAmount_index = ArrayChartData.findIndex(
+		(item) => item.date === startingDate_formatted,
+	);
+	const currentAmount = ArrayChartData[currentAmount_index].amount;
 
-    const previousAmount_index = ArrayChartData.findIndex(
-      (item) => item.date === previousDate_formatted
-    );
-    const previousAmount = ArrayChartData[previousAmount_index].amount;
+	const previousAmount_index = ArrayChartData.findIndex(
+		(item) => item.date === previousDate_formatted,
+	);
+	const previousAmount = ArrayChartData[previousAmount_index].amount;
 
-    const difference = currentAmount - previousAmount;
+	const difference = currentAmount - previousAmount;
 
     return (
       <Card>
@@ -148,7 +138,8 @@ export default function Last7d({ chartData }) {
         </CardFooter>
       </Card>
     );
-  } catch (err) {
+  } catch (err) { 
+    console.log(err)
     return (
       <>
         <Card>

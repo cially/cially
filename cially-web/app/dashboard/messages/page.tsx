@@ -63,7 +63,7 @@ function ClientComponent() {
   const data_7d = chartData.finalData[0].WeekData;
   const data_4w = chartData.finalData[0].FourWeekData;
   const data_general = chartData.finalData[0].GeneralData;
-
+  console.log(data_7d)
   return (
     <>
       <div className="mt-10 ml-10 text-2xl">Messages Analytics</div>

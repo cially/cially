@@ -31,7 +31,7 @@ export async function GET(
 			const hourlyStats = await pb
 				.collection(hourly_stats_collection)
 				.getFullList({
-					filter: `guildID ?= "${guild.id}" && date='${todayDate_formatted}'`,
+					filter: `guildID = "${guild.id}" && date = "${todayDate_formatted}"`,
 					sort: "hour",
 				});
 
@@ -52,31 +52,28 @@ export async function GET(
 				});
 			}
 
-			// Get weekly data (current week starting from Monday)
+			// Get weekly data (last 7 days including today)
 			let weekData = [];
 			const today = new Date();
 
-			// Find the Monday of current week (0 = Sunday, 1 = Monday, etc.)
-			const dayOfWeek = today.getUTCDay();
-			const daysFromMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // If Sunday, go back 6 days, otherwise go back (dayOfWeek - 1) days
-			const mondayDate = new Date(
-				today.getTime() - daysFromMonday * 24 * 60 * 60 * 1000,
-			);
-
-			// Get data for each day of the week (Monday to Sunday)
-			for (let i = 0; i < 7; i++) {
+			// Get data for the last 7 days (6 days ago to today)
+			for (let i = 6; i >= 0; i--) {
 				const currentDate = new Date(
-					mondayDate.getTime() + i * 24 * 60 * 60 * 1000,
+					today.getTime() - i * 24 * 60 * 60 * 1000,
 				);
 				const currentDate_formatted = `${currentDate.getUTCFullYear()}-${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 				const displayDate = `${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 
-				// Get hourly stats for this day
+				console.log(`Searching for guild ${guild.id} on date ${currentDate_formatted}`);
+
+				// Get hourly stats for this day - FIXED FILTER
 				const dayStats = await pb
 					.collection(hourly_stats_collection)
 					.getFullList({
-						filter: `guildID ?= "${guild.id}" && date='${currentDate_formatted}'`,
+						filter: `guildID = "${guild.id}" && date = "${currentDate_formatted}"`,
 					});
+
+				console.log(`Found ${dayStats.length} records for ${currentDate_formatted}`);
 
 				// Sum up the day's statistics
 				const dayTotal = dayStats.reduce(
@@ -116,11 +113,11 @@ export async function GET(
 				const endingDate = new Date(Date.now() - (7 + w) * 24 * 60 * 60 * 1000);
 				const endingDate_formatted = `${endingDate.getUTCFullYear()}-${(endingDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${endingDate.getUTCDate().toString().padStart(2, "0")}`;
 
-				// Get stats for the week range
+				// Get stats for the week range - FIXED FILTER
 				const weekStats = await pb
 					.collection(hourly_stats_collection)
 					.getFullList({
-						filter: `guildID ?= "${guild.id}" && date >= '${endingDate_formatted}' && date <= '${startingDate_formatted}'`,
+						filter: `guildID = "${guild.id}" && date >= "${endingDate_formatted}" && date <= "${startingDate_formatted}"`,
 					});
 
 				// Sum up the week's statistics
@@ -155,10 +152,11 @@ export async function GET(
 				w = w + 7;
 			}
 			fourWeekData = fourWeekData.toReversed();
+			
 			const totalMessages = await pb
 				.collection("hourly_stats")
 				.getFullList({
-					filter: `guildID ?= "${guild.id}"`,
+					filter: `guildID = "${guild.id}"`,
 				})
 				.then((hours) =>
 					hours.reduce((sum, hour) => sum + (hour.messages || 0), 0),

@@ -8,8 +8,6 @@ import ActiveHours from "../activity/_components/active_hours";
 import ActiveUsers from "../activity/_components/active_users";
 import GeneralActivityData from "./_components/general_data";
 
-// FIXME Error when there are no messages
-
 import { Suspense } from "react";
 
 export default function MessagesDashboard() {
