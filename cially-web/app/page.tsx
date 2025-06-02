@@ -10,7 +10,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Settings, Activity, gith } from "lucide-react";
+import { Settings, Activity } from "lucide-react";
 
 export default function MessagesDashboard() {
   return (
