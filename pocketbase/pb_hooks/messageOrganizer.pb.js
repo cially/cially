@@ -119,8 +119,8 @@ cronAdd("messageOrganizer", "*/1 * * * *", () => {
 
 					$app.delete(record);
 					console.log(`Succesfully processed record: ${recordJSON.id}`);
-					console.log(`====== Job Finished ======`);
 				}
+				console.log(`====== Job Finished ======`);
 			}
 		} else {
 			console.log(
