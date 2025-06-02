@@ -9,6 +9,7 @@ import ActiveUsers from "../activity/_components/active_users";
 import GeneralActivityData from "./_components/general_data";
 
 import { Suspense } from "react";
+import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
 
 export default function MessagesDashboard() {
   return (
@@ -80,7 +81,7 @@ function ClientComponent() {
     <>
       <div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
       <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
-
+      <ScrapeNotification />
       <div className="h-[100%] mx-5">
         <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 mt-10 gap-5">
           <div>

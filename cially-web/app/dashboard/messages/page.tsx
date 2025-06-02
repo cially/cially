@@ -8,6 +8,7 @@ import Last4Weeks from "./_components/_message-charts/last_4weeks";
 import Last7d from "./_components/_message-charts/last_7d";
 import Last24h from "./_components/_message-charts/last_24hrs";
 import ImportDialogCard from "./_components/_message-charts/importDialog";
+import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
 
 export default function MessagesActivityPage() {
   return (
@@ -68,6 +69,8 @@ function ClientComponent() {
     <>
       <div className="mt-10 ml-10 text-2xl">Messages Analytics</div>
       <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
+
+      <ScrapeNotification />
 
       <div className="mt-10 grid max-w-100 grid-rows-3 gap-y-4 sm:mx-5 sm:max-w-full sm:grid-cols-3 sm:grid-rows-none sm:gap-x-3 sm:gap-y-0">
         <Last24h chartData={data_24h} />
