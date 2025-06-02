@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner"
 
 import { useRouter } from "next/navigation";
 
@@ -22,14 +23,15 @@ export default function ImportDialogCard(guildID) {
 
   const handleSumbit = async (guildID) => {
     try {
+      toast.success("Scraping has started! Restart your bot if you want it to stop!")
       const response = await fetch(
         `/api/server/${guildID.guildID}/scrapeMessages`
       );
       console.log(guildID.guildID);
-
+      
       if (response.ok) {
-        console.log("Succesfull Response from /");
         router.push("/");
+        console.log("Succesfull Response from /");
       } else {
         const errorData = await response.json();
         console.log(errorData);

@@ -4,6 +4,8 @@ import {
 	SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { AppSidebar } from "../_components/_shadcn/sidebar";
+import { Toaster } from "@/components/ui/sonner"
+
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	return (
@@ -14,6 +16,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 					<SidebarTrigger className="sm:hidden" />
 					{children}
 				</main>
+				<Toaster />
 			</SidebarInset>
 		</SidebarProvider>
 	);
