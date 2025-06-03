@@ -1,4 +1,5 @@
-cronAdd("messageOrganizer", "*/1 * * * *", () => {
+cronAdd("itemsOrganizer", "*/1 * * * *", () => {
+	// Messages Organizer
 	try {
 		const scrapedServers = $app.findRecordsByFilter(
 			"guilds", // collection
@@ -126,7 +127,117 @@ cronAdd("messageOrganizer", "*/1 * * * *", () => {
 			console.log(
 				"There is a scrape undergoing for a server. Cancelled organizing data...",
 			);
-			console.log(`====== Job Finished ======`);
+			console.log(`====== Message Job Finished ======`);
+		}
+	} catch (err) {
+		console.log("Error in message organizer:", err);
+	}
+
+	// Joins Organizer
+	try {
+		const records = $app.findRecordsByFilter(
+			"member_joins", // collection
+			"guildID != '' && memberID != '' && logged = false", // filter
+			"-memberID", // sort
+			1000, // limit
+			0, // offset
+		); // optional filter params
+
+		if (records.length > 0) {
+			for (const record of records) {
+				const recordJSON = JSON.parse(JSON.stringify(record));
+				const creationDate = String(recordJSON.created);
+				const date = creationDate.slice(0, 10);
+				const hour = creationDate.slice(11, 13);
+				const guildID = recordJSON.guildID;
+
+				// Hourly Stats Format
+				const timeRecords = $app.findRecordsByFilter(
+					"hourly_stats", // collection
+					`guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
+					"-hour", // sort
+					1, // limit
+					0, // offset
+				);
+
+				if (timeRecords.length > 0) {
+					const timeRecord = timeRecords[0];
+					const timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
+
+					timeRecord.set("joins", Number(timeRecordJSON.joins) + 1);
+					$app.save(timeRecord);
+				} else {
+					const hour_collection = $app.findCollectionByNameOrId("hourly_stats");
+					const newHourRecord = new Record(hour_collection);
+
+					newHourRecord.set("guildID", guildID);
+					newHourRecord.set("hour", hour);
+					newHourRecord.set("date", date);
+					newHourRecord.set("messages", 0);
+					newHourRecord.set("joins", 1);
+
+					$app.save(newHourRecord);
+				}
+				record.set("logged", true);
+				$app.save(record);
+				console.log(`Succesfully processed join record: ${record.id}`)
+			}
+			console.log(`====== Joins Job Finished ======`);
+		}
+	} catch (err) {
+		console.log("Error in message organizer:", err);
+	}
+
+	// Leaves Organizer
+	try {
+		const records = $app.findRecordsByFilter(
+			"member_leaves", // collection
+			"guildID != '' && memberID != '' && logged = false", // filter
+			"-memberID", // sort
+			1000, // limit
+			0, // offset
+		); // optional filter params
+
+		if (records.length > 0) {
+			for (const record of records) {
+				const recordJSON = JSON.parse(JSON.stringify(record));
+				const creationDate = String(recordJSON.created);
+				const date = creationDate.slice(0, 10);
+				const hour = creationDate.slice(11, 13);
+				const guildID = recordJSON.guildID;
+
+				// Hourly Stats Format
+				const timeRecords = $app.findRecordsByFilter(
+					"hourly_stats", // collection
+					`guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
+					"-hour", // sort
+					1, // limit
+					0, // offset
+				);
+
+				if (timeRecords.length > 0) {
+					const timeRecord = timeRecords[0];
+					const timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
+
+					timeRecord.set("leaves", Number(timeRecordJSON.leaves) + 1);
+					$app.save(timeRecord);
+				} else {
+					const hour_collection = $app.findCollectionByNameOrId("hourly_stats");
+					const newHourRecord = new Record(hour_collection);
+
+					newHourRecord.set("guildID", guildID);
+					newHourRecord.set("hour", hour);
+					newHourRecord.set("date", date);
+					newHourRecord.set("messages", 0);
+					newHourRecord.set("leaves", 1);
+
+					$app.save(newHourRecord);
+				}
+				record.set("logged", true);
+				$app.save(record);
+				console.log(`Succesfully processed leave record: ${record.id}`)
+			}
+			console.log(`====== Leave Job Finished ======`);
 		}
 	} catch (err) {
 		console.log("Error in message organizer:", err);
