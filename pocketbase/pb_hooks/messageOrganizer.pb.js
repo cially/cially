@@ -185,7 +185,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
 			console.log(`====== Joins Job Finished ======`);
 		}
 	} catch (err) {
-		console.log("Error in message organizer:", err);
+		console.log("Error in joins organizer:", err);
 	}
 
 	// Leaves Organizer
@@ -240,6 +240,61 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
 			console.log(`====== Leave Job Finished ======`);
 		}
 	} catch (err) {
-		console.log("Error in message organizer:", err);
+		console.log("Error in leaves organizer:", err);
+	}
+
+	// Unique Members Organizer
+	try {
+		const records = $app.findRecordsByFilter(
+			"member_joins", // collection
+			"guildID != '' && memberID != '' && logged = false && unique = true", // filter
+			"-memberID", // sort
+			1000, // limit
+			0, // offset
+		); // optional filter params
+
+		if (records.length > 0) {
+			for (const record of records) {
+				const recordJSON = JSON.parse(JSON.stringify(record));
+				const creationDate = String(recordJSON.created);
+				const date = creationDate.slice(0, 10);
+				const hour = creationDate.slice(11, 13);
+				const guildID = recordJSON.guildID;
+
+				// Hourly Stats Format
+				const timeRecords = $app.findRecordsByFilter(
+					"hourly_stats", // collection
+					`guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
+					"-hour", // sort
+					1, // limit
+					0, // offset
+				);
+
+				if (timeRecords.length > 0) {
+					const timeRecord = timeRecords[0];
+					const timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
+
+					timeRecord.set("unique_users", Number(timeRecordJSON.unique_users) + 1);
+					$app.save(timeRecord);
+				} else {
+					const hour_collection = $app.findCollectionByNameOrId("hourly_stats");
+					const newHourRecord = new Record(hour_collection);
+
+					newHourRecord.set("guildID", guildID);
+					newHourRecord.set("hour", hour);
+					newHourRecord.set("date", date);
+					newHourRecord.set("messages", 0);
+					newHourRecord.set("unique_users", 1);
+
+					$app.save(newHourRecord);
+				}
+				record.set("logged", true);
+				$app.save(record);
+				console.log(`Succesfully processed join record: ${record.id}`)
+			}
+			console.log(`====== Unique Members Job Finished ======`);
+		}
+	} catch (err) {
+		console.log("Error in unique members organizer:", err);
 	}
 });
