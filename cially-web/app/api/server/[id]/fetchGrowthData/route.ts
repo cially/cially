@@ -149,11 +149,88 @@ export async function GET(
 			}
 			fourWeekData = fourWeekData.toReversed();
 
+			// Calculate general statistics
+			const calculateGeneralStats = (data, period) => {
+				const totals = data.reduce(
+					(acc, item) => ({
+						joins: acc.joins + item.joins,
+						leaves: acc.leaves + item.leaves,
+						unique_users: acc.unique_users + item.unique_users,
+					}),
+					{ joins: 0, leaves: 0, unique_users: 0 }
+				);
+
+				const joinToLeaveRatio = totals.leaves > 0 ? (totals.joins / totals.leaves).toFixed(2) : totals.joins > 0 ? "∞" : "0";
+				const joinToUniqueRatio = totals.unique_users > 0 ? (totals.joins / totals.unique_users).toFixed(2) : totals.joins > 0 ? "∞" : "0";
+				const leaveToUniqueRatio = totals.unique_users > 0 ? (totals.leaves / totals.unique_users).toFixed(2) : totals.leaves > 0 ? "∞" : "0";
+				const netGrowth = totals.joins - totals.leaves;
+				const averageJoinsPerDay = period === "today" ? totals.joins : (totals.joins / data.length).toFixed(2);
+				const averageLeavesPerDay = period === "today" ? totals.leaves : (totals.leaves / data.length).toFixed(2);
+				const averageUniqueUsersPerDay = period === "today" ? totals.unique_users : (totals.unique_users / data.length).toFixed(2);
+
+				return {
+					period,
+					total_joins: totals.joins,
+					total_leaves: totals.leaves,
+					total_unique_users: totals.unique_users,
+					net_growth: netGrowth,
+					join_to_leave_ratio: joinToLeaveRatio,
+					join_to_unique_ratio: joinToUniqueRatio,
+					leave_to_unique_ratio: leaveToUniqueRatio,
+					average_joins_per_day: averageJoinsPerDay,
+					average_leaves_per_day: averageLeavesPerDay,
+					average_unique_users_per_day: averageUniqueUsersPerDay,
+					retention_rate: totals.joins > 0 ? (((totals.joins - totals.leaves) / totals.joins) * 100).toFixed(2) + "%" : "0%"
+				};
+			};
+
+			// Create general data array
+			const generalData = [
+				calculateGeneralStats(hourData, "today"),
+				calculateGeneralStats(weekData, "week"),
+				calculateGeneralStats(fourWeekData, "month")
+			];
+
+			// Get all-time hourly stats (aggregated across all days)
+			const allHourlyStats = await pb
+				.collection(hourly_stats_collection)
+				.getFullList({
+					filter: `guildID = "${guild.id}"`,
+					sort: "hour",
+				});
+
+			// Create hourly totals array for shadcn chart (aggregated across all days)
+			const hourlyTotals = [];
+			for (let i = 0; i < 24; i++) {
+				const hourString = i.toString().padStart(2, "0");
+				
+				// Sum all stats for this hour across all days
+				const hourStats = allHourlyStats.filter(stat => stat.hour === hourString);
+				const hourTotal = hourStats.reduce(
+					(acc, stat) => ({
+						joins: acc.joins + (Number(stat.joins) || 0),
+						leaves: acc.leaves + (Number(stat.leaves) || 0),
+						unique_users: acc.unique_users + (Number(stat.unique_users) || 0),
+					}),
+					{ joins: 0, leaves: 0, unique_users: 0 }
+				);
+
+				hourlyTotals.push({
+					hour: `${hourString}:00`,
+					joins: hourTotal.joins,
+					leaves: hourTotal.leaves,
+					unique_users: hourTotal.unique_users,
+					net: hourTotal.joins - hourTotal.leaves
+				});
+			}
+
 			const finalData = [];
 			finalData.push({
 				HourData: hourData,
 				WeekData: weekData,
 				FourWeekData: fourWeekData,
+				GeneralData: generalData,
+				HourlyTotals: hourlyTotals
 			});
 
 			return Response.json({ finalData });
