@@ -1,8 +1,29 @@
-import { Activity } from "lucide-react";
+import { Activity, Eclipse, Moon, Sun, UsersRound } from "lucide-react";
+
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Sun, Eclipse, Moon, UsersRound, UserPlus, UserMinus } from "lucide-react";
 
+const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
+  <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
+    <Icon className="h-4 w-4 text-white" />
+    <div className="flex-1">
+      <div className="text-xs text-white/60">{label}</div>
+      <div
+        className={`font-semibold ${
+          isNetGrowth
+            ? value.toString().startsWith("+")
+              ? "text-green-400"
+              : value.toString().startsWith("-")
+              ? "text-red-400"
+              : "text-white"
+            : "text-white"
+        }`}
+      >
+        {value}
+      </div>
+    </div>
+  </div>
+);
 
 export default function GeneralActivityData({ chartData }) {
   if (!chartData) {
@@ -27,28 +48,6 @@ export default function GeneralActivityData({ chartData }) {
   try {
     const ArrayChartData = Array(chartData)[0];
     console.log(ArrayChartData);
-
-    const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
-      <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
-        <Icon className="h-4 w-4 text-white" />
-        <div className="flex-1">
-          <div className="text-xs text-white/60">{label}</div>
-          <div
-            className={`font-semibold ${
-              isNetGrowth
-                ? value.toString().startsWith("+")
-                  ? "text-green-400"
-                  : value.toString().startsWith("-")
-                  ? "text-red-400"
-                  : "text-white"
-                : "text-white"
-            }`}
-          >
-            {value}
-          </div>
-        </div>
-      </div>
-    );
 
     return (
       <>
@@ -84,10 +83,7 @@ export default function GeneralActivityData({ chartData }) {
               label="Offline Members"
               value={ArrayChartData[0].offline}
             />
-            
           </div>
-
-          
         </Card>
       </>
     );

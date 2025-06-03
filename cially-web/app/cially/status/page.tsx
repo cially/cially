@@ -123,22 +123,23 @@ export default function Status() {
               <CardHeader className="pb-2">
                 <div className="flex items-center">
                   <div className="bg-purple-100 dark:bg-purple-900 p-2 rounded-lg mr-3">
-					
                     <Antenna className="w-5 h-5 text-purple-600 dark:text-purple-400" />
                   </div>
                   <div>
-                    <CardTitle className="text-lg">
-                      Discord API
-					  
-                    </CardTitle>
-                    <CardDescription>Real-time status pulled directly from the official Discord Status API</CardDescription>
+                    <CardTitle className="text-lg">Discord API</CardTitle>
+                    <CardDescription>
+                      Real-time status pulled directly from the official Discord
+                      Status API
+                    </CardDescription>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="mt-2">
                   <Badge
-                    variant={discordStatus === "online" ? "success" : "destructive"}
+                    variant={
+                      discordStatus === "online" ? "success" : "destructive"
+                    }
                     className={
                       discordStatus === "online"
                         ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"

@@ -5,16 +5,13 @@ const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 
 const guild_collection_name = process.env.GUILDS_COLLECTION;
-const hourly_stats_collection = "hourly_stats"; // New collection name
+const hourly_stats_collection = "hourly_stats";
 
 // Main GET Event
 export async function GET(
 	request: Request,
 	{ params }: { params: Promise<{ id: string }> },
 ) {
-	const fourWeeksAgoDate = new Date(Date.now() - 21 * 24 * 60 * 60 * 1000);
-	const fourWeeksAgoDate_formatted = `${fourWeeksAgoDate.getUTCFullYear()}-${(fourWeeksAgoDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${fourWeeksAgoDate.getUTCDate().toString().padStart(2, "0")}`;
-
 	const { id } = await params;
 
 	try {
@@ -34,7 +31,6 @@ export async function GET(
 					sort: "hour",
 				});
 
-			// Transform hourly stats to match expected format and ensure all 24 hours are represented
 			const hourData = [];
 			for (let i = 0; i < 24; i++) {
 				const hourString = i.toString().padStart(2, "0");
@@ -50,32 +46,20 @@ export async function GET(
 				});
 			}
 
-			// Get weekly data (last 7 days including today)
-			let weekData = [];
+			const weekData = [];
 			const today = new Date();
 
-			// Get data for the last 7 days (6 days ago to today)
 			for (let i = 6; i >= 0; i--) {
 				const currentDate = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
 				const currentDate_formatted = `${currentDate.getUTCFullYear()}-${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 				const displayDate = `${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 
-				console.log(
-					`Searching for guild ${guild.id} on date ${currentDate_formatted}`,
-				);
-
-				// Get hourly stats for this day - FIXED FILTER
 				const dayStats = await pb
 					.collection(hourly_stats_collection)
 					.getFullList({
 						filter: `guildID = "${guild.id}" && date = "${currentDate_formatted}"`,
 					});
 
-				console.log(
-					`Found ${dayStats.length} records for ${currentDate_formatted}`,
-				);
-
-				// Sum up the day's statistics
 				const dayTotal = dayStats.reduce(
 					(acc, stat) => ({
 						joins: acc.joins + (Number(stat.joins) || 0),
@@ -83,7 +67,7 @@ export async function GET(
 						unique_users: Math.max(
 							acc.unique_users,
 							Number(stat.unique_users) || 0,
-						), // Take max for unique users
+						),
 					}),
 					{ joins: 0, leaves: 0, unique_users: 0 },
 				);
@@ -96,7 +80,6 @@ export async function GET(
 				});
 			}
 
-			// Get four week data (last 22 days, grouped by weeks)
 			let fourWeekData = [];
 			let w = 0;
 
@@ -111,14 +94,12 @@ export async function GET(
 				const endingDate = new Date(Date.now() - (7 + w) * 24 * 60 * 60 * 1000);
 				const endingDate_formatted = `${endingDate.getUTCFullYear()}-${(endingDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${endingDate.getUTCDate().toString().padStart(2, "0")}`;
 
-				// Get stats for the week range - FIXED FILTER
 				const weekStats = await pb
 					.collection(hourly_stats_collection)
 					.getFullList({
 						filter: `guildID = "${guild.id}" && date >= "${endingDate_formatted}" && date <= "${startingDate_formatted}"`,
 					});
 
-				// Sum up the week's statistics
 				const weekTotal = weekStats.reduce(
 					(acc, stat) => ({
 						joins: acc.joins + (Number(stat.joins) || 0),
@@ -149,7 +130,6 @@ export async function GET(
 			}
 			fourWeekData = fourWeekData.toReversed();
 
-			// Calculate general statistics
 			const calculateGeneralStats = (data, period) => {
 				const totals = data.reduce(
 					(acc, item) => ({
@@ -157,16 +137,40 @@ export async function GET(
 						leaves: acc.leaves + item.leaves,
 						unique_users: acc.unique_users + item.unique_users,
 					}),
-					{ joins: 0, leaves: 0, unique_users: 0 }
+					{ joins: 0, leaves: 0, unique_users: 0 },
 				);
 
-				const joinToLeaveRatio = totals.leaves > 0 ? (totals.joins / totals.leaves).toFixed(2) : totals.joins > 0 ? "∞" : "0";
-				const joinToUniqueRatio = totals.unique_users > 0 ? (totals.joins / totals.unique_users).toFixed(2) : totals.joins > 0 ? "∞" : "0";
-				const leaveToUniqueRatio = totals.unique_users > 0 ? (totals.leaves / totals.unique_users).toFixed(2) : totals.leaves > 0 ? "∞" : "0";
+				const joinToLeaveRatio =
+					totals.leaves > 0
+						? (totals.joins / totals.leaves).toFixed(2)
+						: totals.joins > 0
+							? "∞"
+							: "0";
+				const joinToUniqueRatio =
+					totals.unique_users > 0
+						? (totals.joins / totals.unique_users).toFixed(2)
+						: totals.joins > 0
+							? "∞"
+							: "0";
+				const leaveToUniqueRatio =
+					totals.unique_users > 0
+						? (totals.leaves / totals.unique_users).toFixed(2)
+						: totals.leaves > 0
+							? "∞"
+							: "0";
 				const netGrowth = totals.joins - totals.leaves;
-				const averageJoinsPerDay = period === "today" ? totals.joins : (totals.joins / data.length).toFixed(2);
-				const averageLeavesPerDay = period === "today" ? totals.leaves : (totals.leaves / data.length).toFixed(2);
-				const averageUniqueUsersPerDay = period === "today" ? totals.unique_users : (totals.unique_users / data.length).toFixed(2);
+				const averageJoinsPerDay =
+					period === "today"
+						? totals.joins
+						: (totals.joins / data.length).toFixed(2);
+				const averageLeavesPerDay =
+					period === "today"
+						? totals.leaves
+						: (totals.leaves / data.length).toFixed(2);
+				const averageUniqueUsersPerDay =
+					period === "today"
+						? totals.unique_users
+						: (totals.unique_users / data.length).toFixed(2);
 
 				return {
 					period,
@@ -180,18 +184,21 @@ export async function GET(
 					average_joins_per_day: averageJoinsPerDay,
 					average_leaves_per_day: averageLeavesPerDay,
 					average_unique_users_per_day: averageUniqueUsersPerDay,
-					retention_rate: totals.joins > 0 ? (((totals.joins - totals.leaves) / totals.joins) * 100).toFixed(2) + "%" : "0%"
+					retention_rate:
+						totals.joins > 0
+							? `${(
+									((totals.joins - totals.leaves) / totals.joins) * 100
+								).toFixed(2)}%`
+							: "0%",
 				};
 			};
 
-			// Create general data array
 			const generalData = [
 				calculateGeneralStats(hourData, "today"),
 				calculateGeneralStats(weekData, "week"),
-				calculateGeneralStats(fourWeekData, "month")
+				calculateGeneralStats(fourWeekData, "month"),
 			];
 
-			// Get all-time hourly stats (aggregated across all days)
 			const allHourlyStats = await pb
 				.collection(hourly_stats_collection)
 				.getFullList({
@@ -199,20 +206,20 @@ export async function GET(
 					sort: "hour",
 				});
 
-			// Create hourly totals array for shadcn chart (aggregated across all days)
 			const hourlyTotals = [];
 			for (let i = 0; i < 24; i++) {
 				const hourString = i.toString().padStart(2, "0");
-				
-				// Sum all stats for this hour across all days
-				const hourStats = allHourlyStats.filter(stat => stat.hour === hourString);
+
+				const hourStats = allHourlyStats.filter(
+					(stat) => stat.hour === hourString,
+				);
 				const hourTotal = hourStats.reduce(
 					(acc, stat) => ({
 						joins: acc.joins + (Number(stat.joins) || 0),
 						leaves: acc.leaves + (Number(stat.leaves) || 0),
 						unique_users: acc.unique_users + (Number(stat.unique_users) || 0),
 					}),
-					{ joins: 0, leaves: 0, unique_users: 0 }
+					{ joins: 0, leaves: 0, unique_users: 0 },
 				);
 
 				hourlyTotals.push({
@@ -220,7 +227,7 @@ export async function GET(
 					joins: hourTotal.joins,
 					leaves: hourTotal.leaves,
 					unique_users: hourTotal.unique_users,
-					net: hourTotal.joins - hourTotal.leaves
+					net: hourTotal.joins - hourTotal.leaves,
 				});
 			}
 
@@ -230,7 +237,7 @@ export async function GET(
 				WeekData: weekData,
 				FourWeekData: fourWeekData,
 				GeneralData: generalData,
-				HourlyTotals: hourlyTotals
+				HourlyTotals: hourlyTotals,
 			});
 
 			return Response.json({ finalData });
@@ -245,7 +252,6 @@ export async function GET(
 			console.log(err);
 			return Response.json({ notFound });
 		}
-		// Handle other errors
 		const serverError = [{ errorCode: 500 }];
 		console.log(err);
 		return Response.json({ serverError });

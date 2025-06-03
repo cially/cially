@@ -144,16 +144,22 @@ export default function SettingsPage() {
         <Card className="mt-10 mx-3">
           <CardHeader>
             <CardTitle>
-              <Star className="inline w-5 mr-2 -translate-y-0.5" />{" "}
-              Github Repository
+              <Star className="inline w-5 mr-2 -translate-y-0.5" /> Github
+              Repository
             </CardTitle>
             <CardDescription>
-              Check Cially on Github for latest updates and changes! Leave a star if you like this project!
-			  <br />Feel free to open an issue if you experience any problems!
+              Check Cially on Github for latest updates and changes! Leave a
+              star if you like this project!
+              <br />
+              Feel free to open an issue if you experience any problems!
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <a href="https://github.com/cially/cially"><Button className="hover:cursor-pointer bg-gray-800 text-white hover:bg-gray-800/70 transition-all">Github Link</Button></a>
+            <a href="https://github.com/cially/cially">
+              <Button className="hover:cursor-pointer bg-gray-800 text-white hover:bg-gray-800/70 transition-all">
+                Github Link
+              </Button>
+            </a>
           </CardContent>
         </Card>
       </div>
