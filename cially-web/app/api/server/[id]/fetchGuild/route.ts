@@ -5,7 +5,6 @@ const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 
 const guild_collection_name = process.env.GUILDS_COLLECTION;
-const message_collection_name = process.env.MESSAGE_COLLECTION;
 
 // Main GET Event
 export async function GET(

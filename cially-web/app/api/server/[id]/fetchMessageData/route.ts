@@ -46,9 +46,6 @@ export async function GET(
 				hourData.push({
 					hour: hourString,
 					amount: Number(existingStat?.messages) || 0,
-					joins: Number(existingStat?.joins) || 0,
-					leaves: Number(existingStat?.leaves) || 0,
-					unique_users: Number(existingStat?.unique_users) || 0,
 				});
 			}
 
@@ -58,13 +55,13 @@ export async function GET(
 
 			// Get data for the last 7 days (6 days ago to today)
 			for (let i = 6; i >= 0; i--) {
-				const currentDate = new Date(
-					today.getTime() - i * 24 * 60 * 60 * 1000,
-				);
+				const currentDate = new Date(today.getTime() - i * 24 * 60 * 60 * 1000);
 				const currentDate_formatted = `${currentDate.getUTCFullYear()}-${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 				const displayDate = `${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 
-				console.log(`Searching for guild ${guild.id} on date ${currentDate_formatted}`);
+				console.log(
+					`Searching for guild ${guild.id} on date ${currentDate_formatted}`,
+				);
 
 				// Get hourly stats for this day - FIXED FILTER
 				const dayStats = await pb
@@ -73,28 +70,21 @@ export async function GET(
 						filter: `guildID = "${guild.id}" && date = "${currentDate_formatted}"`,
 					});
 
-				console.log(`Found ${dayStats.length} records for ${currentDate_formatted}`);
+				console.log(
+					`Found ${dayStats.length} records for ${currentDate_formatted}`,
+				);
 
 				// Sum up the day's statistics
 				const dayTotal = dayStats.reduce(
 					(acc, stat) => ({
 						messages: acc.messages + (Number(stat.messages) || 0),
-						joins: acc.joins + (Number(stat.joins) || 0),
-						leaves: acc.leaves + (Number(stat.leaves) || 0),
-						unique_users: Math.max(
-							acc.unique_users,
-							Number(stat.unique_users) || 0,
-						), // Take max for unique users
 					}),
-					{ messages: 0, joins: 0, leaves: 0, unique_users: 0 },
+					{ messages: 0 },
 				);
 
 				weekData.push({
 					date: displayDate,
 					amount: dayTotal.messages,
-					joins: dayTotal.joins,
-					leaves: dayTotal.leaves,
-					unique_users: dayTotal.unique_users,
 				});
 			}
 
@@ -124,14 +114,8 @@ export async function GET(
 				const weekTotal = weekStats.reduce(
 					(acc, stat) => ({
 						messages: acc.messages + (Number(stat.messages) || 0),
-						joins: acc.joins + (Number(stat.joins) || 0),
-						leaves: acc.leaves + (Number(stat.leaves) || 0),
-						unique_users: Math.max(
-							acc.unique_users,
-							Number(stat.unique_users) || 0,
-						),
 					}),
-					{ messages: 0, joins: 0, leaves: 0, unique_users: 0 },
+					{ messages: 0 },
 				);
 
 				fourWeekData.push({
@@ -145,14 +129,11 @@ export async function GET(
 						endingDate_ms: endingDate.getTime(),
 					},
 					amount: weekTotal.messages,
-					joins: weekTotal.joins,
-					leaves: weekTotal.leaves,
-					unique_users: weekTotal.unique_users,
 				});
 				w = w + 7;
 			}
 			fourWeekData = fourWeekData.toReversed();
-			
+
 			const totalMessages = await pb
 				.collection("hourly_stats")
 				.getFullList({
