@@ -26,6 +26,7 @@ import { Suspense, useState } from "react";
 import DynamicUserCard from "./_components/dynamic-usercard";
 import ErrorUserCard from "./_components/error-usercard";
 import StaticUserCard from "./_components/static-usercard";
+import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
 
 export default function UserSearchPage() {
 	return (
@@ -69,6 +70,7 @@ function ClientComponent() {
 				</div>
 				<hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
+
 				<div className="mx-5 mt-5">
 					<Form {...form}>
 						<form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
@@ -103,6 +105,8 @@ function ClientComponent() {
 						</form>
 					</Form>
 				</div>
+				<ScrapeNotification />
+
 			</>
 		);
 	}

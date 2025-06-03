@@ -2,15 +2,17 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { TotalStatsGraph } from "./_components/_message-charts/total_stats_graph";
+
 import GuildNotFound from "@/app/_components/_events/guildNotFound";
+import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
+
 import GeneralMessageDataCard from "./_components/_message-charts/general_data";
 import Last4Weeks from "./_components/_message-charts/last_4weeks";
 import Last7d from "./_components/_message-charts/last_7d";
 import Last24h from "./_components/_message-charts/last_24hrs";
-import ImportDialogCard from "./_components/_message-charts/importDialog";
-import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
 
-export default function MessagesActivityPage() {
+export default function GrowthPage() {
 	return (
 		<Suspense>
 			<ClientComponent />
@@ -26,7 +28,7 @@ function ClientComponent() {
 	useEffect(() => {
 		async function fetchData() {
 			const chartDataReceived = await fetch(
-				`/api/server/${guildID}/fetchMessageData`,
+				`/api/server/${guildID}/fetchGrowthData`,
 			);
 			const json = await chartDataReceived.json();
 			setChartData(json);
@@ -40,7 +42,7 @@ function ClientComponent() {
 	if (!chartData.finalData) {
 		return (
 			<>
-				<div className="mt-10 ml-10 text-2xl">Messages Analytics</div>
+				<div className="mt-10 ml-10 text-2xl">Growth Analytics</div>
 				<hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
 				<div className="mt-10 grid max-w-100 grid-rows-3 gap-y-4 sm:mx-5 sm:max-w-full sm:grid-cols-3 sm:grid-rows-none sm:gap-x-3 sm:gap-y-0">
@@ -64,10 +66,10 @@ function ClientComponent() {
 	const data_7d = chartData.finalData[0].WeekData;
 	const data_4w = chartData.finalData[0].FourWeekData;
 	const data_general = chartData.finalData[0].GeneralData;
-	console.log(data_7d);
+	const data_hourly = chartData.finalData[0].HourlyTotals;
 	return (
 		<>
-			<div className="mt-10 ml-10 text-2xl">Messages Analytics</div>
+			<div className="mt-10 ml-10 text-2xl">Growth Analytics</div>
 			<hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
 			<ScrapeNotification />
@@ -78,9 +80,12 @@ function ClientComponent() {
 				<Last4Weeks chartData={data_4w} />
 			</div>
 
+			<div className="sm:ml-5 sm:mr-5 mt-5">
+				<TotalStatsGraph chartData={data_hourly} />
+			</div>
+
 			<div className="sm:ml-5 sm:mr-5">
-				<GeneralMessageDataCard chartData={data_general} />
-				<ImportDialogCard guildID={guildID} />
+				<GeneralMessageDataCard generalData={data_general} />
 			</div>
 
 			<div className="mt-5 pb-5 text-center text-gray-600 text-xs">

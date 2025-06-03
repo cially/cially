@@ -8,6 +8,7 @@ import {
 	Inbox,
 	SatelliteDish,
 	UserSearch,
+	Smile
 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
@@ -52,6 +53,11 @@ function ClientComponent({ isGuild }) {
 		{
 			title: "Activity",
 			url: `/dashboard/activity?guildID=${guildID}`,
+			icon: Smile,
+		},
+		{
+			title: "Growth",
+			url: `/dashboard/growth?guildID=${guildID}`,
 			icon: ChartLine,
 		},
 		{
