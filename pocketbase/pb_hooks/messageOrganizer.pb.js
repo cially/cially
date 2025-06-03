@@ -133,7 +133,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
 		console.log("Error in message organizer:", err);
 	}
 
-	// Joins Organizer
+	// Combined Members and Joins Organizer
 	try {
 		const records = $app.findRecordsByFilter(
 			"member_joins", // collection
@@ -150,8 +150,9 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
 				const date = creationDate.slice(0, 10);
 				const hour = creationDate.slice(11, 13);
 				const guildID = recordJSON.guildID;
+				const isUnique = recordJSON.unique === true;
 
-				// Hourly Stats Format
+				// Find or create hourly stats record
 				const timeRecords = $app.findRecordsByFilter(
 					"hourly_stats", // collection
 					`guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
@@ -160,29 +161,52 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
 					0, // offset
 				);
 
+				let timeRecord;
+				let timeRecordJSON;
+
 				if (timeRecords.length > 0) {
-					const timeRecord = timeRecords[0];
-					const timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
-
-					timeRecord.set("joins", Number(timeRecordJSON.joins) + 1);
-					$app.save(timeRecord);
+					timeRecord = timeRecords[0];
+					timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
 				} else {
+					// Create new hourly stats record
 					const hour_collection = $app.findCollectionByNameOrId("hourly_stats");
-					const newHourRecord = new Record(hour_collection);
+					timeRecord = new Record(hour_collection);
 
-					newHourRecord.set("guildID", guildID);
-					newHourRecord.set("hour", hour);
-					newHourRecord.set("date", date);
-					newHourRecord.set("messages", 0);
-					newHourRecord.set("joins", 1);
+					timeRecord.set("guildID", guildID);
+					timeRecord.set("hour", hour);
+					timeRecord.set("date", date);
+					timeRecord.set("messages", 0);
+					timeRecord.set("joins", 0);
+					timeRecord.set("unique_users", 0);
 
-					$app.save(newHourRecord);
+					timeRecordJSON = {
+						joins: 0,
+						unique_users: 0,
+					};
 				}
+
+				// Update joins count for all records
+				timeRecord.set("joins", Number(timeRecordJSON.joins || 0) + 1);
+
+				// Update unique users count only if this is a unique join
+				if (isUnique) {
+					timeRecord.set(
+						"unique_users",
+						Number(timeRecordJSON.unique_users || 0) + 1,
+					);
+				}
+
+				$app.save(timeRecord);
+
+				// Mark record as logged
 				record.set("logged", true);
 				$app.save(record);
-				console.log(`Succesfully processed join record: ${record.id}`)
+
+				console.log(
+					`Successfully processed join record: ${record.id} (unique: ${isUnique})`,
+				);
 			}
-			console.log(`====== Joins Job Finished ======`);
+			console.log(`====== Combined Members and Joins Job Finished ======`);
 		}
 	} catch (err) {
 		console.log("Error in joins organizer:", err);
@@ -235,66 +259,11 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
 				}
 				record.set("logged", true);
 				$app.save(record);
-				console.log(`Succesfully processed leave record: ${record.id}`)
+				console.log(`Succesfully processed leave record: ${record.id}`);
 			}
 			console.log(`====== Leave Job Finished ======`);
 		}
 	} catch (err) {
 		console.log("Error in leaves organizer:", err);
-	}
-
-	// Unique Members Organizer
-	try {
-		const records = $app.findRecordsByFilter(
-			"member_joins", // collection
-			"guildID != '' && memberID != '' && logged = false && unique = true", // filter
-			"-memberID", // sort
-			1000, // limit
-			0, // offset
-		); // optional filter params
-
-		if (records.length > 0) {
-			for (const record of records) {
-				const recordJSON = JSON.parse(JSON.stringify(record));
-				const creationDate = String(recordJSON.created);
-				const date = creationDate.slice(0, 10);
-				const hour = creationDate.slice(11, 13);
-				const guildID = recordJSON.guildID;
-
-				// Hourly Stats Format
-				const timeRecords = $app.findRecordsByFilter(
-					"hourly_stats", // collection
-					`guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
-					"-hour", // sort
-					1, // limit
-					0, // offset
-				);
-
-				if (timeRecords.length > 0) {
-					const timeRecord = timeRecords[0];
-					const timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
-
-					timeRecord.set("unique_users", Number(timeRecordJSON.unique_users) + 1);
-					$app.save(timeRecord);
-				} else {
-					const hour_collection = $app.findCollectionByNameOrId("hourly_stats");
-					const newHourRecord = new Record(hour_collection);
-
-					newHourRecord.set("guildID", guildID);
-					newHourRecord.set("hour", hour);
-					newHourRecord.set("date", date);
-					newHourRecord.set("messages", 0);
-					newHourRecord.set("unique_users", 1);
-
-					$app.save(newHourRecord);
-				}
-				record.set("logged", true);
-				$app.save(record);
-				console.log(`Succesfully processed join record: ${record.id}`)
-			}
-			console.log(`====== Unique Members Job Finished ======`);
-		}
-	} catch (err) {
-		console.log("Error in unique members organizer:", err);
 	}
 });
