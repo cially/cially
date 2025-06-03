@@ -35,7 +35,7 @@ export default function GeneralMessageDataCard({ chartData }) {
 	if (!chartData) {
 		return (
 			<>
-				<Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
+				<Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
 					<div>
 						<div className="text-xl font-semibold">
 							<Activity className="inline mr-2" />
@@ -68,7 +68,7 @@ export default function GeneralMessageDataCard({ chartData }) {
 						</div>
 					</div>
 
-					<div className="gridgrid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4 ">
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4 ">
 						<StatCard
 							icon={MessageCircle}
 							label="Total Messages"
