@@ -8,6 +8,7 @@ import Last4Weeks from "./_components/_message-charts/last_4weeks";
 import Last7d from "./_components/_message-charts/last_7d";
 import Last24h from "./_components/_message-charts/last_24hrs";
 import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
+import { TotalStatsGraph } from "./_components/_message-charts/total_stats_graph";
 
 export default function GrowthPage() {
   return (
@@ -63,7 +64,7 @@ function ClientComponent() {
   const data_7d = chartData.finalData[0].WeekData;
   const data_4w = chartData.finalData[0].FourWeekData;
   const data_general = chartData.finalData[0].GeneralData;
-  console.log(data_7d)
+  const data_hourly = chartData.finalData[0].HourlyTotals;
   return (
     <>
       <div className="mt-10 ml-10 text-2xl">Growth Analytics</div>
@@ -77,8 +78,12 @@ function ClientComponent() {
         <Last4Weeks chartData={data_4w} />
       </div>
 
+      <div className="sm:ml-5 sm:mr-5 mt-5">
+        <TotalStatsGraph chartData={data_hourly} />
+      </div>
+
       <div className="sm:ml-5 sm:mr-5">
-        <GeneralMessageDataCard chartData={data_general} />
+        <GeneralMessageDataCard generalData={data_general} />
       </div>
 
       <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
