@@ -1,7 +1,7 @@
 import { Activity } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TrendingUp, TrendingDown, Users, UserPlus, UserMinus } from "lucide-react";
+import { Sun, Eclipse, Moon, UsersRound, UserPlus, UserMinus } from "lucide-react";
 
 
 export default function GeneralActivityData({ chartData }) {
@@ -65,22 +65,22 @@ export default function GeneralActivityData({ chartData }) {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
             <StatCard
-              icon={UserPlus}
+              icon={UsersRound}
               label="Total Members"
               value={ArrayChartData[0].total}
             />
             <StatCard
-              icon={UserMinus}
+              icon={Sun}
               label="Online Members"
               value={ArrayChartData[0].online}
             />
             <StatCard
-              icon={Users}
+              icon={Eclipse}
               label="Idle Members"
               value={ArrayChartData[0].idle}
             />
             <StatCard
-              icon={Activity}
+              icon={Moon}
               label="Offline Members"
               value={ArrayChartData[0].offline}
             />

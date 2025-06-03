@@ -1,4 +1,16 @@
-import { Activity, TrendingUp, TrendingDown, Users, UserPlus, UserMinus, Columns, Columns2, Columns3, LandPlot, EqualApproximately } from "lucide-react";
+import {
+  Activity,
+  TrendingUp,
+  TrendingDown,
+  Users,
+  UserPlus,
+  UserMinus,
+  Columns,
+  Columns2,
+  Columns3,
+  LandPlot,
+  EqualApproximately,
+} from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -24,20 +36,26 @@ export default function GeneralMessageDataCard({ generalData }) {
   }
 
   try {
-    const todayData = generalData.find(data => data.period === "today");
-    const weekData = generalData.find(data => data.period === "week");
-    const monthData = generalData.find(data => data.period === "month");
+    const todayData = generalData.find((data) => data.period === "today");
+    const weekData = generalData.find((data) => data.period === "week");
+    const monthData = generalData.find((data) => data.period === "month");
 
     const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
       <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
         <Icon className="h-4 w-4 text-white" />
         <div className="flex-1">
           <div className="text-xs text-white/60">{label}</div>
-          <div className={`font-semibold ${
-            isNetGrowth 
-              ? (value.toString().startsWith('+') ? 'text-green-400' : value.toString().startsWith('-') ? 'text-red-400' : 'text-white')
-              : 'text-white'
-          }`}>
+          <div
+            className={`font-semibold ${
+              isNetGrowth
+                ? value.toString().startsWith("+")
+                  ? "text-green-400"
+                  : value.toString().startsWith("-")
+                  ? "text-red-400"
+                  : "text-white"
+                : "text-white"
+            }`}
+          >
             {value}
           </div>
         </div>
@@ -45,53 +63,57 @@ export default function GeneralMessageDataCard({ generalData }) {
     );
 
     const PeriodContent = ({ data }) => (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-        <StatCard 
-          icon={UserPlus} 
-          label="Total Joins" 
+      <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+        <StatCard
+          icon={UserPlus}
+          label="Total Joins"
           value={data.total_joins.toLocaleString()}
         />
-        <StatCard 
-          icon={UserMinus} 
-          label="Total Leaves" 
+        <StatCard
+          icon={UserMinus}
+          label="Total Leaves"
           value={data.total_leaves.toLocaleString()}
         />
-        <StatCard 
-          icon={Users} 
-          label="Unique Users" 
+        <StatCard
+          icon={Users}
+          label="Unique Users"
           value={data.total_unique_users.toLocaleString()}
         />
-        <StatCard 
-          icon={data.net_growth >= 0 ? TrendingUp : TrendingDown} 
-          label="Growth" 
-          value={`${data.net_growth >= 0 ? '+' : ''}${data.net_growth.toLocaleString()}`}
+        <StatCard
+          icon={data.net_growth >= 0 ? TrendingUp : TrendingDown}
+          label="Growth"
+          value={`${
+            data.net_growth >= 0 ? "+" : ""
+          }${data.net_growth.toLocaleString()}`}
           isNetGrowth={true}
         />
-        <StatCard 
-          icon={EqualApproximately} 
-          label="Join/Leave Ratio" 
+        <StatCard
+          icon={EqualApproximately}
+          label="Join/Leave Ratio"
           value={data.join_to_leave_ratio}
         />
-        <StatCard 
-          icon={LandPlot} 
-          label="Retention Rate" 
+        <StatCard
+          icon={LandPlot}
+          label="Retention Rate"
           value={data.retention_rate}
         />
-        <StatCard 
-          icon={Activity} 
-          label="Avg Joins/Day" 
+        <StatCard
+          icon={Activity}
+          label="Avg Joins/Day"
           value={data.average_joins_per_day}
         />
-        <StatCard 
-          icon={Activity} 
-          label="Avg Leaves/Day" 
+        <StatCard
+          icon={Activity}
+          label="Avg Leaves/Day"
           value={data.average_leaves_per_day}
         />
-        <StatCard 
-          icon={Activity} 
-          label="Join/User Ratio" 
-          value={data.join_to_unique_ratio}
-        />
+        <div className="col-span-2 sm:col-span-1"> 
+          <StatCard
+            icon={Activity}
+            label="Join/User Ratio"
+            value={data.join_to_unique_ratio}
+          />
+        </div>
       </div>
     );
 
@@ -107,7 +129,7 @@ export default function GeneralMessageDataCard({ generalData }) {
               More insights regarding user activity and engagement
             </div>
           </div>
-          
+
           <Tabs defaultValue="today" className="w-full">
             <TabsList className="grid w-full grid-cols-3 mb-6">
               <TabsTrigger value="today" className="flex items-center gap-2">
@@ -123,24 +145,30 @@ export default function GeneralMessageDataCard({ generalData }) {
                 Month
               </TabsTrigger>
             </TabsList>
-            
+
             {todayData && (
               <TabsContent value="today" className="space-y-4">
-                <div className="text-lg font-medium text-white/90">Today's Activity</div>
+                <div className="text-lg font-medium text-white/90">
+                  Today's Activity
+                </div>
                 <PeriodContent data={todayData} />
               </TabsContent>
             )}
-            
+
             {weekData && (
               <TabsContent value="week" className="space-y-4">
-                <div className="text-lg font-medium text-white/90">Weekly Summary</div>
+                <div className="text-lg font-medium text-white/90">
+                  Weekly Summary
+                </div>
                 <PeriodContent data={weekData} />
               </TabsContent>
             )}
-            
+
             {monthData && (
               <TabsContent value="month" className="space-y-4">
-                <div className="text-lg font-medium text-white/90">Monthly Overview</div>
+                <div className="text-lg font-medium text-white/90">
+                  Monthly Overview
+                </div>
                 <PeriodContent data={monthData} />
               </TabsContent>
             )}
@@ -162,7 +190,9 @@ export default function GeneralMessageDataCard({ generalData }) {
               More insights regarding user activity and engagement
             </div>
           </div>
-          <div className="text-center py-8 text-white/60">Not enough data available</div>
+          <div className="text-center py-8 text-white/60">
+            Not enough data available
+          </div>
         </Card>
       </>
     );

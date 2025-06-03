@@ -1,7 +1,7 @@
 import { Activity } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TrendingUp, TrendingDown, Users, UserPlus, UserMinus } from "lucide-react";
+import { TrendingUp, MessageCircle, SquarePen, Camera, Trash2 } from "lucide-react";
 
 
 export default function GeneralMessageDataCard({ chartData }) {
@@ -63,24 +63,24 @@ export default function GeneralMessageDataCard({ chartData }) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
+          <div className="gridgrid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4 ">
             <StatCard
-              icon={UserPlus}
+              icon={MessageCircle}
               label="Total Messages"
               value={ArrayChartData[0].total_messages}
             />
             <StatCard
-              icon={UserMinus}
+              icon={Camera}
               label="Total Media"
               value={ArrayChartData[0].total_attachments}
             />
             <StatCard
-              icon={Users}
+              icon={Trash2}
               label="Message Deletions"
               value={ArrayChartData[0].message_deletions}
             />
             <StatCard
-              icon={Activity}
+              icon={SquarePen}
               label="Message Edits"
               value={ArrayChartData[0].message_edits}
             />
