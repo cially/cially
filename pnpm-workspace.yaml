@@ -1,10 +1,9 @@
 packages:
   - cially-bot
   - cially-web
-
+injectWorkspacePackages: true
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - sharp
 syncInjectedDepsAfterScripts:
   - build
-injectWorkspacePackages: true
-
-onlyBuiltDependencies:
-  - sharp
