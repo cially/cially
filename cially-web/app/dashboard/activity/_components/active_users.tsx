@@ -35,7 +35,7 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export default function ActiveUsers({ chartData }) {
+export default function ActiveUsers({ chartData }: {chartData: {author: string, amount: number}[]}) {
 	if (!chartData) {
 		return (
 			<>
@@ -118,7 +118,7 @@ export default function ActiveUsers({ chartData }) {
 				</CardFooter>
 			</Card>
 		);
-	} catch (err) {
+	} catch (_err) {
 		return (
 			<Card className="h-full w-full flex flex-col ">
 				<CardHeader>

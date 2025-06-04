@@ -6,9 +6,11 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
-export default function MessagesBlock({ guild }) {
-	// let correct_msg_difference = (guild.msg_day_difference > 0) ? `+${guild.msg_day_difference} messages than yesterday`
-
+export default function MessagesBlock({
+	guild,
+}: {
+	guild: { today_msg: number; msg_day_difference: number };
+}) {
 	return (
 		<>
 			<Card className="">

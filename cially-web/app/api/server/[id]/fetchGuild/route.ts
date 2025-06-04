@@ -1,14 +1,11 @@
 import PocketBase from "pocketbase";
 
-// Pocketbase Initialization
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
+const guild_collection_name = "guilds";
 
-const guild_collection_name = process.env.GUILDS_COLLECTION;
-
-// Main GET Event
 export async function GET(
-	request: Request,
+	_request: Request,
 	{ params }: { params: Promise<{ id: string }> },
 ) {
 	const { id } = await params;
@@ -27,8 +24,6 @@ export async function GET(
 					.collection(guild_collection_name)
 					.getFirstListItem(`discordID='${id}'`, {});
 
-				
-
 				const today_msg_records = await pb
 					.collection("hourly_stats")
 					.getFullList({
@@ -36,10 +31,10 @@ export async function GET(
 						sort: "-date",
 					});
 
-				let today_msgs = 0
+				let today_msgs = 0;
 
 				for (const today_msg_record of today_msg_records) {
-					today_msgs = today_msgs + today_msg_record.messages
+					today_msgs = today_msgs + today_msg_record.messages;
 				}
 
 				const yesterday_msg_records = await pb
@@ -49,15 +44,13 @@ export async function GET(
 						sort: "-date",
 					});
 
-				let yesterday_msgs = 0
+				let yesterday_msgs = 0;
 
 				for (const yesterday_msg_record of yesterday_msg_records) {
-					yesterday_msgs = yesterday_msgs + yesterday_msg_record.messages
+					yesterday_msgs = yesterday_msgs + yesterday_msg_record.messages;
 				}
 
-				const msg_day_difference =
-					today_msgs - yesterday_msgs
-
+				const msg_day_difference = today_msgs - yesterday_msgs;
 
 				const guildFound = [
 					{
@@ -82,14 +75,14 @@ export async function GET(
 				return Response.json({ guildFound });
 			} catch (err) {
 				if (err.status === 400) {
-					console.log(err)
+					console.log(err);
 					const notFound = [{ errorCode: 404 }];
 					return Response.json({ notFound });
 				}
 			}
 		} else {
 			const notFound = [{ errorCode: 404 }];
-			
+
 			return Response.json({ notFound });
 		}
 	} catch (err) {

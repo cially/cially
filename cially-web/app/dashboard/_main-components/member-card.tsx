@@ -6,7 +6,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
-export default function MemberBlock({ guild }) {
+export default function MemberBlock({ guild }: { guild: { members: number } }) {
 	return (
 		<>
 			<Card className="">
@@ -17,9 +17,7 @@ export default function MemberBlock({ guild }) {
 					</CardTitle>
 					<CardDescription className="text-2xl text-gray-300">
 						{guild.members}
-						<div className="mt-2 text-red-400 text-xs">
-							{/* -5 than yesterday */}
-						</div>
+						<div className="mt-2 text-red-400 text-xs"></div>
 					</CardDescription>
 				</CardHeader>
 			</Card>
