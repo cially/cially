@@ -1,24 +1,19 @@
 import PocketBase from "pocketbase";
 
-// Pocketbase Initialization
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 
-const guild_collection_name = process.env.GUILDS_COLLECTION;
+const guild_collection_name = "guilds";
 
-// Main GET Event
 export async function GET(
-	request: Request,
+	_request: Request,
 	{ params }: { params: Promise<{ id: string }> },
 ) {
 	const { id } = await params;
 	try {
 		const guild = await pb
-		.collection(guild_collection_name)
-		.getFirstListItem(`discordID='${id}'`, {});
-		
-		console.log(id)
-		console.log(guild.beingScraped);
+			.collection(guild_collection_name)
+			.getFirstListItem(`discordID='${id}'`, {});
 
 		if (guild.beingScraped === false) {
 			await fetch(`${process.env.NEXT_PUBLIC_BOT_API_URL}/serverScrape/${id}`);

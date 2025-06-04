@@ -24,7 +24,7 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export default function ActiveChannels({ chartData }) {
+export default function ActiveChannels({ chartData }: {chartData: {channel: string;}[]}) {
 	if (!chartData) {
 		return (
 			<>
@@ -76,7 +76,7 @@ export default function ActiveChannels({ chartData }) {
 				</CardFooter>
 			</Card>
 		);
-	} catch (err) {
+	} catch (_err) {
 		return (
 			<Card className="h-full w-full">
 				<CardHeader>

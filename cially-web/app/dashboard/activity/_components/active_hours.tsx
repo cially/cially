@@ -25,7 +25,11 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export default function ActiveHours({ chartData }) {
+export default function ActiveHours({
+	chartData,
+}: {
+	chartData: { hours: number; amount: number }[];
+}) {
 	if (!chartData) {
 		return (
 			<>
@@ -55,7 +59,7 @@ export default function ActiveHours({ chartData }) {
 					<ChartContainer
 						config={chartConfig}
 						className="w-full"
-						style={{ height: "300px" }} // Set explicit height
+						style={{ height: "300px" }} 
 					>
 						<BarChart
 							accessibilityLayer
@@ -66,7 +70,7 @@ export default function ActiveHours({ chartData }) {
 								left: 10,
 								right: 10,
 							}}
-							height={260} // Set explicit height for the BarChart
+							height={260} 
 						>
 							<CartesianGrid vertical={false} />
 							<XAxis
@@ -94,7 +98,7 @@ export default function ActiveHours({ chartData }) {
 				<CardFooter className="flex items-center justify-center gap-2 text-sm"></CardFooter>
 			</Card>
 		);
-	} catch (err) {
+	} catch (_err) {
 		return (
 			<Card className="h-full w-full">
 				<CardHeader>

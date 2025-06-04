@@ -1,10 +1,6 @@
 import fetch from "node-fetch";
 
-// Main GET Event
-export async function GET(
-	request: Request,
-	{ params }: { params: Promise<{ id: string }> },
-) {
+export async function GET() {
 	try {
 		const response = [];
 
@@ -20,10 +16,9 @@ export async function GET(
 		);
 
 		try {
-			const pocketbase_response = await fetch(
-				`${process.env.POCKETBASE_URL}/api/health`,
-				{ signal: controllerPocketbase.signal },
-			);
+			await fetch(`${process.env.POCKETBASE_URL}/api/health`, {
+				signal: controllerPocketbase.signal,
+			});
 			clearTimeout(timeoutIdPocketbase);
 			response.push({ pocketbase: "online" });
 		} catch (err) {
@@ -33,10 +28,9 @@ export async function GET(
 		}
 
 		try {
-			const bot_response = await fetch(
-				`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchGuilds`,
-				{ signal: controllerDiscordBot.signal },
-			);
+			await fetch(`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchGuilds`, {
+				signal: controllerDiscordBot.signal,
+			});
 			clearTimeout(timeoutIdDiscordBot);
 			response.push({ bot: "online" });
 		} catch (err) {
@@ -48,9 +42,10 @@ export async function GET(
 			const discord_response = await fetch(
 				"https://discordstatus.com/api/v2/components.json",
 			);
+
 			const data = await discord_response.json();
 
-			const API_Component = data.components.find((c) => c.name === "API");
+			const API_Component = data.components.find((c: JSON) => c.name === "API");
 			const API_Status = API_Component.status;
 			if (API_Status === "operational") {
 				response.push({ discord: "online" });
@@ -63,7 +58,7 @@ export async function GET(
 		}
 
 		return Response.json(response);
-	} catch (error) {
+	} catch (_error) {
 		const response = [];
 		response.push({ pocketbase: "offline" });
 		response.push({ bot: "offline" });
