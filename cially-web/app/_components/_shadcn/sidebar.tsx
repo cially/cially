@@ -7,9 +7,10 @@ import {
 	House,
 	Inbox,
 	SatelliteDish,
+	Smile,
 	UserSearch,
-	Smile
 } from "lucide-react";
+import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
@@ -25,7 +26,7 @@ import {
 	SidebarMenuItem,
 } from "@/components/ui/sidebar";
 
-export function AppSidebar({ isGuild }) {
+export function AppSidebar({ isGuild }: { isGuild: boolean }) {
 	return (
 		<Suspense>
 			<ClientComponent isGuild={isGuild} />
@@ -33,12 +34,11 @@ export function AppSidebar({ isGuild }) {
 	);
 }
 
-function ClientComponent({ isGuild }) {
+function ClientComponent({ isGuild }: { isGuild: boolean }) {
 	const searchParams = useSearchParams();
 
 	const guildID = searchParams ? searchParams.get("guildID") : "error";
 
-	// Analytics items
 	const items = [
 		{
 			title: "General",
@@ -89,9 +89,14 @@ function ClientComponent({ isGuild }) {
 		<Sidebar className="border border-white/0 sm:bg-white/3 sm:backdrop-blur-2xl">
 			<SidebarHeader>
 				<a href="/">
-					<img src="/logo-png.png" className="w-20 place-self-center"></img>
+					<Image
+						src="/logo-png.png"
+						className="w-20 place-self-center"
+						alt="logo"
+						width={500}
+						height={500}
+					/>
 				</a>
-				{/* <hr></hr> */}
 			</SidebarHeader>
 			<SidebarContent>
 				{isGuild ? (

@@ -3,6 +3,7 @@ export default function LoadingSVG() {
 		<>
 			<div className="mt-30 w-30 place-self-center">
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
+					<title>Loading</title>
 					<g fill="none" stroke="#ad023e" strokeWidth="2">
 						<circle cx="22" cy="22" r="19.5128">
 							<animate
@@ -65,6 +66,7 @@ export default function LoadingSVG() {
 							></animate>
 
 							<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44">
+								<title>Loading</title>
 								<g fill="none" stroke="#ad023e" strokeWidth="2">
 									<circle cx="22" cy="22" r="12.5575">
 										<animate
