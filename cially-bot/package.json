@@ -21,7 +21,7 @@
 		"dotenv": "^16.4.7",
 		"express": "^5.1.0",
 		"ky": "^1.7.5",
-		"multer": "^1.4.5-lts.2",
+		"multer": "^2.0.1",
 		"path": "^0.12.7",
 		"pocketbase": "^0.25.2",
 		"simple-get": "^4.0.1"
