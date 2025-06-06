@@ -26,6 +26,8 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 		brown: "bg-gr-brown",
 	}[theme.value];
 
+	
+
 	return (
 		<>
 			<html lang="en" suppressHydrationWarning>

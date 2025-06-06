@@ -49,9 +49,7 @@ export async function GET(
 				const currentDate_formatted = `${currentDate.getUTCFullYear()}-${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 				const displayDate = `${(currentDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${currentDate.getUTCDate().toString().padStart(2, "0")}`;
 
-				console.log(
-					`Searching for guild ${guild.id} on date ${currentDate_formatted}`,
-				);
+				
 
 				const dayStats = await pb
 					.collection(hourly_stats_collection)
