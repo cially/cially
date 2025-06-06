@@ -7,7 +7,25 @@ import {
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export default function BottomCard({ guild }) {
+export default function BottomCard({
+	guild,
+}: {
+	guild: {
+		creation_date: string;
+		available: string;
+		discord_partner: string;
+		description: string;
+		vanity_url: string;
+		vanity_uses: number;
+		icon_url: string;
+		owner_username: string;
+		name: string;
+		members: number;
+		channels: number;
+		roles: number;
+		bans: number;
+	};
+}) {
 	const correct_date =
 		guild.creation_date.slice(0, 4) +
 		"/" +

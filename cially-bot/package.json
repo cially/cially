@@ -17,16 +17,16 @@
 		"cfonts": "^3.3.0",
 		"colors": "^1.4.0",
 		"cron": "^4.3.1",
-		"discord-api-types": "^0.38.1",
+		"discord-api-types": "^0.38.10",
 		"discord.js": "^14.18.0",
-		"dotenv": "^16.4.7",
+		"dotenv": "^16.5.0",
 		"express": "^5.1.0",
-		"ky": "^1.7.5",
-		"multer": "^1.4.5-lts.2",
-		"pocketbase": "^0.25.2",
+		"ky": "^1.8.1",
+		"multer": "^2.0.0",
+		"pocketbase": "^0.26.0",
 		"simple-get": "^4.0.1"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "2.0.0-beta.5"
+		"@biomejs/biome": "2.0.0-beta.6"
 	}
 }

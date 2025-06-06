@@ -1,18 +1,15 @@
 import PocketBase from "pocketbase";
 
-// Pocketbase Initialization
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 
-const guild_collection_name = process.env.GUILDS_COLLECTION;
-// Updated collection names for new schema
+const guild_collection_name = "guilds";
 const channel_stats_collection = "channel_stats";
 const user_stats_collection = "user_stats";
 const hourly_stats_collection = "hourly_stats";
 
-// Main GET Event
 export async function GET(
-	request: Request,
+	_request: Request,
 	{ params }: { params: Promise<{ id: string }> },
 ) {
 	const { id } = await params;
@@ -23,7 +20,6 @@ export async function GET(
 			.getFirstListItem(`discordID='${id}'`, {});
 
 		try {
-			// Fetch channel stats directly from channel_stats collection
 			const channelStats = await pb
 				.collection(channel_stats_collection)
 				.getFullList({
@@ -31,45 +27,37 @@ export async function GET(
 					sort: "-amount",
 				});
 
-			// Take top 5 channels
-			const activeChannels = channelStats.slice(0, 5).map(channel => ({
+			const activeChannels = channelStats.slice(0, 5).map((channel) => ({
 				channel: channel.channelID,
 				originalId: channel.channelID,
 				amount: channel.amount,
 			}));
 
-			// Fetch user stats directly from user_stats collection
-			const userStats = await pb
-				.collection(user_stats_collection)
-				.getFullList({
-					filter: `guildID ?= "${guild.id}"`,
-					sort: "-totalMessages",
-				});
+			const userStats = await pb.collection(user_stats_collection).getFullList({
+				filter: `guildID ?= "${guild.id}"`,
+				sort: "-totalMessages",
+			});
 
-			// Take top 5 users
-			const activeUsers = userStats.slice(0, 5).map(user => ({
+			const activeUsers = userStats.slice(0, 5).map((user) => ({
 				author: user.authorID,
 				originalId: user.authorID,
 				amount: user.totalMessages,
 			}));
 
-			// Fetch hourly stats and aggregate by hour
 			const hourlyStats = await pb
 				.collection(hourly_stats_collection)
 				.getFullList({
 					filter: `guildID ?= "${guild.id}"`,
 				});
 
-			// Initialize hourly data structure
 			const activeHourData = [];
 			for (let hour = 0; hour < 24; hour++) {
-				activeHourData.push({ 
-					hour: hour.toString().padStart(2, '0'), 
-					amount: 0 
+				activeHourData.push({
+					hour: hour.toString().padStart(2, "0"),
+					amount: 0,
 				});
 			}
 
-			// Aggregate messages by hour
 			for (const stat of hourlyStats) {
 				const hourIndex = parseInt(stat.hour);
 				if (hourIndex >= 0 && hourIndex < 24) {
@@ -77,7 +65,6 @@ export async function GET(
 				}
 			}
 
-			// Prepare data for Discord API call
 			const discordDataOUT = [{ channels: [], users: [] }];
 			for (const item of activeChannels) {
 				discordDataOUT[0].channels.push(item.channel);
@@ -86,7 +73,6 @@ export async function GET(
 				discordDataOUT[0].users.push(item.author);
 			}
 
-			// Fetch Discord names/info
 			const discordDataIN_Req = await fetch(
 				`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchID/${guild.discordID}`,
 				{
@@ -99,7 +85,6 @@ export async function GET(
 			);
 			const discordDataIN = await discordDataIN_Req.json();
 
-			// Map Discord names
 			const channelMap = {};
 			const userMap = {};
 
@@ -115,7 +100,6 @@ export async function GET(
 				}
 			}
 
-			// Update with Discord names
 			const finalActiveChannels = activeChannels.map((channel) => ({
 				channel: channelMap[channel.channel] || channel.channel,
 				originalId: channel.originalId,

@@ -6,7 +6,11 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 
-export default function MessagesBlock({ guild }) {
+export default function MessagesBlock({
+	guild,
+}: {
+	guild: { today_msg: number; msg_day_difference: number };
+}) {
 	return (
 		<>
 			<Card className="">

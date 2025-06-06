@@ -19,9 +19,13 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Last4Weeks({ chartData }) {
 	const chartConfig = {
-		amount: {
-			label: "amount",
+		joins: {
+			label: "Joins",
 			color: "#0370ff",
+		},
+		leaves: {
+			label: "Leaves",
+			color: "#ff1100",
 		},
 	} satisfies ChartConfig;
 
@@ -70,12 +74,12 @@ export default function Last4Weeks({ chartData }) {
 		const currentAmount_index = ArrayChartData.findIndex(
 			(item) => item.factor === startingDate_factor,
 		);
-		const currentAmount = ArrayChartData[currentAmount_index].amount;
+		const currentAmount = ArrayChartData[currentAmount_index].unique_users;
 
 		const previousAmount_index = ArrayChartData.findIndex(
 			(item) => item.factor === previousDate_factor,
 		);
-		const previousAmount = ArrayChartData[previousAmount_index].amount;
+		const previousAmount = ArrayChartData[previousAmount_index].unique_users;
 
 		const difference = currentAmount - previousAmount;
 
@@ -84,7 +88,7 @@ export default function Last4Weeks({ chartData }) {
 				<CardHeader>
 					<CardTitle>Last 4 weeks days</CardTitle>
 					<CardDescription>
-						Showing total messages for the last 4 weeks
+						Showing total joins & leaves of the last 4 weeks
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
@@ -93,50 +97,67 @@ export default function Last4Weeks({ chartData }) {
 							accessibilityLayer
 							data={chartData}
 							margin={{
-								left: 15,
-								right: 15,
+								left: 12,
+								right: 12,
 							}}
 						>
-							<CartesianGrid vertical={true} />
+							<CartesianGrid vertical={false} />
 							<XAxis
 								dataKey="factor"
 								tickLine={true}
 								axisLine={true}
-								tickMargin={0}
-								tickFormatter={(value) => value.slice(0, 6)}
-								interval={0}
+								tickMargin={8}
+								tickFormatter={(value) => value.slice(0, 8)}
 								tick={{
 									angle: -30,
 									fontSize: 10,
 									dx: -5,
 									dy: 5,
 								}}
+								interval={0}
 							/>
-							<ChartTooltip
-								cursor={true}
-								content={<ChartTooltipContent indicator="dot" hideLabel />}
-							/>
+							<ChartTooltip cursor={true} content={<ChartTooltipContent />} />
 							<defs>
-								<linearGradient id="fillGradient" x1="0" y1="0" x2="0" y2="1">
+								<linearGradient id="fillJoins" x1="0" y1="0" x2="0" y2="1">
 									<stop
 										offset="5%"
-										stopColor="var(--color-amount)"
+										stopColor="var(--color-joins)"
 										stopOpacity={0.8}
 									/>
 									<stop
 										offset="95%"
-										stopColor="var(--color-amount)"
+										stopColor="var(--color-joins)"
+										stopOpacity={0.1}
+									/>
+								</linearGradient>
+								<linearGradient id="fillLeaves" x1="0" y1="0" x2="0" y2="1">
+									<stop
+										offset="5%"
+										stopColor="var(--color-leaves)"
+										stopOpacity={0.8}
+									/>
+									<stop
+										offset="95%"
+										stopColor="var(--color-leaves)"
 										stopOpacity={0.1}
 									/>
 								</linearGradient>
 							</defs>
 							<Area
-								dataKey="amount"
+								dataKey="joins"
 								type="monotone"
-								fill="url(#fillGradient)"
+								fill="url(#fillJoins)"
 								fillOpacity={0.4}
-								stroke="var(--color-amount)"
+								stroke="var(--color-joins)"
 								stackId="a"
+							/>
+							<Area
+								dataKey="leaves"
+								type="monotone"
+								fill="url(#fillLeaves)"
+								fillOpacity={0.4}
+								stroke="var(--color-leaves)"
+								stackId="b"
 							/>
 						</AreaChart>
 					</ChartContainer>
@@ -147,17 +168,17 @@ export default function Last4Weeks({ chartData }) {
 							<div className="flex items-center gap-2 font-medium leading-none">
 								{difference > 0 ? (
 									<div className="text-green-400">
-										+{difference} than previous week{" "}
+										+{difference} unique users than previous week{" "}
 										<TrendingUp className="inline h-4 w-4" />
 									</div>
 								) : difference !== 0 ? (
 									<div className="text-red-400">
-										{difference} than previous week{" "}
+										{difference} unique users than previous week{" "}
 										<TrendingDown className="inline h-4 w-4" />
 									</div>
 								) : (
 									<div className="text-gray-400">
-										+{difference} than previous week
+										+{difference} unique users than previous week
 									</div>
 								)}
 							</div>
@@ -172,7 +193,7 @@ export default function Last4Weeks({ chartData }) {
 				<CardHeader>
 					<CardTitle>Last 4 weeks days</CardTitle>
 					<CardDescription>
-						Showing total messages for the last 4 weeks
+						Showing total joins & leaves of the last 4 weeks
 					</CardDescription>
 				</CardHeader>
 				<CardContent>

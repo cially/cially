@@ -1,14 +1,4 @@
-// Pocketbase Initialization
-const url = process.env.POCKETBASE_URL;
-
-const collection_name = process.env.MESSAGE_COLLECTION;
-const guild_collection_name = process.env.GUILDS_COLLECTION;
-
-// Main GET Event
-export async function GET(
-	request: Request,
-	{ params }: { params: Promise<{ id: string }> },
-) {
+export async function GET() {
 	try {
 		const API_REQ = await fetch(
 			`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchGuilds`,

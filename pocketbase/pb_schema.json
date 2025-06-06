@@ -1461,6 +1461,15 @@
             },
             {
                 "hidden": false,
+                "id": "bool1823123106",
+                "name": "logged",
+                "presentable": false,
+                "required": false,
+                "system": false,
+                "type": "bool"
+            },
+            {
+                "hidden": false,
                 "id": "autodate2990389176",
                 "name": "created",
                 "onCreate": true,
@@ -1538,6 +1547,15 @@
                 "hidden": false,
                 "id": "bool2963428983",
                 "name": "unique",
+                "presentable": false,
+                "required": false,
+                "system": false,
+                "type": "bool"
+            },
+            {
+                "hidden": false,
+                "id": "bool1823123106",
+                "name": "logged",
                 "presentable": false,
                 "required": false,
                 "system": false,
