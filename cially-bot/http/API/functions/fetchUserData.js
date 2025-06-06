@@ -11,7 +11,7 @@ async function fetchUserData(req, res, client) {
 	// const channeID = "1365959627312857188"; // Used for testing
 	const channelID = body[0].channelID
 
-	console.log(guildID, userId, channelID)
+	console.log("Guild ID: %s, User ID: %s, Channel ID: %s", guildID, userId, channelID);
 	const dataArray = [];
 
 	debug({
