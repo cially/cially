@@ -35,7 +35,7 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export default function ActiveUsers({ chartData }: {chartData: {author: string, amount: number}[]}) {
+export default function ActiveUsers({ chartData }: {chartData?: {author: string, amount: number}[]}) {
 	if (!chartData) {
 		return (
 			<>

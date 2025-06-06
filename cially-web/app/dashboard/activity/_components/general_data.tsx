@@ -3,7 +3,14 @@ import { Activity, Eclipse, Moon, Sun, UsersRound } from "lucide-react";
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
+type StatCardProps = {
+  icon: React.ElementType;
+  label: string;
+  value: number | string;
+  isNetGrowth?: boolean;
+};
+
+const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }: StatCardProps) => (
   <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
@@ -25,7 +32,7 @@ const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
   </div>
 );
 
-export default function GeneralActivityData({ chartData }) {
+export default function GeneralActivityData({ chartData }: { chartData?: {total: number, online: number, idle: number, offline: number}[]}) {
   if (!chartData) {
     return (
       <>
@@ -87,7 +94,7 @@ export default function GeneralActivityData({ chartData }) {
         </Card>
       </>
     );
-  } catch (err) {
+  } catch (_err) {
     return (
       <>
         <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
