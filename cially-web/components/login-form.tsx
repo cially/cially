@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import PocketBase from "pocketbase";
 
+// initialize PocketBase client
 const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
 
 export function LoginForm({
@@ -36,6 +37,7 @@ export function LoginForm({
       const cookieStr = pb.authStore.exportToCookie({ httpOnly: false });
       document.cookie = cookieStr;
 
+      // redirect to dashboard
       router.push("/dashboard");
     } catch (err: any) {
       console.error("Login failed:", err);
