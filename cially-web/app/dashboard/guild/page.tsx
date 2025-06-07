@@ -2,8 +2,8 @@
 
 import { redirect, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import GuildNotFound from "../_components/_events/guildNotFound";
-import LoadingSVG from "../_components/_events/loading-page";
+import GuildNotFound from "../../_components/_events/guildNotFound";
+import LoadingSVG from "../../_components/_events/loading-page";
 
 function ClientComponent() {
 	const searchParams = useSearchParams();
@@ -26,7 +26,7 @@ function ClientComponent() {
 	} else if (!chartData.guildFound) {
 		return <LoadingSVG />;
 	} else {
-		redirect(`dashboard?guildID=${guildID}`);
+		redirect(`server/info?guildID=${guildID}`);
 	}
 }
 

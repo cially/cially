@@ -42,27 +42,27 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
 	const items = [
 		{
 			title: "General",
-			url: `/dashboard?guildID=${guildID}`,
+			url: `/dashboard/server/info?guildID=${guildID}`,
 			icon: Home,
 		},
 		{
 			title: "Messages",
-			url: `/dashboard/messages?guildID=${guildID}`,
+			url: `/dashboard/server/messages?guildID=${guildID}`,
 			icon: Inbox,
 		},
 		{
 			title: "Activity",
-			url: `/dashboard/activity?guildID=${guildID}`,
+			url: `/dashboard/server/activity?guildID=${guildID}`,
 			icon: Smile,
 		},
 		{
 			title: "Growth",
-			url: `/dashboard/growth?guildID=${guildID}`,
+			url: `/dashboard/server/growth?guildID=${guildID}`,
 			icon: ChartLine,
 		},
 		{
 			title: "User Search",
-			url: `/dashboard/user?guildID=${guildID}`,
+			url: `/dashboard/server/user?guildID=${guildID}`,
 			icon: UserSearch,
 		},
 	];
@@ -71,24 +71,24 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
 	const cially_items = [
 		{
 			title: "Home",
-			url: `/`,
+			url: `/dashboard`,
 			icon: House,
 		},
 		{
 			title: "Settings",
-			url: `/cially/settings`,
+			url: `/dashboard/cially/settings`,
 			icon: Bolt,
 		},
 		{
 			title: "Status",
-			url: `/cially/status`,
+			url: `/dashboard/cially/status`,
 			icon: SatelliteDish,
 		},
 	];
 	return (
 		<Sidebar className="border border-white/0 sm:bg-white/3 sm:backdrop-blur-2xl">
 			<SidebarHeader>
-				<a href="/">
+				<a href="/dashboard">
 					<Image
 						src="/logo-png.png"
 						className="w-20 place-self-center"
