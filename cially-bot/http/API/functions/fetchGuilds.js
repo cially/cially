@@ -11,6 +11,12 @@ async function fetchGuilds(_req, res, client) {
 	debug({ text: `Server Fetching Request Received` });
 
 	try {
+		await pb
+				.collection("_superusers")
+				.authWithPassword(
+					process.env.POCKETBASE_ADMIN_EMAIL,
+					process.env.POCKETBASE_ADMIN_PASSWORD,
+				);
 		const guilds_in_database = [];
 		const guilds = await pb.collection(guild_collection_name).getFullList({});
 		guilds.forEach((guild) => {

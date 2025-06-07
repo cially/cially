@@ -7,30 +7,36 @@ const pb = new PocketBase(url);
 
 // CONFIGURATION - Define action for each collection
 const COLLECTIONS_CONFIG = {
-	'messages': {
-		action: 'delete' // Delete entire records
+	messages: {
+		action: "delete", // Delete entire records
 	},
-	'hourly_stats': {
-		action: 'clean',
-		fieldsToEmpty: ['messages'],
+	hourly_stats: {
+		action: "clean",
+		fieldsToEmpty: ["messages"],
 		emptyValue: 0, // What to set number fields to
 	},
-	'channel_stats': {
-		action: 'clean',
-		fieldsToEmpty: ['amount'],
-		emptyValue: '',
+	channel_stats: {
+		action: "clean",
+		fieldsToEmpty: ["amount"],
+		emptyValue: "",
 	},
-	'user_stats': {
-		action: 'clean',
-		fieldsToEmpty: ['totalMessages', 'totalMessageLength'],
-		emptyValue: '',
-		
+	user_stats: {
+		action: "clean",
+		fieldsToEmpty: ["totalMessages", "totalMessageLength"],
+		emptyValue: "",
 	},
 };
 
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function pbCollectionAutoDelete(guildID) {
+	await pb
+		.collection("_superusers")
+		.authWithPassword(
+			process.env.POCKETBASE_ADMIN_EMAIL,
+			process.env.POCKETBASE_ADMIN_PASSWORD,
+		);
+
 	async function bulkDeletion(records, collectionName) {
 		let batch = pb.createBatch();
 		let batchCount = 0;
@@ -45,7 +51,9 @@ async function pbCollectionAutoDelete(guildID) {
 				batchCount++;
 				totalDeleted++;
 			} else {
-				debug({ text: `Sending batch with ${batchCount} deletions for ${collectionName}...` });
+				debug({
+					text: `Sending batch with ${batchCount} deletions for ${collectionName}...`,
+				});
 				try {
 					await batch.send();
 					debug({
@@ -65,7 +73,9 @@ async function pbCollectionAutoDelete(guildID) {
 		}
 
 		if (batchCount > 0) {
-			debug({ text: `Sending final batch with ${batchCount} deletions for ${collectionName}...` });
+			debug({
+				text: `Sending final batch with ${batchCount} deletions for ${collectionName}...`,
+			});
 			try {
 				await batch.send();
 				debug({ text: `Final batch sent successfully for ${collectionName}.` });
@@ -90,13 +100,13 @@ async function pbCollectionAutoDelete(guildID) {
 
 		// Prepare the update data based on configuration
 		const updateData = {};
-		
+
 		if (config.fieldDefaults) {
 			// Use specific defaults for each field
 			Object.assign(updateData, config.fieldDefaults);
 		} else {
 			// Use the same empty value for all fields
-			config.fieldsToEmpty.forEach(field => {
+			config.fieldsToEmpty.forEach((field) => {
 				updateData[field] = config.emptyValue;
 			});
 		}
@@ -109,7 +119,9 @@ async function pbCollectionAutoDelete(guildID) {
 				batchCount++;
 				totalUpdated++;
 			} else {
-				debug({ text: `Sending batch with ${batchCount} updates for ${collectionName}...` });
+				debug({
+					text: `Sending batch with ${batchCount} updates for ${collectionName}...`,
+				});
 				try {
 					await batch.send();
 					debug({
@@ -129,7 +141,9 @@ async function pbCollectionAutoDelete(guildID) {
 		}
 
 		if (batchCount > 0) {
-			debug({ text: `Sending final batch with ${batchCount} updates for ${collectionName}...` });
+			debug({
+				text: `Sending final batch with ${batchCount} updates for ${collectionName}...`,
+			});
 			try {
 				await batch.send();
 				debug({ text: `Final batch sent successfully for ${collectionName}.` });
@@ -143,7 +157,7 @@ async function pbCollectionAutoDelete(guildID) {
 		return {
 			updated: totalUpdated,
 			batches: Math.ceil(records.length / batchSize),
-			fieldsCleared: Object.keys(updateData)
+			fieldsCleared: Object.keys(updateData),
 		};
 	}
 
@@ -165,15 +179,22 @@ async function pbCollectionAutoDelete(guildID) {
 				continue;
 			}
 
-			debug({ text: `Processing collection: ${collectionName} with action: ${config.action}` });
-			
-			if (config.action === 'clean' && (!config.fieldsToEmpty || config.fieldsToEmpty.length === 0)) {
-				debug({ text: `Skipping ${collectionName} - no fields configured to clean` });
+			debug({
+				text: `Processing collection: ${collectionName} with action: ${config.action}`,
+			});
+
+			if (
+				config.action === "clean" &&
+				(!config.fieldsToEmpty || config.fieldsToEmpty.length === 0)
+			) {
+				debug({
+					text: `Skipping ${collectionName} - no fields configured to clean`,
+				});
 				continue;
 			}
 
-			if (config.action === 'clean') {
-				debug({ text: `Fields to clean: ${config.fieldsToEmpty.join(', ')}` });
+			if (config.action === "clean") {
+				debug({ text: `Fields to clean: ${config.fieldsToEmpty.join(", ")}` });
 			}
 
 			try {
@@ -181,23 +202,25 @@ async function pbCollectionAutoDelete(guildID) {
 					filter: `guildID="${guild.id}"`,
 				});
 
-				const actionText = config.action === 'delete' ? 'delete' : 'update';
+				const actionText = config.action === "delete" ? "delete" : "update";
 				debug({
 					text: `Found ${records.length} records to ${actionText} in ${collectionName} for guild ${guildID}`,
 				});
 
 				if (records.length === 0) {
-					debug({ text: `No records found to ${actionText} in ${collectionName} for guild ${guildID}` });
-					results[collectionName] = { 
-						[config.action === 'delete' ? 'deleted' : 'updated']: 0, 
+					debug({
+						text: `No records found to ${actionText} in ${collectionName} for guild ${guildID}`,
+					});
+					results[collectionName] = {
+						[config.action === "delete" ? "deleted" : "updated"]: 0,
 						batches: 0,
-						...(config.action === 'clean' && { fieldsCleared: [] })
+						...(config.action === "clean" && { fieldsCleared: [] }),
 					};
 					continue;
 				}
 
 				let result;
-				if (config.action === 'delete') {
+				if (config.action === "delete") {
 					debug({
 						text: `Starting bulk deletion of ${records.length} records from ${collectionName}...`,
 					});
@@ -206,33 +229,32 @@ async function pbCollectionAutoDelete(guildID) {
 					debug({
 						text: `Bulk deletion completed for ${collectionName}. Deleted ${result.deleted} records in ${result.batches} batches`,
 					});
-				} else if (config.action === 'clean') {
+				} else if (config.action === "clean") {
 					debug({
 						text: `Starting bulk field cleaning of ${records.length} records from ${collectionName}...`,
 					});
 					result = await bulkFieldUpdate(records, collectionName, config);
 					totalProcessed += result.updated;
 					debug({
-						text: `Bulk field cleaning completed for ${collectionName}. Updated ${result.updated} records in ${result.batches} batches. Cleared fields: ${result.fieldsCleared.join(', ')}`,
+						text: `Bulk field cleaning completed for ${collectionName}. Updated ${result.updated} records in ${result.batches} batches. Cleared fields: ${result.fieldsCleared.join(", ")}`,
 					});
 				}
 
 				results[collectionName] = result;
 				totalBatches += result.batches;
-
 			} catch (collectionError) {
 				error({
 					text: `Error processing collection ${collectionName} for guild ${guildID}:`,
 				});
 				console.log(collectionError);
-				
+
 				// Store error info but continue with other collections
-				results[collectionName] = { 
+				results[collectionName] = {
 					deleted: 0,
-					updated: 0, 
-					batches: 0, 
+					updated: 0,
+					batches: 0,
 					fieldsCleared: [],
-					error: collectionError.message || 'Unknown error' 
+					error: collectionError.message || "Unknown error",
 				};
 			}
 		}
@@ -245,9 +267,8 @@ async function pbCollectionAutoDelete(guildID) {
 			guild: guildID,
 			totalProcessed,
 			totalBatches,
-			collections: results
+			collections: results,
 		};
-
 	} catch (err) {
 		if (err.status === 404) {
 			error({ text: `Guild with Discord ID ${guildID} not found in database` });

@@ -5,6 +5,10 @@ const pb = new PocketBase(url);
 
 export async function DELETE() {
 	async function deleteAllFromCollection(collectionName: string) {
+		await pb
+			.collection("_superusers")
+			.authWithPassword(process.env.POCKETBASE_ADMIN_EMAIL, process.env.POCKETBASE_ADMIN_PASSWORD);
+			
 		const records = await pb.collection(collectionName).getFullList();
 		await Promise.all(
 			records.map((record) => pb.collection(collectionName).delete(record.id)),
