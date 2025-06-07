@@ -5,11 +5,14 @@ const pb = new PocketBase(url);
 
 export async function GET() {
 	try {
-		const account = await pb
-			.collection("users")
-			.getFirstListItem('id!=""', {
-			});
+		await pb
+			.collection("_superusers")
+			.authWithPassword(
+				process.env.POCKETBASE_ADMIN_EMAIL,
+				process.env.POCKETBASE_ADMIN_PASSWORD,
+			);
 
+		const account = await pb.collection("users").getFirstListItem('id!=""', {});
 
 		return Response.json({ account: account });
 	} catch (error) {
