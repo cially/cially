@@ -18,6 +18,7 @@ export default async function RegistrationHandler({
 			name: "Admin",
 			password: `${password}`,
 			passwordConfirm: `${password}`,
+			admin: true,
 		};
 
 		await pb

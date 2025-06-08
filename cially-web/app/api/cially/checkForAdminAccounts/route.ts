@@ -12,7 +12,7 @@ export async function GET() {
 				process.env.POCKETBASE_ADMIN_PASSWORD,
 			);
 
-		const account = await pb.collection("users").getFirstListItem('id!=""', {});
+		const account = await pb.collection("users").getFirstListItem('id!="" && admin=true', {});
 
 		return Response.json({ account: account });
 	} catch (error) {
