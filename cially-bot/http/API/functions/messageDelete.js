@@ -20,6 +20,12 @@ async function messageDelete(req, res) {
 
 	// Database Logic
 	try {
+		await pb
+			.collection("_superusers")
+			.authWithPassword(
+				process.env.POCKETBASE_ADMIN_EMAIL,
+				process.env.POCKETBASE_ADMIN_PASSWORD,
+			);
 		const guild = await pb
 			.collection(guild_collection_name)
 			.getFirstListItem(`discordID='${guildID}'`, {});
