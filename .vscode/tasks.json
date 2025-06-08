@@ -1,0 +1,47 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run cially-web",
+      "type": "shell",
+      "command": "cd cially-web; npm run dev",
+      "problemMatcher": [],
+      "group": "build",
+      "presentation": {
+        "panel": "new",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Run cially-bot",
+      "type": "shell",
+      "command": "cd cially-bot; node .",
+      "problemMatcher": [],
+      "group": "build",
+      "presentation": {
+        "panel": "new",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Run pocketbase",
+      "type": "shell",
+      "command": "cd pocketbase; ./pocketbase serve",
+      "problemMatcher": [],
+      "group": "build",
+      "presentation": {
+        "panel": "new",
+        "reveal": "always"
+      }
+    },
+    {
+      "label": "Run All",
+      "dependsOn": [
+        "Run cially-web",
+        "Run cially-bot",
+        "Run pocketbase"
+      ],
+      "dependsOrder": "parallel"
+    }
+  ]
+}
