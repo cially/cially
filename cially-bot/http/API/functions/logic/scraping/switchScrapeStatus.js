@@ -10,12 +10,12 @@ const guild_collection_name = process.env.GUILD_COLLECTION;
 async function switchScrapeStatus(guildID) {
 	try {
 		await pb
-		.collection("_superusers")
-		.authWithPassword(
-			process.env.POCKETBASE_ADMIN_EMAIL,
-			process.env.POCKETBASE_ADMIN_PASSWORD,
-		);
-		
+			.collection("_superusers")
+			.authWithPassword(
+				process.env.POCKETBASE_ADMIN_EMAIL,
+				process.env.POCKETBASE_ADMIN_PASSWORD,
+			);
+
 		const guild = await pb
 			.collection(guild_collection_name)
 			.getFirstListItem(`discordID?="${guildID}"`, {});
@@ -35,6 +35,12 @@ async function switchScrapeStatus(guildID) {
 
 async function enableScrapeStatus(guildID) {
 	try {
+		await pb
+			.collection("_superusers")
+			.authWithPassword(
+				process.env.POCKETBASE_ADMIN_EMAIL,
+				process.env.POCKETBASE_ADMIN_PASSWORD,
+			);
 		const guild = await pb
 			.collection(guild_collection_name)
 			.getFirstListItem(`discordID?="${guildID}"`, {});
@@ -54,6 +60,12 @@ async function enableScrapeStatus(guildID) {
 
 async function setAllScrapeStatusesFalse() {
 	try {
+		await pb
+			.collection("_superusers")
+			.authWithPassword(
+				process.env.POCKETBASE_ADMIN_EMAIL,
+				process.env.POCKETBASE_ADMIN_PASSWORD,
+			);
 		const result = await pb.collection(guild_collection_name).getFullList({
 			filter: "beingScraped != false",
 		});
