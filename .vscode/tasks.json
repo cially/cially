@@ -4,34 +4,55 @@
     {
       "label": "Run cially-web",
       "type": "shell",
-      "command": "cd cially-web; npm run dev",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "cially-web"
+      },
       "problemMatcher": [],
       "group": "build",
       "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
         "panel": "new",
-        "reveal": "always"
+        "showReuseMessage": true,
+        "clear": false
       }
     },
     {
       "label": "Run cially-bot",
       "type": "shell",
-      "command": "cd cially-bot; node .",
+      "command": "node .",
+      "options": {
+        "cwd": "cially-bot"
+      },
       "problemMatcher": [],
       "group": "build",
       "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
         "panel": "new",
-        "reveal": "always"
+        "showReuseMessage": true,
+        "clear": false
       }
     },
     {
       "label": "Run pocketbase",
       "type": "shell",
-      "command": "cd pocketbase; ./pocketbase serve",
+      "command": "./pocketbase serve",
+      "options": {
+        "cwd": "pocketbase"
+      },
       "problemMatcher": [],
       "group": "build",
       "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
         "panel": "new",
-        "reveal": "always"
+        "showReuseMessage": true,
+        "clear": false
       }
     },
     {
