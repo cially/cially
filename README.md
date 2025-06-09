@@ -67,9 +67,9 @@ All ongoing synchronization and data enrichment—such as resolving names or syn
 > Do not change anything in the database if you don't know what you are doing! Changing a small detail might break the dashboard
 
 ### Docker Setup
-1. Download or copy the [docker-compose.yaml](./docker-compose.yaml) file from the repository.
+1. Download or copy the [docker-compose.yaml](./docker-compose.yaml) and [example.env](./example.env) files from the repository.
 2. (Optional) Ensure the `pb_migrations` directory is located at `./pocketbase/pb_migrations` relative to the `docker-compose.yaml` file on your host machine. This directory will be mounted to `/pocketbase/pb_migrations` inside the container to automatically create the needed collections.
-3. Edit the docker-compose.yaml file and replace the environment variables with your own values.
+3. Edit the docker-compose.yaml file and replace the environment variables in the .env with your own values.
 4. Run `docker compose up -d` to start the services.
 5. Make sure to follow the initial setup instructions regarding Pocketbase/Discord Bot Setup.
 6. Success! The dashboard should be up and running! Make sure to let the bot store some data first before checking your servers! 
