@@ -28,5 +28,4 @@ dist
 
 # Pocketbase
 pocketbase/pb_data
-pocketbase/pb_migrations
 pocketbase/pocketbase.exe
