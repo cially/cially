@@ -2,15 +2,13 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import { TotalStatsGraph } from "./_components/_message-charts/total_stats_graph";
-
 import GuildNotFound from "@/app/_components/_events/guildNotFound";
 import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
-
 import GeneralMessageDataCard from "./_components/_message-charts/general_data";
 import Last4Weeks from "./_components/_message-charts/last_4weeks";
 import Last7d from "./_components/_message-charts/last_7d";
 import Last24h from "./_components/_message-charts/last_24hrs";
+import { TotalStatsGraph } from "./_components/_message-charts/total_stats_graph";
 
 export default function GrowthPage() {
 	return (

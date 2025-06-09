@@ -2,11 +2,10 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
 import BottomCard from "./_main-components/bottom-card";
 import MemberBlock from "./_main-components/member-card";
 import MessagesBlock from "./_main-components/messages-card";
-
-import { Skeleton } from "@/components/ui/skeleton";
 
 interface GuildData {
 	name: string;

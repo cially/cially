@@ -38,7 +38,7 @@ async function fetchGuilds(_req, res, client) {
 					});
 				}
 			});
-			
+
 			// Do not remove this line below nor the "await" cause things will brake for some reason
 			await debug({ text: `Completed Fetching Available Guilds` });
 			await res.send({ AvailableGuilds: guildsArray });

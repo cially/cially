@@ -59,7 +59,7 @@ export default function ActiveHours({
 					<ChartContainer
 						config={chartConfig}
 						className="w-full"
-						style={{ height: "300px" }} 
+						style={{ height: "300px" }}
 					>
 						<BarChart
 							accessibilityLayer
@@ -70,7 +70,7 @@ export default function ActiveHours({
 								left: 10,
 								right: 10,
 							}}
-							height={260} 
+							height={260}
 						>
 							<CartesianGrid vertical={false} />
 							<XAxis

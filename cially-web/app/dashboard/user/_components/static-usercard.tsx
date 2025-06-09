@@ -33,7 +33,6 @@ export default function StaticUserCard() {
 							<div>
 								Total Messages: <div className="inline text-gray-300">129</div>
 							</div>
-							
 						</div>
 						<div className="place-self-start">
 							<div>
@@ -48,7 +47,7 @@ export default function StaticUserCard() {
 								<div className="inline text-gray-300">
 									2023-10-2 at 18:29:02 UTC
 								</div>
-							</div>	
+							</div>
 						</div>
 					</div>
 				</CardContent>

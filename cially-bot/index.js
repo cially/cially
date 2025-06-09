@@ -5,8 +5,8 @@ const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 const { REST, Routes } = require("discord.js");
 var colors = require("colors");
-const { debug } = require('./terminal/debug');
-const { error } = require('./terminal/error');
+const { debug } = require("./terminal/debug");
+const { error } = require("./terminal/error");
 
 // Config Imports from .env
 const token = process.env.TOKEN;

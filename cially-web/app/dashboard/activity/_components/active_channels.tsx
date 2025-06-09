@@ -24,7 +24,11 @@ const chartConfig = {
 	},
 } satisfies ChartConfig;
 
-export default function ActiveChannels({ chartData }: {chartData?: {channel: string;}[]}) {
+export default function ActiveChannels({
+	chartData,
+}: {
+	chartData?: { channel: string }[];
+}) {
 	if (!chartData) {
 		return (
 			<>

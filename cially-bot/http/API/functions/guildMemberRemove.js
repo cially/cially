@@ -33,7 +33,7 @@ async function guildMemberRemove(req, res) {
 				filter: `memberID >= "${memberID}"`,
 			});
 
-		const isUnique = uniqueMemberSearch.items.length  === 0;
+		const isUnique = uniqueMemberSearch.items.length === 0;
 
 		try {
 			const itemData = {

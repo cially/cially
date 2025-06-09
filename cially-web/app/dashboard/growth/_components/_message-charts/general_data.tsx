@@ -51,8 +51,8 @@ const StatCard = ({
 						? value.toString().startsWith("+")
 							? "text-green-400"
 							: value.toString().startsWith("-")
-							? "text-red-400"
-							: "text-white"
+								? "text-red-400"
+								: "text-white"
 						: "text-white"
 				}`}
 			>
@@ -64,21 +64,53 @@ const StatCard = ({
 
 const PeriodContent = ({ data }: { data: PeriodData }) => (
 	<div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
-		<StatCard icon={UserPlus} label="Total Joins" value={data.total_joins.toLocaleString()} />
-		<StatCard icon={UserMinus} label="Total Leaves" value={data.total_leaves.toLocaleString()} />
-		<StatCard icon={Users} label="Unique Users" value={data.total_unique_users.toLocaleString()} />
+		<StatCard
+			icon={UserPlus}
+			label="Total Joins"
+			value={data.total_joins.toLocaleString()}
+		/>
+		<StatCard
+			icon={UserMinus}
+			label="Total Leaves"
+			value={data.total_leaves.toLocaleString()}
+		/>
+		<StatCard
+			icon={Users}
+			label="Unique Users"
+			value={data.total_unique_users.toLocaleString()}
+		/>
 		<StatCard
 			icon={data.net_growth >= 0 ? TrendingUp : TrendingDown}
 			label="Growth"
 			value={`${data.net_growth >= 0 ? "+" : ""}${data.net_growth.toLocaleString()}`}
 			isNetGrowth={true}
 		/>
-		<StatCard icon={EqualApproximately} label="Join/Leave Ratio" value={data.join_to_leave_ratio} />
-		<StatCard icon={LandPlot} label="Retention Rate" value={data.retention_rate} />
-		<StatCard icon={Activity} label="Avg Joins/Day" value={data.average_joins_per_day} />
-		<StatCard icon={Activity} label="Avg Leaves/Day" value={data.average_leaves_per_day} />
+		<StatCard
+			icon={EqualApproximately}
+			label="Join/Leave Ratio"
+			value={data.join_to_leave_ratio}
+		/>
+		<StatCard
+			icon={LandPlot}
+			label="Retention Rate"
+			value={data.retention_rate}
+		/>
+		<StatCard
+			icon={Activity}
+			label="Avg Joins/Day"
+			value={data.average_joins_per_day}
+		/>
+		<StatCard
+			icon={Activity}
+			label="Avg Leaves/Day"
+			value={data.average_leaves_per_day}
+		/>
 		<div className="col-span-2 sm:col-span-1">
-			<StatCard icon={Activity} label="Join/User Ratio" value={data.join_to_unique_ratio} />
+			<StatCard
+				icon={Activity}
+				label="Join/User Ratio"
+				value={data.join_to_unique_ratio}
+			/>
 		</div>
 	</div>
 );
@@ -140,21 +172,27 @@ export default function GeneralMessageDataCard({
 
 					{todayData && (
 						<TabsContent value="today" className="space-y-4">
-							<div className="text-lg font-medium text-white/90">Today's Activity</div>
+							<div className="text-lg font-medium text-white/90">
+								Today's Activity
+							</div>
 							<PeriodContent data={todayData} />
 						</TabsContent>
 					)}
 
 					{weekData && (
 						<TabsContent value="week" className="space-y-4">
-							<div className="text-lg font-medium text-white/90">Weekly Summary</div>
+							<div className="text-lg font-medium text-white/90">
+								Weekly Summary
+							</div>
 							<PeriodContent data={weekData} />
 						</TabsContent>
 					)}
 
 					{monthData && (
 						<TabsContent value="month" className="space-y-4">
-							<div className="text-lg font-medium text-white/90">Monthly Overview</div>
+							<div className="text-lg font-medium text-white/90">
+								Monthly Overview
+							</div>
 							<PeriodContent data={monthData} />
 						</TabsContent>
 					)}
@@ -174,7 +212,9 @@ export default function GeneralMessageDataCard({
 						More insights regarding user activity and engagement
 					</div>
 				</div>
-				<div className="text-center py-8 text-white/60">Not enough data available</div>
+				<div className="text-center py-8 text-white/60">
+					Not enough data available
+				</div>
 			</Card>
 		);
 	}

@@ -1,5 +1,6 @@
 "use client";
 
+import { Activity, Settings } from "lucide-react";
 import { Suspense, useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
@@ -10,7 +11,6 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Settings, Activity } from "lucide-react";
 
 export default function MessagesDashboard() {
 	return (
