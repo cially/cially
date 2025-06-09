@@ -13,7 +13,7 @@
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
-	"packageManager": "pnpm@10.11.1",
+	"packageManager": "pnpm@10.12.1",
 	"devDependencies": {
 		"@biomejs/biome": "2.0.0-beta.6",
 		"taze": "^19.1.0"
