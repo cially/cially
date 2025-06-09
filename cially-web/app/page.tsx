@@ -1,6 +1,7 @@
 "use client";
 
 import { Activity, Settings } from "lucide-react";
+import Image from "next/image";
 import { Suspense, useEffect, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,7 +40,7 @@ function ClientComponent() {
 			return (
 				<>
 					<div className="w-20 place-self-center">
-						<img src="/logo-png.png" alt="logo" />
+						<Image src="/logo-png.png" alt="logo" />
 					</div>
 					<div className="text-2xl  text-center">Available Guilds</div>
 					<div className="text-sm text-gray-400 text-center">
@@ -69,7 +70,7 @@ function ClientComponent() {
 
 							<div className="rounded-full w-6">
 								<a href="https://github.com/cially/cially">
-									<img
+									<Image
 										src="/github.svg"
 										alt="github"
 										className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
@@ -135,7 +136,7 @@ function ClientComponent() {
 		return (
 			<>
 				<div className="w-20 place-self-center">
-					<img src="/logo-png.png" alt="logo" />
+					<Image src="/logo-png.png" alt="logo" />
 				</div>
 				<div className="text-2xl  text-center">Available Guilds</div>
 				<div className="text-sm text-gray-400 text-center">
@@ -163,7 +164,7 @@ function ClientComponent() {
 
 						<div className="rounded-full w-6">
 							<a href="https://github.com/cially/cially">
-								<img
+								<Image
 									src="/github.svg"
 									alt="github"
 									className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
@@ -183,7 +184,7 @@ function ClientComponent() {
 		return (
 			<>
 				<div className="w-20 place-self-center">
-					<img src="/logo-png.png" alt="logo" />
+					<Image src="/logo-png.png" alt="logo" />
 				</div>
 				<div className="text-center mx-5">
 					Looks like the Discord Bot can't communicate with the Dashboard.
@@ -221,7 +222,7 @@ function ClientComponent() {
 
 						<div className="rounded-full w-6">
 							<a href="https://github.com/cially/cially">
-								<img
+								<Image
 									src="/github.svg"
 									alt="github"
 									className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
