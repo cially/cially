@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import { Outfit } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "./_components/_shadcn/theme-provider";
-import { Outfit } from "next/font/google";
+import "./globals.css";
 
 const outfit = Outfit({
 	subsets: ["latin"],
@@ -22,7 +22,11 @@ export const viewport: Viewport = {
 	userScalable: false,
 };
 
-export default async function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({
+	children,
+}: {
+	children: React.ReactNode;
+}) {
 	const cookieStore = await cookies();
 	const theme = cookieStore.get("theme") || { value: "blue" };
 	const themeClass = {
