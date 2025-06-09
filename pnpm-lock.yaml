@@ -5,164 +5,305 @@ settings:
   excludeLinksFromLockfile: false
   injectWorkspacePackages: true
 
+catalogs:
+  default:
+    '@biomejs/biome':
+      specifier: 2.0.0-beta.6
+      version: 2.0.0-beta.6
+    '@discordjs/rest':
+      specifier: ^2.5.0
+      version: 2.5.0
+    '@hookform/resolvers':
+      specifier: ^5.1.1
+      version: 5.1.1
+    '@radix-ui/react-alert-dialog':
+      specifier: ^1.1.14
+      version: 1.1.14
+    '@radix-ui/react-avatar':
+      specifier: ^1.1.10
+      version: 1.1.10
+    '@radix-ui/react-dialog':
+      specifier: ^1.1.14
+      version: 1.1.14
+    '@radix-ui/react-label':
+      specifier: ^2.1.7
+      version: 2.1.7
+    '@radix-ui/react-scroll-area':
+      specifier: ^1.2.9
+      version: 1.2.9
+    '@radix-ui/react-separator':
+      specifier: ^1.1.7
+      version: 1.1.7
+    '@radix-ui/react-slot':
+      specifier: ^1.2.3
+      version: 1.2.3
+    '@radix-ui/react-tabs':
+      specifier: ^1.1.12
+      version: 1.1.12
+    '@radix-ui/react-tooltip':
+      specifier: ^1.2.7
+      version: 1.2.7
+    '@tailwindcss/postcss':
+      specifier: ^4.1.8
+      version: 4.1.8
+    '@types/node':
+      specifier: ^22.15.30
+      version: 22.15.30
+    '@types/react':
+      specifier: ^19.1.6
+      version: 19.1.6
+    '@types/react-dom':
+      specifier: ^19.1.6
+      version: 19.1.6
+    body-parser:
+      specifier: ^2.2.0
+      version: 2.2.0
+    cfonts:
+      specifier: ^3.3.0
+      version: 3.3.0
+    class-variance-authority:
+      specifier: ^0.7.1
+      version: 0.7.1
+    clsx:
+      specifier: ^2.1.1
+      version: 2.1.1
+    colors:
+      specifier: ^1.4.0
+      version: 1.4.0
+    cron:
+      specifier: ^4.3.1
+      version: 4.3.1
+    discord-api-types:
+      specifier: ^0.38.11
+      version: 0.38.11
+    discord.js:
+      specifier: ^14.19.3
+      version: 14.19.3
+    dotenv:
+      specifier: ^16.5.0
+      version: 16.5.0
+    express:
+      specifier: ^5.1.0
+      version: 5.1.0
+    ky:
+      specifier: ^1.8.1
+      version: 1.8.1
+    lucide:
+      specifier: ^0.513.0
+      version: 0.513.0
+    lucide-react:
+      specifier: ^0.513.0
+      version: 0.513.0
+    multer:
+      specifier: ^2.0.1
+      version: 2.0.1
+    next:
+      specifier: 15.2.4
+      version: 15.2.4
+    next-themes:
+      specifier: ^0.4.6
+      version: 0.4.6
+    node-fetch:
+      specifier: ^3.3.2
+      version: 3.3.2
+    pocketbase:
+      specifier: ^0.26.1
+      version: 0.26.1
+    react:
+      specifier: ^19.1.0
+      version: 19.1.0
+    react-dom:
+      specifier: ^19.1.0
+      version: 19.1.0
+    react-hook-form:
+      specifier: ^7.57.0
+      version: 7.57.0
+    recharts:
+      specifier: ^2.15.3
+      version: 2.15.3
+    simple-get:
+      specifier: ^4.0.1
+      version: 4.0.1
+    sonner:
+      specifier: ^2.0.5
+      version: 2.0.5
+    tailwind-merge:
+      specifier: ^3.3.0
+      version: 3.3.0
+    tailwindcss:
+      specifier: ^4.1.8
+      version: 4.1.8
+    taze:
+      specifier: ^19.1.0
+      version: 19.1.0
+    tw-animate-css:
+      specifier: ^1.3.4
+      version: 1.3.4
+    typescript:
+      specifier: ^5.8.3
+      version: 5.8.3
+    zod:
+      specifier: ^3.25.56
+      version: 3.25.56
+
 importers:
 
   .:
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.0.0-beta.6
+        specifier: 'catalog:'
         version: 2.0.0-beta.6
       taze:
-        specifier: ^19.1.0
+        specifier: 'catalog:'
         version: 19.1.0
 
   cially-bot:
     dependencies:
       '@discordjs/rest':
-        specifier: ^2.5.0
+        specifier: 'catalog:'
         version: 2.5.0
       body-parser:
-        specifier: ^2.2.0
+        specifier: 'catalog:'
         version: 2.2.0
       cfonts:
-        specifier: ^3.3.0
+        specifier: 'catalog:'
         version: 3.3.0
       colors:
-        specifier: ^1.4.0
+        specifier: 'catalog:'
         version: 1.4.0
       cron:
-        specifier: ^4.3.1
+        specifier: 'catalog:'
         version: 4.3.1
       discord-api-types:
-        specifier: ^0.38.11
+        specifier: 'catalog:'
         version: 0.38.11
       discord.js:
-        specifier: ^14.19.3
+        specifier: 'catalog:'
         version: 14.19.3
       dotenv:
-        specifier: ^16.5.0
+        specifier: 'catalog:'
         version: 16.5.0
       express:
-        specifier: ^5.1.0
+        specifier: 'catalog:'
         version: 5.1.0
       ky:
-        specifier: ^1.8.1
+        specifier: 'catalog:'
         version: 1.8.1
       multer:
-        specifier: ^2.0.1
+        specifier: 'catalog:'
         version: 2.0.1
       pocketbase:
-        specifier: ^0.26.1
+        specifier: 'catalog:'
         version: 0.26.1
       simple-get:
-        specifier: ^4.0.1
+        specifier: 'catalog:'
         version: 4.0.1
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.0.0-beta.6
+        specifier: 'catalog:'
         version: 2.0.0-beta.6
 
   cially-web:
     dependencies:
       '@hookform/resolvers':
-        specifier: ^5.1.1
+        specifier: 'catalog:'
         version: 5.1.1(react-hook-form@7.57.0(react@19.1.0))
       '@radix-ui/react-alert-dialog':
-        specifier: ^1.1.14
+        specifier: 'catalog:'
         version: 1.1.14(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-avatar':
-        specifier: ^1.1.10
+        specifier: 'catalog:'
         version: 1.1.10(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-dialog':
-        specifier: ^1.1.14
+        specifier: 'catalog:'
         version: 1.1.14(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-label':
-        specifier: ^2.1.7
+        specifier: 'catalog:'
         version: 2.1.7(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-scroll-area':
-        specifier: ^1.2.9
+        specifier: 'catalog:'
         version: 1.2.9(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-separator':
-        specifier: ^1.1.7
+        specifier: 'catalog:'
         version: 1.1.7(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-slot':
-        specifier: ^1.2.3
+        specifier: 'catalog:'
         version: 1.2.3(@types/react@19.1.6)(react@19.1.0)
       '@radix-ui/react-tabs':
-        specifier: ^1.1.12
+        specifier: 'catalog:'
         version: 1.1.12(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       '@radix-ui/react-tooltip':
-        specifier: ^1.2.7
+        specifier: 'catalog:'
         version: 1.2.7(@types/react-dom@19.1.6(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       class-variance-authority:
-        specifier: ^0.7.1
+        specifier: 'catalog:'
         version: 0.7.1
       clsx:
-        specifier: ^2.1.1
+        specifier: 'catalog:'
         version: 2.1.1
       lucide:
-        specifier: ^0.513.0
+        specifier: 'catalog:'
         version: 0.513.0
       lucide-react:
-        specifier: ^0.513.0
+        specifier: 'catalog:'
         version: 0.513.0(react@19.1.0)
       next:
-        specifier: 15.2.4
+        specifier: 'catalog:'
         version: 15.2.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       next-themes:
-        specifier: ^0.4.6
+        specifier: 'catalog:'
         version: 0.4.6(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       node-fetch:
-        specifier: ^3.3.2
+        specifier: 'catalog:'
         version: 3.3.2
       pocketbase:
-        specifier: ^0.26.1
+        specifier: 'catalog:'
         version: 0.26.1
       react:
-        specifier: ^19.1.0
+        specifier: 'catalog:'
         version: 19.1.0
       react-dom:
-        specifier: ^19.1.0
+        specifier: 'catalog:'
         version: 19.1.0(react@19.1.0)
       react-hook-form:
-        specifier: ^7.57.0
+        specifier: 'catalog:'
         version: 7.57.0(react@19.1.0)
       recharts:
-        specifier: ^2.15.3
+        specifier: 'catalog:'
         version: 2.15.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       sonner:
-        specifier: ^2.0.5
+        specifier: 'catalog:'
         version: 2.0.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       tailwind-merge:
-        specifier: ^3.3.0
+        specifier: 'catalog:'
         version: 3.3.0
       tw-animate-css:
-        specifier: ^1.3.4
+        specifier: 'catalog:'
         version: 1.3.4
       zod:
-        specifier: ^3.25.56
+        specifier: 'catalog:'
         version: 3.25.56
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.0.0-beta.6
+        specifier: 'catalog:'
         version: 2.0.0-beta.6
       '@tailwindcss/postcss':
-        specifier: ^4.1.8
+        specifier: 'catalog:'
         version: 4.1.8
       '@types/node':
-        specifier: ^22.15.30
+        specifier: 'catalog:'
         version: 22.15.30
       '@types/react':
-        specifier: ^19.1.6
+        specifier: 'catalog:'
         version: 19.1.6
       '@types/react-dom':
-        specifier: ^19.1.6
+        specifier: 'catalog:'
         version: 19.1.6(@types/react@19.1.6)
       tailwindcss:
-        specifier: ^4.1.8
+        specifier: 'catalog:'
         version: 4.1.8
       typescript:
-        specifier: ^5.8.3
+        specifier: 'catalog:'
         version: 5.8.3
 
 packages:
