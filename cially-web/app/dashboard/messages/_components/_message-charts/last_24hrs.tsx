@@ -162,7 +162,7 @@ export default function Last24h({ chartData }) {
 				</CardFooter>
 			</Card>
 		);
-	} catch (err) {
+	} catch (_err) {
 		return (
 			<Card>
 				<CardHeader>

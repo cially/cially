@@ -4,13 +4,13 @@ const path = require("node:path");
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
 const { REST, Routes } = require("discord.js");
-var colors = require("colors");
+var _colors = require("colors");
 const { debug } = require("./terminal/debug");
 const { error } = require("./terminal/error");
 
 // Config Imports from .env
 const token = process.env.TOKEN;
-const clientId = process.env.CLIENT_ID;
+const _clientId = process.env.CLIENT_ID;
 
 // Currently using every single intent.
 // Using https://discord-intents-calculator.vercel.app/ to generate the intents ID
