@@ -12,7 +12,7 @@
 	},
 	"keywords": [],
 	"author": "",
-	"license": "ISC",
+	"license": "",
 	"packageManager": "pnpm@10.12.1",
 	"devDependencies": {
 		"@biomejs/biome": "catalog:",
