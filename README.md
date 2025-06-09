@@ -76,7 +76,7 @@ All ongoing synchronization and data enrichment—such as resolving names or syn
 
 ### Manual Setup
 #### Pocketbase Instance
-1. Install [Pocketbase 0.26.0](https://github.com/pocketbase/pocketbase/releases/tag/v0.26.6)
+1. Install [Pocketbase 0.28.2](https://github.com/pocketbase/pocketbase/releases/tag/v0.28.2)
 2. Run `./pocketbase serve` to start the backend
 3. Open the URL displayed on your terminal and create an admin account
 4. Then follow the *Initial Setup* instructions that can be found above
