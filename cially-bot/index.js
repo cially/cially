@@ -1,11 +1,9 @@
 // Package Imports
 const fs = require("node:fs");
 const path = require("node:path");
-const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
+const { Client, Collection } = require("discord.js");
 require("dotenv").config({ path: path.resolve(__dirname, ".env") });
-const { REST, Routes } = require("discord.js");
 var _colors = require("colors");
-const { debug } = require("./terminal/debug");
 const { error } = require("./terminal/error");
 
 // Config Imports from .env
