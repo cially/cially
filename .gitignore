@@ -28,4 +28,7 @@ dist
 
 # Pocketbase
 pocketbase/pb_data
+pocketbase/pb_migrations
 pocketbase/pocketbase.exe
+!pocketbase/pb_migrations/initial_settings.js
+!pocketbase/pb_migrations/collections_snapshot.js
