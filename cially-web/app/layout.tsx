@@ -2,6 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "./_components/_shadcn/theme-provider";
+import { Outfit } from "next/font/google";
+
+const outfit = Outfit({
+	subsets: ["latin"],
+	weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata: Metadata = {
 	title: "Cially Dashboard",
@@ -30,7 +36,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
 		<>
 			<html lang="en" suppressHydrationWarning>
 				<head />
-				<body className="">
+				<body className={outfit.className}>
 					<div className="overflow-x-hidden min-h-screen">
 						<div
 							className={`${themeClass} fixed inset-0 w-full h-full -z-10`}
