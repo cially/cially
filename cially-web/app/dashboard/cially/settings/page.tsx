@@ -25,6 +25,7 @@ import {
 } from "@/components/ui/card";
 import { handleThemeChange } from "./_logic/setThemeFunction";
 import GuestToggleCard from "./_components/guestToggle";
+import SignOut from "./_logic/signOutHandler";
 
 export default function SettingsPage() {
 	const router = useRouter();
@@ -43,6 +44,16 @@ export default function SettingsPage() {
 			}
 		} catch (error) {
 			console.error("Error deleting item:", error);
+		}
+	};
+
+	const handleSignOut = async () => {
+		try {
+			SignOut();
+
+			router.refresh();
+		} catch (error) {
+			console.error("Error signing out:", error);
 		}
 	};
 
@@ -163,6 +174,12 @@ export default function SettingsPage() {
 						</a>
 					</CardContent>
 				</Card>
+
+				<div className="place-self-center mt-5">
+					<Button variant={"outline"} onClick={() => handleSignOut()}>
+						Log Out
+					</Button>
+				</div>
 			</div>
 		</>
 	);
