@@ -24,6 +24,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { handleThemeChange } from "./_logic/setThemeFunction";
+import GuestToggleCard from "./_components/guestToggle";
 
 export default function SettingsPage() {
 	const router = useRouter();
@@ -88,7 +89,31 @@ export default function SettingsPage() {
 					</CardContent>
 				</Card>
 
-				<Card className="mx-3 mt-10 border-[1px] border-red-500/40">
+				<GuestToggleCard />
+
+				<Card className="mt-7 mx-3">
+					<CardHeader>
+						<CardTitle>
+							<Star className="inline w-5 mr-2 -translate-y-0.5" /> Github
+							Repository
+						</CardTitle>
+						<CardDescription>
+							Check Cially on Github for latest updates and changes! Leave a
+							star if you like this project!
+							<br />
+							Feel free to open an issue if you experience any problems!
+						</CardDescription>
+					</CardHeader>
+					<CardContent>
+						<a href="https://github.com/cially/cially">
+							<Button variant={"outline"} className="hover:cursor-pointer bg-gray-800 text-white hover:bg-gray-800/70 transition-all">
+								Github Link
+							</Button>
+						</a>
+					</CardContent>
+				</Card>
+
+				<Card className="mx-3 mt-7 border-[1px] border-red-500/40">
 					<CardHeader>
 						<CardTitle>
 							<DatabaseBackup className="inline w-5 mr-2 -translate-y-0.5" />{" "}
@@ -129,28 +154,6 @@ export default function SettingsPage() {
 								</AlertDialogFooter>
 							</AlertDialogContent>
 						</AlertDialog>
-					</CardContent>
-				</Card>
-
-				<Card className="mt-10 mx-3">
-					<CardHeader>
-						<CardTitle>
-							<Star className="inline w-5 mr-2 -translate-y-0.5" /> Github
-							Repository
-						</CardTitle>
-						<CardDescription>
-							Check Cially on Github for latest updates and changes! Leave a
-							star if you like this project!
-							<br />
-							Feel free to open an issue if you experience any problems!
-						</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<a href="https://github.com/cially/cially">
-							<Button className="hover:cursor-pointer bg-gray-800 text-white hover:bg-gray-800/70 transition-all">
-								Github Link
-							</Button>
-						</a>
 					</CardContent>
 				</Card>
 			</div>
