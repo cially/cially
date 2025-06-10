@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -25,6 +25,9 @@ export function RegisterForm({
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+
+	const emailID = useId();
+	const passwordID = useId();
 
 	const handleLogin = async () => {
 		try {
@@ -59,7 +62,7 @@ export function RegisterForm({
 							<div className="grid gap-3">
 								<Label htmlFor="email">Email</Label>
 								<Input
-									id="email"
+									id={emailID}
 									type="email"
 									placeholder="user@example.com"
 									required
@@ -72,10 +75,10 @@ export function RegisterForm({
 									<Label htmlFor="password">Password</Label>
 								</div>
 								<Input
-									id="password"
+									id={passwordID}
 									type="password"
 									required
-									minLength={8} 
+									minLength={8}
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
 								/>

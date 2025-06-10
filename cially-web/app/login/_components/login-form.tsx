@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -28,6 +28,8 @@ export function LoginForm({
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 
+	const emailID = useId();
+	const passwordID = useId();
 	const handleLogin = async (e: React.FormEvent) => {
 		e.preventDefault();
 
@@ -57,7 +59,7 @@ export function LoginForm({
 							<div className="grid gap-3">
 								<Label htmlFor="email">Email</Label>
 								<Input
-									id="email"
+									id={emailID}
 									type="email"
 									placeholder="user@example.com"
 									required
@@ -70,7 +72,7 @@ export function LoginForm({
 									<Label htmlFor="password">Password</Label>
 								</div>
 								<Input
-									id="password"
+									id={passwordID}
 									type="password"
 									required
 									value={password}
