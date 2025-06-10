@@ -16,6 +16,13 @@ async function syncGuild(req, res, client) {
 
 	async function fetchGuilds() {
 		try {
+			await pb
+				.collection("_superusers")
+				.authWithPassword(
+					process.env.POCKETBASE_ADMIN_EMAIL,
+					process.env.POCKETBASE_ADMIN_PASSWORD,
+				);
+				
 			const guilds = await pb.collection(guild_collection_name).getFullList({
 				filter: `discordID ?= '${guildID}'`,
 			});

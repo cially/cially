@@ -15,6 +15,14 @@ async function registerGuild(guildID) {
 
 	const guildData = { discordID: guildID };
 	try {
+
+		await pb
+				.collection("_superusers")
+				.authWithPassword(
+					process.env.POCKETBASE_ADMIN_EMAIL,
+					process.env.POCKETBASE_ADMIN_PASSWORD,
+				);
+				
 		await pb.collection(guild_collection_name).create(guildData);
 		debug({ text: `Guild has been added to the database` });
 

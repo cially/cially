@@ -30,6 +30,13 @@ const COLLECTIONS_CONFIG = {
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function pbCollectionAutoDelete(guildID) {
+	await pb
+		.collection("_superusers")
+		.authWithPassword(
+			process.env.POCKETBASE_ADMIN_EMAIL,
+			process.env.POCKETBASE_ADMIN_PASSWORD,
+		);
+
 	async function bulkDeletion(records, collectionName) {
 		let batch = pb.createBatch();
 		let batchCount = 0;

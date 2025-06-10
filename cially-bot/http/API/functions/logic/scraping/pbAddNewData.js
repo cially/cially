@@ -8,6 +8,12 @@ const { error } = require("../../../../../terminal/error");
 
 async function pbAddNewData({ guildID, data }) {
 	// Bulk addition function with proper scope
+	await pb
+		.collection("_superusers")
+		.authWithPassword(
+			process.env.POCKETBASE_ADMIN_EMAIL,
+			process.env.POCKETBASE_ADMIN_PASSWORD,
+		);
 	async function bulkAddition(messages, guildRecord) {
 		let batch = pb.createBatch();
 		let batchCount = 0;

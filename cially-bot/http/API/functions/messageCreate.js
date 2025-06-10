@@ -30,6 +30,13 @@ async function messageCreate(req, res) {
 	};
 
 	try {
+		await pb
+				.collection("_superusers")
+				.authWithPassword(
+					process.env.POCKETBASE_ADMIN_EMAIL,
+					process.env.POCKETBASE_ADMIN_PASSWORD,
+				);
+				
 		const guild = await retryRequest(() =>
 			pb
 				.collection(guild_collection_name)

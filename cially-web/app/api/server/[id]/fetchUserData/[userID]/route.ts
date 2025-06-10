@@ -16,6 +16,10 @@ export async function GET(
 	const { id, userID } = await params;
 
 	try {
+		await pb
+			.collection("_superusers")
+			.authWithPassword(process.env.POCKETBASE_ADMIN_EMAIL, process.env.POCKETBASE_ADMIN_PASSWORD);
+			
 		const guild = await pb
 			.collection(guild_collection_name)
 			.getFirstListItem(`discordID='${id}'`, {});

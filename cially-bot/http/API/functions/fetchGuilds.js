@@ -11,6 +11,12 @@ async function fetchGuilds(_req, res, client) {
 	debug({ text: `Server Fetching Request Received` });
 
 	try {
+		await pb
+				.collection("_superusers")
+				.authWithPassword(
+					process.env.POCKETBASE_ADMIN_EMAIL,
+					process.env.POCKETBASE_ADMIN_PASSWORD,
+				);
 		const guilds_in_database = [];
 		const guilds = await pb.collection(guild_collection_name).getFullList({});
 		guilds.forEach((guild) => {
@@ -38,7 +44,7 @@ async function fetchGuilds(_req, res, client) {
 					});
 				}
 			});
-
+			
 			// Do not remove this line below nor the "await" cause things will brake for some reason
 			await debug({ text: `Completed Fetching Available Guilds` });
 			await res.send({ AvailableGuilds: guildsArray });

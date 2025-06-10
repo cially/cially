@@ -11,7 +11,7 @@ import {
 	UserSearch,
 } from "lucide-react";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { Suspense } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -36,34 +36,40 @@ export function AppSidebar({ isGuild }: { isGuild: boolean }) {
 
 function ClientComponent({ isGuild }: { isGuild: boolean }) {
 	const searchParams = useSearchParams();
+	const pathname = usePathname();
 
 	const guildID = searchParams ? searchParams.get("guildID") : "error";
 
 	const items = [
 		{
 			title: "General",
-			url: `/dashboard?guildID=${guildID}`,
+			url: `/dashboard/server/info?guildID=${guildID}`,
 			icon: Home,
+			path: "/dashboard/server/info",
 		},
 		{
 			title: "Messages",
-			url: `/dashboard/messages?guildID=${guildID}`,
+			url: `/dashboard/server/messages?guildID=${guildID}`,
 			icon: Inbox,
+			path: "/dashboard/server/messages",
 		},
 		{
 			title: "Activity",
-			url: `/dashboard/activity?guildID=${guildID}`,
+			url: `/dashboard/server/activity?guildID=${guildID}`,
 			icon: Smile,
+			path: "/dashboard/server/activity",
 		},
 		{
 			title: "Growth",
-			url: `/dashboard/growth?guildID=${guildID}`,
+			url: `/dashboard/server/growth?guildID=${guildID}`,
 			icon: ChartLine,
+			path: "/dashboard/server/growth",
 		},
 		{
 			title: "User Search",
-			url: `/dashboard/user?guildID=${guildID}`,
+			url: `/dashboard/server/user?guildID=${guildID}`,
 			icon: UserSearch,
+			path: "/dashboard/server/user",
 		},
 	];
 
@@ -71,24 +77,35 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
 	const cially_items = [
 		{
 			title: "Home",
-			url: `/`,
+			url: `/dashboard`,
 			icon: House,
+			path: "/dashboard",
 		},
 		{
 			title: "Settings",
-			url: `/cially/settings`,
+			url: `/dashboard/cially/settings`,
 			icon: Bolt,
+			path: "/dashboard/cially/settings",
 		},
 		{
 			title: "Status",
-			url: `/cially/status`,
+			url: `/dashboard/cially/status`,
 			icon: SatelliteDish,
+			path: "/dashboard/cially/status",
 		},
 	];
+
+	const isActive = (itemPath: string) => {
+		if (itemPath === "/dashboard") {
+			return pathname === "/dashboard";
+		}
+		return pathname === itemPath;
+	};
+
 	return (
 		<Sidebar className="border border-white/0 sm:bg-white/3 sm:backdrop-blur-2xl">
 			<SidebarHeader>
-				<a href="/">
+				<a href="/dashboard">
 					<Image
 						src="/logo-png.png"
 						className="w-20 place-self-center"
@@ -109,10 +126,17 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
 								{items.map((item) => (
 									<SidebarMenuItem
 										key={item.title}
-										className="rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r"
+										className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r ${
+											isActive(item.path)
+												? "bg-gradient-to-r from-white/2 to-white/10 border-l-2 border-gray-400"
+												: ""
+										}`}
 									>
 										<SidebarMenuButton asChild>
-											<a href={item.url}>
+											<a
+												href={item.url}
+												className={isActive(item.path) ? "" : ""}
+											>
 												<item.icon />
 												<span>{item.title}</span>
 											</a>
@@ -132,10 +156,14 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
 						{cially_items.map((item) => (
 							<SidebarMenuItem
 								key={item.title}
-								className="rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r"
+								className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r ${
+									isActive(item.path)
+										? "bg-gradient-to-r from-white/2 to-white/10 border-l-2 border-gray-400"
+										: ""
+								}`}
 							>
 								<SidebarMenuButton asChild>
-									<a href={item.url}>
+									<a href={item.url} className={isActive(item.path) ? "" : ""}>
 										<item.icon />
 										<span>{item.title}</span>
 									</a>
