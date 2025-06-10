@@ -89,7 +89,55 @@ export default function SettingsPage() {
 					</CardContent>
 				</Card>
 
-				<GuestToggleCard />
+				<div className="grid sm:grid-cols-2">
+					<GuestToggleCard />
+
+					<Card className="mx-3 mt-7 border-[1px] border-red-500/40">
+						<CardHeader>
+							<CardTitle>
+								<DatabaseBackup className="inline w-5 mr-2 -translate-y-0.5" />{" "}
+								Erase Database
+							</CardTitle>
+							<CardDescription>
+								Click the button bellow to erase all the data in your database.
+								This action is irreversible!
+							</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<AlertDialog>
+								<AlertDialogTrigger asChild>
+									<Button
+										variant="destructive"
+										className=" place-self-center cursor-pointer hover:outline-1 outline-0 outline-amber-950 transition-all"
+									>
+										Erase
+									</Button>
+								</AlertDialogTrigger>
+								<AlertDialogContent>
+									<AlertDialogHeader>
+										<AlertDialogTitle>
+											Are you absolutely sure?
+										</AlertDialogTitle>
+										<AlertDialogDescription>
+											This is a permanent action. Confirming will erase all
+											server data, and this process cannot be reversed. Ensure
+											you understand the implications before proceeding.
+										</AlertDialogDescription>
+									</AlertDialogHeader>
+									<AlertDialogFooter>
+										<AlertDialogCancel>Cancel</AlertDialogCancel>
+										<AlertDialogAction
+											onClick={() => handleDelete()}
+											className="bg-red-600 text-white hover:bg-red-800 transition"
+										>
+											Confirm
+										</AlertDialogAction>
+									</AlertDialogFooter>
+								</AlertDialogContent>
+							</AlertDialog>
+						</CardContent>
+					</Card>
+				</div>
 
 				<Card className="mt-7 mx-3">
 					<CardHeader>
@@ -106,54 +154,13 @@ export default function SettingsPage() {
 					</CardHeader>
 					<CardContent>
 						<a href="https://github.com/cially/cially">
-							<Button variant={"outline"} className="hover:cursor-pointer bg-gray-800 text-white hover:bg-gray-800/70 transition-all">
+							<Button
+								variant={"outline"}
+								className="hover:cursor-pointer bg-gray-800 text-white hover:bg-gray-800/70 transition-all"
+							>
 								Github Link
 							</Button>
 						</a>
-					</CardContent>
-				</Card>
-
-				<Card className="mx-3 mt-7 border-[1px] border-red-500/40">
-					<CardHeader>
-						<CardTitle>
-							<DatabaseBackup className="inline w-5 mr-2 -translate-y-0.5" />{" "}
-							Erase Database
-						</CardTitle>
-						<CardDescription>
-							Click the button bellow to erase all the data in your database.
-							This action is irreversible!
-						</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<AlertDialog>
-							<AlertDialogTrigger asChild>
-								<Button
-									variant="destructive"
-									className=" place-self-center cursor-pointer hover:outline-1 outline-0 outline-amber-950 transition-all"
-								>
-									Erase
-								</Button>
-							</AlertDialogTrigger>
-							<AlertDialogContent>
-								<AlertDialogHeader>
-									<AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-									<AlertDialogDescription>
-										This is a permanent action. Confirming will erase all server
-										data, and this process cannot be reversed. Ensure you
-										understand the implications before proceeding.
-									</AlertDialogDescription>
-								</AlertDialogHeader>
-								<AlertDialogFooter>
-									<AlertDialogCancel>Cancel</AlertDialogCancel>
-									<AlertDialogAction
-										onClick={() => handleDelete()}
-										className="bg-red-600 text-white hover:bg-red-800 transition"
-									>
-										Confirm
-									</AlertDialogAction>
-								</AlertDialogFooter>
-							</AlertDialogContent>
-						</AlertDialog>
 					</CardContent>
 				</Card>
 			</div>
