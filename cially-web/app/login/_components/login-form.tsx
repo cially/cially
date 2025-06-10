@@ -74,6 +74,7 @@ export function LoginForm({
 									type="password"
 									required
 									value={password}
+									minLength={8} 
 									onChange={(e) => setPassword(e.target.value)}
 								/>
 							</div>
