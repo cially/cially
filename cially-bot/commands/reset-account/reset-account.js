@@ -34,10 +34,10 @@ module.exports = {
 
 				await pb.collection("users").delete(record.id);
 				debug({
-					text: `Deleted Admin Account with id ${record.id} succesfully`,
+					text: `Deleted Admin Account with id ${record.id} successfully`,
 				});
 				await interaction.reply({
-					content: "Admin Account Deleted succesfully",
+					content: "Admin Account Deleted successfully",
 					flags: MessageFlags.Ephemeral,
 				});
 			} catch (err) {
