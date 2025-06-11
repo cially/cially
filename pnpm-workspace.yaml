@@ -1,29 +1,24 @@
 packages:
   - cially-bot
   - cially-web
-injectWorkspacePackages: true
-onlyBuiltDependencies:
-  - "@tailwindcss/oxide"
-  - sharp
-syncInjectedDepsAfterScripts:
-  - build
+
 catalog:
-  "@biomejs/biome": 2.0.0-beta.6
-  "@discordjs/rest": ^2.5.0
-  "@hookform/resolvers": ^5.1.1
-  "@radix-ui/react-alert-dialog": ^1.1.14
-  "@radix-ui/react-avatar": ^1.1.10
-  "@radix-ui/react-dialog": ^1.1.14
-  "@radix-ui/react-label": ^2.1.7
-  "@radix-ui/react-scroll-area": ^1.2.9
-  "@radix-ui/react-separator": ^1.1.7
-  "@radix-ui/react-slot": ^1.2.3
-  "@radix-ui/react-tabs": ^1.1.12
-  "@radix-ui/react-tooltip": ^1.2.7
-  "@tailwindcss/postcss": ^4.1.8
-  "@types/node": ^20.19.0
-  "@types/react": 19.1.6
-  "@types/react-dom": 19.1.6
+  '@biomejs/biome': 2.0.0-beta.6
+  '@discordjs/rest': ^2.5.0
+  '@hookform/resolvers': ^5.1.1
+  '@radix-ui/react-alert-dialog': ^1.1.14
+  '@radix-ui/react-avatar': ^1.1.10
+  '@radix-ui/react-dialog': ^1.1.14
+  '@radix-ui/react-label': ^2.1.7
+  '@radix-ui/react-scroll-area': ^1.2.9
+  '@radix-ui/react-separator': ^1.1.7
+  '@radix-ui/react-slot': ^1.2.3
+  '@radix-ui/react-tabs': ^1.1.12
+  '@radix-ui/react-tooltip': ^1.2.7
+  '@tailwindcss/postcss': ^4.1.8
+  '@types/node': ^20.19.0
+  '@types/react': 19.1.6
+  '@types/react-dom': 19.1.6
   body-parser: ^2.2.0
   cfonts: ^3.3.0
   class-variance-authority: ^0.7.1
@@ -54,3 +49,12 @@ catalog:
   typescript: ^5.8.3
   winston: ^3.17.0
   zod: ^3.25.58
+
+injectWorkspacePackages: true
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - sharp
+
+syncInjectedDepsAfterScripts:
+  - build
