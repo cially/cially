@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { cookies } from "next/headers";
-import { ThemeProvider } from "../components/theme-provider";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Cially Dashboard",
@@ -16,7 +16,11 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default async function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const cookieStore = await cookies();
   const theme = cookieStore.get("theme") || { value: "blue" };
   const themeClass = {
