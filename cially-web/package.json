@@ -29,7 +29,7 @@
     "next": "catalog:",
     "next-themes": "catalog:",
     "node-fetch": "catalog:",
-    "pocketbase": "^0.25.2",
+    "pocketbase": "^0.26.1",
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",

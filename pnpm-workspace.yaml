@@ -10,18 +10,18 @@ syncInjectedDepsAfterScripts:
 catalog:
   "@biomejs/biome": 2.0.0-beta.6
   "@discordjs/rest": ^2.5.0
-  "@hookform/resolvers": ^4.1.3
-  "@radix-ui/react-alert-dialog": ^1.1.11
+  "@hookform/resolvers": ^5.1.1
+  "@radix-ui/react-alert-dialog": ^1.1.14
   "@radix-ui/react-avatar": ^1.1.10
-  "@radix-ui/react-dialog": ^1.1.6
+  "@radix-ui/react-dialog": ^1.1.14
   "@radix-ui/react-label": ^2.1.7
   "@radix-ui/react-scroll-area": ^1.2.9
   "@radix-ui/react-separator": ^1.1.7
   "@radix-ui/react-slot": ^1.2.3
   "@radix-ui/react-tabs": ^1.1.12
   "@radix-ui/react-tooltip": ^1.2.7
-  "@tailwindcss/postcss": ^4
-  "@types/node": ^20.17.57
+  "@tailwindcss/postcss": ^4.1.8
+  "@types/node": ^20.19.0
   "@types/react": 19.1.6
   "@types/react-dom": 19.1.6
   body-parser: ^2.2.0
@@ -30,14 +30,14 @@ catalog:
   clsx: ^2.1.1
   colors: ^1.4.0
   cron: ^4.3.1
-  discord-api-types: ^0.38.10
-  discord.js: ^14.18.0
+  discord-api-types: ^0.38.11
+  discord.js: ^14.19.3
   dotenv: ^16.5.0
   express: ^5.1.0
   ky: ^1.8.1
-  lucide: ^0.487.0
-  lucide-react: ^0.484.0
-  multer: ^2.0.0
+  lucide: ^0.514.0
+  lucide-react: ^0.514.0
+  multer: ^2.0.1
   next: 15.3.3
   next-themes: ^0.4.6
   node-fetch: ^3.3.2
@@ -47,10 +47,10 @@ catalog:
   recharts: ^2.15.3
   simple-get: ^4.0.1
   sonner: ^2.0.5
-  tailwind-merge: ^3.3.0
+  tailwind-merge: ^3.3.1
   tailwindcss: ^4.1.8
   taze: ^19.1.0
-  tw-animate-css: ^1.3.3
+  tw-animate-css: ^1.3.4
   typescript: ^5.8.3
   winston: ^3.17.0
-  zod: ^3.25.49
+  zod: ^3.25.58
