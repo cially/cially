@@ -8,109 +8,107 @@ const fs = require("node:fs");
 const path = require("node:path");
 const { API } = require("../http/API/API");
 const {
-	setAllScrapeStatusesFalse,
+  setAllScrapeStatusesFalse,
 } = require("../http/API/functions/logic/scraping/switchScrapeStatus");
 
 module.exports = {
-	name: Events.ClientReady,
-	once: true,
-	execute(client) {
-		// Cool Console Title :P (serves no point at all)
-		cfonts.say("CIALLY", {
-			font: "block",
-			align: "center",
-			colors: ["blue"],
-			background: "transparent",
-			letterSpacing: 1,
-			lineHeight: 1,
-			space: true,
-			env: "node",
-		});
+  name: Events.ClientReady,
+  once: true,
+  execute(client) {
+    // Cool Console Title :P (serves no point at all)
+    cfonts.say("CIALLY", {
+      font: "block",
+      align: "center",
+      colors: ["blue"],
+      background: "transparent",
+      letterSpacing: 1,
+      lineHeight: 1,
+      space: true,
+      env: "node",
+    });
 
-		debug({ text: `Client Found: ${client.user.tag}` });
-		console.log(
-			`[SUCCESS] `.green +
-				`The Bot is Running! \n\n-----------LOGS------------\n\n`,
-		);
+    debug({ text: `Client Found: ${client.user.tag}` });
+    console.log(
+      `[SUCCESS] `.green +
+        `The Bot is Running! \n\n-----------LOGS------------\n\n`,
+    );
 
-		// Sync slash commands
-		syncCommands(client);
+    // Sync slash commands
+    syncCommands(client);
 
-		// Start the API
-		API(client);
+    // Start the API
+    API(client);
 
-		// Set all scrape statuses to false in case some scraping procedure got cut off
-		setAllScrapeStatusesFalse();
-
-		
-	},
+    // Set all scrape statuses to false in case some scraping procedure got cut off
+    setAllScrapeStatusesFalse();
+  },
 };
 
 // Function to sync commands (add new ones, remove deleted ones)
 async function syncCommands(client) {
-	const localCommands = [];
-	const foldersPath = path.join(__dirname, "..", "commands");
-	const commandFolders = fs.readdirSync(foldersPath);
+  const localCommands = [];
+  const foldersPath = path.join(__dirname, "..", "commands");
+  const commandFolders = fs.readdirSync(foldersPath);
 
-	// Get all local commands
-	for (const folder of commandFolders) {
-		const commandsPath = path.join(foldersPath, folder);
-		const commandFiles = fs
-			.readdirSync(commandsPath)
-			.filter((file) => file.endsWith(".js"));
+  // Get all local commands
+  for (const folder of commandFolders) {
+    const commandsPath = path.join(foldersPath, folder);
+    const commandFiles = fs
+      .readdirSync(commandsPath)
+      .filter((file) => file.endsWith(".js"));
 
-		for (const file of commandFiles) {
-			const filePath = path.join(commandsPath, file);
-			// Clear cache to ensure we get the latest version
-			delete require.cache[require.resolve(filePath)];
-			const command = require(filePath);
+    for (const file of commandFiles) {
+      const filePath = path.join(commandsPath, file);
+      // Clear cache to ensure we get the latest version
+      delete require.cache[require.resolve(filePath)];
+      const command = require(filePath);
 
-			if ("data" in command && "execute" in command) {
-				localCommands.push({
-					name: command.data.name,
-					data: command.data.toJSON(),
-				});
-			}
-		}
-	}
+      if ("data" in command && "execute" in command) {
+        localCommands.push({
+          name: command.data.name,
+          data: command.data.toJSON(),
+        });
+      }
+    }
+  }
 
-	const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
+  const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
 
-	try {
-		// Get existing registered commands
-		const existingCommands = await rest.get(
-			Routes.applicationCommands(client.user.id),
-		);
+  try {
+    // Get existing registered commands
+    const existingCommands = await rest.get(
+      Routes.applicationCommands(client.user.id),
+    );
 
-		debug({ text: `Found ${existingCommands.length} existing commands` });
+    debug({ text: `Found ${existingCommands.length} existing commands` });
 
-		// Find commands to delete (exist on Discord but not in local files)
-		for (const command of existingCommands) {
-			const localCommand = localCommands.find(
-				(cmd) => cmd.name === command.name,
-			);
-			if (!localCommand) {
-				// Delete command that no longer exists locally
-				await rest.delete(
-					Routes.applicationCommand(client.user.id, command.id),
-				);
-				debug({ text: `Deleted command: ${command.name}` });
-			}
-		}
+    // Find commands to delete (exist on Discord but not in local files)
+    for (const command of existingCommands) {
+      const localCommand = localCommands.find(
+        (cmd) => cmd.name === command.name,
+      );
+      if (!localCommand) {
+        // Delete command that no longer exists locally
+        await rest.delete(
+          Routes.applicationCommand(client.user.id, command.id),
+        );
+        debug({ text: `Deleted command: ${command.name}` });
+      }
+    }
 
-		// Register all current commands
-		if (localCommands.length > 0) {
-			const commandsToRegister = localCommands.map((cmd) => cmd.data);
+    // Register all current commands
+    if (localCommands.length > 0) {
+      const commandsToRegister = localCommands.map((cmd) => cmd.data);
 
-			await rest.put(Routes.applicationCommands(client.user.id), {
-				body: commandsToRegister,
-			});
+      await rest.put(Routes.applicationCommands(client.user.id), {
+        body: commandsToRegister,
+      });
 
-			debug({
-				text: `Successfully registered ${commandsToRegister.length} commands globally`,
-			});
-		}
-	} catch (err) {
-		error({ text: "Error syncing commands", error: err });
-	}
+      debug({
+        text: `Successfully registered ${commandsToRegister.length} commands globally`,
+      });
+    }
+  } catch (err) {
+    error({ text: "Error syncing commands", error: err });
+  }
 }

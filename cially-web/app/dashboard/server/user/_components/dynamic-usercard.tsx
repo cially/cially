@@ -44,7 +44,6 @@ export default function DynamicUserCard({ userData }) {
                   {userData[0].dataArray[0].totalMessages}
                 </div>
               </div>
-              
             </div>
             <div className="place-self-start">
               <div>

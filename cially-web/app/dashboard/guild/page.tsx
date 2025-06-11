@@ -6,34 +6,34 @@ import GuildNotFound from "../../_components/_events/guildNotFound";
 import LoadingSVG from "../../_components/_events/loading-page";
 
 function ClientComponent() {
-	const searchParams = useSearchParams();
-	const guildID = searchParams.get("guildID");
-	const [chartData, setChartData] = useState([{ amount: 69 }]);
+  const searchParams = useSearchParams();
+  const guildID = searchParams.get("guildID");
+  const [chartData, setChartData] = useState([{ amount: 69 }]);
 
-	useEffect(() => {
-		async function fetchData() {
-			const chartDataReceived = await fetch(
-				`/api/server/${guildID}/fetchGuild`,
-			);
-			const json = await chartDataReceived.json();
-			setChartData(json);
-		}
-		fetchData();
-	}, [guildID]);
+  useEffect(() => {
+    async function fetchData() {
+      const chartDataReceived = await fetch(
+        `/api/server/${guildID}/fetchGuild`,
+      );
+      const json = await chartDataReceived.json();
+      setChartData(json);
+    }
+    fetchData();
+  }, [guildID]);
 
-	if (chartData.notFound) {
-		return <GuildNotFound />;
-	} else if (!chartData.guildFound) {
-		return <LoadingSVG />;
-	} else {
-		redirect(`server/info?guildID=${guildID}`);
-	}
+  if (chartData.notFound) {
+    return <GuildNotFound />;
+  } else if (!chartData.guildFound) {
+    return <LoadingSVG />;
+  } else {
+    redirect(`server/info?guildID=${guildID}`);
+  }
 }
 
 export default function DataDashboard() {
-	return (
-		<Suspense fallback={<LoadingSVG />}>
-			<ClientComponent />
-		</Suspense>
-	);
+  return (
+    <Suspense fallback={<LoadingSVG />}>
+      <ClientComponent />
+    </Suspense>
+  );
 }

@@ -13,99 +13,99 @@ const { retryRequest } = require("./logic/retryRequest");
 pb.autoCancellation(false);
 
 async function messageCreate(req, res) {
-	const body = req.body;
-	const {
-		guildID,
-		messageID,
-		messageLength,
-		channelID,
-		authorID,
-		attachments,
-	} = body;
+  const body = req.body;
+  const {
+    guildID,
+    messageID,
+    messageLength,
+    channelID,
+    authorID,
+    attachments,
+  } = body;
 
-	debug({ text: `New POST req: \n${JSON.stringify(body)}` });
+  debug({ text: `New POST req: \n${JSON.stringify(body)}` });
 
-	const roger = {
-		res: `Message Received with the following details: GI: ${guildID}, MI: ${messageID}`,
-	};
+  const roger = {
+    res: `Message Received with the following details: GI: ${guildID}, MI: ${messageID}`,
+  };
 
-	try {
-		await pb
-				.collection("_superusers")
-				.authWithPassword(
-					process.env.POCKETBASE_ADMIN_EMAIL,
-					process.env.POCKETBASE_ADMIN_PASSWORD,
-				);
-				
-		const guild = await retryRequest(() =>
-			pb
-				.collection(guild_collection_name)
-				.getFirstListItem(`discordID='${guildID}'`, {}),
-		);
+  try {
+    await pb
+      .collection("_superusers")
+      .authWithPassword(
+        process.env.POCKETBASE_ADMIN_EMAIL,
+        process.env.POCKETBASE_ADMIN_PASSWORD,
+      );
 
-		debug({ text: `Guild has been found and is ready to add data to it` });
+    const guild = await retryRequest(() =>
+      pb
+        .collection(guild_collection_name)
+        .getFirstListItem(`discordID='${guildID}'`, {}),
+    );
 
-		debug({
-			text: `Guild Data Item has been found and is ready to add data to it`,
-		});
+    debug({ text: `Guild has been found and is ready to add data to it` });
 
-		const currentPocketBaseDate = () => {
-			const date = new Date();
+    debug({
+      text: `Guild Data Item has been found and is ready to add data to it`,
+    });
 
-			const pad = (num, size = 2) => String(num).padStart(size, "0");
+    const currentPocketBaseDate = () => {
+      const date = new Date();
 
-			const year = date.getUTCFullYear();
-			const month = pad(date.getUTCMonth() + 1);
-			const day = pad(date.getUTCDate());
-			const hours = pad(date.getUTCHours());
-			const minutes = pad(date.getUTCMinutes());
-			const seconds = pad(date.getUTCSeconds());
-			const milliseconds = pad(date.getUTCMilliseconds(), 3);
+      const pad = (num, size = 2) => String(num).padStart(size, "0");
 
-			return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}Z`;
-		};
+      const year = date.getUTCFullYear();
+      const month = pad(date.getUTCMonth() + 1);
+      const day = pad(date.getUTCDate());
+      const hours = pad(date.getUTCHours());
+      const minutes = pad(date.getUTCMinutes());
+      const seconds = pad(date.getUTCSeconds());
+      const milliseconds = pad(date.getUTCMilliseconds(), 3);
 
-		const itemData = {
-			author: authorID,
-			guildID: guild.id,
-			channelID: channelID,
-			messageLength: messageLength,
-			messageID: messageID,
-			messageCreation: currentPocketBaseDate(),
-		};
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}.${milliseconds}Z`;
+    };
 
-		await retryRequest(() => pb.collection(collection_name).create(itemData));
+    const itemData = {
+      author: authorID,
+      guildID: guild.id,
+      channelID: channelID,
+      messageLength: messageLength,
+      messageID: messageID,
+      messageCreation: currentPocketBaseDate(),
+    };
 
-		debug({
-			text: `Message has been added in the database. ID: ${messageID}`,
-		});
+    await retryRequest(() => pb.collection(collection_name).create(itemData));
 
-		const new_general_data = {
-			total_messages: guild.total_messages + 1,
-			total_attachments: guild.total_attachments + attachments,
-		};
+    debug({
+      text: `Message has been added in the database. ID: ${messageID}`,
+    });
 
-		await retryRequest(() =>
-			pb.collection(guild_collection_name).update(guild.id, new_general_data),
-		);
+    const new_general_data = {
+      total_messages: guild.total_messages + 1,
+      total_attachments: guild.total_attachments + attachments,
+    };
 
-		debug({
-			text: `General Guild Data has been updated in the database`,
-		});
-	} catch (err) {
-		if (err.status === 404) {
-			registerGuild(guildID);
-		} else {
-			debug({ text: `Failed to communicate with the Database: \n${err}` });
-			error({ text: `[ERROR] Error Code: ${err.status}` });
-		}
-	}
+    await retryRequest(() =>
+      pb.collection(guild_collection_name).update(guild.id, new_general_data),
+    );
 
-	debug({
-		text: `End of logic. Stopping the communication and returning a res to the Bot`,
-	});
+    debug({
+      text: `General Guild Data has been updated in the database`,
+    });
+  } catch (err) {
+    if (err.status === 404) {
+      registerGuild(guildID);
+    } else {
+      debug({ text: `Failed to communicate with the Database: \n${err}` });
+      error({ text: `[ERROR] Error Code: ${err.status}` });
+    }
+  }
 
-	return res.status(201).json(roger);
+  debug({
+    text: `End of logic. Stopping the communication and returning a res to the Bot`,
+  });
+
+  return res.status(201).json(roger);
 }
 
 module.exports = { messageCreate };

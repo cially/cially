@@ -10,65 +10,65 @@ const collection_name = process.env.MEMBER_JOINS_COLLECTION;
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function guildMemberAdd(req, res) {
-	const body = req.body;
+  const body = req.body;
 
-	const { guildID, memberID } = body;
+  const { guildID, memberID } = body;
 
-	debug({ text: `New POST Request: \n${JSON.stringify(body)}` });
+  debug({ text: `New POST Request: \n${JSON.stringify(body)}` });
 
-	const roger = {
-		response: `Message Received with the following details: GI: ${guildID}`,
-	};
+  const roger = {
+    response: `Message Received with the following details: GI: ${guildID}`,
+  };
 
-	// Database Logic
-	try {
-		await pb
-				.collection("_superusers")
-				.authWithPassword(
-					process.env.POCKETBASE_ADMIN_EMAIL,
-					process.env.POCKETBASE_ADMIN_PASSWORD,
-				);
-		const guild = await pb
-			.collection(guild_collection_name)
-			.getFirstListItem(`discordID='${guildID}'`, {});
+  // Database Logic
+  try {
+    await pb
+      .collection("_superusers")
+      .authWithPassword(
+        process.env.POCKETBASE_ADMIN_EMAIL,
+        process.env.POCKETBASE_ADMIN_PASSWORD,
+      );
+    const guild = await pb
+      .collection(guild_collection_name)
+      .getFirstListItem(`discordID='${guildID}'`, {});
 
-		debug({ text: `Guild has been found and is ready to add data to it` });
+    debug({ text: `Guild has been found and is ready to add data to it` });
 
-		const uniqueMemberSearch = await pb
-			.collection(collection_name)
-			.getList(1, 5, {
-				filter: `memberID >= "${memberID}"`,
-			});
+    const uniqueMemberSearch = await pb
+      .collection(collection_name)
+      .getList(1, 5, {
+        filter: `memberID >= "${memberID}"`,
+      });
 
-		const isUnique = uniqueMemberSearch.items.length === 0;
+    const isUnique = uniqueMemberSearch.items.length === 0;
 
-		try {
-			const itemData = {
-				guildID: guild.id,
-				memberID: `${memberID}`,
-				unique: isUnique,
-			};
-			await pb.collection(collection_name).create(itemData);
-			debug({ text: `Member Addition has been added in the database.` });
-		} catch (error) {
-			console.log(error);
-		}
-	} catch (err) {
-		// 404 error -> guild is not on the database. Attempt to add it
-		if (err.status === 404) {
-			registerGuild(guildID);
-		} else {
-			debug({ text: `Failed to communicate with the Database: \n${err}` });
+    try {
+      const itemData = {
+        guildID: guild.id,
+        memberID: `${memberID}`,
+        unique: isUnique,
+      };
+      await pb.collection(collection_name).create(itemData);
+      debug({ text: `Member Addition has been added in the database.` });
+    } catch (error) {
+      console.log(error);
+    }
+  } catch (err) {
+    // 404 error -> guild is not on the database. Attempt to add it
+    if (err.status === 404) {
+      registerGuild(guildID);
+    } else {
+      debug({ text: `Failed to communicate with the Database: \n${err}` });
 
-			error({ text: `[ERROR] Error Code: ${err.status}` });
-		}
-	}
+      error({ text: `[ERROR] Error Code: ${err.status}` });
+    }
+  }
 
-	debug({
-		text: `End of logic. Stopping the communication and returning a response to the Bot`,
-	});
+  debug({
+    text: `End of logic. Stopping the communication and returning a response to the Bot`,
+  });
 
-	return res.status(201).json(roger);
+  return res.status(201).json(roger);
 }
 
 module.exports = { guildMemberAdd };
