@@ -1,9 +1,9 @@
 "use client";
 
 import { Suspense, useEffect, useState } from "react";
+import { LoginForm } from "@/components/auth/login-form";
+import { RegisterForm } from "@/components/auth/register-form";
 import LoadingSVG from "../_components/_events/loading-page";
-import { LoginForm } from "./_components/login-form";
-import { RegisterForm } from "./_components/register-form";
 
 export default function MessagesActivityPage() {
   return (
