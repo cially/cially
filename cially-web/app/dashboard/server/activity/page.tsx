@@ -3,8 +3,8 @@
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 
-import GuildNotFound from "@/app/_components/_events/guildNotFound";
-import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
+import GuildNotFound from "@/components/guildNotFound";
+import ScrapeNotification from "@/components/scrapeNotification";
 import ActiveChannels from "./_components/active_channels";
 import ActiveHours from "./_components/active_hours";
 import ActiveUsers from "./_components/active_users";

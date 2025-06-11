@@ -3,7 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { LoginForm } from "@/components/auth/login-form";
 import { RegisterForm } from "@/components/auth/register-form";
-import LoadingSVG from "../_components/_events/loading-page";
+import LoadingSVG from "@/components/loading-page";
 
 export default function MessagesActivityPage() {
   return (

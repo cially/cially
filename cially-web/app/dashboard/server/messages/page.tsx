@@ -2,8 +2,8 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import GuildNotFound from "@/app/_components/_events/guildNotFound";
-import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
+import GuildNotFound from "@/components/guildNotFound";
+import ScrapeNotification from "@/components/scrapeNotification";
 import GeneralMessageDataCard from "./_components/_message-charts/general_data";
 import ImportDialogCard from "./_components/_message-charts/importDialog";
 import Last4Weeks from "./_components/_message-charts/last_4weeks";

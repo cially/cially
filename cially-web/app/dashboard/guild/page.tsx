@@ -2,8 +2,8 @@
 
 import { redirect, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import GuildNotFound from "../../_components/_events/guildNotFound";
-import LoadingSVG from "../../_components/_events/loading-page";
+import GuildNotFound from "@/components/guildNotFound";
+import LoadingSVG from "@/components/loading-page";
 
 function ClientComponent() {
   const searchParams = useSearchParams();

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { cookies } from "next/headers";
-import { ThemeProvider } from "./_components/_shadcn/theme-provider";
+import { ThemeProvider } from "../components/theme-provider";
 
 export const metadata: Metadata = {
   title: "Cially Dashboard",

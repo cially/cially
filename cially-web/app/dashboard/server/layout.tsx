@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/app/_components/_shadcn/sidebar";
+import { AppSidebar } from "@/components/sidebar";
 import {
   SidebarInset,
   SidebarProvider,

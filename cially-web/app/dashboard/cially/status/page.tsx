@@ -2,8 +2,8 @@
 
 import { Antenna, CheckCircle, Database, Rss, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-import GuildNotFound from "@/app/_components/_events/guildNotFound";
-import LoadingSVG from "@/app/_components/_events/loading-page";
+import GuildNotFound from "@/components/guildNotFound";
+import LoadingSVG from "@/components/loading-page";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,

@@ -23,7 +23,7 @@ const formSchema = z.object({
 });
 
 import { Suspense, useState } from "react";
-import ScrapeNotification from "@/app/_components/_notifications/scrapeNotification";
+import ScrapeNotification from "@/components/scrapeNotification";
 import DynamicUserCard from "./_components/dynamic-usercard";
 import ErrorUserCard from "./_components/error-usercard";
 import StaticUserCard from "./_components/static-usercard";

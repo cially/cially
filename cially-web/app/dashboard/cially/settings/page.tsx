@@ -4,6 +4,7 @@
 
 import { DatabaseBackup, PaletteIcon, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
+import GuestToggleCard from "@/components/guestToggle";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,7 +24,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import GuestToggleCard from "./_components/guestToggle";
 import { handleThemeChange } from "./_logic/setThemeFunction";
 import SignOut from "./_logic/signOutHandler";
 
