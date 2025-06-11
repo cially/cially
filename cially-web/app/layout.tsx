@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Outfit } from "next/font/google";
 import { cookies } from "next/headers";
 import { ThemeProvider } from "@/components/theme-provider";
 
@@ -15,6 +16,10 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
 };
+
+const outfit = Outfit({
+  subsets: ["latin"],
+});
 
 export default async function RootLayout({
   children,
@@ -32,7 +37,7 @@ export default async function RootLayout({
 
   return (
     <>
-      <html lang="en" suppressHydrationWarning>
+      <html lang="en" suppressHydrationWarning className={outfit.className}>
         <head />
         <body className="">
           <div className="overflow-x-hidden min-h-screen">
