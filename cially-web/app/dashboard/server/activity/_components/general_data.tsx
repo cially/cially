@@ -10,7 +10,12 @@ type StatCardProps = {
   isNetGrowth?: boolean;
 };
 
-const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }: StatCardProps) => (
+const StatCard = ({
+  icon: Icon,
+  label,
+  value,
+  isNetGrowth = false,
+}: StatCardProps) => (
   <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
@@ -21,8 +26,8 @@ const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }: StatCardPro
             ? value.toString().startsWith("+")
               ? "text-green-400"
               : value.toString().startsWith("-")
-              ? "text-red-400"
-              : "text-white"
+                ? "text-red-400"
+                : "text-white"
             : "text-white"
         }`}
       >
@@ -32,7 +37,16 @@ const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }: StatCardPro
   </div>
 );
 
-export default function GeneralActivityData({ chartData }: { chartData?: {total: number, online: number, idle: number, offline: number}[]}) {
+export default function GeneralActivityData({
+  chartData,
+}: {
+  chartData?: {
+    total: number;
+    online: number;
+    idle: number;
+    offline: number;
+  }[];
+}) {
   if (!chartData) {
     return (
       <>

@@ -2,51 +2,51 @@ const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 
 async function fetchID(req, res, client) {
-	const error_message = { code: "error" };
-	const body = req.body;
-	const guildID = req.params.guildID;
+  const error_message = { code: "error" };
+  const body = req.body;
+  const guildID = req.params.guildID;
 
-	debug({ text: `ID Fetching Request Received for Guild ID: ${guildID}` });
+  debug({ text: `ID Fetching Request Received for Guild ID: ${guildID}` });
 
-	try {
-		const channels = body[0].channels;
-		const users = body[0].users;
-		const newArray = { newChannels: [], newUsers: [] };
+  try {
+    const channels = body[0].channels;
+    const users = body[0].users;
+    const newArray = { newChannels: [], newUsers: [] };
 
-		channels.forEach(async (channel) => {
-			try {
-				const discordChannel = await client.channels.fetch(channel);
-				newArray.newChannels.push({
-					id: channel,
-					name: `${discordChannel.name}`,
-				});
-				debug({ text: `Added Succesfully Channel: ${channel}` });
-			} catch (_err) {
-				debug({ text: `Failed to add Channel: ${channel}` });
-			}
-		});
+    channels.forEach(async (channel) => {
+      try {
+        const discordChannel = await client.channels.fetch(channel);
+        newArray.newChannels.push({
+          id: channel,
+          name: `${discordChannel.name}`,
+        });
+        debug({ text: `Added Succesfully Channel: ${channel}` });
+      } catch (_err) {
+        debug({ text: `Failed to add Channel: ${channel}` });
+      }
+    });
 
-		users.forEach(async (user) => {
-			try {
-				const discordUser = client.users.cache.get(user);
-				newArray.newUsers.push({ id: user, name: discordUser.username });
-				debug({ text: `Added Succesfully User: ${user}` });
-			} catch (_err) {
-				debug({ text: `Failed to add User: ${user}` });
-			}
-		});
+    users.forEach(async (user) => {
+      try {
+        const discordUser = client.users.cache.get(user);
+        newArray.newUsers.push({ id: user, name: discordUser.username });
+        debug({ text: `Added Succesfully User: ${user}` });
+      } catch (_err) {
+        debug({ text: `Failed to add User: ${user}` });
+      }
+    });
 
-		// Please do not remove this line nor the "await" cause things will brake for some reason:)
-		await debug({ text: `IDs fetched. Ready to send response` });
+    // Please do not remove this line nor the "await" cause things will brake for some reason:)
+    await debug({ text: `IDs fetched. Ready to send response` });
 
-		await res.send(newArray);
-	} catch (err) {
-		error({
-			text: `Failed to communicate with the Discord API. /fetchID${guildID}`,
-		});
-		console.log(err);
-		res.send(error_message);
-	}
+    await res.send(newArray);
+  } catch (err) {
+    error({
+      text: `Failed to communicate with the Discord API. /fetchID${guildID}`,
+    });
+    console.log(err);
+    res.send(error_message);
+  }
 }
 
 module.exports = { fetchID };

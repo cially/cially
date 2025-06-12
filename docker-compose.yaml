@@ -5,18 +5,8 @@ services:
     image: ghcr.io/cially/cially-bot:latest
     container_name: cially-bot
     restart: unless-stopped
-    environment:
-      - TOKEN=${TOKEN}
-      - CLIENT_ID=${CLIENT_ID}
-      - API_URL=http://cially-bot:3001
-      - DEBUGGING=${BOT_DEBUGGING:-FALSE}
-      - POCKETBASE_URL=http://pocketbase:8090
-      - GUILD_COLLECTION=guilds
-      - MESSAGE_COLLECTION=messages
-      - INVITE_COLLECTION=invites
-      - MEMBER_LEAVES_COLLECTION=member_leaves
-      - MEMBER_JOINS_COLLECTION=member_joins
-      - PORT=3001
+    env_file:
+      - .env
     ports:
       - "3001:3001"
     depends_on:
@@ -29,15 +19,8 @@ services:
     image: ghcr.io/cially/cially-web:latest
     container_name: cially-web
     restart: unless-stopped
-    environment:
-      # Runtime environment variables
-      - NEXT_PUBLIC_BOT_API_URL=http://cially-bot:3001
-      - POCKETBASE_URL=http://pocketbase:8090
-      - MESSAGE_COLLECTION=messages
-      - INVITE_COLLECTION=invites
-      - MEMBER_LEAVES_COLLECTION=member_leaves
-      - MEMBER_JOINS_COLLECTION=member_joins
-      - GUILDS_COLLECTION=guilds
+    env_file:
+      - .env
     ports:
       - "3000:3000"
     depends_on:
@@ -50,10 +33,10 @@ services:
     container_name: cially-pocketbase
     restart: unless-stopped
     command:
-      - --encryptionEnv # optional
-      - ENCRYPTION # optional
-    environment:
-      ENCRYPTION: $(openssl rand -hex 16) # optional (Ensure this is a 32-character long encryption key https://pocketbase.io/docs/going-to-production/#enable-settings-encryption)
+      - --encryptionEnv
+      - POCKETBASE_ENCRYPTION_KEY
+    env_file:
+      - .env
     volumes:
       - pocketbase-data:/pb/pb_data
       - ./pocketbase/pb_hooks:/pb/pb_hooks

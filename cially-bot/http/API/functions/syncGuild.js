@@ -7,123 +7,123 @@ const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function syncGuild(req, res, client) {
-	const success_message = { code: "success" };
-	const error_message = { code: "error" };
+  const success_message = { code: "success" };
+  const error_message = { code: "error" };
 
-	const guildID = req.params.guildID;
+  const guildID = req.params.guildID;
 
-	debug({ text: `Syncronization Request Received for Guild ID: ${guildID}` });
+  debug({ text: `Syncronization Request Received for Guild ID: ${guildID}` });
 
-	async function fetchGuilds() {
-		try {
-			await pb
-				.collection("_superusers")
-				.authWithPassword(
-					process.env.POCKETBASE_ADMIN_EMAIL,
-					process.env.POCKETBASE_ADMIN_PASSWORD,
-				);
-				
-			const guilds = await pb.collection(guild_collection_name).getFullList({
-				filter: `discordID ?= '${guildID}'`,
-			});
+  async function fetchGuilds() {
+    try {
+      await pb
+        .collection("_superusers")
+        .authWithPassword(
+          process.env.POCKETBASE_ADMIN_EMAIL,
+          process.env.POCKETBASE_ADMIN_PASSWORD,
+        );
 
-			if (guilds.length > 0) {
-				guilds.forEach((guild) => {
-					async function setNewData() {
-						const Guild = client.guilds.cache.get(`${String(guild.discordID)}`);
-						const channels = Guild.channels.cache.size;
-						const roles = Guild.roles.cache.size;
-						const bans = Guild.bans.cache.size;
-						const owner = await Guild.fetchOwner();
-						const icon_url = await Guild.iconURL();
-						const vanity_url = Guild.vanityURLCode;
+      const guilds = await pb.collection(guild_collection_name).getFullList({
+        filter: `discordID ?= '${guildID}'`,
+      });
 
-						await Guild.members.fetch();
-						const statusCount = {
-							online: 0,
-							idle: 0,
-							dnd: 0,
-							offline: 0,
-						};
+      if (guilds.length > 0) {
+        guilds.forEach((guild) => {
+          async function setNewData() {
+            const Guild = client.guilds.cache.get(`${String(guild.discordID)}`);
+            const channels = Guild.channels.cache.size;
+            const roles = Guild.roles.cache.size;
+            const bans = Guild.bans.cache.size;
+            const owner = await Guild.fetchOwner();
+            const icon_url = await Guild.iconURL();
+            const vanity_url = Guild.vanityURLCode;
 
-						Guild.members.cache.forEach((member) => {
-							const status = member.presence?.status || "offline";
-							if (statusCount[status] !== undefined) {
-								statusCount[status]++;
-							}
-						});
+            await Guild.members.fetch();
+            const statusCount = {
+              online: 0,
+              idle: 0,
+              dnd: 0,
+              offline: 0,
+            };
 
-						function fetchVanityData() {
-							return Guild.fetchVanityData()
-								.then((res) => {
-									return res.uses;
-								})
-								.catch(() => {
-									return -1;
-								});
-						}
-						const vanity_uses = await fetchVanityData();
+            Guild.members.cache.forEach((member) => {
+              const status = member.presence?.status || "offline";
+              if (statusCount[status] !== undefined) {
+                statusCount[status]++;
+              }
+            });
 
-						debug({ text: `Syncing Guild: ${Guild.name}, ${Guild.id}` });
-						const newData = {
-							name: Guild.name,
-							members: Guild.memberCount,
-							available: Guild.available,
-							discord_partner: Guild.partnered,
-							channels: channels,
-							roles: roles,
-							bans: bans,
-							creation_date: Guild.createdAt,
-							owner_username: owner.user.username,
-							icon_url: icon_url,
-							description: Guild.description,
-							vanity_url: vanity_url,
-							vanity_uses: vanity_uses,
-							online: statusCount.online + statusCount.dnd,
-							offline: statusCount.offline,
-							idle: statusCount.idle,
-						};
-						try {
-							await pb.collection("guilds").update(`${guild.id}`, newData);
-							debug({
-								text: `Guild got synced: ${Guild.name}, ${Guild.id}`,
-							});
-						} catch (err) {
-							error({ text: `Failed to push new data: \n${err}` });
-						}
-					}
+            function fetchVanityData() {
+              return Guild.fetchVanityData()
+                .then((res) => {
+                  return res.uses;
+                })
+                .catch(() => {
+                  return -1;
+                });
+            }
+            const vanity_uses = await fetchVanityData();
 
-					// Check to see if the bot is in the guild
-					if (guild.discordID) {
-						try {
-							setNewData();
-							res.send(success_message);
-						} catch (err) {
-							error({
-								text: `Failed to sync data for GuildID: ${Guild.id}\n${err}`,
-							});
-							res.send(error_message);
-						}
-					}
-				});
-			} else {
-				debug({
-					text: `Failed to fetch guild with ID: ${guildID}`,
-				});
-				res.send(error_message);
-			}
-		} catch (err) {
-			error({ text: `Failed to fetch guild: \n${err}` });
-		}
-	}
+            debug({ text: `Syncing Guild: ${Guild.name}, ${Guild.id}` });
+            const newData = {
+              name: Guild.name,
+              members: Guild.memberCount,
+              available: Guild.available,
+              discord_partner: Guild.partnered,
+              channels: channels,
+              roles: roles,
+              bans: bans,
+              creation_date: Guild.createdAt,
+              owner_username: owner.user.username,
+              icon_url: icon_url,
+              description: Guild.description,
+              vanity_url: vanity_url,
+              vanity_uses: vanity_uses,
+              online: statusCount.online + statusCount.dnd,
+              offline: statusCount.offline,
+              idle: statusCount.idle,
+            };
+            try {
+              await pb.collection("guilds").update(`${guild.id}`, newData);
+              debug({
+                text: `Guild got synced: ${Guild.name}, ${Guild.id}`,
+              });
+            } catch (err) {
+              error({ text: `Failed to push new data: \n${err}` });
+            }
+          }
 
-	try {
-		fetchGuilds();
-	} catch (err) {
-		console.log(err);
-		error({ text: `Failed to communicate with the Database` });
-		res.send(error_message);
-	}
+          // Check to see if the bot is in the guild
+          if (guild.discordID) {
+            try {
+              setNewData();
+              res.send(success_message);
+            } catch (err) {
+              error({
+                text: `Failed to sync data for GuildID: ${Guild.id}\n${err}`,
+              });
+              res.send(error_message);
+            }
+          }
+        });
+      } else {
+        debug({
+          text: `Failed to fetch guild with ID: ${guildID}`,
+        });
+        res.send(error_message);
+      }
+    } catch (err) {
+      error({ text: `Failed to fetch guild: \n${err}` });
+    }
+  }
+
+  try {
+    fetchGuilds();
+  } catch (err) {
+    console.log(err);
+    error({ text: `Failed to communicate with the Database` });
+    res.send(error_message);
+  }
 }
 
 module.exports = { syncGuild };

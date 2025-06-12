@@ -57,11 +57,7 @@
     },
     {
       "label": "Run All",
-      "dependsOn": [
-        "Run cially-web",
-        "Run cially-bot",
-        "Run pocketbase"
-      ],
+      "dependsOn": ["Run cially-web", "Run cially-bot", "Run pocketbase"],
       "dependsOrder": "parallel"
     }
   ]

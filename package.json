@@ -1,21 +1,27 @@
 {
-	"name": "cially",
-	"version": "2.0.0-beta.0",
-	"description": "",
-	"main": "index.js",
-	"scripts": {
-		"check": "pnpm run -r check",
-		"check:fix": "pnpm run -r check:fix",
-		"docker:bot": "docker --target cially-bot -t cially-bot .",
-		"docker:web": "docker --target cially-web -t cially-web .",
-		"up": "taze -r -I"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"packageManager": "pnpm@10.11.1",
-	"devDependencies": {
-		"@biomejs/biome": "2.0.0-beta.6",
-		"taze": "^19.1.0"
-	}
+  "name": "cially",
+  "version": "2.0.0-beta.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "docker:bot": "docker --target cially-bot -t cially-bot .",
+    "docker:web": "docker --target cially-web -t cially-web .",
+    "up": "taze -r -I"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.12.1",
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "taze": "catalog:"
+  },
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.1.6",
+      "@types/react-dom": "19.1.6"
+    }
+  }
 }
