@@ -22,7 +22,7 @@ function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
   const [chartData, setChartData] = useState([{ amount: 69 }]);
-  const [isGuest, setGuestStatus] = useState(false);
+  const [isGuest, setGuestStatus] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
@@ -41,8 +41,8 @@ function ClientComponent() {
       .split('; ')
       .find(row => row.startsWith('guest='))
       ?.split('=')[1];
-      if (guestStatus === "true") {
-        setGuestStatus(true)
+      if (guestStatus !== "true") {
+        setGuestStatus(false)
       }
     }
     getGuestCookie();

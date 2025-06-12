@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import PocketBase from "pocketbase";
 
 export async function middleware(request: NextRequest) {
+
+
   const pathname = request.nextUrl.pathname;
   const response = NextResponse.next();
 
@@ -27,7 +29,7 @@ export async function middleware(request: NextRequest) {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
 
-    if (pathname.includes("dashboard/server/messages")) {
+    if (pathname.includes("dashboard/server/messages") || pathname.includes("dashboard/cially/settings")) {
       const email = pb.authStore.model?.email;
       if (email) {
         console.log(email);

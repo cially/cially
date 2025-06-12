@@ -26,9 +26,24 @@ import {
 } from "@/components/ui/card";
 import { handleThemeChange } from "./_logic/setThemeFunction";
 import SignOut from "./_logic/signOutHandler";
+import { useEffect, useState } from "react";
 
 export default function SettingsPage() {
   const router = useRouter();
+  const [isGuest, setGuestStatus] = useState(true);
+
+  useEffect(() => {
+    async function getGuestCookie() {
+      const guestStatus = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("guest="))
+        ?.split("=")[1];
+      if (guestStatus !== "true") {
+        setGuestStatus(false);
+      }
+    }
+    getGuestCookie();
+  }, []);
 
   const handleDelete = async () => {
     try {
@@ -99,56 +114,59 @@ export default function SettingsPage() {
             </div>
           </CardContent>
         </Card>
+        {!isGuest ? (
+          <div className="grid sm:grid-cols-2">
+            <GuestToggleCard />
 
-        <div className="grid sm:grid-cols-2">
-          <GuestToggleCard />
-
-          <Card className="mx-3 mt-7 border-[1px] border-red-500/40">
-            <CardHeader>
-              <CardTitle>
-                <DatabaseBackup className="inline w-5 mr-2 -translate-y-0.5" />{" "}
-                Erase Database
-              </CardTitle>
-              <CardDescription>
-                Click the button bellow to erase all the data in your database.
-                This action is irreversible!
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    variant="destructive"
-                    className=" place-self-center cursor-pointer hover:outline-1 outline-0 outline-amber-950 transition-all"
-                  >
-                    Erase
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you absolutely sure?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This is a permanent action. Confirming will erase all
-                      server data, and this process cannot be reversed. Ensure
-                      you understand the implications before proceeding.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      onClick={() => handleDelete()}
-                      className="bg-red-600 text-white hover:bg-red-800 transition"
+            <Card className="mx-3 mt-7 border-[1px] border-red-500/40">
+              <CardHeader>
+                <CardTitle>
+                  <DatabaseBackup className="inline w-5 mr-2 -translate-y-0.5" />{" "}
+                  Erase Database
+                </CardTitle>
+                <CardDescription>
+                  Click the button bellow to erase all the data in your
+                  database. This action is irreversible!
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      variant="destructive"
+                      className=" place-self-center cursor-pointer hover:outline-1 outline-0 outline-amber-950 transition-all"
                     >
-                      Confirm
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </CardContent>
-          </Card>
-        </div>
+                      Erase
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This is a permanent action. Confirming will erase all
+                        server data, and this process cannot be reversed. Ensure
+                        you understand the implications before proceeding.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={() => handleDelete()}
+                        className="bg-red-600 text-white hover:bg-red-800 transition"
+                      >
+                        Confirm
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </CardContent>
+            </Card>
+          </div>
+        ) : (
+          <></>
+        )}
 
         <Card className="mt-7 mx-3">
           <CardHeader>
