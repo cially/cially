@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
+import GuestLogin from "@/app/login/_components/guestLogin";
 
 // initialize PocketBase client
 const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
@@ -82,6 +83,10 @@ export function LoginForm({
               </div>
             </div>
           </form>
+          
+            <div className="place-self-center mt-2">
+              <GuestLogin />
+            </div>
         </CardContent>
       </Card>
     </div>
