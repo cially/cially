@@ -40,7 +40,7 @@ function ClientComponent() {
       return (
         <>
           <div className="w-20 place-self-center">
-            <Image src="/logo-png.png" alt="logo" />
+            <Image src="/logo-png.png" alt="logo" width={500} height={500} />
           </div>
           <div className="text-2xl  text-center">Available Guilds</div>
           <div className="text-sm text-gray-400 text-center">
@@ -74,6 +74,7 @@ function ClientComponent() {
                     src="/github.svg"
                     alt="github"
                     className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
+                    width={500} height={500}
                   />
                 </a>
               </div>
@@ -136,7 +137,7 @@ function ClientComponent() {
     return (
       <>
         <div className="w-20 place-self-center">
-          <Image src="/logo-png.png" alt="logo" />
+          <Image src="/logo-png.png" alt="logo" width={500} height={500}/>
         </div>
         <div className="text-2xl  text-center">Available Guilds</div>
         <div className="text-sm text-gray-400 text-center">
@@ -167,6 +168,7 @@ function ClientComponent() {
                 <Image
                   src="/github.svg"
                   alt="github"
+                  width={500} height={500}
                   className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
                 />
               </a>
@@ -184,7 +186,7 @@ function ClientComponent() {
     return (
       <>
         <div className="w-20 place-self-center">
-          <Image src="/logo-png.png" alt="logo" />
+          <Image src="/logo-png.png" alt="logo" width={500} height={500} />
         </div>
         <div className="text-center mx-5">
           Looks like the Discord Bot can't communicate with the Dashboard.
@@ -224,6 +226,7 @@ function ClientComponent() {
               <a href="https://github.com/cially/cially">
                 <Image
                   src="/github.svg"
+                  width={500} height={500}
                   alt="github"
                   className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
                 />
