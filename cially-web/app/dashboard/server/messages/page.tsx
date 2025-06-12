@@ -22,6 +22,7 @@ function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
   const [chartData, setChartData] = useState([{ amount: 69 }]);
+  const [isGuest, setGuestStatus] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -33,6 +34,19 @@ function ClientComponent() {
     }
     fetchData();
   }, [guildID]);
+
+  useEffect(() => {
+    async function getGuestCookie() {
+      const guestStatus = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('guest='))
+      ?.split('=')[1];
+      if (guestStatus === "true") {
+        setGuestStatus(true)
+      }
+    }
+    getGuestCookie();
+  }, []);
 
   if (chartData.notFound) {
     return <GuildNotFound />;
@@ -50,7 +64,7 @@ function ClientComponent() {
         </div>
 
         <div className="sm:mx-5">
-          <GeneralMessageDataCard />
+          <GeneralMessageDataCard/>
         </div>
 
         <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
@@ -80,7 +94,7 @@ function ClientComponent() {
 
       <div className="sm:ml-5 sm:mr-5">
         <GeneralMessageDataCard chartData={data_general} />
-        <ImportDialogCard guildID={guildID} />
+        <ImportDialogCard guildID={guildID}  isGuest={isGuest}/>
       </div>
 
       <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
