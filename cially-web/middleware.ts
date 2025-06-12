@@ -4,6 +4,7 @@ import PocketBase from "pocketbase";
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const response = NextResponse.next();
 
   const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
   const cookie = request.cookies.get("pb_auth")?.value;
@@ -24,6 +25,31 @@ export async function middleware(request: NextRequest) {
 
     if (pathname === "/login") {
       return NextResponse.redirect(new URL("/dashboard", request.url));
+    }
+
+    if (pathname.includes("dashboard/server/messages")) {
+      const email = pb.authStore.model?.email;
+      if (email) {
+        console.log(email);
+        if (
+          email ===
+          "cially-guest@do-not-create-an-admin-account-with-this-address-manually.it-will-break-things.com"
+        ) {
+          response.cookies.set("guest", "true", {
+            path: "/",
+            secure: false,
+            sameSite: "lax",
+          });
+          return response;
+        } else {
+          response.cookies.set("guest", "false", {
+            path: "/",
+            secure: false,
+            sameSite: "lax",
+          });
+          return response;
+        }
+      }
     }
   } catch (_err) {
     if (pathname !== "/login" && pathname !== "/register") {
