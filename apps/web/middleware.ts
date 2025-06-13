@@ -55,12 +55,8 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    if (
-      pathname.includes("") ||
-      pathname.includes("dashboard/cially/settings")
-    ) {
+    
 
-    }
   } catch (_err) {
     if (pathname !== "/login" && pathname !== "/register") {
       return NextResponse.redirect(new URL("/login", request.url));
