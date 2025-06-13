@@ -1,5 +1,15 @@
 "use client";
 import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  LabelList,
+  XAxis,
+  YAxis,
+} from "recharts";
+
+import { ArrowDown01 } from "lucide-react";
 
 import {
   Card,
@@ -16,6 +26,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useState } from "react";
 
 const chartConfig = {
   channel: {
@@ -29,6 +40,16 @@ export default function ActiveChannels({
 }: {
   chartData?: { channel: string }[];
 }) {
+  const [useNumeric, setNumericStatus] = useState(false);
+
+  function numericToggle() {
+    if (useNumeric === true) {
+      setNumericStatus(false);
+    } else {
+      setNumericStatus(true);
+    }
+  }
+
   if (!chartData) {
     return (
       <>
@@ -51,11 +72,24 @@ export default function ActiveChannels({
     return (
       <Card className="h-full w-full">
         <CardHeader>
-          <CardTitle>Most Active Channels</CardTitle>
+          <div className="grid grid-cols-2">
+            <CardTitle className="place-self-start">
+              Most Active Channels
+            </CardTitle>
+            <CardTitle
+              className="place-self-end rounded-full bg-white/0 hover:bg-white/10 transition-all p-0.5"
+              onClick={() => numericToggle()}
+            >
+              <ArrowDown01 />
+            </CardTitle>
+          </div>
           <CardDescription>Last 4 weeks</CardDescription>
         </CardHeader>
         <CardContent className="pb-0">
-          <ChartContainer config={chartConfig} className="aspect-square w-full">
+
+          { (useNumeric === false) ? 
+
+<ChartContainer config={chartConfig} className="aspect-square w-full">
             <RadarChart data={chartData}>
               <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
               <PolarAngleAxis dataKey="channel" />
@@ -71,6 +105,55 @@ export default function ActiveChannels({
               />
             </RadarChart>
           </ChartContainer>
+          : 
+          <ChartContainer config={chartConfig}>
+                      <BarChart
+                        accessibilityLayer
+                        data={chartData}
+                        layout="vertical"
+                        margin={{
+                          right: 16,
+                        }}
+                      >
+                        <CartesianGrid horizontal={false} />
+                        <YAxis
+                          dataKey="channel"
+                          type="category"
+                          tickLine={false}
+                          tickMargin={10}
+                          axisLine={false}
+                          tickFormatter={(value) => value.slice(0, 3)}
+                          hide
+                        />
+                        <XAxis dataKey="amount" type="number" hide />
+                        <ChartTooltip
+                          cursor={false}
+                          content={<ChartTooltipContent indicator="line" />}
+                        />
+                        <Bar
+                          dataKey="amount"
+                          layout="vertical"
+                          fill="#0370ff"
+                          radius={4}
+                        >
+                          <LabelList
+                            dataKey="channel"
+                            position="insideRight"
+                            offset={8}
+                            className="fill-white"
+                            fontSize={12}
+                          />
+                          <LabelList
+                            dataKey="amount"
+                            position="right"
+                            offset={8}
+                            className="fill-foreground"
+                            fontSize={12}
+                          />
+                        </Bar>
+                      </BarChart>
+                    </ChartContainer>
+                    }
         </CardContent>
         <CardFooter className="flex items-center justify-center gap-2 text-sm">
           <div className="font-medium leading-none">
@@ -83,12 +166,12 @@ export default function ActiveChannels({
   } catch (_err) {
     return (
       <Card className="h-full w-full">
-        <CardHeader>
-          <CardTitle>Most Active Channels</CardTitle>
-          <CardDescription>Last 4 weeks</CardDescription>
-        </CardHeader>
+      <CardHeader>
+      <CardTitle>Most Active Channels</CardTitle>
+      <CardDescription>Last 4 weeks</CardDescription>
+      </CardHeader>
         <CardContent className="pb-0">
-          <div className="text-center">Not enough data</div>
+        <div className="text-center">Not enough data</div>
         </CardContent>
       </Card>
     );

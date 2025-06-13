@@ -134,7 +134,7 @@ importers:
         specifier: 'catalog:'
         version: 19.1.0
 
-  cially-bot:
+  apps/bot:
     dependencies:
       '@discordjs/rest':
         specifier: 'catalog:'
@@ -183,7 +183,7 @@ importers:
         specifier: 'catalog:'
         version: 2.0.0-beta.6
 
-  cially-web:
+  apps/web:
     dependencies:
       '@hookform/resolvers':
         specifier: 'catalog:'
