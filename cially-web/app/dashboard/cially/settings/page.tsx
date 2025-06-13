@@ -4,6 +4,7 @@
 
 import { DatabaseBackup, PaletteIcon, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import GuestToggleCard from "@/components/guestToggle";
 import {
   AlertDialog,
@@ -26,7 +27,6 @@ import {
 } from "@/components/ui/card";
 import { handleThemeChange } from "./_logic/setThemeFunction";
 import SignOut from "./_logic/signOutHandler";
-import { useEffect, useState } from "react";
 
 export default function SettingsPage() {
   const router = useRouter();

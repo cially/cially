@@ -38,11 +38,11 @@ function ClientComponent() {
   useEffect(() => {
     async function getGuestCookie() {
       const guestStatus = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('guest='))
-      ?.split('=')[1];
+        .split("; ")
+        .find((row) => row.startsWith("guest="))
+        ?.split("=")[1];
       if (guestStatus !== "true") {
-        setGuestStatus(false)
+        setGuestStatus(false);
       }
     }
     getGuestCookie();
@@ -64,7 +64,7 @@ function ClientComponent() {
         </div>
 
         <div className="sm:mx-5">
-          <GeneralMessageDataCard/>
+          <GeneralMessageDataCard />
         </div>
 
         <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
@@ -94,7 +94,7 @@ function ClientComponent() {
 
       <div className="sm:ml-5 sm:mr-5">
         <GeneralMessageDataCard chartData={data_general} />
-        <ImportDialogCard guildID={guildID}  isGuest={isGuest}/>
+        <ImportDialogCard guildID={guildID} isGuest={isGuest} />
       </div>
 
       <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
