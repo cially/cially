@@ -19,7 +19,7 @@ export async function GET() {
         {},
       );
 
-    return Response.json({ account: account });
+    return Response.json({ account: account.name });
   } catch (error) {
     if (error.status === 404) {
       return Response.json({ noAccounts: true });

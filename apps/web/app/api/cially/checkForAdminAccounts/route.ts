@@ -16,7 +16,7 @@ export async function GET() {
       .collection("users")
       .getFirstListItem('id!="" && admin=true', {});
 
-    return Response.json({ account: account });
+    return Response.json({ account: account.admin });
   } catch (error) {
     if (error.status === 404) {
       return Response.json({ noAccounts: true });
