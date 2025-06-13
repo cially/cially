@@ -6,7 +6,7 @@
       "type": "shell",
       "command": "npm run dev",
       "options": {
-        "cwd": "cially-web"
+        "cwd": "apps/web"
       },
       "problemMatcher": [],
       "group": "build",
@@ -24,7 +24,7 @@
       "type": "shell",
       "command": "node .",
       "options": {
-        "cwd": "cially-bot"
+        "cwd": "apps/bot"
       },
       "problemMatcher": [],
       "group": "build",
