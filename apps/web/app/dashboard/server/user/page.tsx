@@ -14,20 +14,18 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import LoadingUserCard from "./_components/loading-usercard";
+import { Suspense, useState } from "react";
+import LoadingUserCard from "@/components/user-search/loading-usercard";
+import ScrapeNotification from "@/components/scrapeNotification";
+import DynamicUserCard from "@/components/user-search/dynamic-usercard";
+import ErrorUserCard from "@/components/user-search/error-usercard";
+import StaticUserCard from "@/components/user-search/static-usercard";
 
 const formSchema = z.object({
   id: z.string().min(5, {
     message: "Please enter a valid User ID",
   }),
 });
-
-import { Suspense, useState } from "react";
-import ScrapeNotification from "@/components/scrapeNotification";
-import DynamicUserCard from "./_components/dynamic-usercard";
-import ErrorUserCard from "./_components/error-usercard";
-import StaticUserCard from "./_components/static-usercard";
-
 export default function UserSearchPage() {
   return (
     <Suspense>

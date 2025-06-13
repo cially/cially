@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import PocketBase from "pocketbase";
 import { useId, useState } from "react";
-import GuestLogin from "@/app/login/_components/guestLogin";
+import GuestLogin from "@/components/auth/guestLogin";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";

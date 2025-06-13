@@ -4,11 +4,11 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import GuildNotFound from "@/components/guildNotFound";
 import ScrapeNotification from "@/components/scrapeNotification";
-import GeneralMessageDataCard from "./_components/_message-charts/general_data";
-import ImportDialogCard from "./_components/_message-charts/importDialog";
-import Last4Weeks from "./_components/_message-charts/last_4weeks";
-import Last7d from "./_components/_message-charts/last_7d";
-import Last24h from "./_components/_message-charts/last_24hrs";
+import GeneralMessageDataCard from "@/components/messages/general_data";
+import ImportDialogCard from "@/components/messages/importDialog";
+import Last4Weeks from "@/components/messages/last_4weeks";
+import Last7d from "@/components/messages/last_7d";
+import Last24h from "@/components/messages/last_24hrs";
 
 export default function MessagesActivityPage() {
   return (

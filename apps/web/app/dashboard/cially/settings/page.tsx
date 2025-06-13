@@ -5,7 +5,7 @@
 import { DatabaseBackup, PaletteIcon, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import GuestToggleCard from "@/components/guestToggle";
+import GuestToggleCard from "@/components/settings/guestToggle";
 import {
   AlertDialog,
   AlertDialogAction,

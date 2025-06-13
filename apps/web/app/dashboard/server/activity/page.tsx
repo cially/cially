@@ -5,10 +5,10 @@ import { Suspense, useEffect, useState } from "react";
 
 import GuildNotFound from "@/components/guildNotFound";
 import ScrapeNotification from "@/components/scrapeNotification";
-import ActiveChannels from "./_components/active_channels";
-import ActiveHours from "./_components/active_hours";
-import ActiveUsers from "./_components/active_users";
-import GeneralActivityData from "./_components/general_data";
+import ActiveChannels from "@/components/activity/active_channels";
+import ActiveHours from "@/components/activity/active_hours";
+import ActiveUsers from "@/components/activity/active_users";
+import GeneralActivityData from "@/components/activity/general_data";
 
 export default function MessagesDashboard() {
   return (
