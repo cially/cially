@@ -23,7 +23,7 @@
     "express": "catalog:",
     "ky": "catalog:",
     "multer": "catalog:",
-    "pocketbase": "^0.26.1",
+    "pocketbase": "catalog:",
     "simple-get": "catalog:",
     "winston": "catalog:"
   },
