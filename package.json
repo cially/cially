@@ -1,7 +1,7 @@
 {
   "name": "cially",
   "version": "2.0.0-beta.0",
-  "description": "",
+  "description": "OSS Discord Analytics",
   "type": "module",
   "scripts": {
     "check": "biome check .",
@@ -12,10 +12,6 @@
     "lefthook": "lefthook install",
     "commit": "git-cz"
   },
-  "keywords": [],
-  "author": "",
-  "license": "",
-  "packageManager": "pnpm@10.12.1",
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@commitlint/cli": "catalog:",
@@ -30,5 +26,6 @@
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
-  }
+  },
+  "packageManager": "pnpm@10.12.1"
 }
