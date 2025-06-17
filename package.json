@@ -2,13 +2,14 @@
   "name": "cially",
   "version": "2.0.0-beta.0",
   "description": "",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "check": "biome check .",
     "check:fix": "biome check --write .",
     "docker:bot": "docker --target cially-bot -t cially-bot .",
     "docker:web": "docker --target cially-web -t cially-web .",
     "up": "taze -r -I",
+    "lefthook": "lefthook install",
     "commit": "commit"
   },
   "keywords": [],
