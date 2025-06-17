@@ -54,6 +54,7 @@ injectWorkspacePackages: true
 
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
+  - lefthook
   - sharp
 
 syncInjectedDepsAfterScripts:

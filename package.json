@@ -30,16 +30,5 @@
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "19.1.6",
-      "@types/react-dom": "19.1.6"
-    },
-    "onlyBuiltDependencies": [
-      "@tailwindcss/oxide",
-      "lefthook",
-      "sharp"
-    ]
   }
 }
