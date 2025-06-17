@@ -1,14 +1,21 @@
 packages:
   - apps/*
-
+injectWorkspacePackages: true
+onlyBuiltDependencies:
+  - "@tailwindcss/oxide"
+  - sharp
+syncInjectedDepsAfterScripts:
+  - build
 catalog:
-  '@biomejs/biome': 2.0.0-beta.6
-  '@discordjs/rest': ^2.5.1
-  '@hookform/resolvers': ^5.1.1
-  '@tailwindcss/postcss': ^4.1.10
-  '@types/node': ^24.0.3
-  '@types/react': 19.1.6
-  '@types/react-dom': 19.1.6
+  "@biomejs/biome": 2.0.0-beta.6
+  "@commitlint/cli": ^19.8.1
+  "@commitlint/config-conventional": ^19.8.1
+  "@discordjs/rest": ^2.5.1
+  "@hookform/resolvers": ^5.1.1
+  "@tailwindcss/postcss": ^4.1.10
+  "@types/node": ^24.0.3
+  "@types/react": 19.1.6
+  "@types/react-dom": 19.1.6
   body-parser: ^2.2.0
   cfonts: ^3.3.0
   class-variance-authority: ^0.7.1
@@ -42,12 +49,3 @@ catalog:
   typescript: ^5.8.3
   winston: ^3.17.0
   zod: ^3.25.67
-
-injectWorkspacePackages: true
-
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - sharp
-
-syncInjectedDepsAfterScripts:
-  - build
