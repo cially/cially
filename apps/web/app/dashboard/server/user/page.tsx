@@ -3,8 +3,10 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import ScrapeNotification from "@/components/scrapeNotification";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,11 +16,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Suspense, useState } from "react";
-import LoadingUserCard from "@/components/user-search/loading-usercard";
-import ScrapeNotification from "@/components/scrapeNotification";
 import DynamicUserCard from "@/components/user-search/dynamic-usercard";
 import ErrorUserCard from "@/components/user-search/error-usercard";
+import LoadingUserCard from "@/components/user-search/loading-usercard";
 import StaticUserCard from "@/components/user-search/static-usercard";
 
 const formSchema = z.object({

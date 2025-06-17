@@ -54,9 +54,6 @@ export async function middleware(request: NextRequest) {
         }
       }
     }
-
-    
-
   } catch (_err) {
     if (pathname !== "/login" && pathname !== "/register") {
       return NextResponse.redirect(new URL("/login", request.url));

@@ -2,13 +2,13 @@
 
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
-import GuildNotFound from "@/components/guildNotFound";
-import ScrapeNotification from "@/components/scrapeNotification";
 import GeneralMessageDataCard from "@/components/growth/general_data";
 import Last4Weeks from "@/components/growth/last_4weeks";
 import Last7d from "@/components/growth/last_7d";
 import Last24h from "@/components/growth/last_24hrs";
 import { TotalStatsGraph } from "@/components/growth/total_stats_graph";
+import GuildNotFound from "@/components/guildNotFound";
+import ScrapeNotification from "@/components/scrapeNotification";
 
 export default function GrowthPage() {
   return (
