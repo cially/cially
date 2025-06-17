@@ -15,7 +15,6 @@ catalog:
   dotenv: ^16.5.0
   express: ^5.1.0
   ky: ^1.8.1
-  lucide: ^0.515.0
   lucide-react: ^0.516.0
   multer: ^2.0.1
   next: ^15.3.3

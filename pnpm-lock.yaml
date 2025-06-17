@@ -46,9 +46,6 @@ catalogs:
     ky:
       specifier: ^1.8.1
       version: 1.8.1
-    lucide:
-      specifier: ^0.515.0
-      version: 0.515.0
     lucide-react:
       specifier: ^0.516.0
       version: 0.516.0
@@ -234,9 +231,6 @@ importers:
       clsx:
         specifier: 'catalog:'
         version: 2.1.1
-      lucide:
-        specifier: 'catalog:'
-        version: 0.515.0
       lucide-react:
         specifier: 'catalog:'
         version: 0.516.0(react@19.1.0)
@@ -2517,9 +2511,6 @@ packages:
     resolution: {integrity: sha512-aybBJzLHcw1CIn3rUcRkztB37dsJATtpffLNX+0/w+ws2p21nYIlOwX/B5fqxq8F/BjqVemnJX8chKwRidvROg==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  lucide@0.515.0:
-    resolution: {integrity: sha512-n7tFK3R1HdsxwM5rMOa6twAi/4RGZCysc7dmk7Cr2GiOUcnHX0+MX9xw3xynpbekXCgS4+o9HeIWhBl3rZHIAA==}
 
   luxon@3.6.1:
     resolution: {integrity: sha512-tJLxrKJhO2ukZ5z0gyjY1zPh3Rh88Ej9P7jNrZiHMUXHae1yvI2imgOZtL1TO8TW6biMMKfTtAOoEJANgtWBMQ==}
@@ -5522,8 +5513,6 @@ snapshots:
   lucide-react@0.516.0(react@19.1.0):
     dependencies:
       react: 19.1.0
-
-  lucide@0.515.0: {}
 
   luxon@3.6.1: {}
 
