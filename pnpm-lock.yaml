@@ -56,7 +56,7 @@ catalogs:
       specifier: ^2.0.1
       version: 2.0.1
     next:
-      specifier: 15.3.3
+      specifier: ^15.3.3
       version: 15.3.3
     next-themes:
       specifier: ^0.4.6
@@ -71,10 +71,10 @@ catalogs:
       specifier: ^1.4.2
       version: 1.4.2
     react:
-      specifier: 19.1.0
+      specifier: ^19.1.0
       version: 19.1.0
     react-dom:
-      specifier: 19.1.0
+      specifier: ^19.1.0
       version: 19.1.0
     react-hook-form:
       specifier: ^7.58.0
