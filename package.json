@@ -16,12 +16,19 @@
   "packageManager": "pnpm@10.12.1",
   "devDependencies": {
     "@biomejs/biome": "catalog:",
+    "lefthook": "catalog:",
     "taze": "catalog:"
   },
+  "postinstall": "lefthook install",
   "pnpm": {
     "overrides": {
       "@types/react": "19.1.6",
       "@types/react-dom": "19.1.6"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "@tailwindcss/oxide",
+      "lefthook",
+      "sharp"
+    ]
   }
 }

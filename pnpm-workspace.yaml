@@ -1,5 +1,5 @@
 packages:
-  - 'apps/*'
+  - apps/*
 
 catalog:
   '@biomejs/biome': 2.0.0-beta.6
@@ -20,6 +20,7 @@ catalog:
   dotenv: ^16.5.0
   express: ^5.1.0
   ky: ^1.8.1
+  lefthook: ^1.11.14
   lucide: ^0.514.0
   lucide-react: ^0.514.0
   multer: ^2.0.1
