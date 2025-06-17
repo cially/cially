@@ -9,8 +9,7 @@
     "docker:bot": "docker --target cially-bot -t cially-bot .",
     "docker:web": "docker --target cially-web -t cially-web .",
     "up": "taze -r -I",
-    "lefthook": "lefthook install",
-    "commit": "commit"
+    "lefthook": "lefthook install"
   },
   "keywords": [],
   "author": "",
