@@ -32,13 +32,13 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
-    "@tailwindcss/postcss": "catalog:",
-    "@types/node": "catalog:",
-    "@types/react": "catalog:",
-    "@types/react-dom": "catalog:",
-    "tailwindcss": "catalog:",
-    "typescript": "catalog:"
+    "@biomejs/biome": "catalog:dev",
+    "@tailwindcss/postcss": "catalog:dev",
+    "@types/node": "catalog:types",
+    "@types/react": "catalog:types",
+    "@types/react-dom": "catalog:types",
+    "tailwindcss": "catalog:dev",
+    "typescript": "catalog:dev"
   },
   "overrides": {
     "react-is": "^19.1.0"

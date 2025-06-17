@@ -13,13 +13,14 @@
     "commit": "git-cz"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:",
-    "@commitlint/cli": "catalog:",
-    "@commitlint/config-conventional": "catalog:",
-    "@commitlint/cz-commitlint": "catalog:",
-    "commitizen": "catalog:",
-    "lefthook": "catalog:",
-    "taze": "catalog:"
+    "@biomejs/biome": "catalog:dev",
+    "@commitlint/cli": "catalog:dev",
+    "@commitlint/config-conventional": "catalog:dev",
+    "@commitlint/cz-commitlint": "catalog:dev",
+    "commitizen": "catalog:dev",
+    "lefthook": "catalog:dev",
+    "taze": "catalog:dev",
+    "inquirer": "catalog:dev"
   },
   "postinstall": "lefthook install",
   "config": {

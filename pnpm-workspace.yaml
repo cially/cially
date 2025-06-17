@@ -2,30 +2,19 @@ packages:
   - apps/*
 
 catalog:
-  '@biomejs/biome': 2.0.0-beta.6
-  '@commitlint/cli': ^19.8.1
-  '@commitlint/config-conventional': ^19.8.1
-  '@commitlint/cz-commitlint': ^19.8.1
   '@discordjs/rest': ^2.5.1
   '@hookform/resolvers': ^5.1.1
-  '@tailwindcss/postcss': ^4.1.10
-  '@types/node': ^24.0.3
-  '@types/react': 19.1.6
-  '@types/react-dom': 19.1.6
   body-parser: ^2.2.0
   cfonts: ^3.3.0
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
   colors: ^1.4.0
-  commitizen: ^4.3.1
   cron: ^4.3.1
   discord-api-types: ^0.38.12
   discord.js: ^14.20.0
   dotenv: ^16.5.0
   express: ^5.1.0
-  inquirer: ^9.0.0
   ky: ^1.8.1
-  lefthook: ^1.11.14
   lucide: ^0.515.0
   lucide-react: ^0.516.0
   multer: ^2.0.1
@@ -41,12 +30,27 @@ catalog:
   simple-get: ^4.0.1
   sonner: ^2.0.5
   tailwind-merge: ^3.3.1
-  tailwindcss: ^4.1.10
-  taze: ^19.1.0
   tw-animate-css: ^1.3.4
-  typescript: ^5.8.3
   winston: ^3.17.0
   zod: ^3.25.67
+
+catalogs:
+  dev:
+    '@biomejs/biome': 2.0.0-beta.6
+    '@commitlint/cli': ^19.8.1
+    '@commitlint/config-conventional': ^19.8.1
+    '@commitlint/cz-commitlint': ^19.8.1
+    '@tailwindcss/postcss': ^4.1.10
+    commitizen: ^4.3.1
+    lefthook: ^1.11.14
+    tailwindcss: ^4.1.10
+    taze: ^19.1.0
+    typescript: ^5.8.3
+    inquirer: ^9.0.0
+  types:
+    '@types/node': ^24.0.3
+    '@types/react': 19.1.6
+    '@types/react-dom': 19.1.6
 
 catalogMode: prefer
 

@@ -28,6 +28,6 @@
     "winston": "catalog:"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:"
+    "@biomejs/biome": "catalog:dev"
   }
 }
