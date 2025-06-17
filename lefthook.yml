@@ -2,7 +2,7 @@ pre-commit:
   commands:
     check:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: npx @biomejs/biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
+      run: pnpm biome check --write --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {staged_files}
       stage_fixed: true
 
 prepare-commit-msg:
@@ -16,4 +16,4 @@ prepare-commit-msg:
 commit-msg:
   commands:
     commit:
-      run: pnpm exec commitlint --edit {1}
+      run: pnpm commitlint --edit {1}
