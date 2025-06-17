@@ -13,18 +13,6 @@ catalogs:
     '@hookform/resolvers':
       specifier: ^5.1.1
       version: 5.1.1
-    '@tailwindcss/postcss':
-      specifier: ^4.1.10
-      version: 4.1.10
-    '@types/node':
-      specifier: ^24.0.3
-      version: 24.0.3
-    '@types/react':
-      specifier: 19.1.6
-      version: 19.1.6
-    '@types/react-dom':
-      specifier: 19.1.6
-      version: 19.1.6
     body-parser:
       specifier: ^2.2.0
       version: 2.2.0
@@ -103,15 +91,9 @@ catalogs:
     tailwind-merge:
       specifier: ^3.3.1
       version: 3.3.1
-    tailwindcss:
-      specifier: ^4.1.10
-      version: 4.1.10
     tw-animate-css:
       specifier: ^1.3.4
       version: 1.3.4
-    typescript:
-      specifier: ^5.8.3
-      version: 5.8.3
     winston:
       specifier: ^3.17.0
       version: 3.17.0
@@ -131,6 +113,9 @@ catalogs:
     '@commitlint/cz-commitlint':
       specifier: ^19.8.1
       version: 19.8.1
+    '@tailwindcss/postcss':
+      specifier: ^4.1.10
+      version: 4.1.10
     commitizen:
       specifier: ^4.3.1
       version: 4.3.1
@@ -140,9 +125,25 @@ catalogs:
     lefthook:
       specifier: ^1.11.14
       version: 1.11.14
+    tailwindcss:
+      specifier: ^4.1.10
+      version: 4.1.10
     taze:
       specifier: ^19.1.0
       version: 19.1.0
+    typescript:
+      specifier: ^5.8.3
+      version: 5.8.3
+  types:
+    '@types/node':
+      specifier: ^24.0.3
+      version: 24.0.3
+    '@types/react':
+      specifier: 19.1.6
+      version: 19.1.6
+    '@types/react-dom':
+      specifier: 19.1.6
+      version: 19.1.6
 
 importers:
 
@@ -283,22 +284,22 @@ importers:
         specifier: catalog:dev
         version: 2.0.0-beta.6
       '@tailwindcss/postcss':
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 4.1.10
       '@types/node':
-        specifier: 'catalog:'
+        specifier: catalog:types
         version: 24.0.3
       '@types/react':
-        specifier: 'catalog:'
+        specifier: catalog:types
         version: 19.1.6
       '@types/react-dom':
-        specifier: 'catalog:'
+        specifier: catalog:types
         version: 19.1.6(@types/react@19.1.6)
       tailwindcss:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 4.1.10
       typescript:
-        specifier: 'catalog:'
+        specifier: catalog:dev
         version: 5.8.3
 
 packages:
