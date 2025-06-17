@@ -91,7 +91,7 @@ function DashboardClientComponent() {
 
   return (
     <>
-      <div className="mt-10 mx-5 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
+      <div className="mt-10 mx-0 sm:mx-5 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
         <div>
           <div className="rows-span-1 grid grid-rows-3 sm:grid-cols-8 sm:grid-rows-none ">
             <div className="text-4xl sm:col-span-2 ">

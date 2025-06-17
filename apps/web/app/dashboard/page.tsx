@@ -100,7 +100,7 @@ function ClientComponent() {
     const guildCards = guildDataArray.map((guild) =>
       guild.in_db === true ? (
         <a href={`/dashboard/guild?guildID=${guild.id}`} key={guild.id}>
-          <Card className="hover:bg-white/2 transition-all mx-5">
+          <Card className="hover:bg-white/2 transition-all sm:mx-5 ">
             <CardHeader className="place-items-center">
               <Avatar className=" w-20 h-20">
                 <AvatarImage src={guild.icon} />
@@ -114,7 +114,7 @@ function ClientComponent() {
         <TooltipProvider key={guild.id}>
           <Tooltip>
             <TooltipTrigger>
-              <Card className="bg-red-400/10 hover:bg-red-400/7 transition-all mx-5 cursor-not-allowed">
+              <Card className="bg-red-400/10 hover:bg-red-400/7 transition-all sm:mx-5 cursor-not-allowed">
                 <CardHeader className="place-items-center">
                   <Avatar className=" w-20 h-20">
                     <AvatarImage src={guild.icon} />
@@ -146,7 +146,7 @@ function ClientComponent() {
         </div>
 
         <div className="mb-10" />
-        <div className={`grid gap-y-5 grid-cols-1 ${gridClass} mx-10`}>
+        <div className={`grid gap-y-5 grid-cols-1 ${gridClass} sm:mx-10`}>
           {guildCards}
         </div>
 

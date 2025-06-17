@@ -48,7 +48,7 @@ export default function BottomCard({
 
   return (
     <>
-      <Card className="mt-10 grid grid-rows-1 px-10 sm:min-w-dvh sm:grid-cols-5 sm:grid-rows-1">
+      <Card className="mt-10 grid grid-rows-1 px-7 sm:px-10 sm:min-w-dvh sm:grid-cols-5 sm:grid-rows-1">
         <div className="col-start-1 h-20 w-20 place-self-center sm:col-span-1 sm:place-self-auto">
           <Avatar className=" h-20 w-20">
             <AvatarImage src={guild.icon_url} />
@@ -56,10 +56,10 @@ export default function BottomCard({
           </Avatar>
         </div>
 
-        <div className="grid grid-rows-1 text-center sm:col-span-2 sm:text-left">
+        <div className="grid grid-rows-1  sm:col-span-2 text-left">
           <div>
-            <div className="text-2xl">{guild.name}</div>
-            <div className="mb-10 text-gray-400 text-xs">
+            <div className="text-2xl text-center sm:text-left">{guild.name}</div>
+            <div className="mb-10 text-gray-400 text-xs text-center sm:text-left">
               {correct_description}
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function BottomCard({
           </div>
         </div>
 
-        <div className="mt-5 grid grid-rows-1 text-center sm:col-span-2 sm:mt-0 sm:text-left">
+        <div className="mt-5 grid grid-rows-1 sm:col-span-2 sm:mt-0 text-left">
           <div>
             <div className="text-2xl" />
             <div className="text-gray-400 text-xs" />
