@@ -9,7 +9,8 @@
     "docker:bot": "docker --target cially-bot -t cially-bot .",
     "docker:web": "docker --target cially-web -t cially-web .",
     "up": "taze -r -I",
-    "lefthook": "lefthook install"
+    "lefthook": "lefthook install",
+    "commit": "git-cz"
   },
   "keywords": [],
   "author": "",
@@ -19,10 +20,17 @@
     "@biomejs/biome": "catalog:",
     "@commitlint/cli": "catalog:",
     "@commitlint/config-conventional": "catalog:",
+    "@commitlint/cz-commitlint": "catalog:",
+    "commitizen": "catalog:",
     "lefthook": "catalog:",
     "taze": "catalog:"
   },
   "postinstall": "lefthook install",
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
   "pnpm": {
     "overrides": {
       "@types/react": "19.1.6",
