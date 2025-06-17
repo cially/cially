@@ -33,6 +33,8 @@ export default async function RootLayout({
     gray: "bg-gr-gray",
     pink: "bg-gr-pink",
     brown: "bg-gr-brown",
+    red: "bg-gr-red",
+    purple: "bg-gr-purple",
   }[theme.value];
 
   return (

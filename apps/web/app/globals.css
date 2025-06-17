@@ -35,29 +35,34 @@ body {
   );
 }
 
-.bg-gr-brown {
+.bg-gr-purple {
   background: radial-gradient(
     at 20% 25%,
-    rgb(41, 27, 17) 0%,
-    rgb(12, 12, 12) 46%,
+    rgb(26, 2, 42) 0%,
+    rgb(11, 1, 15) 46%,
     rgba(18, 18, 18, 1) 100%
   );
 }
 
-/* Default Dark Theme
-.bg-gr {
-	background: radial-gradient(
-		at 20% 25%,
-		rgb(5, 15, 40) 0%, // Blue (Main)
-		rgb(36, 8, 24) 0%, // Pink
-		rgb(19, 18, 18) 0%, // Black
-		rgb(26, 17, 10) 0%, // Brown
-		
-		
-		rgb(12, 12, 12) 46%,
-		rgba(18, 18, 18, 1) 100%
-	);
-} */
+.bg-gr-red {
+  background: radial-gradient(
+    at 20% 25%,
+    rgb(42, 2, 2) 0%,
+    rgb(15, 1, 1) 46%,
+    rgba(18, 18, 18, 1) 100%
+  );
+} 
+
+.bg-gr-brown {
+  background: radial-gradient(
+    at 20% 25%,
+    rgb(42, 25, 1) 0%,
+    rgb(21, 12, 2) 46%,
+    rgba(18, 18, 18, 1) 100%
+  );
+}
+  
+
 
 @theme inline {
   --color-background: hsl(var(--background));

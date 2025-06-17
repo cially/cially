@@ -94,7 +94,7 @@ export default function SettingsPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-2 sm:grid-cols-4 place-self-center gap-x-5 sm:gap-x-10 gap-y-5 sm:gap-y-0">
+            <div className="grid grid-cols-3 sm:grid-cols-6 place-self-center gap-x-5 sm:gap-x-10 gap-y-5 sm:gap-y-0">
               <div
                 className="w-15 h-15 rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
                 onClick={() => handleThemeChange("blue")}
@@ -110,6 +110,14 @@ export default function SettingsPage() {
               <div
                 className="w-15 h-15 rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
                 onClick={() => handleThemeChange("brown")}
+              />
+              <div
+                className="w-15 h-15 rounded-full bg-gradient-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+                onClick={() => handleThemeChange("purple")}
+              />
+              <div
+                className="w-15 h-15 rounded-full bg-gradient-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+                onClick={() => handleThemeChange("red")}
               />
             </div>
           </CardContent>
@@ -165,7 +173,7 @@ export default function SettingsPage() {
             </Card>
           </div>
         ) : (
-          <></>
+          <div className="hidden"></div>
         )}
 
         <Card className="mt-7 mx-3">
