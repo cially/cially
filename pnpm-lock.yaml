@@ -120,7 +120,7 @@ catalogs:
       specifier: ^4.3.1
       version: 4.3.1
     inquirer:
-      specifier: ^9.0.0
+      specifier: ^9.3.7
       version: 9.3.7
     lefthook:
       specifier: ^1.11.14

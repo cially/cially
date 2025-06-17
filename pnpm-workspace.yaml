@@ -34,6 +34,8 @@ catalog:
   winston: ^3.17.0
   zod: ^3.25.67
 
+catalogMode: prefer
+
 catalogs:
   dev:
     '@biomejs/biome': 2.0.0-beta.6
@@ -46,13 +48,11 @@ catalogs:
     tailwindcss: ^4.1.10
     taze: ^19.1.0
     typescript: ^5.8.3
-    inquirer: ^9.0.0
+    inquirer: ^9.3.7
   types:
     '@types/node': ^24.0.3
     '@types/react': 19.1.6
     '@types/react-dom': 19.1.6
-
-catalogMode: prefer
 
 injectWorkspacePackages: true
 
