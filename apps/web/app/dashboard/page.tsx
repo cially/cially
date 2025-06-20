@@ -22,7 +22,7 @@ export default function MessagesDashboard() {
 }
 
 function ClientComponent() {
-  const [guildData, setGuildData] = useState([{ amount: 0 }]);
+  const [guildData, setGuildData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -35,8 +35,7 @@ function ClientComponent() {
   }, []);
 
   try {
-    console.log(guildData);
-    if (!guildData.AvailableGuilds) {
+    if (!guildData?.AvailableGuilds) {
       return (
         <>
           <div className="w-20 place-self-center">
@@ -99,7 +98,7 @@ function ClientComponent() {
 
     const guildCards = guildDataArray.map((guild) =>
       guild.in_db === true ? (
-        <a href={`/dashboard/guild?guildID=${guild.id}`} key={guild.id}>
+        <a href={`/dashboard/fetchGuild?guildID=${guild.id}`} key={guild.id}>
           <Card className="hover:bg-white/2 transition-all sm:mx-5 ">
             <CardHeader className="place-items-center">
               <Avatar className=" w-20 h-20">
