@@ -18,7 +18,6 @@ function DashboardClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
   const [guildData, setGuildData] = useState<GuildData | null>(null);
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -36,8 +35,6 @@ function DashboardClientComponent() {
         } else {
           setError("An unknown error occurred.");
         }
-      } finally {
-        setLoading(false);
       }
     }
 

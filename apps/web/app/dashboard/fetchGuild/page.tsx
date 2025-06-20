@@ -8,7 +8,7 @@ import LoadingSVG from "@/components/loading-page";
 function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
-  const [chartData, setChartData] = useState([{ amount: 69 }]);
+  const [serverData, setChartData] = useState(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -21,9 +21,9 @@ function ClientComponent() {
     fetchData();
   }, [guildID]);
 
-  if (chartData.notFound) {
+  if (serverData?.notFound) {
     return <GuildNotFound />;
-  } else if (!chartData.guildFound) {
+  } else if (!serverData?.guildFound) {
     return <LoadingSVG />;
   } else {
     redirect(`server/info?guildID=${guildID}`);

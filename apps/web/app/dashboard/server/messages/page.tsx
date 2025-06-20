@@ -21,7 +21,7 @@ export default function MessagesActivityPage() {
 function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
-  const [chartData, setChartData] = useState([{ amount: 69 }]);
+  const [chartData, setChartData] = useState(null);
   const [isGuest, setGuestStatus] = useState(true);
 
   useEffect(() => {
@@ -48,10 +48,10 @@ function ClientComponent() {
     getGuestCookie();
   }, []);
 
-  if (chartData.notFound) {
+  if (chartData?.notFound) {
     return <GuildNotFound />;
   }
-  if (!chartData.finalData) {
+  if (!chartData?.finalData) {
     return (
       <>
         <div className="mt-10 ml-10 text-2xl">Messages Analytics</div>
