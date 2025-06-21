@@ -55,41 +55,38 @@ export default function DynamicUserCard({ userData }) {
           <hr className="my-3" />
         </CardHeader>
         <CardContent>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4 ">
-                    <StatCard
-                      icon={UserPlus}
-                      label="Joins"
-                      value={userData[0].dataArray[0].totalJoins}
-                    />
-                    <StatCard
-                      icon={UserMinus}
-                      label="Leaves"
-                      value={userData[0].dataArray[0].totalLeaves}
-                    />
-                    <StatCard
-                      icon={MessageCircle}
-                      label="Total Messages"
-                      value={userData[0].dataArray[0].totalMessages}
-                    />
-                    <StatCard
-                      icon={Pen}
-                      label="Average Message Length"
-                      value={userData[0].dataArray[0].averageMessageLength}
-                    />
-                    <StatCard
-                      icon={MailPlus}
-                      label="Invites Created"
-                      value={userData[0].dataArray[0].totalInvites}
-                    />
-                    <StatCard
-                      icon={Calendar}
-                      label="Creation Date"
-                      value={`${userData[0].creationDate.slice(0, 10)} at ${userData[0].creationDate.slice(11, 19)} UTC`}
-                    />
-                  </div>
-
-
-         
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4 ">
+            <StatCard
+              icon={UserPlus}
+              label="Joins"
+              value={userData[0].dataArray[0].totalJoins}
+            />
+            <StatCard
+              icon={UserMinus}
+              label="Leaves"
+              value={userData[0].dataArray[0].totalLeaves}
+            />
+            <StatCard
+              icon={MessageCircle}
+              label="Total Messages"
+              value={userData[0].dataArray[0].totalMessages}
+            />
+            <StatCard
+              icon={Pen}
+              label="Average Message Length"
+              value={userData[0].dataArray[0].averageMessageLength}
+            />
+            <StatCard
+              icon={MailPlus}
+              label="Invites Created"
+              value={userData[0].dataArray[0].totalInvites}
+            />
+            <StatCard
+              icon={Calendar}
+              label="Creation Date"
+              value={`${userData[0].creationDate.slice(0, 10)} at ${userData[0].creationDate.slice(11, 19)} UTC`}
+            />
+          </div>
         </CardContent>
       </Card>
     </div>
