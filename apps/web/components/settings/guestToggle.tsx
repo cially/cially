@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-function GuestToggle({ isGuest, onToggle }) {
+function GuestToggle({ isGuest, onToggle, setGuest }) {
   const [loading, setLoading] = useState(false);
 
   const handleToggle = async () => {
@@ -21,7 +21,16 @@ function GuestToggle({ isGuest, onToggle }) {
         method: "POST",
       });
       if (response.ok) {
-        onToggle();
+        setGuest((prev) => {
+          if (prev?.account) {
+            return { noAccounts: true };
+          } else if (prev?.noAccounts) {
+            return { account: true };
+          } else {
+            return prev;
+          }
+        });
+        onToggle?.(); 
       }
     } catch (error) {
       console.error("Toggle failed", error);
@@ -81,7 +90,11 @@ export default function GuestToggleCard() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <GuestToggle isGuest={isGuest} onToggle={triggerRefresh} />
+        <GuestToggle
+          isGuest={isGuest}
+          onToggle={triggerRefresh}
+          setGuest={setGuest}
+        />
       </CardContent>
     </Card>
   );
