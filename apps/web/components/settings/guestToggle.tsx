@@ -30,7 +30,7 @@ function GuestToggle({ isGuest, onToggle, setGuest }) {
             return prev;
           }
         });
-        onToggle?.(); 
+        onToggle?.();
       }
     } catch (error) {
       console.error("Toggle failed", error);

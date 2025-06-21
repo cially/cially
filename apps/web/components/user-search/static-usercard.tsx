@@ -1,7 +1,5 @@
 "use client";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   Calendar,
   MailPlus,
@@ -10,6 +8,8 @@ import {
   UserMinus,
   UserPlus,
 } from "lucide-react";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
   <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
@@ -53,38 +53,17 @@ export default function StaticUserCard() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 mt-4 ">
-            <StatCard
-              icon={UserPlus}
-              label="Joins"
-              value="3"
-            />
-            <StatCard
-              icon={UserMinus}
-              label="Leaves"
-              value="2"
-            />
-            <StatCard
-              icon={MessageCircle}
-              label="Total Messages"
-              value="129"
-            />
-            <StatCard
-              icon={Pen}
-              label="Average Message Length"
-              value="6"
-            />
-            <StatCard
-              icon={MailPlus}
-              label="Invites Created"
-              value="10"
-            />
+            <StatCard icon={UserPlus} label="Joins" value="3" />
+            <StatCard icon={UserMinus} label="Leaves" value="2" />
+            <StatCard icon={MessageCircle} label="Total Messages" value="129" />
+            <StatCard icon={Pen} label="Average Message Length" value="6" />
+            <StatCard icon={MailPlus} label="Invites Created" value="10" />
             <StatCard
               icon={Calendar}
               label="Creation Date"
               value="2023-10-2 at 18:29:02 UTC"
             />
           </div>
-
         </CardContent>
       </Card>
     </div>

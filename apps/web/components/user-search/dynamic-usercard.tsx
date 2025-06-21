@@ -1,8 +1,5 @@
 "use client";
 
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-
 import {
   Calendar,
   MailPlus,
@@ -11,6 +8,8 @@ import {
   UserMinus,
   UserPlus,
 } from "lucide-react";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
   <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">

@@ -1,11 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import {
   Award,
   Ban,
@@ -18,6 +10,14 @@ import {
   Link2,
   Users,
 } from "lucide-react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Card } from "@/components/ui/card";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
   <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
