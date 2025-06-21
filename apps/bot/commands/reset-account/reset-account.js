@@ -6,8 +6,6 @@ const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 
-const guild_collection_name = process.env.GUILD_COLLECTION;
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("reset-account")

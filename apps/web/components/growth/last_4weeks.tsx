@@ -187,7 +187,7 @@ export default function Last4Weeks({ chartData }) {
         </CardFooter>
       </Card>
     );
-  } catch (err) {
+  } catch (_err) {
     return (
       <Card>
         <CardHeader>
