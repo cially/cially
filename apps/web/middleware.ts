@@ -33,7 +33,6 @@ export async function middleware(request: NextRequest) {
     ) {
       const email = pb.authStore.model?.email;
       if (email) {
-        console.log(email);
         if (
           email ===
           "cially-guest@do-not-create-an-admin-account-with-this-address-manually.it-will-break-things.com"
