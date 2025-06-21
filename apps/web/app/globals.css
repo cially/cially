@@ -11,8 +11,8 @@ body {
 .bg-gr {
   background: radial-gradient(
     at 20% 25%,
-    rgb(5, 15, 40) 0%,
-    rgb(12, 12, 12) 46%,
+    rgb(2, 13, 40) 0%,
+    rgb(5, 1, 27) 46%,
     rgba(18, 18, 18, 1) 100%
   );
 }
@@ -20,8 +20,8 @@ body {
 .bg-gr-pink {
   background: radial-gradient(
     at 20% 25%,
-    rgb(36, 8, 24) 0%,
-    rgb(12, 12, 12) 46%,
+    rgb(36, 1, 21) 0%,
+    rgb(19, 1, 8) 46%,
     rgba(18, 18, 18, 1) 100%
   );
 }
