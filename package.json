@@ -18,9 +18,9 @@
     "@commitlint/config-conventional": "catalog:dev",
     "@commitlint/cz-commitlint": "catalog:dev",
     "commitizen": "catalog:dev",
+    "inquirer": "catalog:dev",
     "lefthook": "catalog:dev",
-    "taze": "catalog:dev",
-    "inquirer": "catalog:dev"
+    "taze": "catalog:dev"
   },
   "postinstall": "lefthook install",
   "config": {

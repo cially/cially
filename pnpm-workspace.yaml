@@ -15,17 +15,17 @@ catalog:
   dotenv: ^16.5.0
   express: ^5.1.0
   ky: ^1.8.1
-  lucide-react: ^0.516.0
+  lucide-react: ^0.522.0
   multer: ^2.0.1
-  next: ^15.3.3
+  next: ^15.3.4
   next-themes: ^0.4.6
   node-fetch: ^3.3.2
   pocketbase: ^0.26.1
   radix-ui: ^1.4.2
   react: ^19.1.0
   react-dom: ^19.1.0
-  react-hook-form: ^7.58.0
-  recharts: ^2.15.3
+  react-hook-form: ^7.58.1
+  recharts: ^2.15.4
   simple-get: ^4.0.1
   sonner: ^2.0.5
   tailwind-merge: ^3.3.1
