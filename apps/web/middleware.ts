@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
       pathname.includes("dashboard/server/messages") ||
       pathname.includes("dashboard/cially/settings")
     ) {
-      const email = pb.authStore.model?.email;
+      const email = pb.authStore.record?.email;
       if (email) {
         if (
           email ===
