@@ -107,7 +107,7 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       <SidebarHeader>
         <a href="/dashboard">
           <Image
-            src="/logo-png.png"
+            src="/logo-webp.webp"
             className="w-20 place-self-center"
             alt="logo"
             width={500}

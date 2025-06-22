@@ -39,7 +39,7 @@ function ClientComponent() {
       return (
         <>
           <div className="w-20 place-self-center">
-            <Image src="/logo-png.png" alt="logo" width={500} height={500} />
+            <Image src="/logo-webp.webp" alt="logo" width={500} height={500} />
           </div>
           <div className="text-2xl  text-center">Available Guilds</div>
           <div className="text-sm text-gray-400 text-center">
@@ -137,7 +137,7 @@ function ClientComponent() {
     return (
       <>
         <div className="w-20 place-self-center">
-          <Image src="/logo-png.png" alt="logo" width={500} height={500} />
+          <Image src="/logo-webp.webp" alt="logo" width={500} height={500} />
         </div>
         <div className="text-2xl  text-center">Available Guilds</div>
         <div className="text-sm text-gray-400 text-center">
@@ -187,7 +187,7 @@ function ClientComponent() {
     return (
       <>
         <div className="w-20 place-self-center">
-          <Image src="/logo-png.png" alt="logo" width={500} height={500} />
+          <Image src="/logo-webp.webp" alt="logo" width={500} height={500} />
         </div>
         <div className="text-center mx-5">
           Looks like the Discord Bot can't communicate with the Dashboard.
