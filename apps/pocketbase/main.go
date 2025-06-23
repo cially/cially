@@ -15,7 +15,7 @@ import (
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
 	"github.com/pocketbase/pocketbase/tools/hook"
 
-	_ "github.com/cially/cially/apps/pocketbase/migrations"
+	_ "pocketbase/migrations"
 )
 
 func main() {
@@ -99,7 +99,6 @@ func main() {
 	migratecmd.MustRegister(app, app.RootCmd, migratecmd.Config{
 		TemplateLang: migratecmd.TemplateLangGo,
 		Automigrate:  automigrate,
-		Dir:          migrationsDir,
 	})
 
 	// GitHub selfupdate

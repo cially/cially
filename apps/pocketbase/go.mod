@@ -1,4 +1,4 @@
-module github.com/cially/cially/apps/pocketbase
+module pocketbase
 
 go 1.24.3
 
