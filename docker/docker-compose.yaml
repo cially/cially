@@ -1,8 +1,6 @@
-version: "3.8"
-
 services:
-  cially-bot:
-    image: ghcr.io/cially/cially-bot:latest
+  bot:
+    image: ghcr.io/cially/bot:latest
     container_name: cially-bot
     restart: unless-stopped
     env_file:
@@ -15,8 +13,8 @@ services:
     networks:
       - cially-network
 
-  cially-web:
-    image: ghcr.io/cially/cially-web:latest
+  web:
+    image: ghcr.io/cially/web:latest
     container_name: cially-web
     restart: unless-stopped
     env_file:
@@ -29,7 +27,7 @@ services:
       - cially-network
 
   pocketbase:
-    image: ghcr.io/keksiqc/pocketbase:0.28.2
+    image: ghcr.io/cially/pocketbase:latest
     container_name: cially-pocketbase
     restart: unless-stopped
     command:
@@ -39,8 +37,6 @@ services:
       - .env
     volumes:
       - pocketbase-data:/pb/pb_data
-      - ../pocketbase/pb_hooks:/pb/pb_hooks
-      - ../pocketbase/pb_migrations:/pb/pb_migrations # can be removed after the first run
     ports:
       - "8090:8090"
     networks:
