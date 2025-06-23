@@ -43,7 +43,9 @@
         mise-trust = "mise trust";
         mise-activate = "eval \"$(mise activate bash)\"";
         mise-install = "mise install";
-        pnpm-install = "pnpm install";
+        pnpm-setup = "pnpm setup";
+        ni-install = "pnpm -g install @antfu/ni";
+        pnpm-install = "ni";
       };
       # Runs when the workspace is (re)started
       onStart = {
