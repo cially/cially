@@ -1,0 +1,24 @@
+{
+  "name": "@cially/types",
+  "version": "0.0.0",
+  "private": true,
+  "description": "",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch"
+  },
+  "devDependencies": {
+    "tsdown": "latest"
+  }
+}
