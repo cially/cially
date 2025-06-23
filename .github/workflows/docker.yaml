@@ -3,8 +3,11 @@ name: Docker Build and Publish
 on:
   push:
     branches:
+      - 'main'
+      - 'v2.x'
     tags:
       - 'v*'
+    workflow_dispatch:
 
 jobs:
   build:
