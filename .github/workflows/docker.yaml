@@ -7,7 +7,7 @@ on:
       - 'v2.x'
     tags:
       - 'v*'
-    workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
