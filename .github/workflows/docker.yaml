@@ -5,6 +5,7 @@ on:
     branches:
       - 'main'
       - 'v2.x'
+      - 'skell/optimization'
     tags:
       - 'v*'
   workflow_dispatch:
