@@ -15,10 +15,11 @@
     pkgs.docker-buildx
   ];
 
-  # Sets environment variables in the workspace
-  env = {
+  services.docker.enable = true;
 
-  };
+  # Sets environment variables in the workspace
+  env = {};
+  
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
