@@ -10,6 +10,7 @@
     pkgs.corepack
     pkgs.pnpm
     pkgs.go
+    pkgs.python313
     pkgs.docker
     pkgs.docker-compose
     pkgs.docker-buildx
