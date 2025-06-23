@@ -39,8 +39,8 @@ services:
       - .env
     volumes:
       - pocketbase-data:/pb/pb_data
-      - ./pocketbase/pb_hooks:/pb/pb_hooks
-      - ./pocketbase/pb_migrations:/pb/pb_migrations # can be removed after the first run
+      - ../pocketbase/pb_hooks:/pb/pb_hooks
+      - ../pocketbase/pb_migrations:/pb/pb_migrations # can be removed after the first run
     ports:
       - "8090:8090"
     networks:
