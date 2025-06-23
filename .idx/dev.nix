@@ -9,6 +9,10 @@
     pkgs.nodejs
     pkgs.corepack
     pkgs.pnpm
+    pkgs.go
+    pkgs.docker
+    pkgs.docker-compose
+    pkgs.docker-buildx
   ];
 
   # Sets environment variables in the workspace
