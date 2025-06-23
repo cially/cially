@@ -27,9 +27,12 @@ dist
 !.env.example
 
 # Pocketbase
-/supplemental/pocketbase/
-!/supplemental/pocketbase/pb_migrations/collections_snapshot.js
-!/supplemental/pocketbase/pb_migrations/initial_settings.js
-!/supplemental/pocketbase/pb_hooks/messageOrganizer.pb.js
-!/supplemental/pocketbase/pb_data/types.d.ts
-!/supplemental/pocketbase/pb_schema.json
+supplemental/pocketbase/pocketbase*
+supplemental/pocketbase/pb_data/*
+supplemental/pocketbase/pb_hooks/*
+supplemental/pocketbase/pb_migrations/*
+!supplemental/pocketbase/pb_data/types.d.ts
+!supplemental/pocketbase/pb_hooks/messageOrganizer.pb.js
+!supplemental/pocketbase/pb_migrations/collections_snapshot.js
+!supplemental/pocketbase/pb_migrations/initial_settings.js
+
