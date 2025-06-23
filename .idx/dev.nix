@@ -6,7 +6,9 @@
 
   # Use https://search.nixos.org/packages to find packages
   packages = [
-    pkgs.mise
+    pkgs.nodejs
+    pkgs.corepack
+    pkgs.pnpm
   ];
 
   # Sets environment variables in the workspace
@@ -40,16 +42,13 @@
     workspace = {
       # Runs when a workspace is first created
       onCreate = {
-        mise-trust = "mise trust";
-        mise-activate = "eval \"$(mise activate bash)\"";
-        mise-install = "mise install";
         pnpm-setup = "pnpm setup";
         ni-install = "pnpm -g install @antfu/ni";
         pnpm-install = "ni";
       };
       # Runs when the workspace is (re)started
       onStart = {
-        mise-activate = "eval \"$(mise activate bash)\"";
+        pnpm-setup = "pnpm setup";
         corepack-enable = "corepack enable";
       };
     };
