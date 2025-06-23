@@ -6,9 +6,7 @@ import PocketBase from "pocketbase";
 const PUBLIC_PATHS = ["/login", "/register"];
 
 // paths where the guest cookie logic is specifically needed
-const GUEST_CHECK_PATHS = [
-  "dashboard",
-];
+const GUEST_CHECK_PATHS = ["dashboard"];
 
 export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
@@ -30,7 +28,6 @@ export async function middleware(request: NextRequest) {
     }
   }
 
- 
   try {
     if (!pb.authStore.isValid) {
       await pb.collection("users").authRefresh();
@@ -47,7 +44,6 @@ export async function middleware(request: NextRequest) {
           email ===
           "cially-guest@do-not-create-an-admin-account-with-this-address-manually.it-will-break-things.com";
 
-       
         if (request.cookies.get("guest")?.value !== String(isGuest)) {
           response.cookies.set("guest", String(isGuest), {
             path: "/",
@@ -58,12 +54,12 @@ export async function middleware(request: NextRequest) {
       }
     }
 
-    return response; 
+    return response;
   } catch (_err) {
     if (!PUBLIC_PATHS.includes(pathname)) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
-    return response; 
+    return response;
   }
 }
 
