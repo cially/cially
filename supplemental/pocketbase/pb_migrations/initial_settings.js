@@ -19,7 +19,10 @@ migrate(
       "email",
       $os.getenv("POCKETBASE_ADMIN_EMAIL") || "admin@cially.org",
     );
-    record.set("password", $os.getenv("POCKETBASE_ADMIN_PASSWORD") || "admin123!");
+    record.set(
+      "password",
+      $os.getenv("POCKETBASE_ADMIN_PASSWORD") || "admin123!",
+    );
 
     app.save(record);
   },
