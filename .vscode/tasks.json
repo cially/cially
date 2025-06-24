@@ -34,7 +34,7 @@
     {
       "label": "Run pocketbase",
       "type": "shell",
-      "command": "./pocketbase/pocketbase serve",
+      "command": "./apps/pocketbase/pocketbase serve",
       "problemMatcher": [],
       "group": "build",
       "presentation": {
