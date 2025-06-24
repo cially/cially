@@ -9,10 +9,10 @@ import { Toaster } from "@/components/ui/sonner";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
-      <AppSidebar isGuild={true} />
+      <AppSidebar isGuild={true}/>
       <SidebarInset className="overflow-auto bg-transparent h-full">
         <main>
-          <SidebarTrigger className="sm:hidden" />
+          <SidebarTrigger className="" />
           {children}
         </main>
         <Toaster />

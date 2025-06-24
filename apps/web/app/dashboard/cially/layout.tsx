@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <AppSidebar isGuild={false} />
       <SidebarInset className="overflow-auto bg-transparent h-full">
         <main>
-          <SidebarTrigger className="sm:hidden" />
+          <SidebarTrigger className="" />
           {children}
         </main>
       </SidebarInset>
