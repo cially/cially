@@ -1,10 +1,10 @@
+import { inspect } from "node:util";
 import { ApplyOptions } from "@sapphire/decorators";
 import { type Args, Command } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
 import { Type } from "@sapphire/type";
 import { codeBlock, isThenable } from "@sapphire/utilities";
 import type { Message } from "discord.js";
-import { inspect } from "util";
 
 @ApplyOptions<Command.Options>({
   aliases: ["ev"],
@@ -50,7 +50,7 @@ export class UserCommand extends Command {
 
     // @ts-expect-error value is never read, this is so `msg` is possible as an alias when sending the eval.
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const msg = message;
+    const _msg = message;
 
     let success = true;
     let result = null;

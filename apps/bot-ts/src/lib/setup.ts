@@ -9,10 +9,10 @@ import "@sapphire/plugin-api/register";
 import "@sapphire/plugin-editable-commands/register";
 import "@sapphire/plugin-logger/register";
 import "@sapphire/plugin-subcommands/register";
+import { join } from "node:path";
+import { inspect } from "node:util";
 import { type ArrayString, setup } from "@skyra/env-utilities";
 import * as colorette from "colorette";
-import { join } from "path";
-import { inspect } from "util";
 import { srcDir } from "./constants";
 
 // Set default behavior to bulk overwrite
