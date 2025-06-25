@@ -11,12 +11,12 @@ catalog:
   clsx: ^2.1.1
   colors: ^1.4.0
   cron: ^4.3.1
-  discord-api-types: ^0.38.12
+  discord-api-types: ^0.38.13
   discord.js: ^14.20.0
   dotenv: ^16.5.0
   express: ^5.1.0
   ky: ^1.8.1
-  lucide-react: ^0.522.0
+  lucide-react: ^0.523.0
   multer: ^2.0.1
   next: ^15.3.4
   next-themes: ^0.4.6
@@ -26,7 +26,7 @@ catalog:
   react: ^19.1.0
   react-dom: ^19.1.0
   react-hook-form: ^7.58.1
-  recharts: ^2.15.4
+  recharts: ^3.0.0
   simple-get: ^4.0.1
   sonner: ^2.0.5
   tailwind-merge: ^3.3.1
@@ -38,7 +38,7 @@ catalogMode: prefer
 
 catalogs:
   dev:
-    '@biomejs/biome': ^2.0.4
+    '@biomejs/biome': ^2.0.5
     '@commitlint/cli': ^19.8.1
     '@commitlint/config-conventional': ^19.8.1
     '@commitlint/cz-commitlint': ^19.8.1
@@ -50,14 +50,16 @@ catalogs:
     typescript: ^5.8.3
     inquirer: ^9.3.7
   types:
-    '@types/node': ^24.0.3
+    '@types/node': ^24.0.4
     '@types/react': 19.1.6
     '@types/react-dom': 19.1.6
 
 injectWorkspacePackages: true
 
 onlyBuiltDependencies:
+  - '@sapphire/type'
   - '@tailwindcss/oxide'
+  - esbuild
   - lefthook
   - sharp
 

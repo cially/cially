@@ -28,5 +28,5 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "packageManager": "pnpm@10.12.2"
+  "packageManager": "pnpm@10.12.3"
 }
