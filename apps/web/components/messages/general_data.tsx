@@ -34,20 +34,18 @@ const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
 export default function GeneralMessageDataCard({ chartData }) {
   if (!chartData) {
     return (
-      <>
-        <Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
-          <div>
-            <div className="text-xl font-semibold">
-              <Activity className="inline mr-2" />
-              General Data
-            </div>
-            <div className="font-sans text-sm mt-1 text-white/60">
-              More insights regarding the messages and their content
-            </div>
+      <Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
+        <div>
+          <div className="text-xl font-semibold">
+            <Activity className="inline mr-2" />
+            General Data
           </div>
-          <Skeleton className="w-full h-15" />
-        </Card>
-      </>
+          <div className="font-sans text-sm mt-1 text-white/60">
+            More insights regarding the messages and their content
+          </div>
+        </div>
+        <Skeleton className="w-full h-15" />
+      </Card>
     );
   }
 
@@ -56,59 +54,55 @@ export default function GeneralMessageDataCard({ chartData }) {
     console.log(ArrayChartData);
 
     return (
-      <>
-        <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
-          <div>
-            <div className="text-xl font-semibold">
-              <Activity className="inline mr-2" />
-              General Data
-            </div>
-            <div className="font-sans text-sm mt-1 text-white/60">
-              More insights regarding the messages and their content
-            </div>
+      <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
+        <div>
+          <div className="text-xl font-semibold">
+            <Activity className="inline mr-2" />
+            General Data
           </div>
+          <div className="font-sans text-sm mt-1 text-white/60">
+            More insights regarding the messages and their content
+          </div>
+        </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4 ">
-            <StatCard
-              icon={MessageCircle}
-              label="Total Messages"
-              value={ArrayChartData[0].total_messages}
-            />
-            <StatCard
-              icon={Camera}
-              label="Total Media"
-              value={ArrayChartData[0].total_attachments}
-            />
-            <StatCard
-              icon={Trash2}
-              label="Message Deletions"
-              value={ArrayChartData[0].message_deletions}
-            />
-            <StatCard
-              icon={SquarePen}
-              label="Message Edits"
-              value={ArrayChartData[0].message_edits}
-            />
-          </div>
-        </Card>
-      </>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4 ">
+          <StatCard
+            icon={MessageCircle}
+            label="Total Messages"
+            value={ArrayChartData[0].total_messages}
+          />
+          <StatCard
+            icon={Camera}
+            label="Total Media"
+            value={ArrayChartData[0].total_attachments}
+          />
+          <StatCard
+            icon={Trash2}
+            label="Message Deletions"
+            value={ArrayChartData[0].message_deletions}
+          />
+          <StatCard
+            icon={SquarePen}
+            label="Message Edits"
+            value={ArrayChartData[0].message_edits}
+          />
+        </div>
+      </Card>
     );
   } catch (_err) {
     return (
-      <>
-        <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
-          <div>
-            <div className="text-xl font-semibold">
-              <Activity className="inline mr-2" />
-              General Data
-            </div>
-            <div className="font-sans text-sm mt-1 text-white/60">
-              More insights regarding the messages and their content
-            </div>
+      <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
+        <div>
+          <div className="text-xl font-semibold">
+            <Activity className="inline mr-2" />
+            General Data
           </div>
-          <div className="text-center">Not enough data</div>
-        </Card>
-      </>
+          <div className="font-sans text-sm mt-1 text-white/60">
+            More insights regarding the messages and their content
+          </div>
+        </div>
+        <div className="text-center">Not enough data</div>
+      </Card>
     );
   }
 }

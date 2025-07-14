@@ -108,11 +108,7 @@ function ClientComponent() {
   }
 
   if (userData[0].loading === true) {
-    return (
-      <>
-        <LoadingUserCard />
-      </>
-    );
+    return <LoadingUserCard />;
   }
   if (userData[0].loading === false) {
     return (

@@ -45,7 +45,7 @@ function ClientComponent() {
         </div>
       );
     }
-    return <>Error</>;
+    return "Error";
   } else {
     return (
       <div className="place-self-center">
