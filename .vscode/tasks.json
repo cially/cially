@@ -4,7 +4,10 @@
     {
       "label": "Run cially-web",
       "type": "shell",
-      "command": "pnpm --filter web run dev",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "apps/web"
+      },
       "problemMatcher": [],
       "group": "build",
       "presentation": {
@@ -19,7 +22,10 @@
     {
       "label": "Run cially-bot",
       "type": "shell",
-      "command": "pnpm --filter bot run start",
+      "command": "node .",
+      "options": {
+        "cwd": "apps/bot"
+      },
       "problemMatcher": [],
       "group": "build",
       "presentation": {
@@ -34,7 +40,10 @@
     {
       "label": "Run pocketbase",
       "type": "shell",
-      "command": "./apps/pocketbase/pocketbase serve",
+      "command": "./pocketbase serve",
+      "options": {
+        "cwd": "apps/pocketbase"
+      },
       "problemMatcher": [],
       "group": "build",
       "presentation": {

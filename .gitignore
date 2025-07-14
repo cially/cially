@@ -29,3 +29,4 @@ dist
 # Pocketbase
 pb_data
 apps/pocketbase/pocketbase.exe
+apps/pocketbase-dev/pocketbase.exe
