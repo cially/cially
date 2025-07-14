@@ -27,8 +27,5 @@ dist
 !.env.example
 
 # Pocketbase
-pocketbase/pb_data
-pocketbase/pb_migrations
-!pocketbase/pb_migrations/collections_snapshot.js
-!pocketbase/pb_migrations/initial_settings.js
-pocketbase/pocketbase.exe
+pb_data
+apps/pocketbase/pocketbase.exe

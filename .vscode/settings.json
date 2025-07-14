@@ -1,3 +1,5 @@
 {
-  "biome.enabled": true
+  "biome.enabled": true,
+  "IDX.aI.enableInlineCompletion": true,
+  "IDX.aI.enableCodebaseIndexing": true
 }
