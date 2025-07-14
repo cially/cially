@@ -9,27 +9,15 @@
     "docker:bot": "docker --target cially-bot -t cially-bot .",
     "docker:web": "docker --target cially-web -t cially-web .",
     "up": "taze -r -I",
-    "lefthook": "lefthook install",
-    "commit": "git-cz"
+    "lefthook": "lefthook install"
+  },
+  "dependencies": {
+    "discord-api-types": "catalog:"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:dev",
-    "@commitlint/cli": "catalog:dev",
-    "@commitlint/config-conventional": "catalog:dev",
-    "@commitlint/cz-commitlint": "catalog:dev",
-    "commitizen": "catalog:dev",
-    "inquirer": "catalog:dev",
     "lefthook": "catalog:dev",
     "taze": "catalog:dev"
   },
-  "postinstall": "lefthook install",
-  "config": {
-    "commitizen": {
-      "path": "@commitlint/cz-commitlint"
-    }
-  },
-  "packageManager": "pnpm@10.13.1",
-  "dependencies": {
-    "discord-api-types": "catalog:"
-  }
+  "packageManager": "pnpm@10.13.1"
 }

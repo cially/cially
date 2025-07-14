@@ -40,12 +40,7 @@ catalogMode: prefer
 catalogs:
   dev:
     '@biomejs/biome': ^2.1.1
-    '@commitlint/cli': ^19.8.1
-    '@commitlint/config-conventional': ^19.8.1
-    '@commitlint/cz-commitlint': ^19.8.1
     '@tailwindcss/postcss': ^4.1.11
-    commitizen: ^4.3.1
-    inquirer: ^9.3.7
     lefthook: ^1.12.2
     tailwindcss: ^4.1.11
     taze: ^19.1.0
