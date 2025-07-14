@@ -62,7 +62,7 @@ function GuestToggle({ isGuest, onToggle, setGuest }) {
 
 export default function GuestToggleCard() {
   const [isGuest, setGuest] = useState(null);
-  const [refreshToggle, setRefreshToggle] = useState(false);
+  const [_refreshToggle, setRefreshToggle] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -71,7 +71,7 @@ export default function GuestToggleCard() {
       setGuest(data);
     }
     fetchData();
-  }, [refreshToggle]);
+  }, []);
 
   const triggerRefresh = () => {
     setRefreshToggle((prev) => !prev);

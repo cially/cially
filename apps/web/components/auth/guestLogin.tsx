@@ -50,11 +50,9 @@ export default function GuestLogin() {
 
   if (guestStatus === true) {
     return (
-      <>
-        <Button variant={"ghost"} onClick={() => handleGuestLogin(router)}>
-          Login as a Guest
-        </Button>
-      </>
+      <Button variant={"ghost"} onClick={() => handleGuestLogin(router)}>
+        Login as a Guest
+      </Button>
     );
   }
 }

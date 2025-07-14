@@ -31,28 +31,26 @@ const chartConfig = {
 export default function Last7d({ chartData }) {
   if (!chartData) {
     return (
-      <>
-        <Card>
-          <CardHeader>
-            <CardTitle>Last 7 days</CardTitle>
-            <CardDescription>
-              Showing total joins & leaves of the last 7 days
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
-          </CardContent>
-          <CardFooter>
-            <div className="flex w-full items-start gap-2 text-sm">
-              <div className="grid gap-2">
-                <div className="flex items-center gap-2 font-medium leading-none">
-                  <Skeleton className="w-20 h-[10px] place-self-center rounded-xl" />
-                </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Last 7 days</CardTitle>
+          <CardDescription>
+            Showing total joins & leaves of the last 7 days
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium leading-none">
+                <Skeleton className="w-20 h-[10px] place-self-center rounded-xl" />
               </div>
             </div>
-          </CardFooter>
-        </Card>
-      </>
+          </div>
+        </CardFooter>
+      </Card>
     );
   }
 
@@ -184,19 +182,17 @@ export default function Last7d({ chartData }) {
   } catch (err) {
     console.log(err);
     return (
-      <>
-        <Card>
-          <CardHeader>
-            <CardTitle>Last 7 days</CardTitle>
-            <CardDescription>
-              Showing joins & leaves of the last 7 days
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="text-center">Not enough data</div>
-          </CardContent>
-        </Card>
-      </>
+      <Card>
+        <CardHeader>
+          <CardTitle>Last 7 days</CardTitle>
+          <CardDescription>
+            Showing joins & leaves of the last 7 days
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-center">Not enough data</div>
+        </CardContent>
+      </Card>
     );
   }
 }

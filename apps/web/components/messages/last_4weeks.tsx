@@ -27,28 +27,26 @@ export default function Last4Weeks({ chartData }) {
 
   if (!chartData) {
     return (
-      <>
-        <Card>
-          <CardHeader>
-            <CardTitle>Last 4 weeks days</CardTitle>
-            <CardDescription>
-              Showing total messages for the last 4 weeks
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
-          </CardContent>
-          <CardFooter>
-            <div className="flex w-full items-start gap-2 text-sm">
-              <div className="grid gap-2">
-                <div className="flex items-center gap-2 font-medium leading-none">
-                  <Skeleton className="w-20 h-[10px] place-self-center rounded-xl" />
-                </div>
+      <Card>
+        <CardHeader>
+          <CardTitle>Last 4 weeks days</CardTitle>
+          <CardDescription>
+            Showing total messages for the last 4 weeks
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
+        </CardContent>
+        <CardFooter>
+          <div className="flex w-full items-start gap-2 text-sm">
+            <div className="grid gap-2">
+              <div className="flex items-center gap-2 font-medium leading-none">
+                <Skeleton className="w-20 h-[10px] place-self-center rounded-xl" />
               </div>
             </div>
-          </CardFooter>
-        </Card>
-      </>
+          </div>
+        </CardFooter>
+      </Card>
     );
   }
 

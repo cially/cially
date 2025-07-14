@@ -5,53 +5,53 @@ packages:
 catalog:
   '@discordjs/rest': ^2.5.1
   '@hookform/resolvers': ^5.1.1
+  '@types/node': 24.0.4
   body-parser: ^2.2.0
   cfonts: ^3.3.0
   class-variance-authority: ^0.7.1
   clsx: ^2.1.1
   colors: ^1.4.0
-  cron: ^4.3.1
+  cron: ^4.3.2
   discord-api-types: 0.38.13
-  discord.js: ^14.20.0
-  dotenv: ^16.5.0
+  discord.js: ^14.21.0
+  dotenv: ^16.6.1
   express: ^5.1.0
   ky: ^1.8.1
-  lucide-react: ^0.523.0
+  lucide-react: ^0.525.0
   multer: ^2.0.1
-  next: ^15.3.4
+  next: ^15.3.5
   next-themes: ^0.4.6
   node-fetch: ^3.3.2
   pocketbase: ^0.26.1
   radix-ui: ^1.4.2
   react: ^19.1.0
   react-dom: ^19.1.0
-  react-hook-form: ^7.58.1
+  react-hook-form: ^7.60.0
   recharts: ^2.15.4
   simple-get: ^4.0.1
-  sonner: ^2.0.5
+  sonner: ^2.0.6
   tailwind-merge: ^3.3.1
-  tw-animate-css: ^1.3.4
+  tw-animate-css: ^1.3.5
   winston: ^3.17.0
-  zod: ^3.25.67
-  '@types/node': 24.0.4
+  zod: ^3.25.76
 
 catalogMode: prefer
 
 catalogs:
   dev:
-    '@biomejs/biome': ^2.0.5
+    '@biomejs/biome': ^2.1.1
     '@commitlint/cli': ^19.8.1
     '@commitlint/config-conventional': ^19.8.1
     '@commitlint/cz-commitlint': ^19.8.1
-    '@tailwindcss/postcss': ^4.1.10
+    '@tailwindcss/postcss': ^4.1.11
     commitizen: ^4.3.1
-    lefthook: ^1.11.14
-    tailwindcss: ^4.1.10
+    inquirer: ^9.3.7
+    lefthook: ^1.12.2
+    tailwindcss: ^4.1.11
     taze: ^19.1.0
     typescript: ^5.8.3
-    inquirer: ^9.3.7
   types:
-    '@types/node': ^24.0.4
+    '@types/node': ^24.0.13
     '@types/react': 19.1.6
     '@types/react-dom': 19.1.6
 

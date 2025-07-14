@@ -38,27 +38,23 @@ export default async function RootLayout({
   }[theme.value];
 
   return (
-    <>
-      <html lang="en" suppressHydrationWarning className={outfit.className}>
-        <head />
-        <body className="">
-          <div className="overflow-x-hidden min-h-screen">
-            <div
-              className={`${themeClass} fixed inset-0 w-full h-full -z-10`}
-            />
-            <div className="relative z-0 p-6">
-              <ThemeProvider
-                attribute="class"
-                defaultTheme="dark"
-                enableSystem
-                disableTransitionOnChange
-              >
-                {children}
-              </ThemeProvider>
-            </div>
+    <html lang="en" suppressHydrationWarning className={outfit.className}>
+      <head />
+      <body className="">
+        <div className="overflow-x-hidden min-h-screen">
+          <div className={`${themeClass} fixed inset-0 w-full h-full -z-10`} />
+          <div className="relative z-0 p-6">
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
           </div>
-        </body>
-      </html>
-    </>
+        </div>
+      </body>
+    </html>
   );
 }
