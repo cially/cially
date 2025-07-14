@@ -17,7 +17,8 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:dev",
     "lefthook": "catalog:dev",
-    "taze": "catalog:dev"
+    "taze": "catalog:dev",
+    "turbo": "catalog:"
   },
   "packageManager": "pnpm@10.13.1"
 }
