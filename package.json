@@ -28,5 +28,8 @@
       "path": "@commitlint/cz-commitlint"
     }
   },
-  "packageManager": "pnpm@10.12.3"
+  "packageManager": "pnpm@10.12.3",
+  "dependencies": {
+    "discord-api-types": "catalog:"
+  }
 }
