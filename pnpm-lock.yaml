@@ -46,6 +46,9 @@ catalogs:
     express:
       specifier: ^5.1.0
       version: 5.1.0
+    express-rate-limit:
+      specifier: ^8.0.0
+      version: 8.0.0
     ky:
       specifier: ^1.8.1
       version: 1.8.1
@@ -137,6 +140,9 @@ importers:
       discord-api-types:
         specifier: 'catalog:'
         version: 0.38.13
+      express-rate-limit:
+        specifier: 'catalog:'
+        version: 8.0.0(express@5.1.0)
     devDependencies:
       '@biomejs/biome':
         specifier: catalog:dev
@@ -1852,6 +1858,12 @@ packages:
   eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
 
+  express-rate-limit@8.0.0:
+    resolution: {integrity: sha512-FXEAp2ccTeN1ZSO+sPHRHWB0/CrTP5asFBjUaNeD9A0v3iPmgFbLu24vqPjiM9utszI58VGlMokjXQ0W9Dbmjw==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      express: '>= 4.11'
+
   express@5.1.0:
     resolution: {integrity: sha512-DT9ck5YIRU+8GYzzU5kT3eHGA5iL+1Zd0EutOmTE9Dtk+Tvuzd23VBU+ec7HPNSTxXYO55gPV/hq4pSBJDjFpA==}
     engines: {node: '>= 18'}
@@ -1958,6 +1970,9 @@ packages:
   internmap@2.0.3:
     resolution: {integrity: sha512-5Hh7Y1wQbvY5ooGgPbDaL5iYLAPzMTUrjMulskHLH6wnv/A+1q5rgEaiuqEjB+oxGXIVZs1FF+R/KPN3ZSQYYg==}
     engines: {node: '>=12'}
+
+  ip@2.0.1:
+    resolution: {integrity: sha512-lJUL9imLTNi1ZfXT+DU6rBBdbiKGBuay9B6xGSPVjUeQwaH1RIGqef8RZkUtHioLmSNpPR5M4HVKJGm1j8FWVQ==}
 
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
@@ -4316,6 +4331,11 @@ snapshots:
 
   eventemitter3@4.0.7: {}
 
+  express-rate-limit@8.0.0(express@5.1.0):
+    dependencies:
+      express: 5.1.0
+      ip: 2.0.1
+
   express@5.1.0:
     dependencies:
       accepts: 2.0.0
@@ -4443,6 +4463,8 @@ snapshots:
   inherits@2.0.4: {}
 
   internmap@2.0.3: {}
+
+  ip@2.0.1: {}
 
   ipaddr.js@1.9.1: {}
 

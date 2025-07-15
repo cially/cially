@@ -12,7 +12,8 @@
     "lefthook": "lefthook install"
   },
   "dependencies": {
-    "discord-api-types": "catalog:"
+    "discord-api-types": "catalog:",
+    "express-rate-limit": "catalog:"
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:dev",
