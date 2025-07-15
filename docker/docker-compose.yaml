@@ -1,5 +1,5 @@
 services:
-  bot:
+  cially-bot:
     image: ghcr.io/cially/bot:latest
     container_name: cially-bot
     restart: unless-stopped
@@ -13,7 +13,7 @@ services:
     networks:
       - cially-network
 
-  web:
+  cially-web:
     image: ghcr.io/cially/web:latest
     container_name: cially-web
     restart: unless-stopped
