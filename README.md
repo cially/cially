@@ -1,5 +1,7 @@
 <p align="center">
-<img src="https://github.com/user-attachments/assets/196fe635-3d81-46ae-92c3-f34296ce02c0">
+<img src="https://github.com/user-attachments/assets/5ab1d84b-3dc4-44d7-928e-4bdbd0d02853">
+  <a href='https://github.com/shivamkapasia0' target="_blank"><img alt='' src='https://img.shields.io/badge/_Version 2.0 Beta-100000?style=flat&logo=&logoColor=white&labelColor=000000&color=393938'/></a>
+
 </p>
 
 # 🪼 Cially
@@ -8,42 +10,20 @@
 Perfect for community managers, moderators, and server admins looking to optimize their Discord communities!
 
 ## 🐚 Features
-- [x] Shows the name, description, icon and current members
-- [x] Shows if the server is in an outage
-- [x] Shows if a server is Discord Partnered
-- [x] Shows the creation date of your server
-- [x] Shows the owner of the server
-- [x] Shows the number of channels, roles & bans
-- [x] Shows the Vanity URL and the total uses
-- [x] Shows Message Data
-  - [x] Messages sent per hour
-  - [x] Messages sent per day
-  - [x] Messages sent per week
-  - [x] Total Messages Ever Sent
-  - [x] Tota Media (Photos/Videos) ever sent
-  - [x] Total Message Deletions
-  - [x] Total Message Edits
-- [x] Shows Activity Data
-  - [x] Most Active Channels
-  - [x] Most Active Users
-  - [x] Most Active Hours
-  - [x] Total Online/Idle/Offline Members
+- [x] Basic Server Data
+- [x] Message Analytics
+- [x] Growth Metrics
+- [x] Activity Insights
 - [x] User Search Page
-  - [x] Shows how many times the user has left/joined the server
-  - [x] Shows average message length
-  - [x] Shows the number of total invites created
-  - [x] Shows the total amount of messages ever sent by them
-  - [x] Shows the channel they are most active on
-  - [x] Shows when their account was created
-- [x] Beautiful User Friendly UI
-- [x] Responsive for every device
-- [ ] More Features to come in the future...
+- [x] UI & Customization
+
+More details in our [Documentation](https://cially.org/guide/1-introduction/features/)
 
 ## 🐟 Screenshots
-![image](https://github.com/user-attachments/assets/aaa15308-971c-4e19-9808-25a000272a30)
-![image](https://github.com/user-attachments/assets/9c9d3b57-63bc-4491-9913-47e6fc37e3a5)
-![image](https://github.com/user-attachments/assets/f4cc2b4d-6378-4a85-8ddb-043d5c3ea792)
-![image](https://github.com/user-attachments/assets/e80c31b4-3ca2-4e96-9953-326cedcd061b)
+![image](https://github.com/user-attachments/assets/ab6b48c6-eec3-4e53-8623-5d564a181f92)
+![image](https://github.com/user-attachments/assets/d2224fbd-a2a0-4059-b9b2-35bca2f05048)
+![image](https://github.com/user-attachments/assets/ced4ead0-69a2-4284-94c8-1c75b3a833e7)
+![image](https://github.com/user-attachments/assets/c3d1e137-0381-4528-9a77-0c759ebb6ff2)
 
 ## 🐠 How it works
 Cially Dashboard is powered by a Discord Bot, a full-stack Next.js application, and Pocketbase as the backend. The Discord Bot actively listens to all events happening on your server and logs them to the database via its own API.
