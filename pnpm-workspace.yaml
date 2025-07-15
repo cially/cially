@@ -12,7 +12,7 @@ catalog:
   clsx: ^2.1.1
   colors: ^1.4.0
   cron: ^4.3.2
-  discord-api-types: 0.38.13
+  discord-api-types: 0.38.16
   discord.js: ^14.21.0
   dotenv: ^16.6.1
   express: ^5.1.0
