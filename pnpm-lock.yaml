@@ -14,8 +14,8 @@ catalogs:
       specifier: ^5.1.1
       version: 5.1.1
     '@types/node':
-      specifier: 24.0.4
-      version: 24.0.4
+      specifier: 24.0.15
+      version: 24.0.15
     body-parser:
       specifier: ^2.2.0
       version: 2.2.0
@@ -268,7 +268,7 @@ importers:
         version: 4.1.11
       '@types/node':
         specifier: 'catalog:'
-        version: 24.0.4
+        version: 24.0.15
       '@types/react':
         specifier: catalog:types
         version: 19.1.6
@@ -1545,6 +1545,9 @@ packages:
 
   '@types/luxon@3.6.2':
     resolution: {integrity: sha512-R/BdP7OxEMc44l2Ex5lSXHoIXTB2JLNa3y2QISIbr58U/YcsffyQrYW//hZSdrfxrjRZj3GcUoxMPGdO8gSYuw==}
+
+  '@types/node@24.0.15':
+    resolution: {integrity: sha512-oaeTSbCef7U/z7rDeJA138xpG3NuKc64/rZ2qmUFkFJmnMsAPaluIifqyWd8hSSMxyP9oie3dLAqYPblag9KgA==}
 
   '@types/node@24.0.4':
     resolution: {integrity: sha512-ulyqAkrhnuNq9pB76DRBTkcS6YsmDALy6Ua63V8OhrOBgbcYt6IOdzpw5P1+dyRIyMerzLkeYWBeOXPpA9GMAA==}
@@ -4044,6 +4047,10 @@ snapshots:
   '@types/d3-timer@3.0.2': {}
 
   '@types/luxon@3.6.2': {}
+
+  '@types/node@24.0.15':
+    dependencies:
+      undici-types: 7.8.0
 
   '@types/node@24.0.4':
     dependencies:
