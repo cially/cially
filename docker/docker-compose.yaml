@@ -30,9 +30,6 @@ services:
     image: ghcr.io/cially/pocketbase:2.0.0-beta.1
     container_name: cially-pocketbase
     restart: unless-stopped
-    command:
-      - --encryptionEnv
-      - POCKETBASE_ENCRYPTION_KEY
     env_file:
       - .env
     volumes:
