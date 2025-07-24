@@ -1,6 +1,6 @@
 services:
   cially-bot:
-    image: ghcr.io/cially/bot:2.0.0-beta.1
+    image: ghcr.io/cially/bot:2.0.0-beta.2
     container_name: cially-bot
     restart: unless-stopped
     env_file:
@@ -14,7 +14,7 @@ services:
       - cially-network
 
   cially-web:
-    image: ghcr.io/cially/web:2.0.0-beta.1
+    image: ghcr.io/cially/web:2.0.0-beta.2
     container_name: cially-web
     restart: unless-stopped
     env_file:
@@ -27,7 +27,7 @@ services:
       - cially-network
 
   pocketbase:
-    image: ghcr.io/cially/pocketbase:2.0.0-beta.1
+    image: ghcr.io/cially/pocketbase:2.0.0-beta.2
     container_name: cially-pocketbase
     restart: unless-stopped
     command:
