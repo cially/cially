@@ -19,6 +19,7 @@
     "discord.js": "catalog:",
     "dotenv": "catalog:",
     "express": "catalog:",
+    "express-rate-limit": "catalog:",
     "ky": "catalog:",
     "multer": "catalog:",
     "pocketbase": "catalog:",

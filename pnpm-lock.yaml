@@ -186,6 +186,9 @@ importers:
       express:
         specifier: 'catalog:'
         version: 5.1.0
+      express-rate-limit:
+        specifier: 'catalog:'
+        version: 8.0.0(express@5.1.0)
       ky:
         specifier: 'catalog:'
         version: 1.8.1
