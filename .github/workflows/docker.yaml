@@ -16,19 +16,19 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - image: ghcr.io/${{ github.repository }}/bot
+          - image: ghcr.io/cially/bot
             context: .
             dockerfile: ./apps/bot/Dockerfile
             registry: ghcr.io
             username: ${{ github.actor }}
             password_secret: GITHUB_TOKEN
-          - image: ghcr.io/${{ github.repository }}/web
+          - image: ghcr.io/cially/web
             context: .
             dockerfile: ./apps/web/Dockerfile
             registry: ghcr.io
             username: ${{ github.actor }}
             password_secret: GITHUB_TOKEN
-          - image: ghcr.io/${{ github.repository }}/pocketbase
+          - image: ghcr.io/cially/pocketbase
             context: ./apps/pocketbase
             dockerfile: ./apps/pocketbase/Dockerfile
             registry: ghcr.io
