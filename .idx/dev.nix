@@ -21,5 +21,6 @@
     "antfu.icons-carbon"
     "antfu.file-nesting"
     "bradlc.vscode-tailwindcss"
+    "golang.go"
   ];
 }
