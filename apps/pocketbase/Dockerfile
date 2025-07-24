@@ -37,4 +37,4 @@ COPY pb_hooks /pb/pb_hooks
 EXPOSE 8090
 
 ENTRYPOINT [ "/pb/pocketbase" ]
-CMD ["serve", "--http=0.0.0.0:8090"]
+CMD ["serve", "--http=0.0.0.0:8090", "--encryptionEnv=POCKETBASE_ENCRYPTION_KEY"]
