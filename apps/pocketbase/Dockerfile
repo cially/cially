@@ -1,4 +1,7 @@
-FROM --platform=$BUILDPLATFORM golang:alpine AS builder
+# ╔═════════════════════════════════════════════════════╗
+# ║                       BUILD                         ║
+# ╚═════════════════════════════════════════════════════╝
+FROM golang:1.24.4-alpine AS build
 
 WORKDIR /app
 
@@ -19,14 +22,16 @@ RUN update-ca-certificates
 # Build
 ARG TARGETOS TARGETARCH
 RUN CGO_ENABLED=0 GOGC=75 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -ldflags "-w -s" -o /pocketbase .
-
-# ? -------------------------
+ 
+# ╔═════════════════════════════════════════════════════╗
+# ║                       IMAGE                         ║
+# ╚═════════════════════════════════════════════════════╝
 FROM scratch
 
 WORKDIR /pb
 
-COPY --from=builder /pocketbase /pb/
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build /pocketbase /pb/
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 COPY pb_hooks /pb/pb_hooks
 
 EXPOSE 8090
