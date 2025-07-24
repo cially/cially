@@ -27,7 +27,7 @@ func init() {
 		settings.Logs.MinLevel = 4
 		settings.Batch.Enabled = true
 		settings.Batch.MaxRequests = 50000
-		settings.Batch.Timeout = 45
+		settings.Batch.Timeout = 300
 		settings.Backups.Cron = "0 0 * * 0"
 
 		if err := app.Save(settings); err != nil {
