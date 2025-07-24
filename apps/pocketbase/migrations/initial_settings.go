@@ -2,6 +2,7 @@ package migrations
 
 import (
 	"os"
+
 	"github.com/pocketbase/pocketbase/core"
 	m "github.com/pocketbase/pocketbase/migrations"
 )
@@ -24,6 +25,10 @@ func init() {
 		settings.Meta.AppName = "Cially"
 		settings.Meta.HideControls = true
 		settings.Logs.MinLevel = 4
+		settings.Batch.Enabled = true
+		settings.Batch.Timeout = 30
+		settings.Backups.Cron = "0 0 * * 0"
+
 		if err := app.Save(settings); err != nil {
 			return err
 		}
