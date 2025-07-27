@@ -25,8 +25,6 @@ RUN pnpm run --filter=web build
 FROM base AS web
 WORKDIR /app
 
-ARG NEXT_PUBLIC_POCKETBASE_URL
-
 # Create a non-root user
 RUN addgroup --system cially && adduser --system --ingroup cially cially
 
