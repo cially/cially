@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
     return response;
   }
 
-  const pb = new PocketBase(process.env.NEXT_PUBLIC_POCKETBASE_URL);
+  const pb = new PocketBase(process.env.POCKETBASE_URL);
   const cookie = request.cookies.get("pb_auth")?.value;
 
   if (cookie) {
