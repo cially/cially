@@ -9,6 +9,7 @@
     "docker:bot": "docker buildx build -f ./apps/bot/Dockerfile -t ghcr.io/cially/bot:latest .",
     "docker:web": "docker buildx build -f ./apps/web/Dockerfile -t ghcr.io/cially/web:latest .",
     "docker:pb": "docker buildx build -f ./apps/pocketbase/Dockerfile -t ghcr.io/cially/pocketbase:latest ./apps/pocketbase",
+    "docker:all": "pnpm docker:bot && pnpm docker:web && pnpm docker:pb",
     "up": "taze -r -I",
     "lefthook": "lefthook install"
   },
