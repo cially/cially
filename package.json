@@ -6,8 +6,9 @@
   "scripts": {
     "check": "biome check .",
     "check:fix": "biome check --write .",
-    "docker:bot": "docker --target cially-bot -t cially-bot .",
-    "docker:web": "docker --target cially-web -t cially-web .",
+    "docker:bot": "docker buildx build -f ./apps/bot/Dockerfile -t ghcr.io/cially/bot:latest .",
+    "docker:web": "docker buildx build -f ./apps/web/Dockerfile -t ghcr.io/cially/web:latest .",
+    "docker:pb": "docker buildx build -f ./apps/pocketbase/Dockerfile -t ghcr.io/cially/pocketbase:latest ./apps/pocketbase",
     "up": "taze -r -I",
     "lefthook": "lefthook install"
   },
