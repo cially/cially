@@ -1,8 +1,6 @@
 export async function GET() {
   try {
-    const API_REQ = await fetch(
-      `${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchGuilds`,
-    );
+    const API_REQ = await fetch(`${process.env.API_URL}/fetchGuilds`);
     const data = await API_REQ.json();
     return Response.json({ data });
   } catch (err) {

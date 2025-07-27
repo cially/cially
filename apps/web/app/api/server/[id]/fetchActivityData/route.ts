@@ -81,7 +81,7 @@ export async function GET(
       }
 
       const discordDataIN_Req = await fetch(
-        `${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchID/${guild.discordID}`,
+        `${process.env.API_URL}/fetchID/${guild.discordID}`,
         {
           body: JSON.stringify(discordDataOUT),
           headers: {

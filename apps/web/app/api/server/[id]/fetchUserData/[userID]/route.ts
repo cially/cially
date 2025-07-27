@@ -57,7 +57,7 @@ export async function GET(
     const discordDataOUT = [{ userID: userID }];
 
     const discordDataIN_Req = await fetch(
-      `${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchUserData/${id}`,
+      `${process.env.API_URL}/fetchUserData/${id}`,
       {
         body: JSON.stringify(discordDataOUT),
         headers: {

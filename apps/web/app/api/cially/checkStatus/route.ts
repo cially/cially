@@ -28,7 +28,7 @@ export async function GET() {
     }
 
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BOT_API_URL}/fetchGuilds`, {
+      await fetch(`${process.env.API_URL}/fetchGuilds`, {
         signal: controllerDiscordBot.signal,
       });
       clearTimeout(timeoutIdDiscordBot);

@@ -23,7 +23,7 @@ export async function GET(
       .getFirstListItem(`discordID='${id}'`, {});
 
     if (guild.beingScraped === false) {
-      await fetch(`${process.env.NEXT_PUBLIC_BOT_API_URL}/serverScrape/${id}`);
+      await fetch(`${process.env.API_URL}/serverScrape/${id}`);
       const data = {
         beingScraped: true,
       };

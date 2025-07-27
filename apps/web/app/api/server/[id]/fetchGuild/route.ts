@@ -10,9 +10,7 @@ export async function GET(
 ) {
   const { id } = await params;
   try {
-    const API_REQ = await fetch(
-      `${process.env.NEXT_PUBLIC_BOT_API_URL}/syncGuild/${id}`,
-    );
+    const API_REQ = await fetch(`${process.env.API_URL}/syncGuild/${id}`);
     const data = await API_REQ.json();
     const code = data.code;
     const date = `${new Date().getUTCFullYear()}-${(new Date().getUTCMonth() + 1).toString().padStart(2, "0")}-${new Date().getUTCDate().toString().padStart(2, "0")}`;
