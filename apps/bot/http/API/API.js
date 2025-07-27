@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT;
+const port = process.env.API_PORT;
 const bodyParser = require("body-parser");
 
 // Functions for each API route
@@ -19,13 +19,13 @@ const { serverScrape } = require("./functions/serverScrape");
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
-const rateLimit = require('express-rate-limit');
+const rateLimit = require("express-rate-limit");
 
 const globalRateLimiter = rateLimit({
   windowMs: 1 * 1000, // 1 second
   max: 10, // limit each IP to 5 requests per windowMs
   message: {
-    error: 'Too many API requests, please try again later.'
+    error: "Too many API requests, please try again later.",
   },
   standardHeaders: true,
   legacyHeaders: false,
