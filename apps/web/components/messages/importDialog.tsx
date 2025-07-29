@@ -35,10 +35,8 @@ export default function ImportDialogCard({
       toast.success(
         "Scraping has started! Restart your bot if you want it to stop!",
       );
-      const response = await fetch(
-        `/api/server/${guildID.guildID}/scrapeMessages`,
-      );
-      console.log(guildID.guildID);
+      const response = await fetch(`/api/server/${guildID}/scrapeMessages`);
+      // console.log(guildID);
 
       if (response.ok) {
         router.push("/");
