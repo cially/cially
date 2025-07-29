@@ -12,10 +12,6 @@ export async function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const response = NextResponse.next();
 
-  if (PUBLIC_PATHS.includes(pathname)) {
-    return response;
-  }
-
   const pb = new PocketBase(process.env.POCKETBASE_URL);
   const cookie = request.cookies.get("pb_auth")?.value;
 
@@ -28,13 +24,19 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Check if user is already authenticated and trying to access login
+  if (pathname === "/login" && pb.authStore.isValid) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // Allow public paths for non-authenticated users
+  if (PUBLIC_PATHS.includes(pathname)) {
+    return response;
+  }
+
   try {
     if (!pb.authStore.isValid) {
       await pb.collection("users").authRefresh();
-    }
-
-    if (pathname === "/login") {
-      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
 
     if (GUEST_CHECK_PATHS.some((path) => pathname.includes(path))) {
@@ -47,7 +49,7 @@ export async function middleware(request: NextRequest) {
         if (request.cookies.get("guest")?.value !== String(isGuest)) {
           response.cookies.set("guest", String(isGuest), {
             path: "/",
-            secure: process.env.NODE_ENV === "production", // Use secure in production
+            secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
           });
         }
@@ -65,13 +67,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - api (API routes)
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-     */
     "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
   ],
 };
