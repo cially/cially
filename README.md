@@ -26,9 +26,7 @@ More details in our [Documentation](https://cially.org/guide/1-introduction/feat
    ![image](https://github.com/user-attachments/assets/6b22ba34-cac4-4483-a9bb-2921224616cc)  
 3. Invite your bot to your Discord server.  
 4. Give the bot **View Channel** and **View Message History** permissions on every channel you want it to track.  
-
-> [!TIP]  
-> 💡 *Optional:* Grant the bot **Manage Server** permissions if you also want it to track Vanity URL usage.
+5. *Optional:* Grant the bot **Manage Server** permissions if you also want it to track Vanity URL usage.
 
 ---
 
@@ -38,21 +36,24 @@ More details in our [Documentation](https://cially.org/guide/1-introduction/feat
 3. Download or copy the `.env.example` file from the same folder and place it in the **same directory** as `docker-compose.yaml`.  
 4. Rename `.env.example` to `.env`.  
 5. Open `.env` and update the values for `TOKEN`, `CLIENT_ID`, and `POCKETBASE_URL`.  
-   - ✅ Use your real PocketBase URL (not a local/internal one).  
+   - Use your real PocketBase URL (not a local/internal one).  
    - Example: `http://your-domain:8090/`  
 6. Run the following command to start everything:  
    ```bash
-   docker compose up -d
-7. Success! The dashboard should be up and running! 
+   docker compose up
+7. **Optional**: In case you change your pocketbase port, make sure to update your application URL in the pocketbase Dashboard.
+<img width="1907" height="480" alt="image" src="https://github.com/user-attachments/assets/79e31185-fbb6-4b33-8a50-8fef53743f39" />
+9. Success! The dashboard should be up and running! 
+
+------------
 
 > [!TIP]
-> If forget your dashboard password, you can use the `/reset-account` command on your Discord Server. Only Server Owners can use that!
-
-And that's it! Once a new message is being detected by the bot for the first time, everything should start to work automatically! All you need to do is go to your Dashboard Page, paste your Server ID and all the data will be displayed!
+> If forget your Cially Password, you can use the `/reset-account` command on your Discord Server. Only Server Owners can use that!
 
 > [!CAUTION]
-> Only the events that happened while the bot is up and running are being tracked and displayed on the dashboard! Older events (such as older messages) or events that happened while the bot was offline for whatever reason are NOT being tracked. Therefore, the data will be inaccurate unless the bot is running without any downtimes 24/7
+> Only the events that happened while the bot is up and running are being tracked and displayed on the dashboard! Older events (such as older messages) or events that happened while the bot was offline for whatever reason are NOT being tracked. Therefore, the data will be inaccurate unless the bot is running without any downtimes 24/7. There is an option to retrieve older messages in the *Messages* page
 
+------------
 
 ## 🐟 Screenshots
 ![image](https://github.com/user-attachments/assets/ab6b48c6-eec3-4e53-8623-5d564a181f92)
@@ -67,7 +68,7 @@ All ongoing synchronization and data enrichment—such as resolving names or syn
 
 
 ## 🦭 Support & Security
-If you have any questions or if you discover a security vulnerability within Cially, please join my [Discord Server](https://discord.gg/TNzPwhRvXH) and let me know! I will try to assist you as soon as possible!
+If you have any questions or if you discover a security vulnerability within Cially, please join my [Discord Server](https://discord.gg/j9zMdmcNZU) and let me know! I will try to assist you as soon as possible!
 Please do not publish publicly security vulnerabilities. 
 
 ## 🍤 Contributing
