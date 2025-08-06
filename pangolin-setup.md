@@ -108,7 +108,7 @@ volumes:
   pocketbase-data:
 ```
 
-We will instead be exposing `cially-web` and `pocketbase` through the Newt with two resources(with some security hardening). We will also need to retreive our Newt config via Pangolin.
+We will instead be exposing `cially-web` and `pocketbase` through the Newt with two resources with some security hardening. We will also need to retrieve our Newt config via Pangolin.
 
 ### Setup a site for Cially.
 
