@@ -10,6 +10,10 @@
 ---
 
 ### 🐳 Docker Setup
+
+> [!TIP]
+> Are you using **Pangolin**? Check the **pangolin-setup** file in the same directory!
+
 1. **Complete the initial setup** steps above first.  
 2. Download or copy the `docker-compose.yaml` file from the `docker` folder.  
 3. Download or copy the `.env.example` file from the same folder and place it in the **same directory** as `docker-compose.yaml`.  
