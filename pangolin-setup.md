@@ -10,7 +10,7 @@ Setting up Pangolin as a whole, you should read the [documentation](https://docs
 
 ### The changes we need to make to the `docker-compose.yaml` file.
 
-First of all, we will remove all `ports` entries as these are no longer required if we are using a Newt. If we are not using a Newt and only using a Local site, skip this.
+The first step is to remove all `ports` entries as these are no longer required if we are using a Newt. If we are not using a Newt and only using a Local site, skip this and leave the ports where they are in the file.
 
 Initially our `docker-compose.yaml` file would look like this:
 ```
@@ -115,7 +115,7 @@ We will instead be exposing `cially-web` and `pocketbase` through the Newt with 
 1. Log into your Pangolin instance and create a new site under your chosen organization.
 <img width="1846" height="220" alt="image" src="https://github.com/user-attachments/assets/810ff903-dde9-4b85-9f1a-fff321d5d025" />
 
-2. Create your site with your choosen settings (again this is up to you, I recommend a Newt Tunnel). If you are not using a Newt, skip to creating a resource for Cially and just create a local site for your host.
+2. Create your site with your chosen settings (again this is up to you, I recommend a Newt Tunnel). If you are not using a Newt, skip to creating a resource for Cially and just create a local site for your host.
 <img width="1571" height="551" alt="image" src="https://github.com/user-attachments/assets/e399f578-5eed-4043-9332-fee5301ab868" />
 Since we are using Docker Compose already, let's grab the Docker config to make things easier!
 <img width="1543" height="479" alt="image" src="https://github.com/user-attachments/assets/1f5e2ab8-47bb-41a9-a2a2-94eed27f0b8f" />
@@ -203,7 +203,7 @@ Cially needs two resources created in Pangolin. One for `cially-web` and another
 1. Log into Pangolin and select resource and then the Add Resource button.
 <img width="1842" height="203" alt="image" src="https://github.com/user-attachments/assets/4f4079c1-49e5-438f-b33a-91456bcd456f" />
 
-2. Choose the correct site for Cially (the Newt tunnel you used in your `docker-compose.yaml` file. Leave the resource type as a HTTPS Resource and finally choose the domain and sub-domain you want to use.
+2. Choose the site you just created for Cially (the Newt tunnel you used in your `docker-compose.yaml` file. Leave the resource type as a HTTPS Resource and finally choose the domain and sub-domain you want to use.
    
 <img width="1546" height="819" alt="image" src="https://github.com/user-attachments/assets/9be1b37e-c46a-40b8-a7dc-a73a9defed19" />
 (NOTE, if you DO NOT have a domain and the sub-domain setup in your DNS records, do NOT attempt to do this as you will likely get rate limited for an hour if it fails multiple times).
@@ -214,7 +214,7 @@ Cially needs two resources created in Pangolin. One for `cially-web` and another
 
 <img width="1556" height="227" alt="{0B309AB9-71DF-4A4C-8229-67D3BF5FAA80}" src="https://github.com/user-attachments/assets/cfee9ec6-3980-49cd-b6c3-da153de62a7a" />
 
-5. Create a second new resource for `pocketbase` but with `pocketbase` your port is going to be 8090 and your hostname for this resource is `pocketbase`.
+5. Create a second new resource for `pocketbase` but with `pocketbase` and the port number of 8090 and your hostname for this resource is `pocketbase`.
 
 ### Extra hardening tips
 
