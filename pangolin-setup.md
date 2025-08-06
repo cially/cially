@@ -8,7 +8,7 @@ Depending on how you want to set this up, you could do it via the traditional me
 
 Setting up Pangolin as a whole, you should read the [documentation](https://docs.digpangolin.com) on how to setup Pangolin and read up how it works before reading this guide. How to setup a VPS, DNS records or how to setup Cially itself initially. 
 
-### The changes we need to make to the `docker-compose.yaml` file.
+### Changes to the `docker-compose.yaml` file
 
 The first step is to remove all `ports` entries as these are no longer required if we are using a Newt. If we are not using a Newt and only using a Local site, skip this and leave the ports where they are in the file.
 
@@ -110,7 +110,7 @@ volumes:
 
 We will instead be exposing `cially-web` and `pocketbase` through the Newt with two resources with some security hardening. We will also need to retrieve our Newt config via Pangolin.
 
-### Setup a site for Cially.
+### Setup a site for Cially
 
 1. Log into your Pangolin instance and create a new site under your chosen organization.
 <img width="1846" height="220" alt="image" src="https://github.com/user-attachments/assets/810ff903-dde9-4b85-9f1a-fff321d5d025" />
@@ -134,7 +134,7 @@ newt:
       - cially-network
 ```
 
-It should look like this:
+With all of it together, it should look like this:
 
 ```
 services:
@@ -203,14 +203,14 @@ Cially needs two resources created in Pangolin. One for `cially-web` and another
 1. Log into Pangolin and select resource and then the Add Resource button.
 <img width="1842" height="203" alt="image" src="https://github.com/user-attachments/assets/4f4079c1-49e5-438f-b33a-91456bcd456f" />
 
-2. Choose the site you just created for Cially (the Newt tunnel you used in your `docker-compose.yaml` file. Leave the resource type as a HTTPS Resource and finally choose the domain and sub-domain you want to use.
+2. Choose the site you just created for Cially (the Newt tunnel you used in your `docker-compose.yaml` file). Leave the resource type as a HTTPS Resource and finally choose the domain and sub-domain you want to use.
    
 <img width="1546" height="819" alt="image" src="https://github.com/user-attachments/assets/9be1b37e-c46a-40b8-a7dc-a73a9defed19" />
 (NOTE, if you DO NOT have a domain and the sub-domain setup in your DNS records, do NOT attempt to do this as you will likely get rate limited for an hour if it fails multiple times).
 
 3. Once you have created the resource, setup the authentication tab to your liking (for public dashboards, you will need to turn this off).
 
-4. Under the Proxy tab, we will do `cially-web` first so the web front is exposed. In IP / Hostname type `cially-web` and enter port you used in your .env. This port number is determined by `PORT=` and not the `API-PORT=`. As it is a http resource we will leave the method as http. Hit Save Targets once you're done.
+4. Under the Proxy tab, we will do `cially-web` first so the web front is exposed. In IP / Hostname type `cially-web` and enter port you used in your .env (this will be `PORT=` and not the `API-PORT=`, `API-PORT=` is for the `cially-bot` and not for `cially-web`). As it is a http resource we will leave the method as http. Hit Save Targets once you're done.
 
 <img width="1556" height="227" alt="{0B309AB9-71DF-4A4C-8229-67D3BF5FAA80}" src="https://github.com/user-attachments/assets/cfee9ec6-3980-49cd-b6c3-da153de62a7a" />
 
