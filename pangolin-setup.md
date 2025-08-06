@@ -210,7 +210,7 @@ Cially needs two resources created in Pangolin. One for `cially-web` and another
 
 3. Once you have created the resource, setup the authentication tab to your liking (for public dashboards, you will need to turn this off).
 
-4. Under the Proxy tab, we will do `cially-web` first so the web front is exposed. In IP / Hostname type `cially-web` and enter port 3001. As it is a http resource we will leave the method as http. Hit Save Targets once you're done.
+4. Under the Proxy tab, we will do `cially-web` first so the web front is exposed. In IP / Hostname type `cially-web` and enter port you used in your .env. This port number is determined by `PORT=` and not the `API-PORT=`. As it is a http resource we will leave the method as http. Hit Save Targets once you're done.
 
 <img width="1556" height="227" alt="{0B309AB9-71DF-4A4C-8229-67D3BF5FAA80}" src="https://github.com/user-attachments/assets/cfee9ec6-3980-49cd-b6c3-da153de62a7a" />
 
