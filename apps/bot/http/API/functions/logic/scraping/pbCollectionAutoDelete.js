@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../../../terminal/debug");
 const { error } = require("../../../../../terminal/error");
 
@@ -34,14 +35,14 @@ async function pbCollectionAutoDelete(guildID) {
     .collection("_superusers")
     .authWithPassword(
       process.env.POCKETBASE_ADMIN_EMAIL,
-      process.env.POCKETBASE_ADMIN_PASSWORD,
+      process.env.POCKETBASE_ADMIN_PASSWORD
     );
 
   async function bulkDeletion(records, collectionName) {
     let batch = pb.createBatch();
     let batchCount = 0;
     let totalDeleted = 0;
-    const batchSize = 20000;
+    const batchSize = 20_000;
 
     for (let i = 0; i < records.length; i++) {
       const record = records[i];
@@ -96,7 +97,7 @@ async function pbCollectionAutoDelete(guildID) {
     let batch = pb.createBatch();
     let batchCount = 0;
     let totalUpdated = 0;
-    const batchSize = 20000;
+    const batchSize = 20_000;
 
     // Prepare the update data based on configuration
     const updateData = {};
@@ -174,7 +175,7 @@ async function pbCollectionAutoDelete(guildID) {
 
     // Process each collection
     for (const [collectionName, config] of Object.entries(COLLECTIONS_CONFIG)) {
-      if (!collectionName || !config || !config.action) {
+      if (!(collectionName && config && config.action)) {
         debug({ text: `Skipping ${collectionName} - no action configured` });
         continue;
       }

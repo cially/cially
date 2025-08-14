@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../../terminal/debug");
 
 async function retryRequest(fn, retries = 25, baseDelay = 1000) {
@@ -9,7 +10,7 @@ async function retryRequest(fn, retries = 25, baseDelay = 1000) {
       if (err.status === 429) {
         const retryAfter = err.response?.headers?.["retry-after"];
         const delay = retryAfter
-          ? parseInt(retryAfter) * 1000
+          ? Number.parseInt(retryAfter) * 1000
           : baseDelay * (attempt + 1);
         debug({
           text: `Retrying to communicate with the database in ${delay / 1000}s`,

@@ -8,17 +8,17 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export default function ErrorUserCard() {
   return (
-    <div className="place-self-center w-full mt-3 ">
+    <div className="mt-3 w-full place-self-center ">
       <Card className="mx-5">
         <CardHeader>
           <div className="grid grid-cols-2">
             <div className="place-self-start">
               <div className="grid grid-cols-2 gap-0">
-                <Avatar className="w-15 h-15">
+                <Avatar className="h-15 w-15">
                   <Skeleton className="w-full rounded-full " />
                 </Avatar>
                 <div className="place-self-center font-bold">
-                  <Skeleton className="w-20 h-5 rounded-xl " />
+                  <Skeleton className="h-5 w-20 rounded-xl " />
                 </div>
               </div>
             </div>
@@ -27,7 +27,7 @@ export default function ErrorUserCard() {
           <hr className="my-3" />
         </CardHeader>
         <CardContent>
-          <Skeleton className="w-full h-20 rounded-xl " />
+          <Skeleton className="h-20 w-full rounded-xl " />
         </CardContent>
       </Card>
       <div className="mx-20 mt-5">

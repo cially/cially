@@ -22,7 +22,7 @@ function ClientComponent() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await fetch(`/api/cially/checkScrapeStatus`);
+        const response = await fetch("/api/cially/checkScrapeStatus");
         const json = await response.json();
         setScrapeData(json);
         console.log(json);
@@ -34,13 +34,13 @@ function ClientComponent() {
     fetchData();
   }, []);
 
-  if (!scrapeData?.error && !scrapeData?.noServer && scrapeData?.server) {
+  if (!(scrapeData?.error || scrapeData?.noServer) && scrapeData?.server) {
     return (
-      <div className="my-5 mx-5">
+      <div className="mx-5 my-5">
         <Card className="bg-amber-300/7">
           <CardHeader>
             <CardTitle>
-              <CircleAlert className="-translate-y-0.5 inline mr-2" />
+              <CircleAlert className="-translate-y-0.5 mr-2 inline" />
               Heads Up
             </CardTitle>
             <CardContent>

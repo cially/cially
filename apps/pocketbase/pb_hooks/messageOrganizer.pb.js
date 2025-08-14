@@ -6,7 +6,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
       "beingScraped = true", // filter
       "-beingScraped", // sort
       1, // limit
-      0, // offset
+      0 // offset
     ); // optional filter params
 
     if (scrapedServers.length < 1) {
@@ -14,8 +14,8 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
         "messages", // collection
         "guildID != '' && messageCreation != ''", // filter
         "-messageCreation", // sort
-        10000, // limit
-        0, // offset
+        10_000, // limit
+        0 // offset
       ); // optional filter params
 
       if (records.length > 0) {
@@ -35,7 +35,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
             `guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
             "-hour", // sort
             1, // limit
-            0, // offset
+            0 // offset
           );
 
           if (timeRecords.length > 0) {
@@ -63,7 +63,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
             `guildID = '${guildID}' && authorID = '${authorID}'`, // filter
             "-authorID", // sort
             1, // limit
-            0, // offset
+            0 // offset
           );
 
           if (authorRecords.length > 0) {
@@ -72,11 +72,11 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
 
             authorRecord.set(
               "totalMessages",
-              Number(authorRecordJSON.totalMessages) + 1,
+              Number(authorRecordJSON.totalMessages) + 1
             );
             authorRecord.set(
               "totalMessageLength",
-              Number(authorRecordJSON.totalMessageLength) + messageLength,
+              Number(authorRecordJSON.totalMessageLength) + messageLength
             );
             $app.save(authorRecord);
           } else {
@@ -97,7 +97,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
             `guildID = '${guildID}' && channelID = '${channelID}'`, // filter
             "-channelID", // sort
             1, // limit
-            0, // offset
+            0 // offset
           );
 
           if (channelRecords.length > 0) {
@@ -121,13 +121,13 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
           $app.delete(record);
           console.log(`Succesfully processed record: ${recordJSON.id}`);
         }
-        console.log(`====== Job Finished ======`);
+        console.log("====== Job Finished ======");
       }
     } else {
       console.log(
-        "There is a scrape undergoing for a server. Cancelled organizing data...",
+        "There is a scrape undergoing for a server. Cancelled organizing data..."
       );
-      console.log(`====== Message Job Finished ======`);
+      console.log("====== Message Job Finished ======");
     }
   } catch (err) {
     console.log("Error in message organizer:", err);
@@ -140,7 +140,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
       "guildID != '' && memberID != '' && logged = false", // filter
       "-memberID", // sort
       1000, // limit
-      0, // offset
+      0 // offset
     ); // optional filter params
 
     if (records.length > 0) {
@@ -158,7 +158,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
           `guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
           "-hour", // sort
           1, // limit
-          0, // offset
+          0 // offset
         );
 
         let timeRecord;
@@ -192,7 +192,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
         if (isUnique) {
           timeRecord.set(
             "unique_users",
-            Number(timeRecordJSON.unique_users || 0) + 1,
+            Number(timeRecordJSON.unique_users || 0) + 1
           );
         }
 
@@ -203,10 +203,10 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
         $app.save(record);
 
         console.log(
-          `Successfully processed join record: ${record.id} (unique: ${isUnique})`,
+          `Successfully processed join record: ${record.id} (unique: ${isUnique})`
         );
       }
-      console.log(`====== Combined Members and Joins Job Finished ======`);
+      console.log("====== Combined Members and Joins Job Finished ======");
     }
   } catch (err) {
     console.log("Error in joins organizer:", err);
@@ -219,7 +219,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
       "guildID != '' && memberID != '' && logged = false", // filter
       "-memberID", // sort
       1000, // limit
-      0, // offset
+      0 // offset
     ); // optional filter params
 
     if (records.length > 0) {
@@ -236,7 +236,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
           `guildID = '${guildID}' && hour = '${hour}' && date = '${date}'`, // filter
           "-hour", // sort
           1, // limit
-          0, // offset
+          0 // offset
         );
 
         if (timeRecords.length > 0) {
@@ -261,7 +261,7 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
         $app.save(record);
         console.log(`Succesfully processed leave record: ${record.id}`);
       }
-      console.log(`====== Leave Job Finished ======`);
+      console.log("====== Leave Job Finished ======");
     }
   } catch (err) {
     console.log("Error in leaves organizer:", err);

@@ -19,7 +19,7 @@ function ClientComponent() {
   useEffect(() => {
     async function fetchData() {
       const chartDataReceived = await fetch(
-        `/api/cially/checkForAdminAccounts`,
+        "/api/cially/checkForAdminAccounts"
       );
       const json = await chartDataReceived.json();
       setUserData(json);
@@ -36,7 +36,8 @@ function ClientComponent() {
           </div>
         </div>
       );
-    } else if (userData.noAccounts) {
+    }
+    if (userData.noAccounts) {
       return (
         <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
           <div className="w-full max-w-sm">
@@ -46,11 +47,10 @@ function ClientComponent() {
       );
     }
     return "Error";
-  } else {
-    return (
-      <div className="place-self-center">
-        <LoadingSVG />
-      </div>
-    );
   }
+  return (
+    <div className="place-self-center">
+      <LoadingSVG />
+    </div>
+  );
 }

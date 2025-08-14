@@ -8,11 +8,11 @@ export async function GET() {
     const controllerDiscordBot = new AbortController();
     const timeoutIdPocketbase = setTimeout(
       () => controllerPocketbase.abort(),
-      5000,
+      5000
     );
     const timeoutIdDiscordBot = setTimeout(
       () => controllerDiscordBot.abort(),
-      5000,
+      5000
     );
 
     try {
@@ -40,7 +40,7 @@ export async function GET() {
 
     try {
       const discord_response = await fetch(
-        "https://discordstatus.com/api/v2/components.json",
+        "https://discordstatus.com/api/v2/components.json"
       );
 
       const data = await discord_response.json();

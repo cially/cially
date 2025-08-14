@@ -48,17 +48,17 @@ export default function ActiveUsers({
           <CardDescription>Last 4 weeks</CardDescription>
         </CardHeader>
         <CardContent className="pb-0">
-          <Skeleton className="w-full h-30" />
+          <Skeleton className="h-30 w-full" />
         </CardContent>
         <CardFooter className="flex items-center justify-center gap-2 text-sm">
-          <Skeleton className="w-20 h-5 rounded-md" />
+          <Skeleton className="h-5 w-20 rounded-md" />
         </CardFooter>
       </Card>
     );
   }
   try {
     return (
-      <Card className="h-full w-full flex flex-col ">
+      <Card className="flex h-full w-full flex-col ">
         <CardHeader>
           <CardTitle>Most Active Users (Messages)</CardTitle>
           <CardDescription>Last 4 weeks</CardDescription>
@@ -75,38 +75,38 @@ export default function ActiveUsers({
             >
               <CartesianGrid horizontal={false} />
               <YAxis
+                axisLine={false}
                 dataKey="author"
-                type="category"
+                hide
+                tickFormatter={(value) => value.slice(0, 3)}
                 tickLine={false}
                 tickMargin={10}
-                axisLine={false}
-                tickFormatter={(value) => value.slice(0, 3)}
-                hide
+                type="category"
               />
-              <XAxis dataKey="amount" type="number" hide />
+              <XAxis dataKey="amount" hide type="number" />
               <ChartTooltip
-                cursor={false}
                 content={<ChartTooltipContent indicator="line" />}
+                cursor={false}
               />
               <Bar
                 dataKey="amount"
-                layout="vertical"
                 fill="var(--color-desktop)"
+                layout="vertical"
                 radius={4}
               >
                 <LabelList
-                  dataKey="author"
-                  position="insideRight"
-                  offset={8}
                   className="fill-white"
+                  dataKey="author"
                   fontSize={12}
+                  offset={8}
+                  position="insideRight"
                 />
                 <LabelList
-                  dataKey="amount"
-                  position="right"
-                  offset={8}
                   className="fill-foreground"
+                  dataKey="amount"
                   fontSize={12}
+                  offset={8}
+                  position="right"
                 />
               </Bar>
             </BarChart>
@@ -122,7 +122,7 @@ export default function ActiveUsers({
     );
   } catch (_err) {
     return (
-      <Card className="h-full w-full flex flex-col ">
+      <Card className="flex h-full w-full flex-col ">
         <CardHeader>
           <CardTitle>Most Active Users (Messages)</CardTitle>
           <CardDescription>Last 4 weeks</CardDescription>

@@ -11,7 +11,7 @@ const user_stats_collection = "user_stats";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string; userID: string }> },
+  { params }: { params: Promise<{ id: string; userID: string }> }
 ) {
   const { id, userID } = await params;
 
@@ -20,7 +20,7 @@ export async function GET(
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const guild = await pb
@@ -54,7 +54,7 @@ export async function GET(
 
     const dataArray = [];
 
-    const discordDataOUT = [{ userID: userID }];
+    const discordDataOUT = [{ userID }];
 
     const discordDataIN_Req = await fetch(
       `${process.env.API_URL}/fetchUserData/${id}`,
@@ -64,7 +64,7 @@ export async function GET(
           "Content-Type": "application/json",
         },
         method: "POST",
-      },
+      }
     );
     const discordDataIN = await discordDataIN_Req.json();
     const username = discordDataIN[0].username;
@@ -76,7 +76,7 @@ export async function GET(
       totalJoins: member_joins.length,
       totalLeaves: member_leaves.length,
       totalInvites: member_invites.length,
-      totalMessages: totalMessages,
+      totalMessages,
       averageMessageLength: avgMessageLength,
     });
 

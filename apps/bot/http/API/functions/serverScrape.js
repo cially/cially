@@ -1,3 +1,4 @@
+"use strict";
 const { discordScrape } = require("../functions/logic/scraping/discordScrape");
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
@@ -8,12 +9,12 @@ async function serverScrape(req, res, client) {
     debug({
       text: `Scrape Request for Guild ${guildID} received. Scraping data...`,
     });
-    data = await discordScrape({ client: client, guildID: guildID });
+    data = await discordScrape({ client, guildID });
 
     return await res.status(201).json(data);
   } catch (err) {
     error({
-      text: `Something went wrong after trying to scrape data of Guild`,
+      text: "Something went wrong after trying to scrape data of Guild",
     });
     console.log(err);
   }

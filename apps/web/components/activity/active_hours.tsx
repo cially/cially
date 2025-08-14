@@ -38,10 +38,10 @@ export default function ActiveHours({
           <CardDescription>Last 4 weeks</CardDescription>
         </CardHeader>
         <CardContent className="pb-0">
-          <Skeleton className="w-full h-30" />
+          <Skeleton className="h-30 w-full" />
         </CardContent>
         <CardFooter className="flex items-center justify-center gap-2 text-sm">
-          <Skeleton className="w-20 h-5 rounded-md" />
+          <Skeleton className="h-5 w-20 rounded-md" />
         </CardFooter>
       </Card>
     );
@@ -55,45 +55,45 @@ export default function ActiveHours({
         </CardHeader>
         <CardContent className="pt-2 pb-4">
           <ChartContainer
-            config={chartConfig}
             className="w-full"
+            config={chartConfig}
             style={{ height: "300px" }}
           >
             <BarChart
               accessibilityLayer
               data={chartData}
+              height={260}
               margin={{
                 top: 20,
                 bottom: 20,
                 left: 10,
                 right: 10,
               }}
-              height={260}
             >
               <CartesianGrid vertical={false} />
               <XAxis
+                axisLine={true}
                 dataKey="hour"
+                tickFormatter={(value) => value.slice(0, 2)}
                 tickLine={true}
                 tickMargin={10}
-                axisLine={true}
-                tickFormatter={(value) => value.slice(0, 2)}
               />
               <ChartTooltip
-                cursor={true}
                 content={<ChartTooltipContent hideLabel />}
+                cursor={true}
               />
               <Bar dataKey="amount" fill="var(--color-desktop)" radius={4}>
                 <LabelList
-                  position="top"
-                  offset={12}
                   className="fill-foreground"
                   fontSize={12}
+                  offset={12}
+                  position="top"
                 />
               </Bar>
             </BarChart>
           </ChartContainer>
         </CardContent>
-        <CardFooter className="flex items-center justify-center gap-2 text-sm"></CardFooter>
+        <CardFooter className="flex items-center justify-center gap-2 text-sm" />
       </Card>
     );
   } catch (_err) {
@@ -106,7 +106,7 @@ export default function ActiveHours({
         <CardContent className="pt-2 pb-4">
           <div className="text-center">Not enough data</div>
         </CardContent>
-        <CardFooter className="flex items-center justify-center gap-2 text-sm"></CardFooter>
+        <CardFooter className="flex items-center justify-center gap-2 text-sm" />
       </Card>
     );
   }

@@ -28,13 +28,13 @@ export default function Last24h({ chartData }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
+          <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
         </CardContent>
         <CardFooter>
           <div className="flex w-full items-start gap-2 text-sm">
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium leading-none">
-                <Skeleton className="w-20 h-[10px] place-self-center rounded-xl" />
+                <Skeleton className="h-[10px] w-20 place-self-center rounded-xl" />
               </div>
             </div>
           </div>
@@ -59,12 +59,12 @@ export default function Last24h({ chartData }) {
       .padStart(2, "0")}`;
 
     const currentAmount_index = ArrayChartData.findIndex(
-      (item) => item.hour === startingDate_formatted,
+      (item) => item.hour === startingDate_formatted
     );
     const currentAmount = ArrayChartData[currentAmount_index].amount;
 
     const previousAmount_index = ArrayChartData.findIndex(
-      (item) => item.hour === previousDate_formatted,
+      (item) => item.hour === previousDate_formatted
     );
     const previousAmount = ArrayChartData[previousAmount_index].amount;
 
@@ -97,21 +97,21 @@ export default function Last24h({ chartData }) {
             >
               <CartesianGrid vertical={true} />
               <XAxis
+                axisLine={true}
                 dataKey="hour"
-                type="number"
                 domain={[0, 23]}
-                ticks={[0, 3, 6, 9, 12, 15, 18, 21]}
                 tickFormatter={(value) => String(value).padStart(2, "0")}
                 tickLine={true}
-                axisLine={true}
                 tickMargin={5}
+                ticks={[0, 3, 6, 9, 12, 15, 18, 21]}
+                type="number"
               />
               <ChartTooltip
+                content={<ChartTooltipContent hideLabel indicator="dot" />}
                 cursor={true}
-                content={<ChartTooltipContent indicator="dot" hideLabel />}
               />
               <defs>
-                <linearGradient id="fillGradient" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="fillGradient" x1="0" x2="0" y1="0" y2="1">
                   <stop
                     offset="5%"
                     stopColor="var(--color-hour)"
@@ -126,11 +126,11 @@ export default function Last24h({ chartData }) {
               </defs>
               <Area
                 dataKey="amount"
-                type="monotone"
                 fill="url(#fillGradient)"
                 fillOpacity={0.4}
-                stroke="var(--color-hour)"
                 stackId="a"
+                stroke="var(--color-hour)"
+                type="monotone"
               />
             </AreaChart>
           </ChartContainer>

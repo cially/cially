@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 const { registerGuild } = require("./logic/registerGuild");
@@ -24,13 +25,13 @@ async function messageEdit(req, res) {
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const guild = await pb
       .collection(guild_collection_name)
       .getFirstListItem(`discordID='${guildID}'`, {});
-    debug({ text: `Guild has been found and is ready to add data to it` });
+    debug({ text: "Guild has been found and is ready to add data to it" });
 
     const new_general_data = {
       message_edits: guild.message_edits + 1,
@@ -40,7 +41,7 @@ async function messageEdit(req, res) {
       .collection(`${guild_collection_name}`)
       .update(`${guild.id}`, new_general_data);
     debug({
-      text: `General Guild Data has been updated in the database`,
+      text: "General Guild Data has been updated in the database",
     });
   } catch (err) {
     // 404 error -> guild is not on the database. Attempt to add it
@@ -54,7 +55,7 @@ async function messageEdit(req, res) {
   }
 
   debug({
-    text: `End of logic. Stopping the communication and returning a res to the Bot`,
+    text: "End of logic. Stopping the communication and returning a res to the Bot",
   });
 
   return res.status(201).json(roger);

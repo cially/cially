@@ -1,3 +1,4 @@
+"use strict";
 // Package Imports
 const fs = require("node:fs");
 const path = require("node:path");
@@ -15,7 +16,7 @@ const _clientId = process.env.CLIENT_ID;
 // Currently using every single intent.
 // Using https://discord-intents-calculator.vercel.app/ to generate the intents ID
 const client = new Client({
-  intents: 53608447,
+  intents: 53_608_447,
 });
 
 // Command Handler

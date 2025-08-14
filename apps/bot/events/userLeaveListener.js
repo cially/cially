@@ -1,3 +1,4 @@
+"use strict";
 const { Events } = require("discord.js");
 const { debug } = require("../terminal/debug");
 const { sendPostRequest } = require("../http/postRequest");

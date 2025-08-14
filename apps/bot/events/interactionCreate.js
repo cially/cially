@@ -1,3 +1,4 @@
+"use strict";
 const { Events, MessageFlags } = require("discord.js");
 const { error } = require("../terminal/error");
 

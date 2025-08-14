@@ -1,3 +1,4 @@
+"use strict";
 const { Events } = require("discord.js");
 const cfonts = require("cfonts");
 const { debug } = require("../terminal/debug");
@@ -29,8 +30,8 @@ module.exports = {
 
     debug({ text: `Client Found: ${client.user.tag}` });
     console.log(
-      `[SUCCESS] `.green +
-        `The Bot is Running! \n\n-----------LOGS------------\n\n`,
+      "[SUCCESS] ".green +
+        "The Bot is Running! \n\n-----------LOGS------------\n\n"
     );
 
     // Sync slash commands
@@ -77,7 +78,7 @@ async function syncCommands(client) {
   try {
     // Get existing registered commands
     const existingCommands = await rest.get(
-      Routes.applicationCommands(client.user.id),
+      Routes.applicationCommands(client.user.id)
     );
 
     debug({ text: `Found ${existingCommands.length} existing commands` });
@@ -85,12 +86,12 @@ async function syncCommands(client) {
     // Find commands to delete (exist on Discord but not in local files)
     for (const command of existingCommands) {
       const localCommand = localCommands.find(
-        (cmd) => cmd.name === command.name,
+        (cmd) => cmd.name === command.name
       );
       if (!localCommand) {
         // Delete command that no longer exists locally
         await rest.delete(
-          Routes.applicationCommand(client.user.id, command.id),
+          Routes.applicationCommand(client.user.id, command.id)
         );
         debug({ text: `Deleted command: ${command.name}` });
       }

@@ -47,24 +47,24 @@ function DashboardClientComponent() {
     return (
       <div className="mt-10 mr-4 ml-10 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
         <div>
-          <div className="rows-span-1 grid grid-rows-3 sm:grid-cols-8 sm:grid-rows-none gap-y-3 ">
+          <div className="rows-span-1 grid grid-rows-3 gap-y-3 sm:grid-cols-8 sm:grid-rows-none ">
             <div className="text-4xl sm:col-span-2 ">
-              <Skeleton className="w-30 h-5" />
+              <Skeleton className="h-5 w-30" />
               <div className="mt-2 font-normal text-gray-400 text-xs">
-                <Skeleton className="w-15 h-3" />
+                <Skeleton className="h-3 w-15" />
               </div>
             </div>
             <div className="mr-4 sm:col-span-2 sm:col-start-4">
-              <Skeleton className="w-50 h-25 rounded-2xl" />
+              <Skeleton className="h-25 w-50 rounded-2xl" />
             </div>
             <div className="mr-4 sm:col-span-2 sm:col-start-6">
-              <Skeleton className="w-50 h-25 rounded-2xl" />
+              <Skeleton className="h-25 w-50 rounded-2xl" />
             </div>
           </div>
         </div>
 
         <div className="row-span-3 sm:row-span-1">
-          <Skeleton className="w-full h-25 rounded-2xl place-self-center mt-30" />
+          <Skeleton className="mt-30 h-25 w-full place-self-center rounded-2xl" />
         </div>
       </div>
     );
@@ -85,7 +85,7 @@ function DashboardClientComponent() {
     : "Good Evening";
 
   return (
-    <div className="mt-10 mx-0 sm:mx-5 grid grid-rows-3 sm:min-w-dvh sm:grid-rows-none">
+    <div className="mx-0 mt-10 grid grid-rows-3 sm:mx-5 sm:min-w-dvh sm:grid-rows-none">
       <div>
         <div className="rows-span-1 grid grid-rows-3 sm:grid-cols-8 sm:grid-rows-none ">
           <div className="text-4xl sm:col-span-2 ">
@@ -94,10 +94,10 @@ function DashboardClientComponent() {
               Currently viewing {guildData.name}
             </div>
           </div>
-          <div className="mr-0 sm:mr-4 sm:col-span-2 sm:col-start-5">
+          <div className="mr-0 sm:col-span-2 sm:col-start-5 sm:mr-4">
             <MemberBlock guild={guildData} />
           </div>
-          <div className="mr-0 sm:mr-4 sm:col-span-2 sm:col-start-7">
+          <div className="mr-0 sm:col-span-2 sm:col-start-7 sm:mr-4">
             <MessagesBlock guild={guildData} />
           </div>
         </div>

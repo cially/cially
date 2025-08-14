@@ -8,7 +8,7 @@ const hourly_stats_collection = "hourly_stats";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -17,7 +17,7 @@ export async function GET(
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const guild = await pb
@@ -39,7 +39,7 @@ export async function GET(
       for (let i = 0; i < 24; i++) {
         const hourString = i.toString().padStart(2, "0");
         const existingStat = hourlyStats.find(
-          (stat) => stat.hour === hourString,
+          (stat) => stat.hour === hourString
         );
 
         hourData.push({
@@ -66,7 +66,7 @@ export async function GET(
           (acc, stat) => ({
             messages: acc.messages + (Number(stat.messages) || 0),
           }),
-          { messages: 0 },
+          { messages: 0 }
         );
 
         weekData.push({
@@ -99,7 +99,7 @@ export async function GET(
           (acc, stat) => ({
             messages: acc.messages + (Number(stat.messages) || 0),
           }),
-          { messages: 0 },
+          { messages: 0 }
         );
 
         fourWeekData.push({
@@ -124,7 +124,7 @@ export async function GET(
           filter: `guildID = "${guild.id}"`,
         })
         .then((hours) =>
-          hours.reduce((sum, hour) => sum + (hour.messages || 0), 0),
+          hours.reduce((sum, hour) => sum + (hour.messages || 0), 0)
         );
 
       const generalDataArray = [];

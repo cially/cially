@@ -16,7 +16,7 @@ export default function MemberBlock({ guild }: { guild: { members: number } }) {
         </CardTitle>
         <CardDescription className="text-2xl text-gray-300">
           {guild.members}
-          <div className="mt-2 text-red-400 text-xs"></div>
+          <div className="mt-2 text-red-400 text-xs" />
         </CardDescription>
       </CardHeader>
     </Card>

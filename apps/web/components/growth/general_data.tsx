@@ -41,10 +41,10 @@ const StatCard = ({
   value,
   isNetGrowth = false,
 }: StatCardProps) => (
-  <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
+  <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
-      <div className="text-xs text-white/60">{label}</div>
+      <div className="text-white/60 text-xs">{label}</div>
       <div
         className={`font-semibold ${
           isNetGrowth
@@ -63,7 +63,7 @@ const StatCard = ({
 );
 
 const PeriodContent = ({ data }: { data: PeriodData }) => (
-  <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-2">
+  <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3">
     <StatCard
       icon={UserPlus}
       label="Total Joins"
@@ -81,9 +81,9 @@ const PeriodContent = ({ data }: { data: PeriodData }) => (
     />
     <StatCard
       icon={data.net_growth >= 0 ? TrendingUp : TrendingDown}
+      isNetGrowth={true}
       label="Growth"
       value={`${data.net_growth >= 0 ? "+" : ""}${data.net_growth.toLocaleString()}`}
-      isNetGrowth={true}
     />
     <StatCard
       icon={EqualApproximately}
@@ -124,15 +124,15 @@ export default function GeneralMessageDataCard({
     return (
       <Card className="mt-10 grid auto-rows-auto px-10 py-6 sm:min-w-dvh">
         <div>
-          <div className="text-xl font-semibold">
-            <Activity className="inline mr-2" />
+          <div className="font-semibold text-xl">
+            <Activity className="mr-2 inline" />
             General Data
           </div>
-          <div className="font-sans text-sm mt-1 text-white/60">
+          <div className="mt-1 font-sans text-sm text-white/60">
             More insights regarding user activity and engagement
           </div>
         </div>
-        <Skeleton className="w-full h-32 mt-4" />
+        <Skeleton className="mt-4 h-32 w-full" />
       </Card>
     );
   }
@@ -145,34 +145,34 @@ export default function GeneralMessageDataCard({
     return (
       <Card className="mt-10 px-6 py-6 sm:min-w-dvh">
         <div className="mb-6">
-          <div className="text-xl font-semibold">
-            <Activity className="inline mr-2" />
+          <div className="font-semibold text-xl">
+            <Activity className="mr-2 inline" />
             General Data
           </div>
-          <div className="font-sans text-sm mt-1 text-white/60">
+          <div className="mt-1 font-sans text-sm text-white/60">
             More insights regarding user activity and engagement
           </div>
         </div>
 
-        <Tabs defaultValue="today" className="w-full">
-          <TabsList className="grid w-full grid-cols-3 mb-6">
-            <TabsTrigger value="today" className="flex items-center gap-2">
+        <Tabs className="w-full" defaultValue="today">
+          <TabsList className="mb-6 grid w-full grid-cols-3">
+            <TabsTrigger className="flex items-center gap-2" value="today">
               <Columns className="h-4 w-4" />
               Today
             </TabsTrigger>
-            <TabsTrigger value="week" className="flex items-center gap-2">
+            <TabsTrigger className="flex items-center gap-2" value="week">
               <Columns2 className="h-4 w-4" />
               Week
             </TabsTrigger>
-            <TabsTrigger value="month" className="flex items-center gap-2">
+            <TabsTrigger className="flex items-center gap-2" value="month">
               <Columns3 className="h-4 w-4" />
               Month
             </TabsTrigger>
           </TabsList>
 
           {todayData && (
-            <TabsContent value="today" className="space-y-4">
-              <div className="text-lg font-medium text-white/90">
+            <TabsContent className="space-y-4" value="today">
+              <div className="font-medium text-lg text-white/90">
                 Today's Activity
               </div>
               <PeriodContent data={todayData} />
@@ -180,8 +180,8 @@ export default function GeneralMessageDataCard({
           )}
 
           {weekData && (
-            <TabsContent value="week" className="space-y-4">
-              <div className="text-lg font-medium text-white/90">
+            <TabsContent className="space-y-4" value="week">
+              <div className="font-medium text-lg text-white/90">
                 Weekly Summary
               </div>
               <PeriodContent data={weekData} />
@@ -189,8 +189,8 @@ export default function GeneralMessageDataCard({
           )}
 
           {monthData && (
-            <TabsContent value="month" className="space-y-4">
-              <div className="text-lg font-medium text-white/90">
+            <TabsContent className="space-y-4" value="month">
+              <div className="font-medium text-lg text-white/90">
                 Monthly Overview
               </div>
               <PeriodContent data={monthData} />
@@ -204,15 +204,15 @@ export default function GeneralMessageDataCard({
     return (
       <Card className="mt-10 grid auto-rows-auto px-10 py-6 sm:min-w-dvh">
         <div>
-          <div className="text-xl font-semibold">
-            <Activity className="inline mr-2" />
+          <div className="font-semibold text-xl">
+            <Activity className="mr-2 inline" />
             General Data
           </div>
-          <div className="font-sans text-sm mt-1 text-white/60">
+          <div className="mt-1 font-sans text-sm text-white/60">
             More insights regarding user activity and engagement
           </div>
         </div>
-        <div className="text-center py-8 text-white/60">
+        <div className="py-8 text-center text-white/60">
           Not enough data available
         </div>
       </Card>

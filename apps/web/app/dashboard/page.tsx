@@ -26,7 +26,7 @@ function ClientComponent() {
 
   useEffect(() => {
     async function fetchData() {
-      const DataReceived = await fetch(`/api/fetchGuilds`);
+      const DataReceived = await fetch("/api/fetchGuilds");
       const json = await DataReceived.json();
       setGuildData(json.data);
       console.log(json);
@@ -40,53 +40,53 @@ function ClientComponent() {
         <>
           <div className="w-20 place-self-center">
             <Image
-              src="/logo-webp.webp"
               alt="logo"
-              width={500}
-              height={500}
               fetchPriority="high"
+              height={500}
               priority={true}
+              src="/logo-webp.webp"
+              width={500}
             />
           </div>
-          <div className="text-2xl  text-center">Available Guilds</div>
-          <div className="text-sm text-gray-400 text-center">
+          <div className="text-center text-2xl">Available Guilds</div>
+          <div className="text-center text-gray-400 text-sm">
             Please Select the Guild you would like to view
           </div>
           <div className="mb-10" />
 
-          <div className="grid gap-y-5 grid-cols-1 sm:grid-cols-3 mx-10">
-            <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
-            <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
-            <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
+          <div className="mx-10 grid grid-cols-1 gap-y-5 sm:grid-cols-3">
+            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
+            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
+            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
           </div>
 
-          <div className="self-center mt-10">
-            <div className="grid grid-cols-3 place-self-center gap-x-5 mt-10 text-gray-400 ">
-              <div className="rounded-full w-6 ">
+          <div className="mt-10 self-center">
+            <div className="mt-10 grid grid-cols-3 gap-x-5 place-self-center text-gray-400 ">
+              <div className="w-6 rounded-full ">
                 <a href="/dashboard/cially/settings">
-                  <Settings className="w-7 place-self-center hover:text-gray-600 transition-all" />
+                  <Settings className="w-7 place-self-center transition-all hover:text-gray-600" />
                 </a>
               </div>
 
-              <div className="rounded-full w-6">
+              <div className="w-6 rounded-full">
                 <a href="/dashboard/cially/status">
-                  <Activity className="w-7 place-self-center hover:text-gray-600 transition-all" />
+                  <Activity className="w-7 place-self-center transition-all hover:text-gray-600" />
                 </a>
               </div>
 
-              <div className="rounded-full w-6">
+              <div className="w-6 rounded-full">
                 <a href="https://github.com/cially/cially">
                   <Image
-                    src="/github.svg"
                     alt="github"
-                    className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
-                    width={500}
+                    className="w-7 place-self-center brightness-[1] grayscale-0 transition-all hover:brightness-[0.55]"
                     height={500}
+                    src="/github.svg"
+                    width={500}
                   />
                 </a>
               </div>
             </div>
-            <div className="text-center mt-5 text-xs text-gray-600 pb-5">
+            <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
               Thanks for using Cially Dashboard!
             </div>
           </div>
@@ -106,9 +106,9 @@ function ClientComponent() {
     const guildCards = guildDataArray.map((guild) =>
       guild.in_db === true ? (
         <a href={`/dashboard/fetchGuild?guildID=${guild.id}`} key={guild.id}>
-          <Card className="hover:bg-white/2 transition-all sm:mx-5 ">
+          <Card className="transition-all hover:bg-white/2 sm:mx-5 ">
             <CardHeader className="place-items-center">
-              <Avatar className=" w-20 h-20">
+              <Avatar className=" h-20 w-20">
                 <AvatarImage src={guild.icon} />
                 <AvatarFallback>Guild</AvatarFallback>
               </Avatar>
@@ -120,9 +120,9 @@ function ClientComponent() {
         <TooltipProvider key={guild.id}>
           <Tooltip>
             <TooltipTrigger>
-              <Card className="bg-red-400/10 hover:bg-red-400/7 transition-all sm:mx-5 cursor-not-allowed">
+              <Card className="cursor-not-allowed bg-red-400/10 transition-all hover:bg-red-400/7 sm:mx-5">
                 <CardHeader className="place-items-center">
-                  <Avatar className=" w-20 h-20">
+                  <Avatar className=" h-20 w-20">
                     <AvatarImage src={guild.icon} />
                     <AvatarFallback>Guild</AvatarFallback>
                   </Avatar>
@@ -138,58 +138,58 @@ function ClientComponent() {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      ),
+      )
     );
 
     return (
       <>
         <div className="w-20 place-self-center">
           <Image
-            src="/logo-webp.webp"
             alt="logo"
-            width={500}
-            height={500}
             fetchPriority="high"
+            height={500}
             priority={true}
+            src="/logo-webp.webp"
+            width={500}
           />
         </div>
-        <div className="text-2xl  text-center">Available Guilds</div>
-        <div className="text-sm text-gray-400 text-center">
+        <div className="text-center text-2xl">Available Guilds</div>
+        <div className="text-center text-gray-400 text-sm">
           Please Select the Guild you would like to view
         </div>
 
         <div className="mb-10" />
-        <div className={`grid gap-y-5 grid-cols-1 ${gridClass} sm:mx-10`}>
+        <div className={`grid grid-cols-1 gap-y-5 ${gridClass} sm:mx-10`}>
           {guildCards}
         </div>
 
-        <div className="self-center mt-10">
-          <div className="grid grid-cols-3 place-self-center gap-x-5 mt-10 text-gray-400 ">
-            <div className="rounded-full w-6 ">
+        <div className="mt-10 self-center">
+          <div className="mt-10 grid grid-cols-3 gap-x-5 place-self-center text-gray-400 ">
+            <div className="w-6 rounded-full ">
               <a href="/dashboard/cially/settings">
-                <Settings className="w-7 place-self-center hover:text-gray-600 transition-all" />
+                <Settings className="w-7 place-self-center transition-all hover:text-gray-600" />
               </a>
             </div>
 
-            <div className="rounded-full w-6">
+            <div className="w-6 rounded-full">
               <a href="/dashboard/cially/status">
-                <Activity className="w-7 place-self-center hover:text-gray-600 transition-all" />
+                <Activity className="w-7 place-self-center transition-all hover:text-gray-600" />
               </a>
             </div>
 
-            <div className="rounded-full w-6">
+            <div className="w-6 rounded-full">
               <a href="https://github.com/cially/cially">
                 <Image
-                  src="/github.svg"
                   alt="github"
-                  width={500}
+                  className="w-7 place-self-center brightness-[1] grayscale-0 transition-all hover:brightness-[0.55]"
                   height={500}
-                  className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
+                  src="/github.svg"
+                  width={500}
                 />
               </a>
             </div>
           </div>
-          <div className="text-center mt-5 text-xs text-gray-600 pb-5">
+          <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
             Thanks for using Cially Dashboard!
           </div>
         </div>
@@ -202,15 +202,15 @@ function ClientComponent() {
       <>
         <div className="w-20 place-self-center">
           <Image
-            src="/logo-webp.webp"
             alt="logo"
-            width={500}
-            height={500}
             fetchPriority="high"
+            height={500}
             priority={true}
+            src="/logo-webp.webp"
+            width={500}
           />
         </div>
-        <div className="text-center mx-5">
+        <div className="mx-5 text-center">
           Looks like the Discord Bot can't communicate with the Dashboard.
           <br />
           Please make sure that you followed the setup instructions correctly
@@ -220,8 +220,8 @@ function ClientComponent() {
           Are you facing other issues? Check our GitHub and seek support!
           <br />
           <a
-            href="https://github.com/skellgreco/cially"
             className="text-blue-400 underline"
+            href="https://github.com/skellgreco/cially"
           >
             GitHub Redirect
           </a>
@@ -230,33 +230,33 @@ function ClientComponent() {
           <div>Error {err.name}</div>
           <div>{error}</div>
         </div>
-        <div className="self-center mt-10">
-          <div className="grid grid-cols-3 place-self-center gap-x-5 mt-10 text-gray-400 ">
-            <div className="rounded-full w-6 ">
+        <div className="mt-10 self-center">
+          <div className="mt-10 grid grid-cols-3 gap-x-5 place-self-center text-gray-400 ">
+            <div className="w-6 rounded-full ">
               <a href="/dashboard/cially/settings">
-                <Settings className="w-7 place-self-center hover:text-gray-600 transition-all" />
+                <Settings className="w-7 place-self-center transition-all hover:text-gray-600" />
               </a>
             </div>
 
-            <div className="rounded-full w-6">
+            <div className="w-6 rounded-full">
               <a href="/dashboard/cially/status">
-                <Activity className="w-7 place-self-center hover:text-gray-600 transition-all" />
+                <Activity className="w-7 place-self-center transition-all hover:text-gray-600" />
               </a>
             </div>
 
-            <div className="rounded-full w-6">
+            <div className="w-6 rounded-full">
               <a href="https://github.com/cially/cially">
                 <Image
+                  alt="github"
+                  className="w-7 place-self-center brightness-[1] grayscale-0 transition-all hover:brightness-[0.55]"
+                  height={500}
                   src="/github.svg"
                   width={500}
-                  height={500}
-                  alt="github"
-                  className="w-7 place-self-center grayscale-0 brightness-[1] hover:brightness-[0.55] transition-all"
                 />
               </a>
             </div>
           </div>
-          <div className="text-center mt-5 text-xs text-gray-600 pb-5">
+          <div className="mt-5 pb-5 text-center text-gray-600 text-xs">
             Thanks for using Cially Dashboard!
           </div>
         </div>

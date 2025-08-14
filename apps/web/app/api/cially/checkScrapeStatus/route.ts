@@ -10,7 +10,7 @@ export async function GET() {
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const scrapedGuild = await pb

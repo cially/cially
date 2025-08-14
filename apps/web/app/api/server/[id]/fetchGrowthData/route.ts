@@ -8,7 +8,7 @@ const hourly_stats_collection = "hourly_stats";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -17,7 +17,7 @@ export async function GET(
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const guild = await pb
@@ -40,7 +40,7 @@ export async function GET(
       for (let i = 0; i < 24; i++) {
         const hourString = i.toString().padStart(2, "0");
         const existingStat = hourlyStats.find(
-          (stat) => stat.hour === hourString,
+          (stat) => stat.hour === hourString
         );
 
         hourData.push({
@@ -71,10 +71,10 @@ export async function GET(
             leaves: acc.leaves + (Number(stat.leaves) || 0),
             unique_users: Math.max(
               acc.unique_users,
-              Number(stat.unique_users) || 0,
+              Number(stat.unique_users) || 0
             ),
           }),
-          { joins: 0, leaves: 0, unique_users: 0 },
+          { joins: 0, leaves: 0, unique_users: 0 }
         );
 
         weekData.push({
@@ -111,10 +111,10 @@ export async function GET(
             leaves: acc.leaves + (Number(stat.leaves) || 0),
             unique_users: Math.max(
               acc.unique_users,
-              Number(stat.unique_users) || 0,
+              Number(stat.unique_users) || 0
             ),
           }),
-          { joins: 0, leaves: 0, unique_users: 0 },
+          { joins: 0, leaves: 0, unique_users: 0 }
         );
 
         fourWeekData.push({
@@ -142,7 +142,7 @@ export async function GET(
             leaves: acc.leaves + item.leaves,
             unique_users: acc.unique_users + item.unique_users,
           }),
-          { joins: 0, leaves: 0, unique_users: 0 },
+          { joins: 0, leaves: 0, unique_users: 0 }
         );
 
         const joinToLeaveRatio =
@@ -216,7 +216,7 @@ export async function GET(
         const hourString = i.toString().padStart(2, "0");
 
         const hourStats = allHourlyStats.filter(
-          (stat) => stat.hour === hourString,
+          (stat) => stat.hour === hourString
         );
         const hourTotal = hourStats.reduce(
           (acc, stat) => ({
@@ -224,7 +224,7 @@ export async function GET(
             leaves: acc.leaves + (Number(stat.leaves) || 0),
             unique_users: acc.unique_users + (Number(stat.unique_users) || 0),
           }),
-          { joins: 0, leaves: 0, unique_users: 0 },
+          { joins: 0, leaves: 0, unique_users: 0 }
         );
 
         hourlyTotals.push({

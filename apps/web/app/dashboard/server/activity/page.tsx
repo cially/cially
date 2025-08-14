@@ -25,7 +25,7 @@ function ClientComponent() {
   useEffect(() => {
     async function fetchData() {
       const chartDataReceived = await fetch(
-        `/api/server/${guildID}/fetchActivityData`,
+        `/api/server/${guildID}/fetchActivityData`
       );
       const json = await chartDataReceived.json();
       setChartData(json);
@@ -44,8 +44,8 @@ function ClientComponent() {
         <div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
         <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
-        <div className="h-[100%] mx-5">
-          <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 mt-10 gap-5">
+        <div className="mx-5 h-[100%]">
+          <div className="mt-10 grid w-[100%] grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <ActiveChannels />
             </div>
@@ -80,8 +80,8 @@ function ClientComponent() {
       <div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
       <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
       <ScrapeNotification />
-      <div className="h-[100%] mx-5">
-        <div className="grid grid-cols-1 w-[100%] sm:grid-cols-2 mt-10 gap-5">
+      <div className="mx-5 h-[100%]">
+        <div className="mt-10 grid w-[100%] grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <ActiveChannels chartData={data_channels} />
           </div>

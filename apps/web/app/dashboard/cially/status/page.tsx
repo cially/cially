@@ -18,7 +18,7 @@ export default function Status() {
 
   useEffect(() => {
     async function fetchData() {
-      const chartDataReceived = await fetch(`/api/cially/checkStatus`);
+      const chartDataReceived = await fetch("/api/cially/checkStatus");
       const json = await chartDataReceived.json();
       setStatusData(json);
       console.log(json);
@@ -28,13 +28,8 @@ export default function Status() {
 
   if (statusData.pocketbase) {
     return <GuildNotFound />;
-  } else if (!statusData[0].pocketbase) {
-    return (
-      <div className="place-self-center">
-        <LoadingSVG />
-      </div>
-    );
-  } else {
+  }
+  if (statusData[0].pocketbase) {
     const botStatus = statusData[1].bot;
     const pbStatus = statusData[0].pocketbase;
     const discordStatus = statusData[2].discord;
@@ -42,17 +37,17 @@ export default function Status() {
     return (
       <>
         <div>
-          <div className="text-2xl mt-4 ml-2">Status</div>
-          <div className="text-sm text-white/50 mt-1 ml-2">
+          <div className="mt-4 ml-2 text-2xl">Status</div>
+          <div className="mt-1 ml-2 text-sm text-white/50">
             Check if all the services are operating normally
           </div>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 max-w-4xl">
+        <div className="mt-8 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
           <Card className="transition-all duration-300 hover:shadow-md">
             <CardHeader className="pb-2">
               <div className="flex items-center">
-                <div className="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg mr-3">
-                  <Database className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="mr-3 rounded-lg bg-blue-100 p-2 dark:bg-blue-900">
+                  <Database className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
                   <CardTitle className="text-lg">Pocketbase</CardTitle>
@@ -63,18 +58,18 @@ export default function Status() {
             <CardContent>
               <div className="mt-2">
                 <Badge
-                  variant={pbStatus === "online" ? "default" : "destructive"}
                   className={
                     pbStatus === "online"
                       ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
                       : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
                   }
+                  variant={pbStatus === "online" ? "default" : "destructive"}
                 >
                   <div className="flex items-center">
                     {pbStatus === "online" ? (
-                      <CheckCircle className="w-4 h-4 mr-1" />
+                      <CheckCircle className="mr-1 h-4 w-4" />
                     ) : (
-                      <XCircle className="w-4 h-4 mr-1" />
+                      <XCircle className="mr-1 h-4 w-4" />
                     )}
                     {pbStatus === "online" ? "Online" : "Offline"}
                   </div>
@@ -86,8 +81,8 @@ export default function Status() {
           <Card className="transition-all duration-300 hover:shadow-md">
             <CardHeader className="pb-2">
               <div className="flex items-center">
-                <div className="bg-blue-100 dark:bg-blue-900 p-2 rounded-lg mr-3">
-                  <Rss className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+                <div className="mr-3 rounded-lg bg-blue-100 p-2 dark:bg-blue-900">
+                  <Rss className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                 </div>
                 <div>
                   <CardTitle className="text-lg">Bot & API #2</CardTitle>
@@ -98,18 +93,18 @@ export default function Status() {
             <CardContent>
               <div className="mt-2">
                 <Badge
-                  variant={botStatus === "online" ? "default" : "destructive"}
                   className={
                     botStatus === "online"
                       ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
                       : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
                   }
+                  variant={botStatus === "online" ? "default" : "destructive"}
                 >
                   <div className="flex items-center">
                     {botStatus === "online" ? (
-                      <CheckCircle className="w-4 h-4 mr-1" />
+                      <CheckCircle className="mr-1 h-4 w-4" />
                     ) : (
-                      <XCircle className="w-4 h-4 mr-1" />
+                      <XCircle className="mr-1 h-4 w-4" />
                     )}
                     {botStatus === "online" ? "Online" : "Offline"}
                   </div>
@@ -121,8 +116,8 @@ export default function Status() {
           <Card className="transition-all duration-300 hover:shadow-md sm:col-span-2">
             <CardHeader className="pb-2">
               <div className="flex items-center">
-                <div className="bg-purple-100 dark:bg-purple-900 p-2 rounded-lg mr-3">
-                  <Antenna className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                <div className="mr-3 rounded-lg bg-purple-100 p-2 dark:bg-purple-900">
+                  <Antenna className="h-5 w-5 text-purple-600 dark:text-purple-400" />
                 </div>
                 <div>
                   <CardTitle className="text-lg">Discord API</CardTitle>
@@ -136,20 +131,20 @@ export default function Status() {
             <CardContent>
               <div className="mt-2">
                 <Badge
-                  variant={
-                    discordStatus === "online" ? "default" : "destructive"
-                  }
                   className={
                     discordStatus === "online"
                       ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
                       : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
                   }
+                  variant={
+                    discordStatus === "online" ? "default" : "destructive"
+                  }
                 >
                   <div className="flex items-center">
                     {discordStatus === "online" ? (
-                      <CheckCircle className="w-4 h-4 mr-1" />
+                      <CheckCircle className="mr-1 h-4 w-4" />
                     ) : (
-                      <XCircle className="w-4 h-4 mr-1" />
+                      <XCircle className="mr-1 h-4 w-4" />
                     )}
                     {discordStatus === "online" ? "Online" : "Offline"}
                   </div>
@@ -161,4 +156,9 @@ export default function Status() {
       </>
     );
   }
+  return (
+    <div className="place-self-center">
+      <LoadingSVG />
+    </div>
+  );
 }

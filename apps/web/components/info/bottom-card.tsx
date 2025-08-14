@@ -20,10 +20,10 @@ import {
 } from "@/components/ui/tooltip";
 
 const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
-  <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
+  <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
-      <div className="text-xs text-white/60">{label}</div>
+      <div className="text-white/60 text-xs">{label}</div>
       <div
         className={`font-semibold text-sm ${
           isNetGrowth
@@ -85,7 +85,7 @@ export default function BottomCard({
       <div className="grid grid-rows-1">
         {/* Header */}
         <div className="grid grid-cols-[120px_1fr]">
-          <Avatar className=" h-20 w-20 place-self-start ml-5">
+          <Avatar className=" ml-5 h-20 w-20 place-self-start">
             <AvatarImage src={guild.icon_url} />
             <AvatarFallback>Guild</AvatarFallback>
           </Avatar>
@@ -98,7 +98,7 @@ export default function BottomCard({
         </div>
 
         {/* Items */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mt-4 p-5">
+        <div className="mt-4 grid grid-cols-2 gap-4 p-5 md:grid-cols-3 lg:grid-cols-5">
           <StatCard icon={Users} label="Members" value={guild.members} />
           <StatCard icon={Award} label="Roles" value={guild.roles} />
           <StatCard icon={Hash} label="Channels" value={guild.channels} />

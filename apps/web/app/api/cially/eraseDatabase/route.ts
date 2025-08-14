@@ -9,12 +9,12 @@ export async function DELETE() {
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const records = await pb.collection(collectionName).getFullList();
     await Promise.all(
-      records.map((record) => pb.collection(collectionName).delete(record.id)),
+      records.map((record) => pb.collection(collectionName).delete(record.id))
     );
   }
 

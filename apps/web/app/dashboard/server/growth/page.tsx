@@ -26,7 +26,7 @@ function ClientComponent() {
   useEffect(() => {
     async function fetchData() {
       const chartDataReceived = await fetch(
-        `/api/server/${guildID}/fetchGrowthData`,
+        `/api/server/${guildID}/fetchGrowthData`
       );
       const json = await chartDataReceived.json();
       setChartData(json);
@@ -78,11 +78,11 @@ function ClientComponent() {
         <Last4Weeks chartData={data_4w} />
       </div>
 
-      <div className="sm:ml-5 sm:mr-5 mt-5">
+      <div className="mt-5 sm:mr-5 sm:ml-5">
         <TotalStatsGraph chartData={data_hourly} />
       </div>
 
-      <div className="sm:ml-5 sm:mr-5">
+      <div className="sm:mr-5 sm:ml-5">
         <GeneralMessageDataCard generalData={data_general} />
       </div>
 

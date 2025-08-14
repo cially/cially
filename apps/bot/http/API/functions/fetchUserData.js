@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../terminal/debug");
 
 async function fetchUserData(req, res, client) {
@@ -29,16 +30,16 @@ async function fetchUserData(req, res, client) {
 
       dataArray.push({ channel: { id: channelID, name: discordChannel.name } });
 
-      debug({ text: `User Data fetched. Ready to send response` });
+      debug({ text: "User Data fetched. Ready to send response" });
 
       await res.send(dataArray);
     } catch (_err) {
-      debug({ text: `Failed to fetch Channel Name` });
+      debug({ text: "Failed to fetch Channel Name" });
       dataArray.push({ channel: { id: channelID, name: channelID } });
       await res.send(dataArray);
     }
   } catch (_err) {
-    debug({ text: `Failed to fetch User Data` });
+    debug({ text: "Failed to fetch User Data" });
     res.send(error_message);
   }
 }

@@ -1,3 +1,4 @@
+"use strict";
 const PocketBase = require("pocketbase/cjs");
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
@@ -12,13 +13,13 @@ async function pbAddNewData({ guildID, data }) {
     .collection("_superusers")
     .authWithPassword(
       process.env.POCKETBASE_ADMIN_EMAIL,
-      process.env.POCKETBASE_ADMIN_PASSWORD,
+      process.env.POCKETBASE_ADMIN_PASSWORD
     );
   async function bulkAddition(messages, guildRecord) {
     let batch = pb.createBatch();
     let batchCount = 0;
     let totalCreated = 0;
-    const batchSize = 20000;
+    const batchSize = 20_000;
 
     for (let i = 0; i < messages.length; i++) {
       const originalMessage = messages[i];
@@ -45,7 +46,7 @@ async function pbAddNewData({ guildID, data }) {
             text: `Batch sent successfully. ${totalCreated} messages created so far.`,
           });
         } catch (batchError) {
-          error({ text: `Failed to send batch:` });
+          error({ text: "Failed to send batch:" });
           console.log(batchError);
           throw batchError;
         }
@@ -61,9 +62,9 @@ async function pbAddNewData({ guildID, data }) {
       debug({ text: `Sending final batch with ${batchCount} creations...` });
       try {
         await batch.send();
-        debug({ text: `Final batch sent successfully.` });
+        debug({ text: "Final batch sent successfully." });
       } catch (finalBatchError) {
-        error({ text: `Failed to send final batch:` });
+        error({ text: "Failed to send final batch:" });
         console.log(finalBatchError);
         throw finalBatchError;
       }
@@ -82,7 +83,7 @@ async function pbAddNewData({ guildID, data }) {
 
     debug({ text: `Found guild: ${guild.id} for Discord ID: ${guildID}` });
 
-    if (!data || !Array.isArray(data) || data.length === 0) {
+    if (!(data && Array.isArray(data)) || data.length === 0) {
       debug({ text: `No data provided to add for guild ${guildID}` });
       return { created: 0, batches: 0 };
     }

@@ -38,17 +38,17 @@ export default async function RootLayout({
   }[theme.value];
 
   return (
-    <html lang="en" suppressHydrationWarning className={outfit.className}>
+    <html className={outfit.className} lang="en" suppressHydrationWarning>
       <head />
       <body className="">
-        <div className="overflow-x-hidden min-h-screen">
-          <div className={`${themeClass} fixed inset-0 w-full h-full -z-10`} />
+        <div className="min-h-screen overflow-x-hidden">
+          <div className={`${themeClass} -z-10 fixed inset-0 h-full w-full`} />
           <div className="relative z-0 p-6">
             <ThemeProvider
               attribute="class"
               defaultTheme="dark"
-              enableSystem
               disableTransitionOnChange
+              enableSystem
             >
               {children}
             </ThemeProvider>

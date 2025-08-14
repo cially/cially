@@ -1,3 +1,4 @@
+"use strict";
 const express = require("express");
 const app = express();
 const port = process.env.API_PORT;
@@ -35,7 +36,7 @@ const globalRateLimiter = rateLimit({
 async function API(client) {
   // Main Listener
   app.listen(port, () => {
-    console.log(`${`[SUCCESS] `.green}The API is running on port: ${port}! \n`);
+    console.log(`${"[SUCCESS] ".green}The API is running on port: ${port}! \n`);
   });
 
   // GET Routes

@@ -9,11 +9,11 @@ export default function GuildNotFound() {
         Guild not Found
       </div>
       <div className="w-[30vh] place-self-center sm:w-[70vh]">
-        <Image src="/404.svg" alt="404 Image" width={500} height={500} />
+        <Image alt="404 Image" height={500} src="/404.svg" width={500} />
       </div>
       <div className="place-self-center">
         <a href="/">
-          <Button variant="secondary" className=" sm:-mt-4 mt-2 ">
+          <Button className=" sm:-mt-4 mt-2 " variant="secondary">
             Go Back...
           </Button>
         </a>

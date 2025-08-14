@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 
@@ -37,7 +38,7 @@ async function fetchID(req, res, client) {
     });
 
     // Please do not remove this line nor the "await" cause things will brake for some reason:)
-    await debug({ text: `IDs fetched. Ready to send response` });
+    await debug({ text: "IDs fetched. Ready to send response" });
 
     await res.send(newArray);
   } catch (err) {

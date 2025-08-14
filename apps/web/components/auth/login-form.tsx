@@ -35,7 +35,7 @@ export function LoginForm({
   useEffect(() => {
     async function fetchPocketbaseUrl() {
       try {
-        const configResponse = await fetch(`/api/cially/pocketbaseURL`);
+        const configResponse = await fetch("/api/cially/pocketbaseURL");
         const config = await configResponse.json();
         setPocketbaseUrl(config.url);
       } catch (error) {
@@ -80,11 +80,11 @@ export function LoginForm({
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id={emailID}
-                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="user@example.com"
                   required
+                  type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-3">
@@ -93,23 +93,23 @@ export function LoginForm({
                 </div>
                 <Input
                   id={passwordID}
-                  type="password"
-                  required
-                  value={password}
                   minLength={8}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                  type="password"
+                  value={password}
                 />
               </div>
-              {error && <p className="text-sm text-red-500 -mt-4">{error}</p>}
+              {error && <p className="-mt-4 text-red-500 text-sm">{error}</p>}
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full" disabled={!pb}>
+                <Button className="w-full" disabled={!pb} type="submit">
                   Login
                 </Button>
               </div>
             </div>
           </form>
 
-          <div className="place-self-center mt-2">
+          <div className="mt-2 place-self-center">
             <GuestLogin />
           </div>
         </CardContent>

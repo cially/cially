@@ -24,11 +24,11 @@ function GuestToggle({ isGuest, onToggle, setGuest }) {
         setGuest((prev) => {
           if (prev?.account) {
             return { noAccounts: true };
-          } else if (prev?.noAccounts) {
-            return { account: true };
-          } else {
-            return prev;
           }
+          if (prev?.noAccounts) {
+            return { account: true };
+          }
+          return prev;
         });
         onToggle?.();
       }
@@ -42,22 +42,22 @@ function GuestToggle({ isGuest, onToggle, setGuest }) {
   if (isGuest?.account) {
     return (
       <div className="place-self-center">
-        <Button variant="outline" onClick={handleToggle} disabled={loading}>
+        <Button disabled={loading} onClick={handleToggle} variant="outline">
           {loading ? "Processing..." : "Make Private"}
         </Button>
       </div>
     );
-  } else if (isGuest?.noAccounts) {
+  }
+  if (isGuest?.noAccounts) {
     return (
       <div className="place-self-center">
-        <Button variant="outline" onClick={handleToggle} disabled={loading}>
+        <Button disabled={loading} onClick={handleToggle} variant="outline">
           {loading ? "Processing..." : "Make Public"}
         </Button>
       </div>
     );
-  } else {
-    return <div className="text-center text-sm text-gray-500">Loading...</div>;
   }
+  return <div className="text-center text-gray-500 text-sm">Loading...</div>;
 }
 
 export default function GuestToggleCard() {
@@ -78,10 +78,10 @@ export default function GuestToggleCard() {
   };
 
   return (
-    <Card className="mt-7 mx-3">
+    <Card className="mx-3 mt-7">
       <CardHeader>
         <CardTitle>
-          <ShieldUser className="inline w-5 mr-2 -translate-y-0.5" /> Dashboard
+          <ShieldUser className="-translate-y-0.5 mr-2 inline w-5" /> Dashboard
           Privacy
         </CardTitle>
         <CardDescription>

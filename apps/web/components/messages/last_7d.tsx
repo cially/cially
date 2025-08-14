@@ -35,13 +35,13 @@ export default function Last7d({ chartData }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="w-[250px] h-[150px] place-self-center rounded-xl" />
+          <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
         </CardContent>
         <CardFooter>
           <div className="flex w-full items-start gap-2 text-sm">
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium leading-none">
-                <Skeleton className="w-20 h-[10px] place-self-center rounded-xl" />
+                <Skeleton className="h-[10px] w-20 place-self-center rounded-xl" />
               </div>
             </div>
           </div>
@@ -60,12 +60,12 @@ export default function Last7d({ chartData }) {
     const previousDate_formatted = `${(previousDate.getUTCMonth() + 1).toString().padStart(2, "0")}-${previousDate.getUTCDate().toString().padStart(2, "0")}`;
 
     const currentAmount_index = ArrayChartData.findIndex(
-      (item) => item.date === startingDate_formatted,
+      (item) => item.date === startingDate_formatted
     );
     const currentAmount = ArrayChartData[currentAmount_index].amount;
 
     const previousAmount_index = ArrayChartData.findIndex(
-      (item) => item.date === previousDate_formatted,
+      (item) => item.date === previousDate_formatted
     );
     const previousAmount = ArrayChartData[previousAmount_index].amount;
 
@@ -91,11 +91,8 @@ export default function Last7d({ chartData }) {
             >
               <CartesianGrid vertical={false} />
               <XAxis
-                dataKey="date"
-                tickLine={true}
                 axisLine={true}
-                tickMargin={8}
-                tickFormatter={(value) => value.slice(0, 5)}
+                dataKey="date"
                 interval={0}
                 tick={{
                   angle: -30,
@@ -103,13 +100,16 @@ export default function Last7d({ chartData }) {
                   dx: -5,
                   dy: 5,
                 }}
+                tickFormatter={(value) => value.slice(0, 5)}
+                tickLine={true}
+                tickMargin={8}
               />
               <ChartTooltip
+                content={<ChartTooltipContent hideLabel indicator="dot" />}
                 cursor={true}
-                content={<ChartTooltipContent indicator="dot" hideLabel />}
               />
               <defs>
-                <linearGradient id="fillGradient" x1="0" y1="0" x2="0" y2="1">
+                <linearGradient id="fillGradient" x1="0" x2="0" y1="0" y2="1">
                   <stop
                     offset="5%"
                     stopColor="var(--color-amount)"
@@ -124,11 +124,11 @@ export default function Last7d({ chartData }) {
               </defs>
               <Area
                 dataKey="amount"
-                type="monotone"
                 fill="url(#fillGradient)"
                 fillOpacity={0.4}
-                stroke="var(--color-amount)"
                 stackId="b"
+                stroke="var(--color-amount)"
+                type="monotone"
               />
             </AreaChart>
           </ChartContainer>

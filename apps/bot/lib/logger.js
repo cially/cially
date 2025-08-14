@@ -1,3 +1,4 @@
+"use strict";
 const winston = require("winston");
 
 const logger = winston.createLogger({
@@ -7,7 +8,7 @@ const logger = winston.createLogger({
     winston.format.colorize(),
     winston.format.printf(({ level, message, timestamp }) => {
       return `${timestamp} [${level}]: ${message}`;
-    }),
+    })
   ),
 });
 

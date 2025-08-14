@@ -77,19 +77,19 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
   const cially_items = [
     {
       title: "Home",
-      url: `/dashboard`,
+      url: "/dashboard",
       icon: House,
       path: "/dashboard",
     },
     {
       title: "Settings",
-      url: `/dashboard/cially/settings`,
+      url: "/dashboard/cially/settings",
       icon: Bolt,
       path: "/dashboard/cially/settings",
     },
     {
       title: "Status",
-      url: `/dashboard/cially/status`,
+      url: "/dashboard/cially/status",
       icon: SatelliteDish,
       path: "/dashboard/cially/status",
     },
@@ -107,11 +107,11 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       <SidebarHeader>
         <a href="/dashboard">
           <Image
-            src="/logo-webp.webp"
-            className="w-20 place-self-center"
             alt="logo"
-            width={500}
+            className="w-20 place-self-center"
             height={500}
+            src="/logo-webp.webp"
+            width={500}
           />
         </a>
       </SidebarHeader>
@@ -125,17 +125,17 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
               <SidebarMenu>
                 {items.map((item) => (
                   <SidebarMenuItem
-                    key={item.title}
                     className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r ${
                       isActive(item.path)
-                        ? "bg-gradient-to-r from-white/2 to-white/10 border-l-2 border-gray-400"
+                        ? "border-gray-400 border-l-2 bg-gradient-to-r from-white/2 to-white/10"
                         : ""
                     }`}
+                    key={item.title}
                   >
                     <SidebarMenuButton asChild>
                       <a
-                        href={item.url}
                         className={isActive(item.path) ? "" : ""}
+                        href={item.url}
                       >
                         <item.icon />
                         <span>{item.title}</span>
@@ -147,7 +147,7 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
             </SidebarGroupContent>
           </div>
         ) : (
-          <div></div>
+          <div />
         )}
 
         <SidebarGroupLabel className="ml-1">Dashboard</SidebarGroupLabel>
@@ -155,15 +155,15 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
           <SidebarMenu>
             {cially_items.map((item) => (
               <SidebarMenuItem
-                key={item.title}
                 className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r ${
                   isActive(item.path)
-                    ? "bg-gradient-to-r from-white/2 to-white/10 border-l-2 border-gray-400"
+                    ? "border-gray-400 border-l-2 bg-gradient-to-r from-white/2 to-white/10"
                     : ""
                 }`}
+                key={item.title}
               >
                 <SidebarMenuButton asChild>
-                  <a href={item.url} className={isActive(item.path) ? "" : ""}>
+                  <a className={isActive(item.path) ? "" : ""} href={item.url}>
                     <item.icon />
                     <span>{item.title}</span>
                   </a>
@@ -175,7 +175,7 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       </SidebarContent>
       <SidebarFooter className="place-items-center">
         <a href="https://github.com/skellgreco/cially">
-          <Badge variant="secondary" className="">
+          <Badge className="" variant="secondary">
             Version: 2.0 (BETA)
           </Badge>
         </a>

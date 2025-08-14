@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 
@@ -8,14 +9,14 @@ const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function fetchGuilds(_req, res, client) {
   const error_message = { code: "error" };
-  debug({ text: `Server Fetching Request Received` });
+  debug({ text: "Server Fetching Request Received" });
 
   try {
     await pb
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
     const guilds_in_database = [];
     const guilds = await pb.collection(guild_collection_name).getFullList({});
@@ -32,32 +33,32 @@ async function fetchGuilds(_req, res, client) {
           await guildsArray.push({
             name: guild.name,
             id: guild.id,
-            icon: icon,
+            icon,
             in_db: true,
           });
         } else {
           await guildsArray.push({
             name: guild.name,
             id: guild.id,
-            icon: icon,
+            icon,
             in_db: false,
           });
         }
       });
 
       // Do not remove this line below nor the "await" cause things will brake for some reason
-      await debug({ text: `Completed Fetching Available Guilds` });
+      await debug({ text: "Completed Fetching Available Guilds" });
       await res.send({ AvailableGuilds: guildsArray });
     } catch (err) {
       error({
-        text: `Failed to communicate with the Discord API. /fetchGuilds`,
+        text: "Failed to communicate with the Discord API. /fetchGuilds",
       });
       console.log(err);
       res.send(error_message);
     }
   } catch (err) {
     error({
-      text: `Failed to communicate with the PocketBase Instance. /fetchGuilds`,
+      text: "Failed to communicate with the PocketBase Instance. /fetchGuilds",
     });
     console.log(err);
     res.send(error_message);

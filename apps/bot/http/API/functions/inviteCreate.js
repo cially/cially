@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 const { registerGuild } = require("./logic/registerGuild");
@@ -26,22 +27,22 @@ async function inviteCreate(req, res) {
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const guild = await pb
       .collection(guild_collection_name)
       .getFirstListItem(`discordID='${guildID}'`, {});
-    debug({ text: ` Guild has been found and is ready to add data to it` });
+    debug({ text: " Guild has been found and is ready to add data to it" });
 
     try {
       const itemData = {
         guildID: guild.id,
-        channelID: channelID,
-        authorID: authorID,
+        channelID,
+        authorID,
       };
       await pb.collection(collection_name).create(itemData);
-      debug({ text: ` Invite has been added in the database` });
+      debug({ text: " Invite has been added in the database" });
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +58,7 @@ async function inviteCreate(req, res) {
   }
 
   debug({
-    text: `End of logic. Stopping the communication and returning a response to the Bot`,
+    text: "End of logic. Stopping the communication and returning a response to the Bot",
   });
 
   return res.status(201).json(roger);

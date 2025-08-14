@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 
@@ -34,19 +35,19 @@ async function messageCreate(req, res) {
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const guild = await retryRequest(() =>
       pb
         .collection(guild_collection_name)
-        .getFirstListItem(`discordID='${guildID}'`, {}),
+        .getFirstListItem(`discordID='${guildID}'`, {})
     );
 
-    debug({ text: `Guild has been found and is ready to add data to it` });
+    debug({ text: "Guild has been found and is ready to add data to it" });
 
     debug({
-      text: `Guild Data Item has been found and is ready to add data to it`,
+      text: "Guild Data Item has been found and is ready to add data to it",
     });
 
     const currentPocketBaseDate = () => {
@@ -68,9 +69,9 @@ async function messageCreate(req, res) {
     const itemData = {
       author: authorID,
       guildID: guild.id,
-      channelID: channelID,
-      messageLength: messageLength,
-      messageID: messageID,
+      channelID,
+      messageLength,
+      messageID,
       messageCreation: currentPocketBaseDate(),
     };
 
@@ -86,11 +87,11 @@ async function messageCreate(req, res) {
     };
 
     await retryRequest(() =>
-      pb.collection(guild_collection_name).update(guild.id, new_general_data),
+      pb.collection(guild_collection_name).update(guild.id, new_general_data)
     );
 
     debug({
-      text: `General Guild Data has been updated in the database`,
+      text: "General Guild Data has been updated in the database",
     });
   } catch (err) {
     if (err.status === 404) {
@@ -102,7 +103,7 @@ async function messageCreate(req, res) {
   }
 
   debug({
-    text: `End of logic. Stopping the communication and returning a res to the Bot`,
+    text: "End of logic. Stopping the communication and returning a res to the Bot",
   });
 
   return res.status(201).json(roger);

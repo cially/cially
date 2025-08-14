@@ -33,7 +33,7 @@ export default function ImportDialogCard({
   const handleSumbit = async (guildID: { guildID: string }) => {
     try {
       toast.success(
-        "Scraping has started! Restart your bot if you want it to stop!",
+        "Scraping has started! Restart your bot if you want it to stop!"
       );
       const response = await fetch(`/api/server/${guildID}/scrapeMessages`);
       // console.log(guildID);
@@ -50,13 +50,13 @@ export default function ImportDialogCard({
     }
   };
   return (
-    <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
+    <Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
       <div>
-        <div className="text-xl font-semibold">
-          <FolderClock className="inline mr-2" />
+        <div className="font-semibold text-xl">
+          <FolderClock className="mr-2 inline" />
           Retrieve Data
         </div>
-        <div className="font-sans text-sm text-white/50 mt-2">
+        <div className="mt-2 font-sans text-sm text-white/50">
           <div>
             With Cially, you can retrieve all messages from your Discord server
             from the past 4 weeks for more accurate insights!
@@ -67,15 +67,15 @@ export default function ImportDialogCard({
           <AlertDialog>
             <AlertDialogTrigger asChild>
               <div className="place-self-center">
-                <Button className=" bg-gray-700 text-white hover:bg-gray-800 transition-all">
+                <Button className=" bg-gray-700 text-white transition-all hover:bg-gray-800">
                   Retrieve Data
                 </Button>
               </div>
             </AlertDialogTrigger>
-            <AlertDialogContent className="bg-white/5 backdrop-blur-2xl rounded-lg border border-white/10">
+            <AlertDialogContent className="rounded-lg border border-white/10 bg-white/5 backdrop-blur-2xl">
               <AlertDialogHeader>
                 <AlertDialogTitle>
-                  <Siren className="inline mr-2 -translate-y-1" />
+                  <Siren className="-translate-y-1 mr-2 inline" />
                   Heads up!
                 </AlertDialogTitle>
                 <AlertDialogDescription className="text-gray-400">

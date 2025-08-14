@@ -13,7 +13,7 @@ function ClientComponent() {
   useEffect(() => {
     async function fetchData() {
       const chartDataReceived = await fetch(
-        `/api/server/${guildID}/fetchGuild`,
+        `/api/server/${guildID}/fetchGuild`
       );
       const json = await chartDataReceived.json();
       setChartData(json);
@@ -23,10 +23,11 @@ function ClientComponent() {
 
   if (serverData?.notFound) {
     return <GuildNotFound />;
-  } else if (!serverData?.guildFound) {
-    return <LoadingSVG />;
-  } else {
+  }
+  if (serverData?.guildFound) {
     redirect(`server/info?guildID=${guildID}`);
+  } else {
+    return <LoadingSVG />;
   }
 }
 

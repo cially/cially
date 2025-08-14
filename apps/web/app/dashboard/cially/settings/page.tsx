@@ -47,7 +47,7 @@ export default function SettingsPage() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/api/cially/eraseDatabase`, {
+      const response = await fetch("/api/cially/eraseDatabase", {
         method: "DELETE",
       });
 
@@ -73,18 +73,18 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-w-full min-h-dvh ">
+    <div className="min-h-dvh min-w-full ">
       <div>
-        <div className="text-2xl mt-4 ml-2">Settings</div>
-        <div className="text-sm text-white/50 mt-1 ml-2">
+        <div className="mt-4 ml-2 text-2xl">Settings</div>
+        <div className="mt-1 ml-2 text-sm text-white/50">
           Manage your dashboard settings and preferences
         </div>
       </div>
 
-      <Card className="mt-10 mx-3">
+      <Card className="mx-3 mt-10">
         <CardHeader>
           <CardTitle>
-            <PaletteIcon className="inline w-5 mr-2 -translate-y-0.5" />{" "}
+            <PaletteIcon className="-translate-y-0.5 mr-2 inline w-5" />{" "}
             Customize Theme
           </CardTitle>
           <CardDescription>
@@ -93,42 +93,44 @@ export default function SettingsPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-3 sm:grid-cols-6 place-self-center gap-x-5 sm:gap-x-10 gap-y-5 sm:gap-y-0">
+          <div className="grid grid-cols-3 gap-x-5 gap-y-5 place-self-center sm:grid-cols-6 sm:gap-x-10 sm:gap-y-0">
             <div
-              className="w-15 h-15 rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+              className="h-15 w-15 rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeChange("blue")}
             />
             <div
-              className="w-15 h-15 rounded-full bg-gradient-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+              className="h-15 w-15 rounded-full bg-gradient-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeChange("pink")}
             />
             <div
-              className="w-15 h-15 rounded-full bg-gradient-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+              className="h-15 w-15 rounded-full bg-gradient-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeChange("gray")}
             />
             <div
-              className="w-15 h-15 rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+              className="h-15 w-15 rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeChange("brown")}
             />
             <div
-              className="w-15 h-15 rounded-full bg-gradient-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+              className="h-15 w-15 rounded-full bg-gradient-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeChange("purple")}
             />
             <div
-              className="w-15 h-15 rounded-full bg-gradient-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent hover:outline-gray-500/40 transition-all"
+              className="h-15 w-15 rounded-full bg-gradient-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeChange("red")}
             />
           </div>
         </CardContent>
       </Card>
-      {!isGuest ? (
+      {isGuest ? (
+        <div className="hidden" />
+      ) : (
         <div className="grid sm:grid-cols-2">
           <GuestToggleCard />
 
           <Card className="mx-3 mt-7 border-[1px] border-red-500/40">
             <CardHeader>
               <CardTitle>
-                <DatabaseBackup className="inline w-5 mr-2 -translate-y-0.5" />{" "}
+                <DatabaseBackup className="-translate-y-0.5 mr-2 inline w-5" />{" "}
                 Erase Database
               </CardTitle>
               <CardDescription>
@@ -140,8 +142,8 @@ export default function SettingsPage() {
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button
+                    className=" cursor-pointer place-self-center outline-0 outline-amber-950 transition-all hover:outline-1"
                     variant="destructive"
-                    className=" place-self-center cursor-pointer hover:outline-1 outline-0 outline-amber-950 transition-all"
                   >
                     Erase
                   </Button>
@@ -160,8 +162,8 @@ export default function SettingsPage() {
                   <AlertDialogFooter>
                     <AlertDialogCancel>Cancel</AlertDialogCancel>
                     <AlertDialogAction
+                      className="bg-red-600 text-white transition hover:bg-red-800"
                       onClick={() => handleDelete()}
-                      className="bg-red-600 text-white hover:bg-red-800 transition"
                     >
                       Confirm
                     </AlertDialogAction>
@@ -171,14 +173,12 @@ export default function SettingsPage() {
             </CardContent>
           </Card>
         </div>
-      ) : (
-        <div className="hidden"></div>
       )}
 
-      <Card className="mt-7 mx-3">
+      <Card className="mx-3 mt-7">
         <CardHeader>
           <CardTitle>
-            <Star className="inline w-5 mr-2 -translate-y-0.5" /> Github
+            <Star className="-translate-y-0.5 mr-2 inline w-5" /> Github
             Repository
           </CardTitle>
           <CardDescription>
@@ -191,8 +191,8 @@ export default function SettingsPage() {
         <CardContent>
           <a href="https://github.com/cially/cially">
             <Button
+              className="bg-gray-800 text-white transition-all hover:cursor-pointer hover:bg-gray-800/70"
               variant={"outline"}
-              className="hover:cursor-pointer bg-gray-800 text-white hover:bg-gray-800/70 transition-all"
             >
               Github Link
             </Button>
@@ -200,8 +200,8 @@ export default function SettingsPage() {
         </CardContent>
       </Card>
 
-      <div className="place-self-center mt-5">
-        <Button variant={"outline"} onClick={() => handleSignOut()}>
+      <div className="mt-5 place-self-center">
+        <Button onClick={() => handleSignOut()} variant={"outline"}>
           Log Out
         </Button>
       </div>

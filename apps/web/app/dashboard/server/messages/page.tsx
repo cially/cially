@@ -27,7 +27,7 @@ function ClientComponent() {
   useEffect(() => {
     async function fetchData() {
       const chartDataReceived = await fetch(
-        `/api/server/${guildID}/fetchMessageData`,
+        `/api/server/${guildID}/fetchMessageData`
       );
       const json = await chartDataReceived.json();
       setChartData(json);
@@ -92,7 +92,7 @@ function ClientComponent() {
         <Last4Weeks chartData={data_4w} />
       </div>
 
-      <div className="sm:ml-5 sm:mr-5">
+      <div className="sm:mr-5 sm:ml-5">
         <GeneralMessageDataCard chartData={data_general} />
         <ImportDialogCard guildID={guildID} isGuest={isGuest} />
       </div>

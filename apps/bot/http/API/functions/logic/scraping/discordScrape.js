@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../../../terminal/debug");
 const { error } = require("../../../../../terminal/error");
 const { pbAddNewData } = require("./pbAddNewData");
@@ -11,7 +12,7 @@ async function discordScrape({ client, guildID }) {
   enableScrapeStatus(guildID);
 
   // Scrape Options and Limits
-  const maxTotalMessages = 1000000;
+  const maxTotalMessages = 1_000_000;
   const maxAgeWeeks = 4;
   const waitFor = 1069;
   const batchSize = 1000; // Save every 1k messages
@@ -51,7 +52,7 @@ async function discordScrape({ client, guildID }) {
 
     debug({ text: `Saving Batch: ${totalBatchesSaved + 1}` });
     try {
-      await pbAddNewData({ guildID: guildID, data: currentBatch });
+      await pbAddNewData({ guildID, data: currentBatch });
       totalBatchesSaved++;
 
       debug({
@@ -159,7 +160,7 @@ async function discordScrape({ client, guildID }) {
             const messageData = {
               messageID: message.id,
               author: message.author.id,
-              guildID: guildID,
+              guildID,
               messageLength: message.content
                 .trim()
                 .split(/\s+/)
@@ -199,24 +200,23 @@ async function discordScrape({ client, guildID }) {
           }
         } catch (fetchError) {
           if (
-            fetchError.code === 50013 ||
+            fetchError.code === 50_013 ||
             fetchError.status === 429 ||
             fetchError.message.includes("rate limit")
           ) {
             error({
-              text: `Rate limited detected! Stopping all scraping operations.`,
+              text: "Rate limited detected! Stopping all scraping operations.",
             });
 
-            console.log(`Error details:`, fetchError.message);
+            console.log("Error details:", fetchError.message);
             rateLimited = true;
             break;
-          } else {
-            error({
-              text: `Error fetching messages from ${channel.name}:`,
-            });
-            console.log(fetchError.message);
-            break;
           }
+          error({
+            text: `Error fetching messages from ${channel.name}:`,
+          });
+          console.log(fetchError.message);
+          break;
         }
       }
 
@@ -240,7 +240,7 @@ async function discordScrape({ client, guildID }) {
       };
     } catch (channelError) {
       if (
-        channelError.code === 50013 ||
+        channelError.code === 50_013 ||
         channelError.status === 429 ||
         channelError.message.includes("rate limit")
       ) {
@@ -255,16 +255,15 @@ async function discordScrape({ client, guildID }) {
           hitGlobalLimit: false,
           rateLimited: true,
         };
-      } else {
-        error({ text: `Error scraping channel ${channelId}:` });
-        console.log(channelError);
-        return {
-          messagesScraped: 0,
-          hitTimeLimit: false,
-          hitGlobalLimit: false,
-          rateLimited: false,
-        };
       }
+      error({ text: `Error scraping channel ${channelId}:` });
+      console.log(channelError);
+      return {
+        messagesScraped: 0,
+        hitTimeLimit: false,
+        hitGlobalLimit: false,
+        rateLimited: false,
+      };
     }
   }
 
@@ -298,7 +297,7 @@ async function discordScrape({ client, guildID }) {
             });
           }
           if (rateLimited) {
-            error({ text: `Stopping scrape - bot is rate limited` });
+            error({ text: "Stopping scrape - bot is rate limited" });
           }
           break;
         }
@@ -325,7 +324,7 @@ async function discordScrape({ client, guildID }) {
 
         if (result.rateLimited) {
           error({
-            text: `Bot was rate limited. Stopping scrape to avoid further issues.`,
+            text: "Bot was rate limited. Stopping scrape to avoid further issues.",
           });
           rateLimited = true;
           break;
@@ -344,12 +343,12 @@ async function discordScrape({ client, guildID }) {
         console.log(channelProcessError);
 
         if (
-          channelProcessError.code === 50013 ||
+          channelProcessError.code === 50_013 ||
           channelProcessError.status === 429 ||
           channelProcessError.message.includes("rate limit")
         ) {
           error({
-            text: `Rate limited at main loop level! Stopping all operations.`,
+            text: "Rate limited at main loop level! Stopping all operations.",
           });
           rateLimited = true;
           break;
@@ -364,28 +363,28 @@ async function discordScrape({ client, guildID }) {
       await saveBatch();
     }
 
-    console.log(`\n=== SCRAPING COMPLETE ===`);
+    console.log("\n=== SCRAPING COMPLETE ===");
     console.log(`Total channels processed: ${currentChannel}`);
     console.log(`Total messages scraped: ${totalMessagesScraped}`);
     console.log(`Total batches saved: ${totalBatchesSaved}`);
     console.log(`Global limit reached: ${reachedGlobalLimit ? "Yes" : "No"}`);
     console.log(`Rate limited: ${rateLimited ? "Yes" : "No"}`);
     console.log(
-      `Time cutoff: ${cutoffDate.toISOString()} (${maxAgeWeeks} weeks ago)`,
+      `Time cutoff: ${cutoffDate.toISOString()} (${maxAgeWeeks} weeks ago)`
     );
 
     const result = {
       metadata: {
         totalMessages: totalMessagesScraped,
-        totalBatchesSaved: totalBatchesSaved,
+        totalBatchesSaved,
         channelsProcessed: currentChannel,
         totalChannels: channelArray.length,
         globalLimitReached: reachedGlobalLimit,
-        rateLimited: rateLimited,
+        rateLimited,
         timeLimitWeeks: maxAgeWeeks,
         cutoffDate: cutoffDate.toISOString(),
         scrapedAt: new Date().toISOString(),
-        batchSize: batchSize,
+        batchSize,
       },
       messages: [],
     };
@@ -398,7 +397,7 @@ async function discordScrape({ client, guildID }) {
 
     return result;
   } catch (err) {
-    error({ text: `Something went wrong. Cancelling scrape procedure` });
+    error({ text: "Something went wrong. Cancelling scrape procedure" });
     console.log(err);
 
     // Try to save any remaining messages in the current batch before failing
@@ -408,9 +407,9 @@ async function discordScrape({ client, guildID }) {
       });
       try {
         await saveBatch();
-        debug({ text: `Emergency save successful!` });
+        debug({ text: "Emergency save successful!" });
       } catch (emergencyError) {
-        error({ text: `Emergency save failed:` });
+        error({ text: "Emergency save failed:" });
         console.log(emergencyError);
       }
     }
@@ -419,8 +418,8 @@ async function discordScrape({ client, guildID }) {
       error: true,
       message: err.message,
       scrapedAt: new Date().toISOString(),
-      totalMessagesScraped: totalMessagesScraped,
-      totalBatchesSaved: totalBatchesSaved,
+      totalMessagesScraped,
+      totalBatchesSaved,
     };
   } finally {
     switchScrapeStatus(guildID);

@@ -57,7 +57,7 @@ export default function GuestLogin() {
         .collection("users")
         .authWithPassword(
           "cially-guest@do-not-create-an-admin-account-with-this-address-manually.it-will-break-things.com",
-          "do-not-create-an-admin-account-with-this-address",
+          "do-not-create-an-admin-account-with-this-address"
         );
 
       const cookieStr = pb.authStore.exportToCookie({ httpOnly: false });
@@ -72,7 +72,7 @@ export default function GuestLogin() {
 
   if (guestStatus === true && pb) {
     return (
-      <Button variant={"ghost"} onClick={handleGuestLogin}>
+      <Button onClick={handleGuestLogin} variant={"ghost"}>
         Login as a Guest
       </Button>
     );

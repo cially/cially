@@ -53,7 +53,7 @@ function ClientComponent() {
     const InputData = Array(values)[0].id;
 
     const DataReceived = await fetch(
-      `/api/server/${guildID}/fetchUserData/${InputData}`,
+      `/api/server/${guildID}/fetchUserData/${InputData}`
     );
     const json = await DataReceived.json();
     setUserData(Array(json));
@@ -70,7 +70,7 @@ function ClientComponent() {
 
         <div className="mx-5 mt-5">
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="w-full">
+            <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
                 control={form.control}
                 name="id"
@@ -86,11 +86,8 @@ function ClientComponent() {
                       </FormControl>
 
                       <Button
+                        className="-translate-y-1/2 absolute top-1/2 right-2 h-8 translate-x-2 scale-95 rounded-full bg-transparent px-3 text-sm opacity-0 transition-all duration-300 ease-in-out hover:bg-white/5 peer-focus:translate-x-0 peer-focus:scale-100 peer-focus:opacity-100"
                         type="submit"
-                        className="absolute top-1/2 right-2 -translate-y-1/2 h-8 px-3 text-sm
-                         opacity-0 translate-x-2 scale-95
-                         transition-all duration-300 ease-in-out
-                         peer-focus:opacity-100 peer-focus:translate-x-0 peer-focus:scale-100 rounded-full bg-transparent hover:bg-white/5"
                       >
                         <Search className="text-white" />
                       </Button>

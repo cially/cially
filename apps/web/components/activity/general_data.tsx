@@ -16,10 +16,10 @@ const StatCard = ({
   value,
   isNetGrowth = false,
 }: StatCardProps) => (
-  <div className="flex items-center gap-2 p-3 rounded-lg bg-white/5 border border-white/10">
+  <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
-      <div className="text-xs text-white/60">{label}</div>
+      <div className="text-white/60 text-xs">{label}</div>
       <div
         className={`font-semibold ${
           isNetGrowth
@@ -49,17 +49,17 @@ export default function GeneralActivityData({
 }) {
   if (!chartData) {
     return (
-      <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
+      <Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
         <div>
-          <div className="text-xl font-semibold">
-            <Activity className="inline mr-2" />
+          <div className="font-semibold text-xl">
+            <Activity className="mr-2 inline" />
             General Data
           </div>
-          <div className="font-sans text-sm mt-1 text-white/60">
+          <div className="mt-1 font-sans text-sm text-white/60">
             More insights regarding guild's activity
           </div>
         </div>
-        <Skeleton className="w-full h-15" />
+        <Skeleton className="h-15 w-full" />
       </Card>
     );
   }
@@ -69,18 +69,18 @@ export default function GeneralActivityData({
     console.log(ArrayChartData);
 
     return (
-      <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
+      <Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
         <div>
-          <div className="text-xl font-semibold">
-            <Activity className="inline mr-2" />
+          <div className="font-semibold text-xl">
+            <Activity className="mr-2 inline" />
             General Data
           </div>
-          <div className="font-sans text-sm mt-1 text-white/60">
+          <div className="mt-1 font-sans text-sm text-white/60">
             More insights regarding guild's activity
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 mt-4">
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-2">
           <StatCard
             icon={UsersRound}
             label="Total Members"
@@ -106,13 +106,13 @@ export default function GeneralActivityData({
     );
   } catch (_err) {
     return (
-      <Card className="mt-10 grid  auto-rows-auto px-10 sm:min-w-dvh">
+      <Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
         <div>
-          <div className="text-xl font-semibold">
-            <Activity className="inline mr-2" />
+          <div className="font-semibold text-xl">
+            <Activity className="mr-2 inline" />
             General Data
           </div>
-          <div className="font-sans text-sm mt-1 text-white/60">
+          <div className="mt-1 font-sans text-sm text-white/60">
             More insights regarding guild's activity
           </div>
         </div>

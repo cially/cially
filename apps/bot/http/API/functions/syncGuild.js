@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../../../terminal/debug");
 const { error } = require("../../../terminal/error");
 
@@ -20,7 +21,7 @@ async function syncGuild(req, res, client) {
         .collection("_superusers")
         .authWithPassword(
           process.env.POCKETBASE_ADMIN_EMAIL,
-          process.env.POCKETBASE_ADMIN_PASSWORD,
+          process.env.POCKETBASE_ADMIN_PASSWORD
         );
 
       const guilds = await pb.collection(guild_collection_name).getFullList({
@@ -70,15 +71,15 @@ async function syncGuild(req, res, client) {
               members: Guild.memberCount,
               available: Guild.available,
               discord_partner: Guild.partnered,
-              channels: channels,
-              roles: roles,
-              bans: bans,
+              channels,
+              roles,
+              bans,
               creation_date: Guild.createdAt,
               owner_username: owner.user.username,
-              icon_url: icon_url,
+              icon_url,
               description: Guild.description,
-              vanity_url: vanity_url,
-              vanity_uses: vanity_uses,
+              vanity_url,
+              vanity_uses,
               online: statusCount.online + statusCount.dnd,
               offline: statusCount.offline,
               idle: statusCount.idle,
@@ -121,7 +122,7 @@ async function syncGuild(req, res, client) {
     fetchGuilds();
   } catch (err) {
     console.log(err);
-    error({ text: `Failed to communicate with the Database` });
+    error({ text: "Failed to communicate with the Database" });
     res.send(error_message);
   }
 }

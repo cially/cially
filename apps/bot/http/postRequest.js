@@ -1,3 +1,4 @@
+"use strict";
 const { debug } = require("../terminal/debug");
 const { error } = require("../terminal/error");
 
@@ -10,7 +11,7 @@ const API_URL = process.env.API_URL;
 // Main Event
 function sendPostRequest({ data, guildId, type }) {
   try {
-    debug({ text: `HTTP Request sent` });
+    debug({ text: "HTTP Request sent" });
 
     // Load request options through event parameters
     const opts = {
@@ -28,19 +29,19 @@ function sendPostRequest({ data, guildId, type }) {
 
         // Wait for API Response
         res.on("data", () => {
-          debug({ text: `Response received and HTTP communication ended` });
+          debug({ text: "Response received and HTTP communication ended" });
         });
       } catch (err) {
         if (
           String(err.message).includes(
-            `Cannot read properties of undefined (reading 'pipe')`,
+            `Cannot read properties of undefined (reading 'pipe')`
           )
         ) {
           error({
             text:
               `Looks like the bot can't communicate with ` +
               opts.url.blue +
-              `\n  Check that you provided the correct URL and that the API is online and accessible.`,
+              "\n  Check that you provided the correct URL and that the API is online and accessible.",
           });
         } else {
           error({

@@ -31,8 +31,8 @@ export function RegisterForm({
   const handleLogin = async () => {
     try {
       const result = await RegistrationHandler({
-        email: email,
-        password: password,
+        email,
+        password,
       });
       console.log(result);
       if (result === "success") {
@@ -62,11 +62,11 @@ export function RegisterForm({
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id={emailID}
-                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="user@example.com"
                   required
+                  type="email"
                   value={email}
-                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div className="grid gap-3">
@@ -75,16 +75,16 @@ export function RegisterForm({
                 </div>
                 <Input
                   id={passwordID}
-                  type="password"
-                  required
                   minLength={8}
-                  value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
+                  type="password"
+                  value={password}
                 />
               </div>
-              {error && <p className="text-sm text-red-500 -mt-4">{error}</p>}
+              {error && <p className="-mt-4 text-red-500 text-sm">{error}</p>}
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full text-white">
+                <Button className="w-full text-white" type="submit">
                   Create Account
                 </Button>
               </div>

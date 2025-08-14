@@ -6,7 +6,7 @@ const guild_collection_name = "guilds";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
   try {
@@ -22,7 +22,7 @@ export async function GET(
           .collection("_superusers")
           .authWithPassword(
             process.env.POCKETBASE_ADMIN_EMAIL,
-            process.env.POCKETBASE_ADMIN_PASSWORD,
+            process.env.POCKETBASE_ADMIN_PASSWORD
           );
 
         const guild = await pb
@@ -74,7 +74,7 @@ export async function GET(
             vanity_url: guild.vanity_url,
             vanity_uses: guild.vanity_uses,
             today_msg: today_msgs,
-            msg_day_difference: msg_day_difference,
+            msg_day_difference,
           },
         ];
         return Response.json({ guildFound });

@@ -1,3 +1,4 @@
+"use strict";
 const { SlashCommandBuilder, MessageFlags } = require("discord.js");
 const { debug } = require("../../terminal/debug");
 const { error } = require("../../terminal/error");
@@ -10,7 +11,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("reset-account")
     .setDescription(
-      "Use this command to delete your Cially Admin Account in order to create a new one.",
+      "Use this command to delete your Cially Admin Account in order to create a new one."
     ),
   async execute(interaction) {
     if (
@@ -18,13 +19,13 @@ module.exports = {
       interaction.user.id === interaction.guild.ownerId
     ) {
       try {
-        debug({ text: `Admin Account reset request sent` });
+        debug({ text: "Admin Account reset request sent" });
 
         await pb
           .collection("_superusers")
           .authWithPassword(
             process.env.POCKETBASE_ADMIN_EMAIL,
-            process.env.POCKETBASE_ADMIN_PASSWORD,
+            process.env.POCKETBASE_ADMIN_PASSWORD
           );
         const record = await pb
           .collection("users")
@@ -40,7 +41,7 @@ module.exports = {
         });
       } catch (err) {
         error({
-          text: `Something went wrong after trying to delete admin account`,
+          text: "Something went wrong after trying to delete admin account",
         });
 
         console.log(err);

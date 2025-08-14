@@ -10,7 +10,7 @@ const hourly_stats_collection = "hourly_stats";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> },
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
 
@@ -19,7 +19,7 @@ export async function GET(
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
     const guild = await pb
@@ -66,7 +66,7 @@ export async function GET(
       }
 
       for (const stat of hourlyStats) {
-        const hourIndex = parseInt(stat.hour);
+        const hourIndex = Number.parseInt(stat.hour);
         if (hourIndex >= 0 && hourIndex < 24) {
           activeHourData[hourIndex].amount += stat.messages || 0;
         }
@@ -88,7 +88,7 @@ export async function GET(
             "Content-Type": "application/json",
           },
           method: "POST",
-        },
+        }
       );
       const discordDataIN = await discordDataIN_Req.json();
 

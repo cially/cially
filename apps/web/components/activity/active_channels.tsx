@@ -60,10 +60,10 @@ export default function ActiveChannels({
           <CardDescription>Last 4 weeks</CardDescription>
         </CardHeader>
         <CardContent className="pb-0">
-          <Skeleton className="w-full h-30" />
+          <Skeleton className="h-30 w-full" />
         </CardContent>
         <CardFooter className="flex items-center justify-center gap-2 text-sm">
-          <Skeleton className="w-20 h-5 rounded-md" />
+          <Skeleton className="h-5 w-20 rounded-md" />
         </CardFooter>
       </Card>
     );
@@ -77,7 +77,7 @@ export default function ActiveChannels({
               Most Active Channels
             </CardTitle>
             <CardTitle
-              className="place-self-end rounded-full bg-white/0 hover:bg-white/10 transition-all p-0.5"
+              className="place-self-end rounded-full bg-white/0 p-0.5 transition-all hover:bg-white/10"
               onClick={() => numericToggle()}
             >
               {useNumeric === false ? <ArrowDown01 /> : <ChartPie />}
@@ -88,21 +88,21 @@ export default function ActiveChannels({
         <CardContent className="pb-0">
           {useNumeric === false ? (
             <ChartContainer
-              config={chartConfig}
               className="aspect-square w-full"
+              config={chartConfig}
             >
               <RadarChart data={chartData}>
-                <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
+                <ChartTooltip content={<ChartTooltipContent />} cursor={true} />
                 <PolarAngleAxis dataKey="channel" />
                 <PolarGrid />
                 <Radar
                   dataKey="amount"
-                  fill="var(--color-channel)"
-                  fillOpacity={0.6}
                   dot={{
                     r: 4,
                     fillOpacity: 1,
                   }}
+                  fill="var(--color-channel)"
+                  fillOpacity={0.6}
                 />
               </RadarChart>
             </ChartContainer>
@@ -118,38 +118,38 @@ export default function ActiveChannels({
               >
                 <CartesianGrid horizontal={false} />
                 <YAxis
+                  axisLine={false}
                   dataKey="channel"
-                  type="category"
+                  hide
+                  tickFormatter={(value) => value.slice(0, 3)}
                   tickLine={false}
                   tickMargin={10}
-                  axisLine={false}
-                  tickFormatter={(value) => value.slice(0, 3)}
-                  hide
+                  type="category"
                 />
-                <XAxis dataKey="amount" type="number" hide />
+                <XAxis dataKey="amount" hide type="number" />
                 <ChartTooltip
-                  cursor={false}
                   content={<ChartTooltipContent indicator="line" />}
+                  cursor={false}
                 />
                 <Bar
                   dataKey="amount"
-                  layout="vertical"
                   fill="#0370ff"
+                  layout="vertical"
                   radius={4}
                 >
                   <LabelList
-                    dataKey="channel"
-                    position="insideRight"
-                    offset={8}
                     className="fill-white"
+                    dataKey="channel"
                     fontSize={12}
+                    offset={8}
+                    position="insideRight"
                   />
                   <LabelList
-                    dataKey="amount"
-                    position="right"
-                    offset={8}
                     className="fill-foreground"
+                    dataKey="amount"
                     fontSize={12}
+                    offset={8}
+                    position="right"
                   />
                 </Bar>
               </BarChart>
