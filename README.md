@@ -9,6 +9,10 @@
 
 Perfect for community managers, moderators, and server admins looking to optimize their Discord communities!
 
+## 💫 Support our Project
+Cially is **completely free**! If you'd like, you can donate through Ko-fi
+- Link: https://ko-fi.com/skellgreco
+
 ## 🐚 Features
 - [x] Basic Server Data
 - [x] Message Analytics
