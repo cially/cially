@@ -22,7 +22,7 @@ catalog:
   express: ^5.2.1
   express-rate-limit: 8.2.1
   ky: ^1.8.2
-  lefthook: 1.12.2
+  lefthook: 2.1.1
   lucide-react: ^0.525.0
   multer: ^2.0.2
   next: ^16.1.4
@@ -51,7 +51,7 @@ catalogs:
   dev:
     '@biomejs/biome': 2.1.2
     '@tailwindcss/postcss': ^4.1.11
-    lefthook: ^1.12.2
+    lefthook: ^2.1.1
     tailwindcss: ^4.1.11
     taze: ^19.1.0
     typescript: ^5.8.3
