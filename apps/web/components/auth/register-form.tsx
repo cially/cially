@@ -13,7 +13,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import RegistrationHandler from "./registrationHandler";
 
 export function RegisterForm({
   className,
@@ -25,24 +24,37 @@ export function RegisterForm({
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const emailID = useId();
   const passwordID = useId();
 
-  const handleLogin = async () => {
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
+
     try {
-      const result = await RegistrationHandler({
-        email,
-        password,
+      const response = await fetch("/api/cially/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
       });
-      console.log(result);
-      if (result === "success") {
+
+      const data = await response.json();
+
+      if (response.ok && data.status === "success") {
         router.push("/");
       } else {
-        setError("Registration Failed");
+        setError(data.error || "Registration Failed");
       }
     } catch (err: any) {
       setError("Registration Failed");
-      console.log(err);
+      console.error("Registration failed:", err);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -56,7 +68,7 @@ export function RegisterForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleRegister}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-3">
                 <Label htmlFor="email">Email</Label>
@@ -84,8 +96,8 @@ export function RegisterForm({
               </div>
               {error && <p className="-mt-4 text-red-500 text-sm">{error}</p>}
               <div className="flex flex-col gap-3">
-                <Button className="w-full text-white" type="submit">
-                  Create Account
+                <Button className="w-full text-white" disabled={isLoading} type="submit">
+                  {isLoading ? "Creating Account..." : "Create Account"}
                 </Button>
               </div>
             </div>

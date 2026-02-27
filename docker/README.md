@@ -19,8 +19,8 @@
 3. Download or copy the `.env.example` file from the same folder and place it in the **same directory** as `docker-compose.yaml`.  
 4. Rename `.env.example` to `.env`.  
 5. Open `.env` and update the values for `TOKEN`, `CLIENT_ID`, and `POCKETBASE_URL`.  
-   - Use your real PocketBase URL (not a local/internal one).  
-   - Example: `http://your-domain:8090/`  
+   - You can use an internal Docker URL (e.g., `http://cially-pocketbase:8090`) to keep PocketBase private!
+   - Example: `http://cially-pocketbase:8090`  
 6. Run the following command to start everything:  
    ```bash
    docker compose up
