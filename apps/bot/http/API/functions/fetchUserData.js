@@ -8,7 +8,6 @@ async function fetchUserData(req, res, client) {
   const userId = body[0].userID;
   const channelID = body[0].channelID;
 
-  console.log(guildID, userId, channelID);
   const dataArray = [];
 
   debug({
