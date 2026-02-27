@@ -1,8 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import PocketBase from "pocketbase";
-import { useEffect, useId, useMemo, useState } from "react";
+import { useId, useState } from "react";
 import GuestLogin from "@/components/auth/guestLogin";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,51 +18,37 @@ export function LoginForm({
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [pocketbaseUrl, setPocketbaseUrl] = useState("");
-
-  // Initialize PocketBase client with the fetched URL
-  const pb = useMemo(() => {
-    if (pocketbaseUrl) {
-      return new PocketBase(pocketbaseUrl);
-    }
-    return null;
-  }, [pocketbaseUrl]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const emailID = useId();
   const passwordID = useId();
 
-  useEffect(() => {
-    async function fetchPocketbaseUrl() {
-      try {
-        const configResponse = await fetch("/api/cially/pocketbaseURL");
-        const config = await configResponse.json();
-        setPocketbaseUrl(config.url);
-      } catch (error) {
-        console.error("Failed to fetch PocketBase URL:", error);
-      }
-    }
-    fetchPocketbaseUrl();
-  }, []);
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!pb) {
-      setError("Configuration not loaded");
-      return;
-    }
+    setIsLoading(true);
+    setError("");
 
     try {
-      await pb.collection("users").authWithPassword(email, password);
+      const response = await fetch("/api/cially/auth", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-      const cookieStr = pb.authStore.exportToCookie({ httpOnly: false });
-      document.cookie = cookieStr;
+      const data = await response.json();
 
-      // redirect to dashboard
-      router.push("/dashboard");
-    } catch (err: any) {
+      if (response.ok) {
+        router.push("/dashboard");
+      } else {
+        setError(data.error || "Login failed");
+      }
+    } catch (err) {
       console.error("Login failed:", err);
-      setError("Invalid email or password");
+      setError("An unexpected error occurred");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -102,8 +87,8 @@ export function LoginForm({
               </div>
               {error && <p className="-mt-4 text-red-500 text-sm">{error}</p>}
               <div className="flex flex-col gap-3">
-                <Button className="w-full" disabled={!pb} type="submit">
-                  Login
+                <Button className="w-full" disabled={isLoading} type="submit">
+                  {isLoading ? "Logging in..." : "Login"}
                 </Button>
               </div>
             </div>

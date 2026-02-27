@@ -21,7 +21,7 @@ async function syncGuild(req, res, client) {
         .collection("_superusers")
         .authWithPassword(
           process.env.POCKETBASE_ADMIN_EMAIL,
-          process.env.POCKETBASE_ADMIN_PASSWORD
+          process.env.POCKETBASE_ADMIN_PASSWORD,
         );
 
       const guilds = await pb.collection(guild_collection_name).getFullList({
@@ -39,7 +39,15 @@ async function syncGuild(req, res, client) {
             const icon_url = await Guild.iconURL();
             const vanity_url = Guild.vanityURLCode;
 
-            await Guild.members.fetch();
+            try {
+              // Try to fetch members, but handle rate limits gracefully
+              await Guild.members.fetch();
+            } catch (err) {
+              error({
+                text: `Failed to fetch members for Guild ${Guild.name} (ID: ${Guild.id}): ${err.message}`,
+              });
+              // It will fall back to using the already cached members
+            }
             const statusCount = {
               online: 0,
               idle: 0,

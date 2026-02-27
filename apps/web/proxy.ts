@@ -8,7 +8,7 @@ const PUBLIC_PATHS = ["/login", "/register"];
 // paths where the guest cookie logic is specifically needed
 const GUEST_CHECK_PATHS = ["dashboard"];
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const response = NextResponse.next();
 

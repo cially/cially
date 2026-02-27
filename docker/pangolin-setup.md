@@ -218,7 +218,7 @@ Cially needs two resources created in Pangolin. One for `cially-web` and another
 
 ### Extra hardening tips
 
-To protect the Admin dashboard for `pocketbase` (we should hopefully never need access to this directly) setup a Rule to deny `_/`. This will still allow Cially to talk to `pocketbase` even for logging into Cially and public access. If you outright deny external access to `pocketbase` you will break Cially.
+Because Cially now handles authentication server-side, you can keep your `pocketbase` service entirely private within your internal network! You no longer need to create a public resource for it in Pangolin unless you want to access the admin dashboard remotely. If you do expose it, remember to setup a Rule to deny `_/`.
 
 <img width="1080" height="354" alt="{1C053BDC-F2E9-4996-9F42-098727BCC2DE}" src="https://github.com/user-attachments/assets/dc2b751a-fda0-4350-a844-89be6a67a3a4" />
 
