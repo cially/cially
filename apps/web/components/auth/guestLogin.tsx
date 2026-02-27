@@ -1,36 +1,19 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import PocketBase from "pocketbase";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 
 export default function GuestLogin() {
   const router = useRouter();
   const [guestStatus, setGuestStatus] = useState(false);
-  const [pocketbaseUrl, setPocketbaseUrl] = useState("");
-
-  // Initialize PocketBase client with the fetched URL
-  const pb = useMemo(() => {
-    if (pocketbaseUrl) {
-      return new PocketBase(pocketbaseUrl);
-    }
-    return null;
-  }, [pocketbaseUrl]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        // Fetch both PocketBase config and guest status
-        const [configResponse, guestResponse] = await Promise.all([
-          fetch("/api/cially/pocketbaseURL"),
-          fetch("/api/cially/checkForGuestAccount"),
-        ]);
-
-        const config = await configResponse.json();
+        const guestResponse = await fetch("/api/cially/checkForGuestAccount");
         const guestData = await guestResponse.json();
-
-        setPocketbaseUrl(config.url);
 
         if (guestData?.account) {
           setGuestStatus(true);
@@ -38,7 +21,7 @@ export default function GuestLogin() {
           setGuestStatus(false);
         }
       } catch (error) {
-        console.error("Failed to fetch data:", error);
+        console.error("Failed to fetch guest status:", error);
         setGuestStatus(false);
       }
     }
@@ -47,33 +30,30 @@ export default function GuestLogin() {
   }, []);
 
   async function handleGuestLogin() {
-    if (!pb) {
-      console.error("PocketBase client not initialized");
-      return;
-    }
-
+    setIsLoading(true);
     try {
-      await pb
-        .collection("users")
-        .authWithPassword(
-          "cially-guest@do-not-create-an-admin-account-with-this-address-manually.it-will-break-things.com",
-          "do-not-create-an-admin-account-with-this-address"
-        );
+      const response = await fetch("/api/cially/auth/guest", {
+        method: "POST",
+      });
 
-      const cookieStr = pb.authStore.exportToCookie({ httpOnly: false });
-      document.cookie = cookieStr;
-
-      // redirect to dashboard
-      router.push("/dashboard");
+      if (response.ok) {
+        // redirect to dashboard
+        router.push("/dashboard");
+      } else {
+        const data = await response.json();
+        console.error("Guest login failed:", data.error);
+      }
     } catch (err: any) {
       console.error("Login failed:", err);
+    } finally {
+      setIsLoading(false);
     }
   }
 
-  if (guestStatus === true && pb) {
+  if (guestStatus === true) {
     return (
-      <Button onClick={handleGuestLogin} variant={"ghost"}>
-        Login as a Guest
+      <Button disabled={isLoading} onClick={handleGuestLogin} variant={"ghost"}>
+        {isLoading ? "Logging in..." : "Login as a Guest"}
       </Button>
     );
   }
