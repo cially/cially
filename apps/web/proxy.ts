@@ -20,7 +20,11 @@ export async function proxy(request: NextRequest) {
       pb.authStore.loadFromCookie(`pb_auth=${cookie}`);
     } catch (error) {
       console.error("Failed to load auth from cookie:", error);
-      return NextResponse.redirect(new URL("/login", request.url));
+      if (!PUBLIC_PATHS.includes(pathname)) {
+        const redirectResponse = NextResponse.redirect(new URL("/login", request.url));
+        redirectResponse.cookies.delete("pb_auth");
+        return redirectResponse;
+      }
     }
   }
 
@@ -35,8 +39,13 @@ export async function proxy(request: NextRequest) {
   }
 
   try {
-    if (!pb.authStore.isValid) {
+    // Verify the token validity with the server if it appears valid locally
+    if (pb.authStore.isValid) {
       await pb.collection("users").authRefresh();
+    } else {
+      const redirectResponse = NextResponse.redirect(new URL("/login", request.url));
+      redirectResponse.cookies.delete("pb_auth");
+      return redirectResponse;
     }
 
     if (GUEST_CHECK_PATHS.some((path) => pathname.includes(path))) {
@@ -59,7 +68,9 @@ export async function proxy(request: NextRequest) {
     return response;
   } catch (_err) {
     if (!PUBLIC_PATHS.includes(pathname)) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      const redirectResponse = NextResponse.redirect(new URL("/login", request.url));
+      redirectResponse.cookies.delete("pb_auth");
+      return redirectResponse;
     }
     return response;
   }
