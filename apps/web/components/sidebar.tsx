@@ -173,8 +173,8 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       </SidebarContent>
       <SidebarFooter className="place-items-center">
         <a href="https://github.com/skellgreco/cially">
-          <Badge className="" variant="secondary">
-            Version: 2.0 (BETA)
+          <Badge className="rounded-full text-white/70 bg-white/10 backdrop-blur-lg" variant="secondary">
+            Version: 2.0 (BETA 9)
           </Badge>
         </a>
       </SidebarFooter>
