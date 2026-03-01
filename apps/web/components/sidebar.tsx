@@ -155,7 +155,7 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
             {cially_items.map((item) => (
               <SidebarMenuItem
                 className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r ${isActive(item.path)
-                  ? "border-gray-400 border-l-2 bg-gradient-to-r from-white/2 to-white/10"
+                  ? "border-gray-400 border-l-0 bg-gradient-to-r from-white/2 to-white/10"
                   : ""
                   }`}
                 key={item.title}
