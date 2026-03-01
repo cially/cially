@@ -1,6 +1,6 @@
 "use client";
 
-import { Antenna, CheckCircle, Database, Rss, XCircle } from "lucide-react";
+import { Antenna, CheckCircle2, Database, Rss, XCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import GuildNotFound from "@/components/guildNotFound";
 import LoadingSVG from "@/components/loading-page";
@@ -34,130 +34,98 @@ export default function Status() {
     const pbStatus = statusData[0].pocketbase;
     const discordStatus = statusData[2].discord;
 
+    const StatusBadge = ({ status }: { status: string }) => {
+      const isOnline = status === "online";
+      return (
+        <Badge
+          className={`flex w-fit items-center gap-1.5 px-3 py-1 font-medium ${isOnline
+            ? "bg-green-500/10 text-green-500 hover:bg-green-500/20"
+            : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+            }`}
+          variant="outline"
+        >
+          {isOnline ? (
+            <CheckCircle2 className="h-4 w-4" />
+          ) : (
+            <XCircle className="h-4 w-4" />
+          )}
+          {isOnline ? "Operational" : "Offline"}
+        </Badge>
+      );
+    };
+
     return (
-      <>
+      <div className="min-h-dvh min-w-full ">
         <div>
           <div className="mt-4 ml-2 text-2xl">Status</div>
           <div className="mt-1 ml-2 text-sm text-white/50">
             Check if all the services are operating normally
           </div>
         </div>
-        <div className="mt-8 grid max-w-4xl grid-cols-1 gap-6 sm:grid-cols-2">
-          <Card className="transition-all duration-300 hover:shadow-md">
-            <CardHeader className="pb-2">
-              <div className="flex items-center">
-                <div className="mr-3 rounded-lg bg-blue-100 p-2 dark:bg-blue-900">
-                  <Database className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+
+        <div className="mt-10 grid grid-cols-1 gap-6 sm:mx-3 md:grid-cols-2">
+          {/* Pocketbase Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-foreground">
+                  <Database className="h-6 w-6" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg">Pocketbase</CardTitle>
-                  <CardDescription>Database Service</CardDescription>
+                  <CardTitle className="text-xl">Pocketbase</CardTitle>
+                  <CardDescription>Primary Database</CardDescription>
                 </div>
               </div>
+              <StatusBadge status={pbStatus} />
             </CardHeader>
-            <CardContent>
-              <div className="mt-2">
-                <Badge
-                  className={
-                    pbStatus === "online"
-                      ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-                      : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
-                  }
-                  variant={pbStatus === "online" ? "default" : "destructive"}
-                >
-                  <div className="flex items-center">
-                    {pbStatus === "online" ? (
-                      <CheckCircle className="mr-1 h-4 w-4" />
-                    ) : (
-                      <XCircle className="mr-1 h-4 w-4" />
-                    )}
-                    {pbStatus === "online" ? "Online" : "Offline"}
-                  </div>
-                </Badge>
-              </div>
+            <CardContent className="mt-4 border-t border-border/40 pt-4 text-sm text-muted-foreground">
+              Handles all persistent data storage, including user authentication and server analytics.
             </CardContent>
           </Card>
 
-          <Card className="transition-all duration-300 hover:shadow-md">
-            <CardHeader className="pb-2">
-              <div className="flex items-center">
-                <div className="mr-3 rounded-lg bg-blue-100 p-2 dark:bg-blue-900">
-                  <Rss className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+          {/* Bot Card */}
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-foreground">
+                  <Rss className="h-6 w-6" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg">Bot & API #2</CardTitle>
+                  <CardTitle className="text-xl">Discord Bot</CardTitle>
                   <CardDescription>Communication Service</CardDescription>
                 </div>
               </div>
+              <StatusBadge status={botStatus} />
             </CardHeader>
-            <CardContent>
-              <div className="mt-2">
-                <Badge
-                  className={
-                    botStatus === "online"
-                      ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-                      : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
-                  }
-                  variant={botStatus === "online" ? "default" : "destructive"}
-                >
-                  <div className="flex items-center">
-                    {botStatus === "online" ? (
-                      <CheckCircle className="mr-1 h-4 w-4" />
-                    ) : (
-                      <XCircle className="mr-1 h-4 w-4" />
-                    )}
-                    {botStatus === "online" ? "Online" : "Offline"}
-                  </div>
-                </Badge>
-              </div>
+            <CardContent className="mt-4 border-t border-border/40 pt-4 text-sm text-muted-foreground">
+              The internal API and Discord Bot responsible for scraping and synchronizing server data.
             </CardContent>
           </Card>
 
-          <Card className="transition-all duration-300 hover:shadow-md sm:col-span-2">
-            <CardHeader className="pb-2">
-              <div className="flex items-center">
-                <div className="mr-3 rounded-lg bg-purple-100 p-2 dark:bg-purple-900">
-                  <Antenna className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+          {/* Discord API Card (Full Width) */}
+          <Card className="md:col-span-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2">
+              <div className="flex items-center gap-4">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-muted text-foreground">
+                  <Antenna className="h-6 w-6" />
                 </div>
                 <div>
-                  <CardTitle className="text-lg">Discord API</CardTitle>
-                  <CardDescription>
-                    Real-time status pulled directly from the official Discord
-                    Status API
-                  </CardDescription>
+                  <CardTitle className="text-xl">Discord API</CardTitle>
+                  <CardDescription>External Dependency</CardDescription>
                 </div>
               </div>
+              <StatusBadge status={discordStatus} />
             </CardHeader>
-            <CardContent>
-              <div className="mt-2">
-                <Badge
-                  className={
-                    discordStatus === "online"
-                      ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300"
-                      : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300"
-                  }
-                  variant={
-                    discordStatus === "online" ? "default" : "destructive"
-                  }
-                >
-                  <div className="flex items-center">
-                    {discordStatus === "online" ? (
-                      <CheckCircle className="mr-1 h-4 w-4" />
-                    ) : (
-                      <XCircle className="mr-1 h-4 w-4" />
-                    )}
-                    {discordStatus === "online" ? "Online" : "Offline"}
-                  </div>
-                </Badge>
-              </div>
+            <CardContent className="mt-4 border-t border-border/40 pt-4 text-sm text-muted-foreground">
+              Real-time connectivity status pulled directly from the official Discord Status API.
             </CardContent>
           </Card>
         </div>
-      </>
+      </div>
     );
   }
   return (
-    <div className="place-self-center">
+    <div className="flex min-h-[50vh] items-center justify-center">
       <LoadingSVG />
     </div>
   );
