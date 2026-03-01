@@ -46,7 +46,7 @@ export function RegisterForm({
       const data = await response.json();
 
       if (response.ok && data.status === "success") {
-        router.push("/");
+        window.location.href = "/login";
       } else {
         setError(data.error || "Registration Failed");
       }
