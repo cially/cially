@@ -78,7 +78,7 @@ export default function GuestToggleCard() {
   };
 
   return (
-    <Card className="mx-3 mt-7">
+    <Card className="mx-3 mt-7 flex flex-col">
       <CardHeader>
         <CardTitle>
           <ShieldUser className="-translate-y-0.5 mr-2 inline w-5" /> Dashboard
@@ -89,7 +89,7 @@ export default function GuestToggleCard() {
           without having to login. Guests are not allowed to make changes.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="mt-auto flex justify-center pb-0">
         <GuestToggle
           isGuest={isGuest}
           onToggle={triggerRefresh}

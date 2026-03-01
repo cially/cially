@@ -2,7 +2,7 @@
 /** biome-ignore-all lint/a11y/useKeyWithClickEvents: Theme Color Buttons */
 "use client";
 
-import { DatabaseBackup, PaletteIcon, Star } from "lucide-react";
+import { DatabaseBackup, Heart, PaletteIcon, Star } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import GuestToggleCard from "@/components/settings/guestToggle";
@@ -127,7 +127,7 @@ export default function SettingsPage() {
         <div className="grid sm:grid-cols-2">
           <GuestToggleCard />
 
-          <Card className="mx-3 mt-7 border-[1px] border-red-500/40">
+          <Card className="mx-3 mt-7 flex flex-col border-[1px] border-red-500/40">
             <CardHeader>
               <CardTitle>
                 <DatabaseBackup className="-translate-y-0.5 mr-2 inline w-5" />{" "}
@@ -138,7 +138,7 @@ export default function SettingsPage() {
                 This action is irreversible!
               </CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="mt-auto flex justify-center pb-0">
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button
@@ -178,6 +178,33 @@ export default function SettingsPage() {
       <Card className="mx-3 mt-7">
         <CardHeader>
           <CardTitle>
+            <Heart className="-translate-y-0.5 mr-2 inline w-5" /> Support Cially
+          </CardTitle>
+          <CardDescription>
+            If you find Cially helpful and want to support its development,
+            consider making a donation. Your support helps keep the project
+            alive and growing!
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex justify-center sm:justify-start">
+          <a
+            href="https://ko-fi.com/skellgreco"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <Button
+              className="bg-pink-600 text-white transition-all hover:cursor-pointer hover:bg-pink-600/70"
+              variant={"outline"}
+            >
+              Donate
+            </Button>
+          </a>
+        </CardContent>
+      </Card>
+
+      <Card className="mx-3 mt-7">
+        <CardHeader>
+          <CardTitle>
             <Star className="-translate-y-0.5 mr-2 inline w-5" /> Github
             Repository
           </CardTitle>
@@ -188,7 +215,7 @@ export default function SettingsPage() {
             Feel free to open an issue if you experience any problems!
           </CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="flex justify-center sm:justify-start">
           <a href="https://github.com/cially/cially">
             <Button
               className="bg-gray-800 text-white transition-all hover:cursor-pointer hover:bg-gray-800/70"
