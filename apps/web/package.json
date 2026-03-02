@@ -39,6 +39,6 @@
     "typescript": "catalog:"
   },
   "overrides": {
-    "react-is": "^19.1.0"
+    "react-is": "^19.2.4"
   }
 }

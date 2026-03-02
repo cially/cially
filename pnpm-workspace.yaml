@@ -7,7 +7,7 @@ catalog:
   '@discordjs/rest': ^2.6.0
   '@hookform/resolvers': ^5.2.2
   '@tailwindcss/postcss': ^4.2.1
-  '@types/node': 25.3.2
+  '@types/node': 25.3.3
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
   body-parser: ^2.2.2
@@ -22,7 +22,7 @@ catalog:
   express: ^5.2.1
   express-rate-limit: 8.2.1
   ky: ^1.14.3
-  lefthook: 2.1.1
+  lefthook: 2.1.2
   lucide-react: ^0.575.0
   multer: ^2.1.0
   next: ^16.1.6
@@ -51,12 +51,12 @@ catalogs:
   dev:
     '@biomejs/biome': 2.4.4
     '@tailwindcss/postcss': ^4.2.1
-    lefthook: ^2.1.1
+    lefthook: ^2.1.2
     tailwindcss: ^4.2.1
     taze: ^19.9.2
     typescript: ^5.9.3
   types:
-    '@types/node': ^25.3.2
+    '@types/node': ^25.3.3
     '@types/react': 19.2.14
     '@types/react-dom': 19.2.3
 
