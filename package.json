@@ -11,7 +11,11 @@
     "docker:pb": "docker buildx build -f ./apps/pocketbase/Dockerfile -t ghcr.io/cially/pocketbase:latest ./apps/pocketbase",
     "docker:all": "pnpm docker:bot && pnpm docker:web && pnpm docker:pb",
     "up": "taze -r -I",
-    "lefthook": "lefthook install"
+    "lefthook": "lefthook install",
+    "start-web": "cd apps/web && pnpm run dev",
+    "start-bot": "cd apps/bot && node .",
+    "start-pb": "cd apps/pocketbase && pocketbase serve",
+    "start-all": "concurrently \"pnpm run start-web\" \"pnpm run start-bot\" \"pnpm run start-pb\""
   },
   "dependencies": {
     "discord-api-types": "catalog:",
@@ -19,6 +23,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "catalog:dev",
+    "concurrently": "catalog:",
     "lefthook": "catalog:",
     "taze": "catalog:dev",
     "turbo": "catalog:",
