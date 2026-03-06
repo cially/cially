@@ -12,16 +12,17 @@ export async function GET() {
         process.env.POCKETBASE_ADMIN_PASSWORD
       );
 
+    // Checks if an admin account exists
     const account = await pb
       .collection("users")
       .getFirstListItem('id!="" && admin=true', {});
 
-    return Response.json({ account: account.admin });
+    return Response.json({ adminAccountExists: true, responseCode: 200 });
   } catch (error) {
     if (error.status === 404) {
-      return Response.json({ noAccounts: true });
+      return Response.json({ adminAccountExists: false, responseCode: 200 });
     }
     console.log(error);
-    return Response.json({ error: 404 });
+    return Response.json({ adminAccountExists: null, responseCode: 404 });
   }
 }

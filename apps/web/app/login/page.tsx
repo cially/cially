@@ -13,8 +13,14 @@ export default function MessagesActivityPage() {
   );
 }
 
+interface AccountData {
+  adminAccountExists: boolean | null,
+  responseCode: number
+
+}
+
 function ClientComponent() {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState<AccountData | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -28,7 +34,8 @@ function ClientComponent() {
   }, []);
 
   if (userData) {
-    if (userData.account) {
+
+    if (userData.adminAccountExists === true) {
       return (
         <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
           <div className="w-full max-w-sm">
@@ -37,7 +44,8 @@ function ClientComponent() {
         </div>
       );
     }
-    if (userData.noAccounts) {
+
+    if (userData.adminAccountExists === false) {
       return (
         <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
           <div className="w-full max-w-sm">
@@ -46,6 +54,7 @@ function ClientComponent() {
         </div>
       );
     }
+
     return "Error";
   }
   return (
