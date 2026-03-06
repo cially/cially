@@ -39,7 +39,7 @@ export default async function RootLayout({
 
   return (
     <html className={outfit.className} lang="en" suppressHydrationWarning>
-      <body>
+      <body suppressHydrationWarning>
 
         <div className="min-h-screen overflow-x-hidden">
           <div className={`${themeClass} -z-10 fixed inset-0 h-full w-full`} />
