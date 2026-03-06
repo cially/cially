@@ -6,5 +6,6 @@ export async function GET() {
   } catch (err) {
     console.log("An error occured while trying to fetch data");
     console.log(err);
+    return Response.json({ responseCode: 500 });
   }
 }

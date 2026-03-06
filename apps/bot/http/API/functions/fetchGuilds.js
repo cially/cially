@@ -16,7 +16,7 @@ async function fetchGuilds(_req, res, client) {
       .collection("_superusers")
       .authWithPassword(
         process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        process.env.POCKETBASE_ADMIN_PASSWORD,
       );
     const guilds_in_database = [];
     const guilds = await pb.collection(guild_collection_name).getFullList({});
@@ -30,14 +30,14 @@ async function fetchGuilds(_req, res, client) {
       discord_guilds.forEach(async (guild) => {
         const icon = await guild.iconURL();
         if (guilds_in_database.includes(guild.id)) {
-          await guildsArray.push({
+          guildsArray.push({
             name: guild.name,
             id: guild.id,
             icon,
             in_db: true,
           });
         } else {
-          await guildsArray.push({
+          guildsArray.push({
             name: guild.name,
             id: guild.id,
             icon,
@@ -48,20 +48,20 @@ async function fetchGuilds(_req, res, client) {
 
       // Do not remove this line below nor the "await" cause things will brake for some reason
       await debug({ text: "Completed Fetching Available Guilds" });
-      await res.send({ AvailableGuilds: guildsArray });
+      await res.send({ AvailableGuilds: guildsArray, responseCode: 200 });
     } catch (err) {
       error({
         text: "Failed to communicate with the Discord API. /fetchGuilds",
       });
       console.log(err);
-      res.send(error_message);
+      res.send({ responseCode: 500, errorMessage: error_message });
     }
   } catch (err) {
     error({
       text: "Failed to communicate with the PocketBase Instance. /fetchGuilds",
     });
     console.log(err);
-    res.send(error_message);
+    res.send({ responseCode: 502, errorMessage: error_message });
   }
 }
 

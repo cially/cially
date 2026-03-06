@@ -21,8 +21,20 @@ export default function MessagesDashboard() {
   );
 }
 
+interface GuildData {
+  AvailableGuilds: Array<Guild> | null,
+  responseCode: number
+}
+
+interface Guild {
+  name: string
+  id: number
+  icon: string,
+  in_db: boolean
+}
+
 function ClientComponent() {
-  const [guildData, setGuildData] = useState(null);
+  const [guildData, setGuildData] = useState<GuildData>();
 
   useEffect(() => {
     async function fetchData() {
@@ -55,9 +67,9 @@ function ClientComponent() {
           <div className="mb-10" />
 
           <div className="mx-10 grid grid-cols-1 gap-y-5 sm:grid-cols-3">
-            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
-            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
-            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
+            <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
+            <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
+            <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
           </div>
 
           <div className="mt-10 self-center">
@@ -195,7 +207,7 @@ function ClientComponent() {
         </div>
       </>
     );
-  } catch (err) {
+  } catch (err: any) {
     const error = err.toString();
     console.log(err);
     return (
