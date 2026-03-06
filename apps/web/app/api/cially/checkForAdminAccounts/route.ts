@@ -8,8 +8,8 @@ export async function GET() {
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD)
       );
 
     // Checks if an admin account exists
@@ -18,7 +18,7 @@ export async function GET() {
       .getFirstListItem('id!="" && admin=true', {});
 
     return Response.json({ adminAccountExists: true, responseCode: 200 });
-  } catch (error) {
+  } catch (error: any) {
     if (error.status === 404) {
       return Response.json({ adminAccountExists: false, responseCode: 200 });
     }
