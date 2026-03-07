@@ -8,8 +8,8 @@ const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
 async function syncGuild(req, res, client) {
-  const success_message = { code: "success" };
-  const error_message = { code: "error" };
+  const success_message = { responseCode: 200 };
+  const error_message = { responseCode: 500 };
 
   const guildID = req.params.guildID;
 
@@ -30,7 +30,7 @@ async function syncGuild(req, res, client) {
 
       if (guilds.length > 0) {
         guilds.forEach((guild) => {
-          async function setNewData() {
+          async function syncDataToPocketbase() {
             const Guild = client.guilds.cache.get(`${String(guild.discordID)}`);
             const channels = Guild.channels.cache.size;
             const roles = Guild.roles.cache.size;
@@ -105,7 +105,7 @@ async function syncGuild(req, res, client) {
           // Check to see if the bot is in the guild
           if (guild.discordID) {
             try {
-              setNewData();
+              syncDataToPocketbase();
               res.send(success_message);
             } catch (err) {
               error({
