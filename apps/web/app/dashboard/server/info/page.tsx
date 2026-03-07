@@ -7,13 +7,6 @@ import MemberBlock from "@/components/info/member-card";
 import MessagesBlock from "@/components/info/messages-card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// interface GuildData {
-//   name: string;
-//   id: string;
-//   icon: string;
-//   in_db: boolean;
-// }
-
 interface GuildData {
   discordID: string;
   name: string;
