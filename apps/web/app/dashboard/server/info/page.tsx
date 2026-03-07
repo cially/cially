@@ -7,7 +7,7 @@ import MemberBlock from "@/components/info/member-card";
 import MessagesBlock from "@/components/info/messages-card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface GuildData {
+export interface GuildData {
   discordID: string;
   name: string;
   members: number;
@@ -18,7 +18,7 @@ interface GuildData {
   roles: number;
   bans: number;
   owner_username: string;
-  icon_url: string | null;
+  icon_url: string | undefined;
   description: string | null;
   vanity_url: string | null;
   vanity_uses: number | null;
