@@ -5,8 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { GuildData } from "@/app/dashboard/server/info/page";
 
-export default function MemberBlock({ guild }: { guild: { members: number } }) {
+export default function MemberBlock({ guild }: { guild: GuildData }) {
   return (
     <Card className="">
       <CardHeader>

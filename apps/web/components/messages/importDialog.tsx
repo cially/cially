@@ -36,7 +36,6 @@ export default function ImportDialogCard({
         "Scraping has started! Restart your bot if you want it to stop!"
       );
       const response = await fetch(`/api/server/${guildID}/scrapeMessages`);
-      // console.log(guildID);
 
       if (response.ok) {
         router.push("/");

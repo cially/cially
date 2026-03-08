@@ -5,12 +5,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { GuildData } from "@/app/dashboard/server/info/page";
 
-export default function MessagesBlock({
-  guild,
-}: {
-  guild: { today_msg: number; msg_day_difference: number };
-}) {
+export default function MessagesBlock({ guild }: { guild: GuildData }) {
   return (
     <Card className="">
       <CardHeader>
