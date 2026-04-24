@@ -25,7 +25,7 @@
     "@biomejs/biome": "catalog:dev",
     "concurrently": "catalog:",
     "lefthook": "catalog:",
-    "taze": "catalog:dev",
+    "taze": "catalog:",
     "turbo": "catalog:",
     "ultracite": "catalog:"
   },
