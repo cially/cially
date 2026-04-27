@@ -29,5 +29,5 @@
     "turbo": "catalog:",
     "ultracite": "catalog:"
   },
-  "packageManager": "pnpm@10.13.1"
+  "packageManager": "pnpm@10.33.2"
 }

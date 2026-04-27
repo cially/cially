@@ -9,6 +9,7 @@ import {
   SatelliteDish,
   Smile,
   UserSearch,
+  Bot,
 } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -70,6 +71,12 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       url: `/dashboard/server/user?guildID=${guildID}`,
       icon: UserSearch,
       path: "/dashboard/server/user",
+    },
+    {
+      title: "Agent",
+      url: `/dashboard/server/agent?guildID=${guildID}`,
+      icon: Bot,
+      path: "/dashboard/server/agent",
     },
   ];
 

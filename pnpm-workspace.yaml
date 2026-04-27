@@ -3,6 +3,8 @@ packages:
   - packages/*
 
 catalog:
+  '@ai-sdk/groq': ^3.0.35
+  '@ai-sdk/react': 3.0.170
   '@biomejs/biome': 2.4.4
   '@discordjs/rest': ^2.6.0
   '@hookform/resolvers': ^5.2.2
@@ -10,6 +12,7 @@ catalog:
   '@types/node': 25.3.2
   '@types/react': 19.2.14
   '@types/react-dom': 19.2.3
+  ai: 6.0.168
   body-parser: ^2.2.2
   cfonts: ^3.3.1
   class-variance-authority: ^0.7.1
@@ -34,6 +37,7 @@ catalog:
   react: ^19.2.4
   react-dom: ^19.2.4
   react-hook-form: ^7.71.2
+  react-markdown: ^10.1.0
   recharts: ^3.7.0
   simple-get: ^4.0.1
   sonner: ^2.0.7
@@ -45,7 +49,7 @@ catalog:
   typescript: ^5.9.3
   ultracite: 7.6.1
   winston: ^3.19.0
-  zod: ^4.3.6
+  zod: 4.3.6
 
 catalogMode: prefer
 
