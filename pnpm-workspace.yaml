@@ -20,7 +20,7 @@ catalog:
   discord.js: ^14.25.1
   dotenv: ^17.3.1
   express: ^5.2.1
-  express-rate-limit: 8.2.1
+  express-rate-limit: 8.2.2
   ky: ^1.14.3
   lefthook: 2.1.1
   lucide-react: ^0.575.0
