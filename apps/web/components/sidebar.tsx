@@ -10,10 +10,11 @@ import {
   Smile,
   UserSearch,
   Bot,
+  Info,
 } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import {
   Sidebar,
@@ -38,6 +39,29 @@ export function AppSidebar({ isGuild }: { isGuild: boolean }) {
 function ClientComponent({ isGuild }: { isGuild: boolean }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const [availableUpdate, setAvailableUpdate] = useState(false);
+  const [latestVersion, setLatestVersion] = useState("");
+  const [isGuest, setIsGuest] = useState(false);
+
+  useEffect(() => {
+    async function compareVersions() {
+      const response = await fetch("/api/cially/checkForUpdates");
+      const data = await response.json();
+      if (data.code == 200 && data.response.isUpdateAvailable) {
+        setAvailableUpdate(true);
+        setLatestVersion(data.response.latestVersion);
+      }
+    }
+    compareVersions();
+
+    const guestStatus = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("guest="))
+      ?.split("=")[1];
+    if (guestStatus === "true") {
+      setIsGuest(true);
+    }
+  }, []);
 
   const guildID = searchParams ? searchParams.get("guildID") : "error";
 
@@ -174,7 +198,29 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
           </SidebarMenu>
         </SidebarGroupContent>
       </SidebarContent>
-      <SidebarFooter className="place-items-center">
+      <SidebarFooter className="place-items-center pb-4">
+        {availableUpdate && !isGuest && (
+          <div className="mx-4 mb-4 p-4 rounded-xl bg-white/3 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all hover:cursor-pointer">
+            <div className="flex items-center gap-2 mb-2">
+              <Info className="w-4 h-4 text-white" />
+              <span className="text-sm font-medium text-white/90">
+                Update Available
+              </span>
+            </div>
+            <p className="text-xs text-white/50 leading-relaxed">
+              A new version ({latestVersion}) of Cially is available for
+              download.
+            </p>
+            <a
+              className="mt-3 inline-block text-xs font-medium text-white transition-colors"
+              href="https://github.com/skellgreco/cially/releases"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Check Release →
+            </a>
+          </div>
+        )}
         <a href="https://github.com/skellgreco/cially">
           <Badge
             className="rounded-full text-white/70 bg-white/10 backdrop-blur-lg"
