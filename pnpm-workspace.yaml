@@ -61,7 +61,7 @@ catalogs:
     '@types/react-dom': 19.2.3
 
 overrides:
-  undici: ^6.24.0
+  undici: ^8.5.0
   qs: ^6.15.2
   lodash: ^4.17.23
   postcss: ^8.5.10
