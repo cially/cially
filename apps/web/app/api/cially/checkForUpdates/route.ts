@@ -17,6 +17,7 @@ export async function GET() {
 
     let response = {
       isUpdateAvailable,
+      currentVersion,
       latestVersion,
     };
 

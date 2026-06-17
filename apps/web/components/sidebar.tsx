@@ -51,11 +51,11 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       });
       const data = await response.json();
       if (data.code == 200) {
+        setCurrentVersion(data.response.currentVersion);
         if (data.response.isUpdateAvailable) {
           setAvailableUpdate(true);
           setLatestVersion(data.response.latestVersion);
         }
-        setCurrentVersion(data.response.currentVersiosn);
       }
     }
     compareVersions();
