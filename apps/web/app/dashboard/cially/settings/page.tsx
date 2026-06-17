@@ -178,33 +178,6 @@ export default function SettingsPage() {
       <Card className="mx-3 mt-7">
         <CardHeader>
           <CardTitle>
-            <Heart className="-translate-y-0.5 mr-2 inline w-5" /> Support Cially
-          </CardTitle>
-          <CardDescription>
-            If you find Cially helpful and want to support its development,
-            consider making a donation. Your support helps keep the project
-            alive and growing!
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex justify-center sm:justify-start">
-          <a
-            href="https://ko-fi.com/skellgreco"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button
-              className="bg-pink-600 text-white transition-all hover:cursor-pointer hover:bg-pink-600/70"
-              variant={"outline"}
-            >
-              Donate
-            </Button>
-          </a>
-        </CardContent>
-      </Card>
-
-      <Card className="mx-3 mt-7">
-        <CardHeader>
-          <CardTitle>
             <Star className="-translate-y-0.5 mr-2 inline w-5" /> Github
             Repository
           </CardTitle>
