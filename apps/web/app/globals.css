@@ -190,10 +190,10 @@ body {
 
 @layer base {
     * {
-        @apply border-border outline-ring/50 transition-colors duration-500 ease-in-out;
+        @apply border-border outline-ring/50 transition-colors duration-150 ease-in-out;
     }
     body {
-        @apply bg-background text-foreground transition-colors duration-500 ease-in-out;
+        @apply bg-background text-foreground transition-colors duration-150 ease-in-out;
     }
 }
 :root {

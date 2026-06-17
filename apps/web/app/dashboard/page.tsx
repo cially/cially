@@ -118,7 +118,7 @@ function ClientComponent() {
     const guildCards = guildDataArray.map((guild) =>
       guild.in_db === true ? (
         <a href={`/dashboard/server/info?guildID=${guild.id}`} key={guild.id}>
-          <Card className="transition-all hover:bg-white/2 sm:mx-5 ">
+          <Card className="transition-all duration-150 hover:bg-white/2 sm:mx-5 ">
             <CardHeader className="place-items-center">
               <Avatar className=" h-20 w-20">
                 <AvatarImage src={guild.icon} />
