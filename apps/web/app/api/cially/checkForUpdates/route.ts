@@ -1,4 +1,4 @@
-const currentVersion = "v2.0.0-beta.12";
+const currentVersion = "v2.0.0";
 
 export async function GET() {
   try {
