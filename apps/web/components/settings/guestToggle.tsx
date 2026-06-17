@@ -42,7 +42,12 @@ function GuestToggle({ isGuest, onToggle, setGuest }) {
   if (isGuest?.account) {
     return (
       <div className="place-self-center">
-        <Button disabled={loading} onClick={handleToggle} variant="outline">
+        <Button
+          className="hover:cursor-pointer"
+          disabled={loading}
+          onClick={handleToggle}
+          variant="outline"
+        >
           {loading ? "Processing..." : "Make Private"}
         </Button>
       </div>
@@ -51,7 +56,12 @@ function GuestToggle({ isGuest, onToggle, setGuest }) {
   if (isGuest?.noAccounts) {
     return (
       <div className="place-self-center">
-        <Button disabled={loading} onClick={handleToggle} variant="outline">
+        <Button
+          className="hover:cursor-pointer"
+          disabled={loading}
+          onClick={handleToggle}
+          variant="outline"
+        >
           {loading ? "Processing..." : "Make Public"}
         </Button>
       </div>

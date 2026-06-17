@@ -22,15 +22,15 @@ export default function MessagesDashboard() {
 }
 
 interface GuildData {
-  AvailableGuilds: Array<Guild> | null,
-  responseCode: number
+  AvailableGuilds: Array<Guild> | null;
+  responseCode: number;
 }
 
 interface Guild {
-  name: string
-  id: number
-  icon: string,
-  in_db: boolean
+  name: string;
+  id: number;
+  icon: string;
+  in_db: boolean;
 }
 
 function ClientComponent() {
@@ -150,7 +150,7 @@ function ClientComponent() {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      )
+      ),
     );
 
     return (

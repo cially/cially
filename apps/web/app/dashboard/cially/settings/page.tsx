@@ -72,6 +72,11 @@ export default function SettingsPage() {
     }
   };
 
+  const handleThemeUpdate = async (theme: string) => {
+    await handleThemeChange(theme);
+    router.refresh();
+  };
+
   return (
     <div className="min-h-dvh min-w-full ">
       <div>
@@ -95,28 +100,28 @@ export default function SettingsPage() {
         <CardContent>
           <div className="grid grid-cols-3 gap-x-5 gap-y-5 place-self-center sm:grid-cols-6 sm:gap-x-10 sm:gap-y-0">
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("blue")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("blue")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("pink")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("pink")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("gray")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("gray")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("brown")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("brown")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("purple")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("purple")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("red")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("red")}
             />
           </div>
         </CardContent>
@@ -201,7 +206,11 @@ export default function SettingsPage() {
       </Card>
 
       <div className="mt-5 place-self-center">
-        <Button onClick={() => handleSignOut()} variant={"outline"}>
+        <Button
+          className="hover:cursor-pointer"
+          onClick={() => handleSignOut()}
+          variant={"outline"}
+        >
           Log Out
         </Button>
       </div>
