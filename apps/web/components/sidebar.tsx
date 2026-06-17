@@ -41,15 +41,21 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
   const pathname = usePathname();
   const [availableUpdate, setAvailableUpdate] = useState(false);
   const [latestVersion, setLatestVersion] = useState("");
+  const [currentVersion, setCurrentVersion] = useState("");
   const [isGuest, setIsGuest] = useState(false);
 
   useEffect(() => {
     async function compareVersions() {
-      const response = await fetch("/api/cially/checkForUpdates");
+      const response = await fetch("/api/cially/checkForUpdates", {
+        next: { revalidate: 60 },
+      });
       const data = await response.json();
-      if (data.code == 200 && data.response.isUpdateAvailable) {
-        setAvailableUpdate(true);
-        setLatestVersion(data.response.latestVersion);
+      if (data.code == 200) {
+        if (data.response.isUpdateAvailable) {
+          setAvailableUpdate(true);
+          setLatestVersion(data.response.latestVersion);
+        }
+        setCurrentVersion(data.response.currentVersiosn);
       }
     }
     compareVersions();
@@ -226,7 +232,7 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
             className="rounded-full text-white/70 bg-white/10 backdrop-blur-lg"
             variant="secondary"
           >
-            Version: 2.0 (BETA 11)
+            Version: {currentVersion}
           </Badge>
         </a>
       </SidebarFooter>
