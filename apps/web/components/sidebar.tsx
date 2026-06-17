@@ -72,12 +72,6 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       icon: UserSearch,
       path: "/dashboard/server/user",
     },
-    {
-      title: "Agent",
-      url: `/dashboard/server/agent?guildID=${guildID}`,
-      icon: Bot,
-      path: "/dashboard/server/agent",
-    },
   ];
 
   // Cially items
@@ -132,10 +126,11 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
               <SidebarMenu>
                 {items.map((item) => (
                   <SidebarMenuItem
-                    className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-linear-to-r ${isActive(item.path)
-                      ? "border-gray-400 border-0 bg-linear-to-r from-white/2 to-white/10"
-                      : ""
-                      }`}
+                    className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-linear-to-r ${
+                      isActive(item.path)
+                        ? "border-gray-400 border-0 bg-linear-to-r from-white/2 to-white/10"
+                        : ""
+                    }`}
                     key={item.title}
                   >
                     <SidebarMenuButton asChild>
@@ -161,10 +156,11 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
           <SidebarMenu>
             {cially_items.map((item) => (
               <SidebarMenuItem
-                className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r ${isActive(item.path)
-                  ? "border-gray-400 border-l-0 bg-gradient-to-r from-white/2 to-white/10"
-                  : ""
-                  }`}
+                className={`rounded-sm from-white/0 to-white/10 transition-all hover:bg-gradient-to-r ${
+                  isActive(item.path)
+                    ? "border-gray-400 border-l-0 bg-gradient-to-r from-white/2 to-white/10"
+                    : ""
+                }`}
                 key={item.title}
               >
                 <SidebarMenuButton asChild>
@@ -180,7 +176,10 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       </SidebarContent>
       <SidebarFooter className="place-items-center">
         <a href="https://github.com/skellgreco/cially">
-          <Badge className="rounded-full text-white/70 bg-white/10 backdrop-blur-lg" variant="secondary">
+          <Badge
+            className="rounded-full text-white/70 bg-white/10 backdrop-blur-lg"
+            variant="secondary"
+          >
             Version: 2.0 (BETA 11)
           </Badge>
         </a>
