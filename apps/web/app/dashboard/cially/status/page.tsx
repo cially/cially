@@ -38,10 +38,11 @@ export default function Status() {
       const isOnline = status === "online";
       return (
         <Badge
-          className={`flex w-fit items-center gap-1.5 px-3 py-1 font-medium ${isOnline
-            ? "bg-green-500/10 text-green-500 hover:bg-green-500/20"
-            : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
-            }`}
+          className={`flex w-fit items-center gap-1.5 px-3 py-1 font-medium border-0 ${
+            isOnline
+              ? "bg-green-500/10 text-green-500 hover:bg-green-500/20"
+              : "bg-red-500/10 text-red-500 hover:bg-red-500/20"
+          }`}
           variant="outline"
         >
           {isOnline ? (
@@ -79,7 +80,8 @@ export default function Status() {
               <StatusBadge status={pbStatus} />
             </CardHeader>
             <CardContent className="mt-4 border-t border-border/40 pt-4 text-sm text-muted-foreground">
-              Handles all persistent data storage, including user authentication and server analytics.
+              Handles all persistent data storage, including user authentication
+              and server analytics.
             </CardContent>
           </Card>
 
@@ -98,7 +100,8 @@ export default function Status() {
               <StatusBadge status={botStatus} />
             </CardHeader>
             <CardContent className="mt-4 border-t border-border/40 pt-4 text-sm text-muted-foreground">
-              The internal API and Discord Bot responsible for scraping and synchronizing server data.
+              The internal API and Discord Bot responsible for scraping and
+              synchronizing server data.
             </CardContent>
           </Card>
 
@@ -117,7 +120,8 @@ export default function Status() {
               <StatusBadge status={discordStatus} />
             </CardHeader>
             <CardContent className="mt-4 border-t border-border/40 pt-4 text-sm text-muted-foreground">
-              Real-time connectivity status pulled directly from the official Discord Status API.
+              Real-time connectivity status pulled directly from the official
+              Discord Status API.
             </CardContent>
           </Card>
         </div>
