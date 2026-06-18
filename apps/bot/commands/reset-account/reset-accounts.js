@@ -9,9 +9,9 @@ const pb = new PocketBase(url);
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("reset-account")
+    .setName("reset-accounts")
     .setDescription(
-      "Use this command to delete your Cially Admin Account in order to create a new one."
+      "Use this command to delete every Cially Admin Account in order to create a new one.",
     ),
   async execute(interaction) {
     if (
@@ -25,29 +25,33 @@ module.exports = {
           .collection("_superusers")
           .authWithPassword(
             process.env.POCKETBASE_ADMIN_EMAIL,
-            process.env.POCKETBASE_ADMIN_PASSWORD
+            process.env.POCKETBASE_ADMIN_PASSWORD,
           );
-        const record = await pb
-          .collection("users")
-          .getFirstListItem("admin=true", {});
 
-        await pb.collection("users").delete(record.id);
-        debug({
-          text: `Deleted Admin Account with id ${record.id} successfully`,
+        const adminAccounts = await pb.collection("users").getFullList({
+          filter: "admin = true",
         });
+
+        adminAccounts.forEach((account) => {
+          pb.collection("users").delete(account.id);
+          debug({
+            text: `Deleted Admin Account with id ${account.id} successfully`,
+          });
+        });
+
         await interaction.reply({
-          content: "Admin Account Deleted successfully",
+          content: "All admin accounts got deleted successfully",
           flags: MessageFlags.Ephemeral,
         });
       } catch (err) {
         error({
-          text: "Something went wrong after trying to delete admin account",
+          text: "Something went wrong after trying to delete admin accounts",
         });
 
         console.log(err);
         await interaction.reply({
           content:
-            "There was an error when trying to delete admin account. Please check your logs",
+            "There was an error when trying to delete admin accounts. Please check your logs",
           flags: MessageFlags.Ephemeral,
         });
       }

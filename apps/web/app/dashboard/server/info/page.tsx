@@ -11,8 +11,8 @@ export interface GuildData {
   discordID: string;
   name: string;
   members: number;
-  available: boolean;
-  discord_partner: boolean;
+  available: string;
+  discord_partner: string;
   creation_date: string;
   channels: number;
   roles: number;
@@ -41,10 +41,10 @@ function DashboardClientComponent() {
         }
         const data = await API_REQ.json();
 
-        if (await data.responseCode === 200) {
+        if ((await data.responseCode) === 200) {
           setGuildData(data.guildData[0]);
         } else {
-          throw new Error("Failed to fetch Guild Data from the API")
+          throw new Error("Failed to fetch Guild Data from the API");
         }
       } catch (err: unknown) {
         if (err instanceof Error) {

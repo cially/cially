@@ -21,9 +21,9 @@ import {
 import { GuildData } from "@/app/dashboard/server/info/page";
 
 interface StatCardParams {
-  icon: React.ElementType,
-  label: String,
-  value: any
+  icon: React.ElementType;
+  label: String;
+  value: any;
 }
 
 const StatCard = ({ icon: Icon, label, value }: StatCardParams) => (
@@ -34,15 +34,9 @@ const StatCard = ({ icon: Icon, label, value }: StatCardParams) => (
       {value}
     </div>
   </div>
-
 );
 
-export default function BottomCard({
-  guild,
-}: {
-  guild: GuildData
-}) {
-
+export default function BottomCard({ guild }: { guild: GuildData }) {
   // Format the received data before showing them to the UI
   const correct_date =
     guild.creation_date.slice(0, 4) +
@@ -50,8 +44,8 @@ export default function BottomCard({
     guild.creation_date.slice(5, 7) +
     "/" +
     guild.creation_date.slice(11, 13);
-  const correct_available = guild.available === true ? "Yes" : "No";
-  const partner_correct = guild.discord_partner === true ? "Yes" : "No";
+  const correct_available = guild.available === "true" ? "Yes" : "No";
+  const partner_correct = guild.discord_partner === "true" ? "Yes" : "No";
   const correct_description = guild.description
     ? guild.description
     : "No Description";
