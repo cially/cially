@@ -48,15 +48,13 @@ export default function SettingsPage() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch("/api/cially/eraseDatabase", {
-        method: "DELETE",
-      });
+      const { eraseDatabaseAction } = await import("@/components/actions/eraseDatabase");
+      const result = await eraseDatabaseAction();
 
-      if (response.ok) {
+      if (result.code === "Success") {
         router.push("/");
       } else {
-        const errorData = await response.json();
-        console.log(errorData);
+        console.log(result);
       }
     } catch (error) {
       console.error("Error deleting item:", error);

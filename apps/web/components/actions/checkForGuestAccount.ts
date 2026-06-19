@@ -1,10 +1,12 @@
+"use server";
+
 import PocketBase from "pocketbase";
 import { cookies } from "next/headers";
 
-export async function GET() {
-  const url = process.env.POCKETBASE_URL;
-  const pb = new PocketBase(url);
+const url = process.env.POCKETBASE_URL;
 
+export async function checkForGuestAccountAction() {
+  const pb = new PocketBase(url);
   try {
     const cookieStore = await cookies();
     const isUserAGuest = cookieStore.get("guest");
@@ -14,8 +16,8 @@ export async function GET() {
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD,
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const account = await pb
@@ -25,12 +27,12 @@ export async function GET() {
         {},
       );
 
-    return Response.json({ account: account.name });
-  } catch (error) {
+    return { account: account.name };
+  } catch (error: any) {
     if (error.status === 404) {
-      return Response.json({ noAccounts: true });
+      return { noAccounts: true };
     }
     console.log(error);
-    return Response.json({ error: 404 });
+    return { error: 404 };
   }
 }

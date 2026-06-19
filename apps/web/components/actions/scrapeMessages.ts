@@ -1,21 +1,21 @@
+"use server";
+
 import PocketBase from "pocketbase";
+import { checkAdminPermissions } from "@/components/checkAdminPermissions";
 
 const url = process.env.POCKETBASE_URL;
-const pb = new PocketBase(url);
-
 const guild_collection_name = "guilds";
 
-export async function GET(
-  _request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
-  const { id } = await params;
+export async function scrapeMessagesAction(id: string) {
+  await checkAdminPermissions();
+
+  const pb = new PocketBase(url);
   try {
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD)
       );
 
     const guild = await pb
@@ -28,13 +28,11 @@ export async function GET(
         beingScraped: true,
       };
       await pb.collection(guild_collection_name).update(guild.id, data);
-      return Response.json("success");
+      return "success";
     }
-    return Response.json("On going scrape going on");
+    return "On going scrape going on";
   } catch (err) {
     console.log(err);
-    return Response.json({
-      error: 404,
-    });
+    return { error: 404 };
   }
 }

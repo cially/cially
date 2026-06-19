@@ -1,28 +1,18 @@
 // biome-ignore lint/style/useFilenamingConvention: naming convention
 "use server";
 
+import { checkAdminPermissions } from "@/components/checkAdminPermissions";
 import { cookies } from "next/headers";
 import PocketBase from "pocketbase";
 
 export async function fetchAdminAccounts() {
   try {
-    const cookieStore = await cookies();
-    const pbAuth = cookieStore.get("pb_auth");
-
-    if (!pbAuth) {
-      throw new Error("You need to be authenticated to perform this action");
-    }
+    const pbAdminAuth = await checkAdminPermissions();
 
     const url = process.env.POCKETBASE_URL;
     const pb = new PocketBase(url);
 
-    pb.authStore.loadFromCookie(`pb_auth=${pbAuth.value}`);
-
-    await pb.collection("users").authRefresh();
-
-    if (!pb.authStore.record?.admin) {
-      throw new Error("You need to be an admin to perform this action");
-    }
+    pb.authStore.loadFromCookie(`pb_auth=${pbAdminAuth}`);
 
     const currentAdminId = pb.authStore.record?.id;
 
@@ -30,7 +20,7 @@ export async function fetchAdminAccounts() {
       .collection("_superusers")
       .authWithPassword(
         String(process.env.POCKETBASE_ADMIN_EMAIL),
-        String(process.env.POCKETBASE_ADMIN_PASSWORD)
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const adminAccounts = await pb.collection("users").getFullList({
@@ -85,7 +75,7 @@ export async function deleteAdminAccount(accountId: string) {
       .collection("_superusers")
       .authWithPassword(
         String(process.env.POCKETBASE_ADMIN_EMAIL),
-        String(process.env.POCKETBASE_ADMIN_PASSWORD)
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const adminAccounts = await pb.collection("users").getFullList({
@@ -120,7 +110,7 @@ export async function deleteAdminAccount(accountId: string) {
 export async function createAdminAccount(
   name: string,
   email: string,
-  password: string
+  password: string,
 ) {
   try {
     const cookieStore = await cookies();
@@ -145,7 +135,7 @@ export async function createAdminAccount(
       .collection("_superusers")
       .authWithPassword(
         String(process.env.POCKETBASE_ADMIN_EMAIL),
-        String(process.env.POCKETBASE_ADMIN_PASSWORD)
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const existingAccounts = await pb.collection("users").getList(1, 1, {

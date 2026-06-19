@@ -1,15 +1,20 @@
+"use server";
+
 import PocketBase from "pocketbase";
+import { checkAdminPermissions } from "@/components/checkAdminPermissions";
 
 const url = process.env.POCKETBASE_URL;
-const pb = new PocketBase(url);
 
-export async function DELETE() {
+export async function eraseDatabaseAction() {
+  await checkAdminPermissions();
+  
+  const pb = new PocketBase(url);
   async function deleteAllFromCollection(collectionName: string) {
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD)
       );
 
     const records = await pb.collection(collectionName).getFullList();
@@ -19,11 +24,9 @@ export async function DELETE() {
   }
 
   try {
-    // Deletes data in the "guilds" collection so all the data loses their guild relation
-    // Saves time & data instead of clearing every single collection
     await deleteAllFromCollection("guilds");
-    return Response.json({ code: "Success" });
+    return { code: "Success" };
   } catch (_err) {
-    return Response.json({ code: "Error" });
+    return { code: "Error" };
   }
 }

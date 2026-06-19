@@ -35,14 +35,15 @@ export default function ImportDialogCard({
       toast.success(
         "Scraping has started! Restart your bot if you want it to stop!"
       );
-      const response = await fetch(`/api/server/${guildID}/scrapeMessages`);
+      const { scrapeMessagesAction } = await import("@/components/actions/scrapeMessages");
+      // Use any to bypass TS error if guildID is an object, but pass it as string for the action
+      const result = await scrapeMessagesAction(typeof guildID === 'object' ? (guildID as any).guildID || String(guildID) : String(guildID));
 
-      if (response.ok) {
+      if (result === "success") {
         router.push("/");
         console.log("Succesfull Response from /");
       } else {
-        const errorData = await response.json();
-        console.log(errorData);
+        console.log(result);
       }
     } catch (error) {
       console.error("Error deleting item:", error);

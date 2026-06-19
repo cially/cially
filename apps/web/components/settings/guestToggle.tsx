@@ -17,10 +17,9 @@ function GuestToggle({ isGuest, onToggle, setGuest }) {
     if (loading) return;
     setLoading(true);
     try {
-      const response = await fetch("/api/cially/toggleGuestStatus", {
-        method: "POST",
-      });
-      if (response.ok) {
+      const { toggleGuestStatusAction } = await import("@/components/actions/toggleGuestStatus");
+      const result = await toggleGuestStatusAction();
+      if (result && !result.error) {
         setGuest((prev) => {
           if (prev?.account) {
             return { noAccounts: true };
@@ -76,8 +75,8 @@ export default function GuestToggleCard() {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetch("/api/cially/checkForGuestAccount");
-      const data = await response.json();
+      const { checkForGuestAccountAction } = await import("@/components/actions/checkForGuestAccount");
+      const data = await checkForGuestAccountAction();
       setGuest(data);
     }
     fetchData();

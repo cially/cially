@@ -24,11 +24,9 @@ function ClientComponent() {
 
   useEffect(() => {
     async function fetchData() {
-      const chartDataReceived = await fetch(
-        "/api/cially/checkForAdminAccounts"
-      );
-      const json = await chartDataReceived.json();
-      setUserData(json);
+      const { checkForAdminAccountsAction } = await import("@/components/actions/checkForAdminAccounts");
+      const json = await checkForAdminAccountsAction();
+      setUserData(json as AccountData);
     }
     fetchData();
   }, []);

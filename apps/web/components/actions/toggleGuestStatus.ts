@@ -1,15 +1,20 @@
+"use server";
+
 import PocketBase from "pocketbase";
+import { checkAdminPermissions } from "@/components/checkAdminPermissions";
 
 const url = process.env.POCKETBASE_URL;
-const pb = new PocketBase(url);
 
-export async function POST() {
+export async function toggleGuestStatusAction() {
+  await checkAdminPermissions();
+
+  const pb = new PocketBase(url);
   try {
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD)
       );
 
     const account = await pb
@@ -21,8 +26,8 @@ export async function POST() {
 
     await pb.collection("users").delete(account.id);
 
-    return Response.json({ new_status: "private" });
-  } catch (error) {
+    return { new_status: "private" };
+  } catch (error: any) {
     if (error.status === 404) {
       const data = {
         email:
@@ -35,9 +40,9 @@ export async function POST() {
       };
 
       await pb.collection("users").create(data);
-      return Response.json({ new_status: "public" });
+      return { new_status: "public" };
     }
     console.log(error);
-    return Response.json({ error: 404 });
+    return { error: 404 };
   }
 }
