@@ -11,7 +11,14 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
+interface StatCardProps {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string | number;
+  isNetGrowth?: boolean;
+}
+
+const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }: StatCardProps) => (
   <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
@@ -33,7 +40,20 @@ const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
   </div>
 );
 
-export default function DynamicUserCard({ userData }) {
+interface UserData {
+  avatar?: string;
+  username?: string;
+  creationDate?: string;
+  dataArray?: {
+    totalJoins: number;
+    totalLeaves: number;
+    totalMessages: number;
+    averageMessageLength: number;
+    totalInvites: number;
+  }[];
+}
+
+export default function DynamicUserCard({ userData }: { userData: UserData[] }) {
   return (
     <div className="mt-10 w-full place-self-center ">
       <Card className="mx-5">
@@ -58,32 +78,32 @@ export default function DynamicUserCard({ userData }) {
             <StatCard
               icon={UserPlus}
               label="Joins"
-              value={userData[0].dataArray[0].totalJoins}
+              value={userData[0].dataArray?.[0]?.totalJoins ?? 0}
             />
             <StatCard
               icon={UserMinus}
               label="Leaves"
-              value={userData[0].dataArray[0].totalLeaves}
+              value={userData[0].dataArray?.[0]?.totalLeaves ?? 0}
             />
             <StatCard
               icon={MessageCircle}
               label="Total Messages"
-              value={userData[0].dataArray[0].totalMessages}
+              value={userData[0].dataArray?.[0]?.totalMessages ?? 0}
             />
             <StatCard
               icon={Pen}
               label="Average Message Length"
-              value={userData[0].dataArray[0].averageMessageLength}
+              value={userData[0].dataArray?.[0]?.averageMessageLength ?? 0}
             />
             <StatCard
               icon={MailPlus}
               label="Invites Created"
-              value={userData[0].dataArray[0].totalInvites}
+              value={userData[0].dataArray?.[0]?.totalInvites ?? 0}
             />
             <StatCard
               icon={Calendar}
               label="Creation Date"
-              value={`${userData[0].creationDate.slice(0, 10)} at ${userData[0].creationDate.slice(11, 19)} UTC`}
+              value={userData[0].creationDate ? `${userData[0].creationDate.slice(0, 10)} at ${userData[0].creationDate.slice(11, 19)} UTC` : ""}
             />
           </div>
         </CardContent>

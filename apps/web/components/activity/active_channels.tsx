@@ -134,7 +134,6 @@ export default function ActiveChannels({
                 <Bar
                   dataKey="amount"
                   fill="#0370ff"
-                  layout="vertical"
                   radius={4}
                 >
                   <LabelList

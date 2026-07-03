@@ -34,10 +34,27 @@ export default function UserSearchPage() {
   );
 }
 
+interface UserDataResponse {
+  loading?: boolean;
+  userID?: string;
+  username?: string;
+  globalName?: string;
+  avatar?: string;
+  creationDate?: string;
+  dataArray?: {
+    totalJoins: number;
+    totalLeaves: number;
+    totalInvites: number;
+    totalMessages: number;
+    averageMessageLength: number;
+  }[];
+  error?: number;
+}
+
 function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
-  const [userData, setUserData] = useState([{ loading: false }]);
+  const [userData, setUserData] = useState<UserDataResponse[]>([{ loading: false }]);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -50,13 +67,13 @@ function ClientComponent() {
     console.log(userData);
 
     setUserData([{ loading: true }]);
-    const InputData = Array(values)[0].id;
+    const InputData = values.id;
 
     const DataReceived = await fetch(
       `/api/server/${guildID}/fetchUserData/${InputData}`
     );
     const json = await DataReceived.json();
-    setUserData(Array(json));
+    setUserData([json]);
   }
 
   function Header() {
@@ -119,7 +136,7 @@ function ClientComponent() {
     return (
       <>
         <Header />
-        <DynamicUserCard userData={userData} />
+        <DynamicUserCard userData={userData as any} />
       </>
     );
   }

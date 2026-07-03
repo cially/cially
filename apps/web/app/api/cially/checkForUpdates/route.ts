@@ -1,3 +1,6 @@
+import { handleError } from "@/components/errorHandler";
+import { handler } from "next/dist/server/route-modules/pages/builtin/_error";
+
 const currentVersion = "v2.0.0";
 
 export async function GET() {
@@ -24,6 +27,7 @@ export async function GET() {
     return Response.json({ code: 200, response: response });
   } catch (error) {
     console.log(error);
-    return Response.json({ code: 500, error: error.message });
+    handleError(error);
+    return Response.json({ code: 500 });
   }
 }

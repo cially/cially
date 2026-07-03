@@ -38,7 +38,8 @@ function ClientComponent() {
 
   useEffect(() => {
     async function fetchData() {
-      const { fetchGuildsAction } = await import("@/components/actions/fetchGuilds");
+      const { fetchGuildsAction } =
+        await import("@/components/actions/fetchGuilds");
       const json = await fetchGuildsAction();
       setGuildData(json.data as any);
       console.log(json);

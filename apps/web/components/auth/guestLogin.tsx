@@ -12,7 +12,8 @@ export default function GuestLogin() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const { checkForGuestAccountAction } = await import("@/components/actions/checkForGuestAccount");
+        const { checkForGuestAccountAction } =
+          await import("@/components/actions/checkForGuestAccount");
         const guestData = await checkForGuestAccountAction();
 
         if (guestData?.account) {

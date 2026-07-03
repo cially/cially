@@ -48,7 +48,8 @@ export default function SettingsPage() {
 
   const handleDelete = async () => {
     try {
-      const { eraseDatabaseAction } = await import("@/components/actions/eraseDatabase");
+      const { eraseDatabaseAction } =
+        await import("@/components/actions/eraseDatabase");
       const result = await eraseDatabaseAction();
 
       if (result.code === "Success") {
@@ -99,27 +100,27 @@ export default function SettingsPage() {
         <CardContent>
           <div className="grid grid-cols-3 gap-x-5 gap-y-5 place-self-center sm:grid-cols-6 sm:gap-x-10 sm:gap-y-0">
             <div
-              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeUpdate("blue")}
             />
             <div
-              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeUpdate("pink")}
             />
             <div
-              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeUpdate("gray")}
             />
             <div
-              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeUpdate("brown")}
             />
             <div
-              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeUpdate("purple")}
             />
             <div
-              className="h-15 w-15 hover:cursor-pointer rounded-full bg-gradient-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
               onClick={() => handleThemeUpdate("red")}
             />
           </div>
@@ -133,7 +134,7 @@ export default function SettingsPage() {
           <div className="grid sm:grid-cols-2">
             <GuestToggleCard />
 
-            <Card className="mx-3 mt-7 flex flex-col border-[1px] border-red-500/40">
+            <Card className="mx-3 mt-7 flex flex-col border border-red-500/40">
               <CardHeader>
                 <CardTitle>
                   <DatabaseBackup className="-translate-y-0.5 mr-2 inline w-5" />{" "}

@@ -91,7 +91,6 @@ export default function ActiveUsers({
               <Bar
                 dataKey="amount"
                 fill="var(--color-desktop)"
-                layout="vertical"
                 radius={4}
               >
                 <LabelList

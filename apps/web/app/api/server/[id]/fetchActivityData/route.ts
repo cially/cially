@@ -10,7 +10,7 @@ const hourly_stats_collection = "hourly_stats";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
 
@@ -18,8 +18,8 @@ export async function GET(
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const guild = await pb
@@ -72,7 +72,8 @@ export async function GET(
         }
       }
 
-      const discordDataOUT = [{ channels: [], users: [] }];
+      const discordDataOUT: { channels: string[]; users: string[] }[] = [{ channels: [], users: [] }];
+
       for (const item of activeChannels) {
         discordDataOUT[0].channels.push(item.channel);
       }
@@ -88,12 +89,12 @@ export async function GET(
             "Content-Type": "application/json",
           },
           method: "POST",
-        }
+        },
       );
       const discordDataIN = await discordDataIN_Req.json();
 
-      const channelMap = {};
-      const userMap = {};
+      const channelMap: Record<string, string> = {};
+      const userMap: Record<string, string> = {};
 
       if (discordDataIN.newChannels && discordDataIN.newChannels.length > 0) {
         for (const channel of discordDataIN.newChannels) {
@@ -138,12 +139,12 @@ export async function GET(
       });
 
       return Response.json({ finalData });
-    } catch (err) {
+    } catch (err: any) {
       const notFound = [{ errorCode: 404 }];
       console.log(err);
       return Response.json({ notFound });
     }
-  } catch (err) {
+  } catch (err: any) {
     if (err.status === 400) {
       const notFound = [{ errorCode: 404 }];
       return Response.json({ notFound });

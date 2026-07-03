@@ -4,15 +4,19 @@ export async function GET() {
   try {
     const response = [];
 
+    let discordStatus: string;
+    let botStatus: string;
+    let pbStatus: string;
+
     const controllerPocketbase = new AbortController();
     const controllerDiscordBot = new AbortController();
     const timeoutIdPocketbase = setTimeout(
       () => controllerPocketbase.abort(),
-      5000
+      5000,
     );
     const timeoutIdDiscordBot = setTimeout(
       () => controllerDiscordBot.abort(),
-      5000
+      5000,
     );
 
     try {
@@ -20,11 +24,11 @@ export async function GET() {
         signal: controllerPocketbase.signal,
       });
       clearTimeout(timeoutIdPocketbase);
-      response.push({ pocketbase: "online" });
+      pbStatus = "online";
     } catch (err) {
       console.log(err);
 
-      response.push({ pocketbase: "offline" });
+      pbStatus = "offline";
     }
 
     try {
@@ -32,32 +36,36 @@ export async function GET() {
         signal: controllerDiscordBot.signal,
       });
       clearTimeout(timeoutIdDiscordBot);
-      response.push({ bot: "online" });
+      botStatus = "online";
     } catch (err) {
       console.log(err);
-      response.push({ bot: "offline" });
+      botStatus = "offline";
     }
 
     try {
       const discord_response = await fetch(
-        "https://discordstatus.com/api/v2/components.json"
+        "https://discordstatus.com/api/v2/components.json",
       );
 
-      const data = await discord_response.json();
+      const data: any = await discord_response.json();
 
-      const API_Component = data.components.find((c: JSON) => c.name === "API");
+      const API_Component = data.components.find((c: any) => c.name === "API");
       const API_Status = API_Component.status;
       if (API_Status === "operational") {
-        response.push({ discord: "online" });
+        discordStatus = "online";
       } else {
-        response.push({ discord: "outage" });
+        discordStatus = "offline";
       }
     } catch (err) {
       console.log(err);
-      response.push({ discord: "offline" });
+      discordStatus = "offline";
     }
 
-    return Response.json(response);
+    return Response.json({
+      pocketbase: pbStatus,
+      bot: botStatus,
+      discord: discordStatus,
+    });
   } catch (_error) {
     const response = [];
     response.push({ pocketbase: "offline" });

@@ -8,7 +8,7 @@ const hourly_stats_collection = "hourly_stats";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
 
@@ -16,8 +16,8 @@ export async function GET(
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const guild = await pb
@@ -40,7 +40,7 @@ export async function GET(
       for (let i = 0; i < 24; i++) {
         const hourString = i.toString().padStart(2, "0");
         const existingStat = hourlyStats.find(
-          (stat) => stat.hour === hourString
+          (stat) => stat.hour === hourString,
         );
 
         hourData.push({
@@ -71,10 +71,10 @@ export async function GET(
             leaves: acc.leaves + (Number(stat.leaves) || 0),
             unique_users: Math.max(
               acc.unique_users,
-              Number(stat.unique_users) || 0
+              Number(stat.unique_users) || 0,
             ),
           }),
-          { joins: 0, leaves: 0, unique_users: 0 }
+          { joins: 0, leaves: 0, unique_users: 0 },
         );
 
         weekData.push({
@@ -111,10 +111,10 @@ export async function GET(
             leaves: acc.leaves + (Number(stat.leaves) || 0),
             unique_users: Math.max(
               acc.unique_users,
-              Number(stat.unique_users) || 0
+              Number(stat.unique_users) || 0,
             ),
           }),
-          { joins: 0, leaves: 0, unique_users: 0 }
+          { joins: 0, leaves: 0, unique_users: 0 },
         );
 
         fourWeekData.push({
@@ -135,14 +135,20 @@ export async function GET(
       }
       fourWeekData = fourWeekData.toReversed();
 
-      const calculateGeneralStats = (data, period) => {
+      interface GeneralStatItem {
+        joins: number;
+        leaves: number;
+        unique_users: number;
+      }
+
+      const calculateGeneralStats = (data: GeneralStatItem[], period: string) => {
         const totals = data.reduce(
           (acc, item) => ({
             joins: acc.joins + item.joins,
             leaves: acc.leaves + item.leaves,
             unique_users: acc.unique_users + item.unique_users,
           }),
-          { joins: 0, leaves: 0, unique_users: 0 }
+          { joins: 0, leaves: 0, unique_users: 0 },
         );
 
         const joinToLeaveRatio =
@@ -192,7 +198,8 @@ export async function GET(
           retention_rate:
             totals.joins > 0
               ? `${(
-                  ((totals.joins - totals.leaves) / totals.joins) * 100
+                  ((totals.joins - totals.leaves) / totals.joins) *
+                  100
                 ).toFixed(2)}%`
               : "0%",
         };
@@ -216,7 +223,7 @@ export async function GET(
         const hourString = i.toString().padStart(2, "0");
 
         const hourStats = allHourlyStats.filter(
-          (stat) => stat.hour === hourString
+          (stat) => stat.hour === hourString,
         );
         const hourTotal = hourStats.reduce(
           (acc, stat) => ({
@@ -224,7 +231,7 @@ export async function GET(
             leaves: acc.leaves + (Number(stat.leaves) || 0),
             unique_users: acc.unique_users + (Number(stat.unique_users) || 0),
           }),
-          { joins: 0, leaves: 0, unique_users: 0 }
+          { joins: 0, leaves: 0, unique_users: 0 },
         );
 
         hourlyTotals.push({
@@ -246,12 +253,12 @@ export async function GET(
       });
 
       return Response.json({ finalData });
-    } catch (err) {
+    } catch (err: any) {
       const notFound = [{ errorCode: 404 }];
       console.log(err);
       return Response.json({ notFound });
     }
-  } catch (err) {
+  } catch (err: any) {
     if (err.status === 400) {
       const notFound = [{ errorCode: 404 }];
       console.log(err);

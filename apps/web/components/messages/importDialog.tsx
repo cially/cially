@@ -21,23 +21,23 @@ export default function ImportDialogCard({
   guildID,
   isGuest,
 }: {
-  guildID: { guildID: string };
+  guildID: string | null;
   isGuest: boolean;
 }) {
   const router = useRouter();
 
-  if (isGuest) {
+  if (isGuest || !guildID) {
     return null;
   }
 
-  const handleSumbit = async (guildID: { guildID: string }) => {
+  const handleSumbit = async (guildID: string) => {
     try {
       toast.success(
-        "Scraping has started! Restart your bot if you want it to stop!"
+        "Scraping has started! Restart your bot if you want it to stop!",
       );
-      const { scrapeMessagesAction } = await import("@/components/actions/scrapeMessages");
-      // Use any to bypass TS error if guildID is an object, but pass it as string for the action
-      const result = await scrapeMessagesAction(typeof guildID === 'object' ? (guildID as any).guildID || String(guildID) : String(guildID));
+      const { scrapeMessagesAction } =
+        await import("@/components/actions/scrapeMessages");
+      const result = await scrapeMessagesAction(guildID);
 
       if (result === "success") {
         router.push("/");

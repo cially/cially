@@ -17,10 +17,20 @@ export default function MessagesDashboard() {
   );
 }
 
+interface ActivityData {
+  notFound?: { errorCode: number }[];
+  finalData?: {
+    ChannelData: { channel: string; originalId: string; amount: number }[];
+    ActiveUsersData: { author: string; originalId: string; amount: number }[];
+    ActiveHourData: { hour: string; amount: number }[];
+    GeneralData: { online: number; idle: number; offline: number; total: number }[];
+  }[];
+}
+
 function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
-  const [chartData, setChartData] = useState(null);
+  const [chartData, setChartData] = useState<ActivityData | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -70,10 +80,10 @@ function ClientComponent() {
     );
   }
 
-  const data_channels = chartData.finalData[0].ChannelData;
-  const data_users = chartData.finalData[0].ActiveUsersData;
-  const data_hours = chartData.finalData[0].ActiveHourData;
-  const data_general = chartData.finalData[0].GeneralData;
+  const data_channels = chartData?.finalData?.[0]?.ChannelData;
+  const data_users = chartData?.finalData?.[0]?.ActiveUsersData;
+  const data_hours = chartData?.finalData?.[0]?.ActiveHourData;
+  const data_general = chartData?.finalData?.[0]?.GeneralData;
 
   return (
     <>

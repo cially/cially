@@ -255,7 +255,7 @@ export default function AccountManagementCard() {
           >
             <div className="flex items-center gap-4">
               <div
-                className={`flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br font-semibold text-base text-white uppercase shadow-inner ${getAvatarGradient(
+                className={`flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br font-semibold text-base text-white uppercase shadow-inner ${getAvatarGradient(
                   account.email,
                 )}`}
               >
@@ -334,7 +334,7 @@ export default function AccountManagementCard() {
           <User className="h-8 w-8 text-muted-foreground" />
         </div>
         <h3 className="font-semibold text-lg">No admin accounts found</h3>
-        <p className="mt-1 max-w-[250px] text-muted-foreground text-sm">
+        <p className="mt-1 max-w-62.5 text-muted-foreground text-sm">
           It seems there are no administrator accounts configured yet.
         </p>
         <Button

@@ -11,7 +11,14 @@ import {
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
-const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
+interface StatCardProps {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string | number;
+  isNetGrowth?: boolean;
+}
+
+const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }: StatCardProps) => (
   <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">

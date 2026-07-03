@@ -1,3 +1,4 @@
+import { handleError } from "@/components/errorHandler";
 import PocketBase from "pocketbase";
 
 const url = process.env.POCKETBASE_URL;
@@ -9,8 +10,8 @@ export async function GET() {
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const scrapedGuild = await pb
@@ -20,11 +21,11 @@ export async function GET() {
     const guildName = scrapedGuild.name;
 
     return Response.json({ server: guildName });
-  } catch (error) {
+  } catch (error: any) {
     if (error.status === 404) {
       return Response.json({ noServer: true });
     }
-    console.log(error);
-    return Response.json({ error: 404 });
+    handleError(error);
+    return Response.json({ code: 500 });
   }
 }

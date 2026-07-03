@@ -14,9 +14,8 @@ export default function MessagesActivityPage() {
 }
 
 interface AccountData {
-  adminAccountExists: boolean | null,
-  responseCode: number
-
+  adminAccountExists: boolean | null;
+  responseCode: number;
 }
 
 function ClientComponent() {
@@ -24,7 +23,8 @@ function ClientComponent() {
 
   useEffect(() => {
     async function fetchData() {
-      const { checkForAdminAccountsAction } = await import("@/components/actions/checkForAdminAccounts");
+      const { checkForAdminAccountsAction } =
+        await import("@/components/actions/checkForAdminAccounts");
       const json = await checkForAdminAccountsAction();
       setUserData(json as AccountData);
     }
@@ -32,7 +32,6 @@ function ClientComponent() {
   }, []);
 
   if (userData) {
-
     if (userData.adminAccountExists === true) {
       return (
         <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">

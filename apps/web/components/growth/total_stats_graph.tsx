@@ -30,13 +30,21 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function TotalStatsGraph({ chartData }) {
+interface HourlyTotalItem {
+  hour: string;
+  joins: number;
+  leaves: number;
+  unique_users: number;
+  net: number;
+}
+
+export function TotalStatsGraph({ chartData }: { chartData?: HourlyTotalItem[] }) {
   const [activeChart, setActiveChart] =
     React.useState<keyof typeof chartConfig>("joins");
   const total = React.useMemo(
     () => ({
-      joins: chartData.reduce((acc, curr) => acc + curr.joins, 0),
-      leaves: chartData.reduce((acc, curr) => acc + curr.leaves, 0),
+      joins: chartData?.reduce((acc, curr) => acc + curr.joins, 0) || 0,
+      leaves: chartData?.reduce((acc, curr) => acc + curr.leaves, 0) || 0,
     }),
     [chartData]
   );
@@ -112,7 +120,7 @@ export function TotalStatsGraph({ chartData }) {
                         />
                         <span className="capitalize">{name}:</span>
                         <span className="font-bold">
-                          {name === "net" && value > 0 ? "+" : ""}
+                          {name === "net" && typeof value === "number" && value > 0 ? "+" : ""}
                           {value}
                         </span>
                       </div>

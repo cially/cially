@@ -17,7 +17,14 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Last4Weeks({ chartData }) {
+interface WeekGrowthData {
+  factor: string;
+  joins: number;
+  leaves: number;
+  unique_users: number;
+}
+
+export default function Last4Weeks({ chartData }: { chartData?: WeekGrowthData[] }) {
   const chartConfig = {
     joins: {
       label: "Joins",

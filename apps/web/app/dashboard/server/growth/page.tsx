@@ -18,10 +18,28 @@ export default function GrowthPage() {
   );
 }
 
+interface GrowthData {
+  notFound?: { errorCode: number }[];
+  finalData?: {
+    HourData: { hour: string; joins: number; leaves: number; unique_users: number }[];
+    WeekData: { date: string; joins: number; leaves: number; unique_users: number }[];
+    FourWeekData: {
+      factor: string;
+      starting_date: { startingDate_formatted: string; startingDate_ms: number };
+      finishing_date: { endingDate_formatted: string; endingDate_ms: number };
+      joins: number;
+      leaves: number;
+      unique_users: number;
+    }[];
+    GeneralData: any[];
+    HourlyTotals: { hour: string; joins: number; leaves: number; unique_users: number; net: number }[];
+  }[];
+}
+
 function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
-  const [chartData, setChartData] = useState(null);
+  const [chartData, setChartData] = useState<GrowthData | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -60,11 +78,11 @@ function ClientComponent() {
     );
   }
 
-  const data_24h = chartData.finalData[0].HourData;
-  const data_7d = chartData.finalData[0].WeekData;
-  const data_4w = chartData.finalData[0].FourWeekData;
-  const data_general = chartData.finalData[0].GeneralData;
-  const data_hourly = chartData.finalData[0].HourlyTotals;
+  const data_24h = chartData?.finalData?.[0]?.HourData;
+  const data_7d = chartData?.finalData?.[0]?.WeekData;
+  const data_4w = chartData?.finalData?.[0]?.FourWeekData;
+  const data_general = chartData?.finalData?.[0]?.GeneralData;
+  const data_hourly = chartData?.finalData?.[0]?.HourlyTotals;
   return (
     <>
       <div className="mt-10 ml-10 text-2xl">Growth Analytics</div>

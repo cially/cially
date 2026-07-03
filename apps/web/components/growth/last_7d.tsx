@@ -28,7 +28,14 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function Last7d({ chartData }) {
+interface DayGrowthData {
+  date: string;
+  joins: number;
+  leaves: number;
+  unique_users: number;
+}
+
+export default function Last7d({ chartData }: { chartData?: DayGrowthData[] }) {
   if (!chartData) {
     return (
       <Card>

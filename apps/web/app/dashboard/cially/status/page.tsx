@@ -14,7 +14,11 @@ import {
 } from "@/components/ui/card";
 
 export default function Status() {
-  const [statusData, setStatusData] = useState([{ amount: 69 }]);
+  const [statusData, setStatusData] = useState({
+    pocketbase: "loading",
+    bot: "loading",
+    discord: "loading",
+  });
 
   useEffect(() => {
     async function fetchData() {
@@ -26,13 +30,10 @@ export default function Status() {
     fetchData();
   }, []);
 
-  if (statusData.pocketbase) {
-    return <GuildNotFound />;
-  }
-  if (statusData[0].pocketbase) {
-    const botStatus = statusData[1].bot;
-    const pbStatus = statusData[0].pocketbase;
-    const discordStatus = statusData[2].discord;
+  if (statusData.pocketbase !== "loading") {
+    const botStatus = statusData.bot;
+    const pbStatus = statusData.pocketbase;
+    const discordStatus = statusData.discord;
 
     const StatusBadge = ({ status }: { status: string }) => {
       const isOnline = status === "online";
