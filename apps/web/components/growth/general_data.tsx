@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Activity,
   Columns,
@@ -120,6 +121,8 @@ export default function GeneralMessageDataCard({
 }: {
   generalData?: PeriodData[];
 }) {
+  const [activeTab, setActiveTab] = useState("today");
+
   if (!generalData) {
     return (
       <Card className="mt-10 grid auto-rows-auto px-10 py-6 sm:min-w-dvh">
@@ -154,17 +157,28 @@ export default function GeneralMessageDataCard({
           </div>
         </div>
 
-        <Tabs className="w-full" defaultValue="today">
-          <TabsList className="mb-6 grid w-full grid-cols-3">
-            <TabsTrigger className="flex items-center gap-2" value="today">
+        <Tabs className="w-full" defaultValue="today" onValueChange={setActiveTab}>
+          <TabsList className="relative mb-6 grid w-full grid-cols-3">
+            <div
+              className="absolute top-[3px] bottom-[3px] rounded-md bg-white/13 border border-white/30 transition-all duration-300 ease-in-out"
+              style={{
+                width: "calc(33.333% - 2px)",
+                left: activeTab === "today"
+                  ? "3px"
+                  : activeTab === "week"
+                    ? "calc(33.333% + 1px)"
+                    : "calc(66.666% - 1px)"
+              }}
+            />
+            <TabsTrigger className="relative z-10 cursor-pointer data-[state=active]:bg-transparent dark:data-[state=active]:bg-transparent data-[state=active]:border-transparent dark:data-[state=active]:border-transparent data-[state=active]:shadow-none flex items-center gap-2" value="today">
               <Columns className="h-4 w-4" />
               Today
             </TabsTrigger>
-            <TabsTrigger className="flex items-center gap-2" value="week">
+            <TabsTrigger className="relative z-10 cursor-pointer data-[state=active]:bg-transparent dark:data-[state=active]:bg-transparent data-[state=active]:border-transparent dark:data-[state=active]:border-transparent data-[state=active]:shadow-none flex items-center gap-2" value="week">
               <Columns2 className="h-4 w-4" />
               Week
             </TabsTrigger>
-            <TabsTrigger className="flex items-center gap-2" value="month">
+            <TabsTrigger className="relative z-10 cursor-pointer data-[state=active]:bg-transparent dark:data-[state=active]:bg-transparent data-[state=active]:border-transparent dark:data-[state=active]:border-transparent data-[state=active]:shadow-none flex items-center gap-2" value="month">
               <Columns3 className="h-4 w-4" />
               Month
             </TabsTrigger>
