@@ -35,6 +35,7 @@ import {
   Rss,
   Antenna
 } from "lucide-react";
+import Image from "next/image";
 
 const greetings = [
   { text: "Welcome", lang: "English" },
@@ -240,10 +241,13 @@ export function RegisterForm({
         {step === 1 && (
           <div className="animate-fade-in-up flex flex-col items-center p-6 text-center">
             <div className="flex justify-center mb-2">
-              <img
+              <Image   
                 src="/logo-webp.webp"
                 alt="Cially Logo"
                 className="w-24 h-24 object-contain rounded-xl select-none"
+                loading="eager"
+                width={1920}
+                height={1080}
               />
             </div>
             <div className="h-12 flex items-center justify-center">
