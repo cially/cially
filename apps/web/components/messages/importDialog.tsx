@@ -86,14 +86,12 @@ export default function ImportDialogCard({
                   <br />
                   Please proceed once you've made sure that nothing can cause a
                   downtime to your bot. Also make sure to enable debugging if
-                  you want to see details regarding the scraping procedure
+                  you want to see details of the scraping procedure
                   <br />
                   <br />
-                  While Cially is respecting Discord's TOS regarding API
-                  requests, if Discord decides to ratelimit your bot for any
+                  If Discord decides to ratelimit your bot for any
                   reason, the procedure will stop automatically. We advise you
-                  to not re-run the scrape if done so, and wait for 24 hours
-                  first
+                  to not re-run the scrape if done so.
                   <br />
                   <br />
                   If there is an ongoing scrape going on, clicking the button
