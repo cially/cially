@@ -177,7 +177,9 @@
     },
     "passwordAuth": {
       "enabled": true,
-      "identityFields": ["email"]
+      "identityFields": [
+        "email"
+      ]
     },
     "mfa": {
       "enabled": false,
@@ -353,7 +355,9 @@
     },
     "passwordAuth": {
       "enabled": true,
-      "identityFields": ["email"]
+      "identityFields": [
+        "email"
+      ]
     },
     "mfa": {
       "enabled": false,
@@ -967,6 +971,16 @@
         "required": false,
         "system": false,
         "type": "number"
+      },
+      {
+        "hidden": false,
+        "id": "autodate3342387181",
+        "name": "created",
+        "onCreate": true,
+        "onUpdate": false,
+        "presentable": false,
+        "system": false,
+        "type": "autodate"
       }
     ],
     "indexes": [],
