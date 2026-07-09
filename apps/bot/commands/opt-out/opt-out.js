@@ -60,7 +60,7 @@ module.exports = {
       .setColor(0x940c27)
       .setTitle('Opted Out')
       .setAuthor({ name: 'Cially', iconURL: interaction.client.user.avatarURL() })
-      .setDescription("You've Opted Out Succesfully. Every piece of data related to your account will be permanently removed from the database shortly. Cially won't track future data of yours and your account won't be visible in any analytics. However, anonymous data (such as the total number of messages sent) may still be visible as they're not linked to any specific user. You can opt back in at any time")
+      .setDescription("You've Opted Out Succesfully. Every piece of data related to your account will be permanently removed from the database shortly. Cially won't track future data of yours and your account won't be visible in any analytics. However, anonymous data (such as the total number of messages sent) may still be visible as they're not linked to any specific user. You can opt back in at any time\n\n**Heads Up**\nMessage Deletions will continue to get tracked anonymized due to Discord's limitations")
       .setThumbnail(interaction.client.user.avatarURL())
 
     const optedInEmbed = new EmbedBuilder()

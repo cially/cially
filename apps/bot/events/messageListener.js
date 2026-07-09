@@ -2,11 +2,19 @@
 const { Events } = require("discord.js");
 const { debug } = require("../terminal/debug");
 const { sendPostRequest } = require("../http/postRequest");
+const { checkPrivacyPreferences } = require("../http/API/functions/logic/checkPrivacyPreferences");
 
 module.exports = {
   name: Events.MessageCreate,
   once: false,
-  execute(message) {
+  async execute(message) {
+    // Check if author is opted out early to save resources
+    const isUserOptedOut = await checkPrivacyPreferences(message.author.id);
+    if (isUserOptedOut) {
+      debug({ text: `User ${message.author.username} (${message.author.id}) is opted out. Not processing message.` });
+      return;
+    }
+
     if (!message.author.bot) {
       // Get the number of words per message
       const totalWords = message.content

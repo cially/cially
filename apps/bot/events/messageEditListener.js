@@ -3,12 +3,20 @@ const { Events } = require("discord.js");
 const { debug } = require("../terminal/debug");
 const { error } = require("../terminal/error");
 const { sendPostRequest } = require("../http/postRequest");
+const { checkPrivacyPreferences } = require("../http/API/functions/logic/checkPrivacyPreferences");
 
 module.exports = {
   name: Events.Raw,
   once: false,
-  execute(packet) {
+  async execute(packet) {
     if (packet.t !== "MESSAGE_UPDATE") return;
+
+    // Check if author is opted out early to save resources
+    const isUserOptedOut = await checkPrivacyPreferences(packet.d.author.id);
+    if (isUserOptedOut) {
+      debug({ text: `User ${packet.d.author.username} (${packet.d.author.id}) is opted out. Not processing message edit.` });
+      return;
+    }
     debug({ text: "Message Got Edited. Fetching Guild..." });
 
     try {
@@ -26,7 +34,7 @@ module.exports = {
       });
     } catch (err) {
       error({
-        text: `Failed to save Message Deletion in the DB. Error: ${err}`,
+        text: `Failed to save Message Edit in the DB. Error: ${err}`,
       });
     }
   },

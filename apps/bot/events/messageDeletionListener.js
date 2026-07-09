@@ -7,9 +7,8 @@ const { sendPostRequest } = require("../http/postRequest");
 module.exports = {
   name: Events.Raw,
   once: false,
-  execute(packet) {
+  async execute(packet) {
     if (packet.t !== "MESSAGE_DELETE") return;
-    debug({ text: "Message Deleted. Fetching Guild..." });
 
     try {
       const guildID = packet.d.guild_id;
