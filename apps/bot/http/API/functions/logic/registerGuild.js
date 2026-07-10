@@ -33,7 +33,7 @@ async function registerGuild(guildID) {
       };
 
       // HTTP Request
-      get.get(opts, (res) => {
+      get.get(opts, (_err, res) => {
         try {
           res.pipe(process.stdout);
 
