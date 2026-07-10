@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, MessageFlags, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require("discord.js");
+const { SlashCommandBuilder, MessageFlags, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } = require("discord.js");
 const { debug } = require("../../terminal/debug");
 const { error } = require("../../terminal/error");
 
@@ -70,6 +70,27 @@ module.exports = {
       .setDescription("You've Opted In Succesfully. Cially now tracks your activity!")
       .setThumbnail(interaction.client.user.avatarURL())
 
+    const incorrectEmbed = new EmbedBuilder()
+      .setColor(0x575757)
+      .setTitle('Cancelled')
+      .setAuthor({ name: 'Cially', iconURL: interaction.client.user.avatarURL() })
+      .setDescription("Confirmation text did not match. Action cancelled.")
+      .setThumbnail(interaction.client.user.avatarURL());
+
+    const modal = new ModalBuilder()
+      .setCustomId('confirm-opt-out-modal')
+      .setTitle('Confirm Opt Out');
+
+    const confirmInput = new TextInputBuilder()
+      .setCustomId('confirm-input')
+      .setLabel('Type "CONFIRM" to permanently delete data')
+      .setStyle(TextInputStyle.Short)
+      .setPlaceholder('CONFIRM')
+      .setRequired(true);
+
+    const firstActionRow = new ActionRowBuilder().addComponents(confirmInput);
+    modal.addComponents(firstActionRow);
+
     const row = new ActionRowBuilder().addComponents(cancel, actionButton);
 
     const response = await interaction.reply({
@@ -79,7 +100,6 @@ module.exports = {
       withResponse: true
     })
 
-
     const collectorFilter = (i) => i.user.id === interaction.user.id;
 
     try {
@@ -87,11 +107,31 @@ module.exports = {
 
       switch (confirmation.customId) {
         case ('opt-out'):
-          await confirmation.update({ embeds: [optedOutEmbed], components: [] });
-          await pb.collection('opted_out').create({
-            user_id: userID
-          });
-          debug({ text: `User ${interaction.user.tag} has opted out` });
+          await confirmation.showModal(modal);
+
+          try {
+            const modalSubmit = await confirmation.awaitModalSubmit({
+              filter: (i) => i.customId === 'confirm-opt-out-modal' && i.user.id === interaction.user.id,
+              time: 60_000
+            });
+
+            const userConfirmationText = modalSubmit.fields.getTextInputValue('confirm-input');
+            if (userConfirmationText.toUpperCase() === 'CONFIRM') {
+              await modalSubmit.update({ embeds: [optedOutEmbed], components: [] });
+              await pb.collection('opted_out').create({
+                user_id: userID
+              });
+              debug({ text: `User ${interaction.user.tag} has opted out` });
+            } else {
+              await modalSubmit.update({ embeds: [incorrectEmbed], components: [] });
+            }
+          } catch (modalErr) {
+            try {
+              await interaction.editReply({ embeds: [cancelEmbed], components: [] });
+            } catch (e) {
+              // ignore
+            }
+          }
           break;
         case ('opt-in'):
           await confirmation.update({ embeds: [optedInEmbed], components: [] });
