@@ -1,7 +1,7 @@
 import { Events, Invite } from "discord.js";
 import { debug } from "../terminal/debug";
-import { sendPostRequest } from "../http/postRequest";
 import { checkPrivacyPreferences } from "../http/API/functions/logic/checkPrivacyPreferences";
+import { inviteCreate } from "../http/API/functions/inviteCreate";
 
 export const name = Events.InviteCreate;
 export async function execute(invite: Invite) {
@@ -19,14 +19,5 @@ export async function execute(invite: Invite) {
     text: `New Invite Created: \nGuild: ${invite.guild?.name}, ${invite.guild}\nChannel: ${invite.channel?.name}, ${invite.channelId}\nInviter: ${invite.inviterId}\n`,
   });
 
-  const info = {
-    guildID: invite.guild?.id,
-    channelID: invite.channelId,
-    authorID: invite.inviterId,
-  };
-  sendPostRequest({
-    data: info,
-    guildId: invite.guild?.id || "",
-    type: Events.InviteCreate,
-  });
+  inviteCreate(invite.guild?.id, invite.channelId, invite.inviterId)
 }

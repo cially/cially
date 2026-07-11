@@ -12,15 +12,9 @@ const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 const collection_name = process.env.INVITE_COLLECTION;
 
-export async function inviteCreate(req: Request, res: Response, client?: Client): Promise<Response> {
-  const body = req.body;
-  const { guildID, channelID, authorID } = body;
+export async function inviteCreate(guildID: string | undefined, channelID: string | null, authorID: string | null) {
 
-  debug({ text: `New POST Request: \n${JSON.stringify(body)}` });
-
-  const roger = {
-    response: `Message Received with the following details: GI: ${guildID}`,
-  };
+  debug({ text: `Invite Creation received with the following details: GI: ${guildID} CI: ${channelID} AI: ${authorID}` });
 
   try {
     const adminEmail = process.env.POCKETBASE_ADMIN_EMAIL;
@@ -59,10 +53,4 @@ export async function inviteCreate(req: Request, res: Response, client?: Client)
       error({ text: `[ERROR] Error Code: ${err.status}` });
     }
   }
-
-  debug({
-    text: "End of logic. Stopping the communication and returning a response to the Bot",
-  });
-
-  return res.status(201).json(roger);
 }

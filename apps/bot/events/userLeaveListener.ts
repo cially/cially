@@ -1,7 +1,7 @@
 import { Events, GuildMember } from "discord.js";
 import { debug } from "../terminal/debug";
-import { sendPostRequest } from "../http/postRequest";
 import { checkPrivacyPreferences } from "../http/API/functions/logic/checkPrivacyPreferences";
+import { guildMemberRemove } from "../http/API/functions/guildMemberRemove";
 
 export const name = Events.GuildMemberRemove;
 export async function execute(member: GuildMember) {
@@ -16,15 +16,5 @@ export async function execute(member: GuildMember) {
     text: `User Left: \nGuild: ${member.guild.name}, ${member.guild.id} Members: ${member.guild.memberCount}\nMember: ${member.id}, ${member.displayName}`,
   });
 
-  const info = {
-    guildID: member.guild.id,
-    memberID: member.id,
-    memberCount: member.guild.memberCount,
-  };
-
-  sendPostRequest({
-    data: info,
-    guildId: member.guild.id,
-    type: Events.GuildMemberRemove,
-  });
+  guildMemberRemove(member.guild.id, member.id)
 }

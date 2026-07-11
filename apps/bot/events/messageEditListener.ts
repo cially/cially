@@ -1,8 +1,8 @@
 import { Events } from "discord.js";
 import { debug } from "../terminal/debug";
 import { error } from "../terminal/error";
-import { sendPostRequest } from "../http/postRequest";
 import { checkPrivacyPreferences } from "../http/API/functions/logic/checkPrivacyPreferences";
+import { messageEdit } from "../http/API/functions/messageEdit";
 
 export const name = Events.Raw;
 export const once = false;
@@ -24,15 +24,7 @@ export async function execute(packet: any) {
     const guildID = packet.d.guild_id;
     debug({ text: `Fetched Guild. Message Edit on Guild: ${guildID}` });
 
-    const info = {
-      guildID,
-    };
-
-    sendPostRequest({
-      data: info,
-      guildId: guildID,
-      type: "messageEdit",
-    });
+    messageEdit(guildID)
   } catch (err) {
     error({
       text: `Failed to save Message Edit in the DB. Error: ${err}`,

@@ -1,24 +1,14 @@
-import { Request, Response } from "express";
 import { debug } from "../../../terminal/debug";
 import { error } from "../../../terminal/error";
 import { registerGuild } from "./logic/registerGuild";
 import PocketBase from "pocketbase";
 
-import { Client } from "discord.js";
-
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 const guild_collection_name = process.env.GUILD_COLLECTION;
 
-export async function messageDelete(req: Request, res: Response, client?: Client): Promise<Response> {
-  const body = req.body;
-  const { guildID } = body;
-
-  debug({ text: `New POST req: \n${JSON.stringify(body)}` });
-
-  const roger = {
-    res: `Message Deletion Received with the following details: GI: ${guildID}`,
-  };
+export async function messageDelete(guildID: string) {
+  debug({ text: `Message Deletion Received with the following details: GI: ${guildID}` });
 
   try {
     const adminEmail = process.env.POCKETBASE_ADMIN_EMAIL;
@@ -55,10 +45,4 @@ export async function messageDelete(req: Request, res: Response, client?: Client
       error({ text: `[ERROR] Error Code: ${err.status}` });
     }
   }
-
-  debug({
-    text: "End of logic. Stopping the communication and returning a res to the Bot",
-  });
-
-  return res.status(201).json(roger);
 }

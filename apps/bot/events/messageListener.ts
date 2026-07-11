@@ -1,7 +1,7 @@
 import { Events, Message } from "discord.js";
 import { debug } from "../terminal/debug";
-import { sendPostRequest } from "../http/postRequest";
 import { checkPrivacyPreferences } from "../http/API/functions/logic/checkPrivacyPreferences";
+import { messageCreate } from "../http/API/functions/messageCreate";
 
 export const name = Events.MessageCreate;
 export const once = false;
@@ -31,18 +31,8 @@ export async function execute(message: Message) {
       text: `New Message: \nAuthor: ${message.author.username}\nGuild: ${message.guild.name}, ${message.guild.id}\nMessage ID: ${message.id} \nMessage Length: ${totalWords.length} \nChannel: ${(message.channel as any).name}, ${message.channelId}\nAttachments: ${totalMedia}`,
     });
 
-    const info = {
-      guildID: message.guild.id,
-      messageID: message.id,
-      messageLength: totalWords.length,
-      channelID: message.channelId,
-      authorID: message.author.id,
-      attachments: totalMedia,
-    };
-    sendPostRequest({
-      data: info,
-      guildId: message.guild.id,
-      type: Events.MessageCreate,
-    });
+
+    messageCreate(message.guild.id, message.id, totalWords.length, message.channelId, message.author.id, totalMedia)
+
   }
 }

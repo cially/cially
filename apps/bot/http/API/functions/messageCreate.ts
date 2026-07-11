@@ -1,11 +1,8 @@
-import { Request, Response } from "express";
 import { debug } from "../../../terminal/debug";
 import { error } from "../../../terminal/error";
 import PocketBase from "pocketbase";
 import { registerGuild } from "./logic/registerGuild";
 import { retryRequest } from "./logic/retryRequest";
-
-import { Client } from "discord.js";
 
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
@@ -14,22 +11,11 @@ const collection_name = process.env.MESSAGE_COLLECTION;
 
 pb.autoCancellation(false);
 
-export async function messageCreate(req: Request, res: Response, client?: Client): Promise<Response> {
-  const body = req.body;
-  const {
-    guildID,
-    messageID,
-    messageLength,
-    channelID,
-    authorID,
-    attachments,
-  } = body;
+export async function messageCreate(guildID: string, messageID: string, messageLength: number, channelID: string, authorID: string, attachments: number) {
 
-  debug({ text: `New POST req: \n${JSON.stringify(body)}` });
 
-  const roger = {
-    res: `Message Received with the following details: GI: ${guildID}, MI: ${messageID}`,
-  };
+  debug({ text: `Message Received with the following details: GI: ${guildID}, MI: ${messageID}` })
+
 
   try {
     const adminEmail = process.env.POCKETBASE_ADMIN_EMAIL;
@@ -103,9 +89,4 @@ export async function messageCreate(req: Request, res: Response, client?: Client
     }
   }
 
-  debug({
-    text: "End of logic. Stopping the communication and returning a res to the Bot",
-  });
-
-  return res.status(201).json(roger);
 }

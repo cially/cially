@@ -52,33 +52,8 @@ export async function API(client: Client): Promise<void> {
     serverScrape(req, res, client);
   });
 
-  // POST Routes
-  app.post("/messageCreate/:guildID", globalRateLimiter, (req, res) => {
-    messageCreate(req, res, client);
-  });
-
-  app.post("/inviteCreate/:guildID", globalRateLimiter, (req, res) => {
-    inviteCreate(req, res, client);
-  });
-
-  app.post("/guildMemberAdd/:guildID", globalRateLimiter, (req, res) => {
-    guildMemberAdd(req, res, client);
-  });
-
-  app.post("/guildMemberRemove/:guildID", globalRateLimiter, (req, res) => {
-    guildMemberRemove(req, res, client);
-  });
-
   app.post("/fetchID/:guildID", globalRateLimiter, (req, res) => {
     fetchID(req, res, client);
-  });
-
-  app.post("/messageDelete/:guildID", globalRateLimiter, (req, res) => {
-    messageDelete(req, res, client);
-  });
-
-  app.post("/messageEdit/:guildID", globalRateLimiter, (req, res) => {
-    messageEdit(req, res, client);
   });
 
   app.post("/fetchUserData/:guildID", globalRateLimiter, (req, res) => {

@@ -1,7 +1,7 @@
 import { Events, GuildMember } from "discord.js";
 import { debug } from "../terminal/debug";
-import { sendPostRequest } from "../http/postRequest";
 import { checkPrivacyPreferences } from "../http/API/functions/logic/checkPrivacyPreferences";
+import { guildMemberAdd } from "../http/API/functions/guildMemberAdd";
 
 export const name = Events.GuildMemberAdd;
 export async function execute(member: GuildMember) {
@@ -16,15 +16,5 @@ export async function execute(member: GuildMember) {
     text: `User Joined: \nGuild: ${member.guild.name}, ${member.guild.id}, Members: ${member.guild.memberCount}\nMember: ${member.id}, ${member.displayName}`,
   });
 
-  const info = {
-    guildID: member.guild.id,
-    memberID: member.id,
-    memberCount: member.guild.memberCount,
-  };
-
-  sendPostRequest({
-    data: info,
-    guildId: member.guild.id,
-    type: Events.GuildMemberAdd,
-  });
+  guildMemberAdd(member.guild.id, member.id)
 }
