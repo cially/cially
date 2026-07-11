@@ -1,10 +1,7 @@
-import { Request, Response } from "express";
 import { debug } from "../../../terminal/debug";
 import { error } from "../../../terminal/error";
 import { registerGuild } from "./logic/registerGuild";
 import PocketBase from "pocketbase";
-
-import { Client } from "discord.js";
 
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
