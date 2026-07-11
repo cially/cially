@@ -54,8 +54,8 @@ function ClientComponent() {
         <div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
         <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
-        <div className="mx-5 h-[100%]">
-          <div className="mt-10 grid w-[100%] grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="mx-5 h-full">
+          <div className="mt-10 grid w-full grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <ActiveChannels />
             </div>
@@ -64,7 +64,7 @@ function ClientComponent() {
             </div>
           </div>
 
-          <div className=" mt-5 w-[100%]">
+          <div className=" mt-5 w-full">
             <ActiveHours />
 
             <div className="mt-5">
@@ -90,8 +90,8 @@ function ClientComponent() {
       <div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
       <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
       <ScrapeNotification />
-      <div className="mx-5 h-[100%]">
-        <div className="mt-10 grid w-[100%] grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="mx-5 h-full">
+        <div className="mt-10 grid w-full grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <ActiveChannels chartData={data_channels} />
           </div>
@@ -100,7 +100,7 @@ function ClientComponent() {
           </div>
         </div>
 
-        <div className=" mt-5 w-[100%]">
+        <div className="mt-5 w-full">
           <ActiveHours chartData={data_hours} />
 
           <div className="mt-5">
