@@ -24,6 +24,7 @@ onRecordAfterCreateSuccess((e) => {
         eraseData(recordID, "memberID", "member_leaves");
         eraseData(recordID, "memberID", "member_joins");
         eraseData(recordID, "author", "messages");
+        eraseData(recordID, "authorID", "invites");
 
         console.log("====== Job Finished ======")
         e.next();
