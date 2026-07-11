@@ -104,7 +104,7 @@ export function RegisterForm({
       const res = await fetch("/api/cially/checkStatus");
       if (!res.ok) throw new Error("Failed to check status");
       const data = await res.json();
-      
+
       setStatus({
         pocketbase: data.pocketbase || "offline",
         bot: data.bot || "offline",
@@ -241,7 +241,7 @@ export function RegisterForm({
         {step === 1 && (
           <div className="animate-fade-in-up flex flex-col items-center p-6 text-center">
             <div className="flex justify-center mb-2">
-              <Image   
+              <Image
                 src="/logo-webp.webp"
                 alt="Cially Logo"
                 className="w-24 h-24 object-contain rounded-xl select-none"
@@ -263,9 +263,9 @@ export function RegisterForm({
             <p className="text-sm text-muted-foreground text-center mt-3 max-w-xs">
               Welcome to Cially! Let's get started!
             </p>
-            
+
             <Button
-              className="w-full text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md group mt-8 h-11"
+              className="w-full text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md group mt-8 h-11"
               onClick={() => setStep(2)}
             >
               Get Started
@@ -320,7 +320,7 @@ export function RegisterForm({
                   <ArrowLeft className="size-4" /> Back
                 </Button>
                 <Button
-                  className="flex-1 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
+                  className="flex-1 text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
                   onClick={() => setStep(3)}
                 >
                   Continue
@@ -411,7 +411,7 @@ export function RegisterForm({
                   <RefreshCw className={cn("size-4", checkingStatus && "animate-spin")} />
                 </Button>
                 <Button
-                  className="flex-1 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
+                  className="flex-1 text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
                   onClick={() => setStep(4)}
                 >
                   Continue
@@ -456,7 +456,7 @@ export function RegisterForm({
                   <ArrowLeft className="size-4" /> Back
                 </Button>
                 <Button
-                  className="flex-1 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
+                  className="flex-1 text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
                   onClick={() => {
                     if (!email.trim()) {
                       setError("Email is required");
@@ -537,7 +537,7 @@ export function RegisterForm({
                     <ArrowLeft className="size-4" /> Back
                   </Button>
                   <Button
-                    className="flex-1 text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
+                    className="flex-1 text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500"
                     disabled={isLoading}
                     type="submit"
                   >
@@ -560,7 +560,7 @@ export function RegisterForm({
               </p>
 
               <Button
-                className="w-full text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 mt-2 shadow-md"
+                className="w-full text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 mt-2 shadow-md"
                 onClick={() => {
                   window.location.href = "/dashboard";
                 }}

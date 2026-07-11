@@ -160,7 +160,7 @@ export default function GeneralMessageDataCard({
         <Tabs className="w-full" defaultValue="today" onValueChange={setActiveTab}>
           <TabsList className="relative mb-6 grid w-full grid-cols-3">
             <div
-              className="absolute top-[3px] bottom-[3px] rounded-md bg-white/13 border border-white/30 transition-all duration-300 ease-in-out"
+              className="absolute top-0.75 bottom-0.75 rounded-md bg-white/13 border border-white/30 transition-all duration-300 ease-in-out"
               style={{
                 width: "calc(33.333% - 2px)",
                 left: activeTab === "today"
