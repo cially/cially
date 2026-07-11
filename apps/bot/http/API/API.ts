@@ -6,14 +6,8 @@ import "colors";
 
 // Functions for each API route
 import { syncGuild } from "./functions/syncGuild";
-import { messageCreate } from "./functions/messageCreate";
-import { inviteCreate } from "./functions/inviteCreate";
-import { guildMemberRemove } from "./functions/guildMemberRemove";
-import { guildMemberAdd } from "./functions/guildMemberAdd";
 import { fetchID } from "./functions/fetchID";
 import { fetchGuilds } from "./functions/fetchGuilds";
-import { messageDelete } from "./functions/messageDelete";
-import { messageEdit } from "./functions/messageEdit";
 import { fetchUserData } from "./functions/fetchUserData";
 import { serverScrape } from "./functions/serverScrape";
 
