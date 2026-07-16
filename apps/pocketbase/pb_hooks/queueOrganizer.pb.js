@@ -1,4 +1,4 @@
-cronAdd("itemsOrganizer", "*/1 * * * *", () => {
+cronAdd("queueOrganizer", "*/1 * * * *", () => {
   // Messages Organizer
   try {
     const scrapedServers = $app.findRecordsByFilter(
@@ -266,4 +266,183 @@ cronAdd("itemsOrganizer", "*/1 * * * *", () => {
   } catch (err) {
     console.log("Error in leaves organizer:", err);
   }
+
+  // Voice Channel Organizer
+  try {
+    const vcLeaveRecords = $app.findRecordsByFilter(
+      "voice_channel_data_queue",
+      "action = 'leave'",
+      "-event_creation",
+      10000,
+      0,
+    );
+
+    vcLeaveRecords.forEach((leaveRecord) => {
+      const user_id = leaveRecord.get("user_id");
+      const channel_id = leaveRecord.get("channel_id");
+      const guild = leaveRecord.get("guild");
+      const leave_event_date = leaveRecord.get("event_creation");
+
+      try {
+        let joinRecord = $app.findRecordsByFilter(
+          "voice_channel_data_queue",
+          `user_id = '${user_id}' && channel_id = '${channel_id}' && guild = '${guild}' && action = 'join'  && event_creation < '${leave_event_date}'`,
+          "-event_creation",
+          1,
+          0
+        );
+
+        if (joinRecord.length < 1) {
+          throw new Error("No join records found.")
+        }
+
+        joinRecord = joinRecord[0]
+
+        const join_event_date = joinRecord.get("event_creation")
+
+        console.log(`[VC Processing]: User ${user_id} joined channel ${channel_id} at: ${join_event_date} and left at: ${leave_event_date}`)
+
+
+        const leave_event_date_ms = new Date(leave_event_date).getTime();
+        const join_event_date_ms = new Date(join_event_date).getTime();
+        const time_difference_in_secs = Math.round((leave_event_date_ms - join_event_date_ms) / 1000)
+
+        console.log(`That's ${time_difference_in_secs} seconds`)
+
+        // Process user stats
+        let userRecord = $app.findRecordsByFilter(
+          "user_stats",
+          `guildID = '${guild}' && authorID = '${user_id}'`,
+          "-authorID",
+          1,
+          0
+        );
+
+        if (userRecord.length > 0) {
+          userRecord = userRecord[0]
+
+          const currentVCTime = userRecord.get('vc_time')
+
+          userRecord.set("vc_time", Number(currentVCTime + time_difference_in_secs))
+          $app.save(userRecord);
+
+        } else {
+          let collection = $app.findCollectionByNameOrId("user_stats")
+          let new_user_record = new Record(collection)
+
+          new_user_record.set("authorID", user_id)
+          new_user_record.set("guildID", guild)
+          new_user_record.set("vc_time", Number(time_difference_in_secs))
+          $app.save(new_user_record);
+        }
+
+        // Process Hourly Stats
+        const joinDate = String(join_event_date).slice(0, 10);
+        const joinHour = String(join_event_date).slice(11, 13);
+
+        const leaveDate = String(leave_event_date).slice(0, 10);
+        const leaveHour = String(leave_event_date).slice(11, 13);
+
+        // Join Records Process
+        let timeRecords = $app.findRecordsByFilter(
+          "hourly_stats", // collection
+          `guildID = '${guild}' && hour = '${joinHour}' && date = '${joinDate}'`, // filter
+          "-hour", // sort
+          1, // limit
+          0 // offset
+        );
+
+        if (timeRecords.length > 0) {
+          const timeRecord = timeRecords[0];
+          const timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
+
+          timeRecord.set("vc_joins", Number(timeRecordJSON.vc_joins) + 1);
+          $app.save(timeRecord);
+        } else {
+          const hour_collection =
+            $app.findCollectionByNameOrId("hourly_stats");
+          const newHourRecord = new Record(hour_collection);
+
+          newHourRecord.set("guildID", guild);
+          newHourRecord.set("hour", joinHour);
+          newHourRecord.set("date", joinDate);
+          newHourRecord.set("vc_joins", 1);
+
+          $app.save(newHourRecord);
+        }
+
+        // Leave Records Process
+        timeRecords = $app.findRecordsByFilter(
+          "hourly_stats", // collection
+          `guildID = '${guild}' && hour = '${leaveHour}' && date = '${leaveDate}'`, // filter
+          "-hour", // sort
+          1, // limit
+          0 // offset
+        );
+
+        if (timeRecords.length > 0) {
+          const timeRecord = timeRecords[0];
+          const timeRecordJSON = JSON.parse(JSON.stringify(timeRecord));
+
+          timeRecord.set("vc_leaves", Number(timeRecordJSON.vc_leaves) + 1);
+          $app.save(timeRecord);
+        } else {
+          const hour_collection =
+            $app.findCollectionByNameOrId("hourly_stats");
+          const newHourRecord = new Record(hour_collection);
+
+          newHourRecord.set("guildID", guild);
+          newHourRecord.set("hour", leaveHour);
+          newHourRecord.set("date", leaveDate);
+          newHourRecord.set("vc_leaves", 1);
+
+          $app.save(newHourRecord);
+        }
+
+        // Voice Channel Stats Format
+        const vcRecords = $app.findRecordsByFilter(
+          "voice_channels_stats", // collection
+          `guildID = '${guild}' && channelID = '${channel_id}'`, // filter
+          "-channelID", // sort
+          1, // limit
+          0 // offset
+        );
+
+        if (vcRecords.length > 0) {
+          const vcRecord = vcRecords[0];
+          const vcRecordJSON = JSON.parse(JSON.stringify(vcRecord));
+
+          vcRecord.set("total_vc_time", Number(vcRecordJSON.total_vc_time) + time_difference_in_secs);
+          $app.save(vcRecord);
+        } else {
+          const vc_channels_collection =
+            $app.findCollectionByNameOrId("voice_channels_stats");
+          const newChannelRecord = new Record(vc_channels_collection);
+
+          newChannelRecord.set("channelID", channel_id);
+          newChannelRecord.set("guildID", guild);
+          newChannelRecord.set("total_vc_time", time_difference_in_secs);
+
+          $app.save(newChannelRecord);
+        }
+
+        $app.delete(leaveRecord)
+        $app.delete(joinRecord)
+
+        console.log(`Processed VC Records: ${leaveRecord.id} & ${joinRecord.id}`)
+
+
+      } catch (err) {
+        $app.delete(leaveRecord)
+        console.log(
+          `Could not find a join record for the leave record with id: ${leaveRecord.id}. Deleting record...`,
+        );
+        console.log(err)
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
+
+
 });
