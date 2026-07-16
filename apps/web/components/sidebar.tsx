@@ -11,6 +11,7 @@ import {
   UserSearch,
   Bot,
   Info,
+  Mic,
 } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -95,6 +96,12 @@ function ClientComponent({ isGuild }: { isGuild: boolean }) {
       url: `/dashboard/server/growth?guildID=${guildID}`,
       icon: ChartLine,
       path: "/dashboard/server/growth",
+    },
+    {
+      title: "Voice",
+      url: `/dashboard/server/voice?guildID=${guildID}`,
+      icon: Mic,
+      path: "/dashboard/server/voice",
     },
     {
       title: "User Search",
