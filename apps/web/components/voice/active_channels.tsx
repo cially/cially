@@ -203,7 +203,7 @@ export default function ActiveChannels({ chartData }: ActiveChannelsProps) {
           {maxChannel && (
             <div className="font-medium leading-none">
               Most Active Channel:{" "}
-              <span className="ml-1 text-blue-400 font-semibold">{maxChannel.channel}</span> ({formatDuration(maxChannel.amount)})
+              <span className="ml-1 text-white font-semibold">{maxChannel.channel}</span> ({formatDuration(maxChannel.amount)})
             </div>
           )}
         </CardFooter>
