@@ -55,10 +55,5 @@ export async function execute(interaction: ChatInputCommandInteraction) {
         flags: MessageFlags.Ephemeral,
       });
     }
-  } else {
-    await interaction.reply({
-      content: "Only the Server Owner is allowed to use this command",
-      flags: MessageFlags.Ephemeral,
-    });
   }
 }
