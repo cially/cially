@@ -223,3 +223,28 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
 }
+
+/* Custom scrollbar for sidebar content to fit the UI */
+[data-sidebar="content"] {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-thumb {
+    background: hsl(var(--border));
+    border-radius: 9999px;
+}
+
+[data-sidebar="content"]::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.4);
+}
+
