@@ -111,10 +111,10 @@ function DashboardClientComponent() {
               Currently viewing {guildData.name}
             </div>
           </div>
-          <div className="mr-0 sm:col-span-2 sm:col-start-5 sm:mr-4">
+          <div className="mr-0 sm:col-span-2 sm:col-start-5 sm:mr-4 h-full">
             <MemberBlock guild={guildData} />
           </div>
-          <div className="mr-0 sm:col-span-2 sm:col-start-7 sm:mr-4">
+          <div className="mr-0 sm:col-span-2 sm:col-start-7 sm:mr-4 h-full">
             <MessagesBlock guild={guildData} />
           </div>
         </div>

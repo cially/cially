@@ -9,7 +9,7 @@ import { GuildData } from "@/app/dashboard/server/info/page";
 
 export default function MessagesBlock({ guild }: { guild: GuildData }) {
   return (
-    <Card className="">
+    <Card className="h-full">
       <CardHeader>
         <CardTitle className="text-sm">
           <MessageCircle className="-translate-y-0.5 mr-2 inline" />
