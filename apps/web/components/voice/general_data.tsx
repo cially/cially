@@ -7,7 +7,6 @@ import {
   Columns,
   Columns2,
   Columns3,
-  EqualApproximately,
   LandPlot,
   TrendingDown,
   TrendingUp,
@@ -68,7 +67,7 @@ const StatCard = ({
 );
 
 const PeriodContent = ({ data }: { data: PeriodData }) => (
-  <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-3">
+  <div className="mt-2 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4">
     <StatCard
       icon={UserPlus}
       label="Voice Joins"
@@ -78,11 +77,6 @@ const PeriodContent = ({ data }: { data: PeriodData }) => (
       icon={UserMinus}
       label="Voice Leaves"
       value={data.total_leaves.toLocaleString()}
-    />
-    <StatCard
-      icon={EqualApproximately}
-      label="Join/Leave Ratio"
-      value={data.join_to_leave_ratio}
     />
     <StatCard
       icon={Activity}
