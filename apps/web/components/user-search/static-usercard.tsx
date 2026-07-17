@@ -7,6 +7,7 @@ import {
   Pen,
   UserMinus,
   UserPlus,
+  Headphones,
 } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -65,11 +66,14 @@ export default function StaticUserCard() {
             <StatCard icon={MessageCircle} label="Total Messages" value="129" />
             <StatCard icon={Pen} label="Average Message Length" value="6" />
             <StatCard icon={MailPlus} label="Invites Created" value="10" />
-            <StatCard
-              icon={Calendar}
-              label="Creation Date"
-              value="2023-10-2 at 18:29:02 UTC"
-            />
+            <StatCard icon={Headphones} label="Voice Chat Time" value="12 min" />
+            <div className="col-span-2 md:col-span-3">
+              <StatCard
+                icon={Calendar}
+                label="Creation Date"
+                value="2023-10-2 at 18:29:02 UTC"
+              />
+            </div>
           </div>
         </CardContent>
       </Card>

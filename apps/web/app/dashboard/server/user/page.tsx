@@ -47,6 +47,7 @@ interface UserDataResponse {
     totalInvites: number;
     totalMessages: number;
     averageMessageLength: number;
+    totalVoiceMinutes: number;
   }[];
   error?: number;
 }

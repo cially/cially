@@ -7,6 +7,7 @@ import {
   Pen,
   UserMinus,
   UserPlus,
+  Headphones,
 } from "lucide-react";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -50,6 +51,7 @@ interface UserData {
     totalMessages: number;
     averageMessageLength: number;
     totalInvites: number;
+    totalVoiceMinutes: number;
   }[];
 }
 
@@ -101,10 +103,17 @@ export default function DynamicUserCard({ userData }: { userData: UserData[] }) 
               value={userData[0].dataArray?.[0]?.totalInvites ?? 0}
             />
             <StatCard
-              icon={Calendar}
-              label="Creation Date"
-              value={userData[0].creationDate ? `${userData[0].creationDate.slice(0, 10)} at ${userData[0].creationDate.slice(11, 19)} UTC` : ""}
+              icon={Headphones}
+              label="Voice Chat Time"
+              value={`${userData[0].dataArray?.[0]?.totalVoiceMinutes ?? 0} min`}
             />
+            <div className="col-span-2 md:col-span-3">
+              <StatCard
+                icon={Calendar}
+                label="Creation Date"
+                value={userData[0].creationDate ? `${userData[0].creationDate.slice(0, 10)} at ${userData[0].creationDate.slice(11, 19)} UTC` : ""}
+              />
+            </div>
           </div>
         </CardContent>
       </Card>

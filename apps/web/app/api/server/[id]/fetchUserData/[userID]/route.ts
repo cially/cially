@@ -72,12 +72,16 @@ export async function GET(
     const avatar = discordDataIN[0].avatar;
     const creationDate = discordDataIN[0].creationDate;
 
+    const totalVoiceTime = userStats.vc_time || 0;
+    const totalVoiceMinutes = Math.round(totalVoiceTime / 60);
+
     dataArray.push({
       totalJoins: member_joins.length,
       totalLeaves: member_leaves.length,
       totalInvites: member_invites.length,
       totalMessages,
       averageMessageLength: avgMessageLength,
+      totalVoiceMinutes,
     });
 
     return Response.json({
