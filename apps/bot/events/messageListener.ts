@@ -6,14 +6,15 @@ import { messageCreate } from "../http/API/functions/messageCreate";
 export const name = Events.MessageCreate;
 export const once = false;
 export async function execute(message: Message) {
-  // Check if author is opted out early to save resources
-  const isUserOptedOut = await checkPrivacyPreferences(message.author.id);
-  if (isUserOptedOut) {
-    debug({ text: `User ${message.author.username} (${message.author.id}) is opted out. Not processing message.` });
-    return;
-  }
 
   if (!message.author.bot && message.guild) {
+    // Check if author is opted out early to save resources
+    const isUserOptedOut = await checkPrivacyPreferences(message.author.id);
+    if (isUserOptedOut) {
+      debug({ text: `User ${message.author.username} (${message.author.id}) is opted out. Not processing message.` });
+      return;
+    }
+
     // Get the number of words per message
     const totalWords = message.content
       .trim()

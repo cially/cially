@@ -18,5 +18,6 @@ export async function serverScrape(req: Request, res: Response, client: Client):
       text: "Something went wrong after trying to scrape data of Guild",
     });
     console.log(err);
+    return res.status(500).json(err);
   }
 }

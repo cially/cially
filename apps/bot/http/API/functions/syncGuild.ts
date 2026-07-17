@@ -34,7 +34,7 @@ export async function syncGuild(req: Request, res: Response, client: Client): Pr
       });
 
       if (guilds.length > 0) {
-        guilds.forEach((guild) => {
+        guilds.forEach(async (guild) => {
           async function syncDataToPocketbase() {
             const Guild = client.guilds.cache.get(`${String(guild.discordID)}`);
             if (!Guild) {
@@ -111,7 +111,7 @@ export async function syncGuild(req: Request, res: Response, client: Client): Pr
 
           if (guild.discordID) {
             try {
-              syncDataToPocketbase();
+              await syncDataToPocketbase();
               res.send(success_message);
             } catch (err) {
               error({
@@ -129,6 +129,7 @@ export async function syncGuild(req: Request, res: Response, client: Client): Pr
       }
     } catch (err) {
       error({ text: `Failed to fetch guild: \n${err}` });
+      return res.status(500).json(err);
     }
   }
 

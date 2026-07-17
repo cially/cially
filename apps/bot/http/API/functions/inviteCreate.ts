@@ -44,7 +44,7 @@ export async function inviteCreate(guildID: string | undefined, channelID: strin
     }
   } catch (err: any) {
     if (err.status === 404) {
-      registerGuild(String(guildID));
+      await registerGuild(String(guildID));
     } else {
       debug({ text: `Failed to communicate with the Database: \n${err}` });
       error({ text: `[ERROR] Error Code: ${err.status}` });

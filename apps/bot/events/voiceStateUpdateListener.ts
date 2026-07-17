@@ -6,8 +6,9 @@ import { vcStateUpdate } from "../http/API/functions/voiceStateUpdate";
 export const name = Events.VoiceStateUpdate;
 export async function execute(oldState: VoiceState, newState: VoiceState) {
 
-  // @ts-expect-error: newState.member always returns GuildMember object even when newState is null
-  const user: GuildMember = newState.member;
+  // @ts-expect-error: oldState.member always returns GuildMember object even when oldState is null
+  const user: GuildMember = newState.member || oldState.member;
+  if (!user) return;
 
   // Check if author is opted out early to save resources
   const isUserOptedOut = await checkPrivacyPreferences(user.id);
@@ -23,18 +24,18 @@ export async function execute(oldState: VoiceState, newState: VoiceState) {
 
   // User Joins VC
   if (!oldChannelID && newChannelID) {
-    vcStateUpdate(guildID, user.id, newChannelID, "join")
+    await vcStateUpdate(guildID, user.id, newChannelID, "join")
   }
 
   // User Leaves VC
   else if (oldChannelID && !newChannelID) {
-    vcStateUpdate(guildID, user.id, oldChannelID, "leave")
+    await vcStateUpdate(guildID, user.id, oldChannelID, "leave")
   }
 
   // User Switches VC
   else if (oldChannelID && newChannelID) {
-    vcStateUpdate(guildID, user.id, newChannelID, "join")
-    vcStateUpdate(guildID, user.id, oldChannelID, "leave")
+    await vcStateUpdate(guildID, user.id, newChannelID, "join")
+    await vcStateUpdate(guildID, user.id, oldChannelID, "leave")
   }
 
 }

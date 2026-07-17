@@ -270,7 +270,7 @@ export async function discordScrape({ client, guildID }: DiscordScrapeOptions): 
   }
 
   try {
-    pbCollectionAutoDelete(guildID);
+    await pbCollectionAutoDelete(guildID);
     const discordGuild = await client.guilds.fetch(guildID);
     let channels = await discordGuild.channels.fetch();
     const channelsList = Array.from(channels.values());

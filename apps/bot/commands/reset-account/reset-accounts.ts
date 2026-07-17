@@ -14,7 +14,7 @@ export const data = new SlashCommandBuilder()
 
 export async function execute(interaction: ChatInputCommandInteraction) {
   if (
-    interaction.guild
+    interaction.guild && interaction.user.id === interaction.guild.ownerId
   ) {
     try {
       debug({ text: "Admin Account reset request sent" });

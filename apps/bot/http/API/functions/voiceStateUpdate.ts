@@ -75,7 +75,7 @@ export async function vcStateUpdate(
 
   } catch (err: any) {
     if (err.status === 404) {
-      registerGuild(guildID);
+      await registerGuild(guildID);
     } else {
       debug({ text: `Failed to communicate with the Database: \n${err}` });
       error({ text: `[ERROR] Error Code: ${err.status}` });

@@ -68,6 +68,7 @@ export async function execute(interaction: ChatInputCommandInteraction) {
 
 
 		} catch (err) {
+			await interaction.reply({ content: "You don't have any stats registered in this server yet!", flags: MessageFlags.Ephemeral });
 			error({
 				text: "Something went wrong when fetching the user's stats",
 			});

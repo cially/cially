@@ -35,7 +35,7 @@ export async function guildMemberAdd(guildID: string, memberID: string) {
     const uniqueMemberSearch = await pb
       .collection(collection_name)
       .getList(1, 5, {
-        filter: `memberID >= "${memberID}"`,
+        filter: `memberID = "${memberID}"`,
       });
 
     const isUnique = uniqueMemberSearch.items.length === 0;
@@ -53,7 +53,7 @@ export async function guildMemberAdd(guildID: string, memberID: string) {
     }
   } catch (err: any) {
     if (err.status === 404) {
-      registerGuild(guildID);
+      await registerGuild(guildID);
     } else {
       debug({ text: `Failed to communicate with the Database: \n${err}` });
       error({ text: `[ERROR] Error Code: ${err.status}` });
