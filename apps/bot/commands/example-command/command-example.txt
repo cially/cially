@@ -1,16 +1,17 @@
-// Template
-// Make sure to create a new folder for each command
+import { ChatInputCommandInteraction, MessageFlags, SlashCommandBuilder } from "discord.js";
+import { debug } from "../../terminal/debug";
+import { error } from "../../terminal/error";
 
-const { SlashCommandBuilder } = require("discord.js")
-const { debug } = require('../../terminal/debug');
-const { error } = require('../../terminal/error');
+export const data = new SlashCommandBuilder()
+  .setName("command-name")
+  .setDescription(
+    "Command description"
+  );
 
-module.exports = {
-	data: new SlashCommandBuilder()
-		.setName('command-name')
-		.setDescription('command description'),
-	async execute(interaction) {
-		debug({text: "The xxx command got triggered"})
-		await interaction.reply('xxx');
-	},
-};
+export async function execute(interaction: ChatInputCommandInteraction) {
+  if (
+    interaction.guild
+  ) {
+   
+  }
+}
