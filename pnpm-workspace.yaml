@@ -95,7 +95,6 @@ overrides:
   path-to-regexp: ^8.4.2
   postcss: ^8.5.19
   qs: ^6.15.3
-  undici: ^8.7.0
   ws: ^8.21.1
 
 syncInjectedDepsAfterScripts:
