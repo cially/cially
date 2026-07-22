@@ -1,5 +1,5 @@
 # ---- Base image ----
-FROM node:lts-alpine AS base
+FROM node:22-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
@@ -15,16 +15,16 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 FROM deps AS build
 WORKDIR /app
 COPY . .
-# 1. Compile TypeScript into dist/
+# 1. Compile TypeScript source code into dist/
 RUN pnpm --filter=@cially/bot build
-# 2. Deploy isolated production build to /prod/bot
+# 2. Deploy isolated production bundle to /prod/bot
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm deploy --filter=@cially/bot --prod /prod/bot
 
-# ---- Bot image ----
+# ---- bot image ----
 FROM base AS bot
 WORKDIR /app
 
-# Add lightweight init system for proper signal handling
+# Install dumb-init for proper PID 1 signal handling
 RUN apk add --no-cache dumb-init
 
 RUN addgroup --system cially && adduser --system --ingroup cially cially
