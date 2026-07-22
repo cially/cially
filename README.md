@@ -1,6 +1,6 @@
 <p align="center">
 <img src="https://github.com/user-attachments/assets/5ab1d84b-3dc4-44d7-928e-4bdbd0d02853">
-  <a href='https://github.com/shivamkapasia0' target="_blank"><img alt='' src='https://img.shields.io/badge/_Version 2.0 Beta-100000?style=flat&logo=&logoColor=white&labelColor=000000&color=393938'/></a>
+  <a href='https://github.com/shivamkapasia0' target="_blank"><img alt='' src='https://img.shields.io/badge/_Version 2.0 Stable-100000?style=flat&logo=&logoColor=white&labelColor=000000&color=393938'/></a>
 
 </p>
 
@@ -9,19 +9,14 @@
 
 Perfect for community managers, moderators, and server admins looking to optimize their Discord communities!
 
-## 💫 Support our Project
-Cially is **completely free**! If you'd like, you can donate through Ko-fi
-- Link: https://ko-fi.com/skellgreco
-
 ## 🐚 Features
 - [x] Basic Server Data
 - [x] Message Analytics
+- [x] Voice Chat Analytics
 - [x] Growth Metrics
 - [x] Activity Insights
 - [x] User Search Page
 - [x] UI & Customization
-
-More details in our [Documentation](https://cially.org/guide/1-introduction/features/)
 
 ## 🪸 How to run
 Check the [README file in the docker folder](https://github.com/cially/cially/tree/v2.x/docker) for setup instructions.
