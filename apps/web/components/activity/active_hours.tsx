@@ -28,7 +28,7 @@ const chartConfig = {
 export default function ActiveHours({
   chartData,
 }: {
-  chartData?: { hours: number; amount: number }[];
+  chartData?: { hour: string; amount: number }[];
 }) {
   if (!chartData) {
     return (

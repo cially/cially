@@ -11,7 +11,7 @@ const user_stats_collection = "user_stats";
 
 export async function GET(
   _request: Request,
-  { params }: { params: Promise<{ id: string; userID: string }> }
+  { params }: { params: Promise<{ id: string; userID: string }> },
 ) {
   const { id, userID } = await params;
 
@@ -19,8 +19,8 @@ export async function GET(
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD),
       );
 
     const guild = await pb
@@ -64,7 +64,7 @@ export async function GET(
           "Content-Type": "application/json",
         },
         method: "POST",
-      }
+      },
     );
     const discordDataIN = await discordDataIN_Req.json();
     const username = discordDataIN[0].username;
@@ -72,12 +72,16 @@ export async function GET(
     const avatar = discordDataIN[0].avatar;
     const creationDate = discordDataIN[0].creationDate;
 
+    const totalVoiceTime = userStats.vc_time || 0;
+    const totalVoiceMinutes = Math.round(totalVoiceTime / 60);
+
     dataArray.push({
       totalJoins: member_joins.length,
       totalLeaves: member_leaves.length,
       totalInvites: member_invites.length,
       totalMessages,
       averageMessageLength: avgMessageLength,
+      totalVoiceMinutes,
     });
 
     return Response.json({

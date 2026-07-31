@@ -30,21 +30,29 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function TotalStatsGraph({ chartData }) {
+interface HourlyTotalItem {
+  hour: string;
+  joins: number;
+  leaves: number;
+  unique_users: number;
+  net: number;
+}
+
+export function TotalStatsGraph({ chartData }: { chartData?: HourlyTotalItem[] }) {
   const [activeChart, setActiveChart] =
     React.useState<keyof typeof chartConfig>("joins");
   const total = React.useMemo(
     () => ({
-      joins: chartData.reduce((acc, curr) => acc + curr.joins, 0),
-      leaves: chartData.reduce((acc, curr) => acc + curr.leaves, 0),
+      joins: chartData?.reduce((acc, curr) => acc + curr.joins, 0) || 0,
+      leaves: chartData?.reduce((acc, curr) => acc + curr.leaves, 0) || 0,
     }),
     [chartData]
   );
   try {
     return (
       <Card className="py-0">
-        <CardHeader className="!p-0 flex flex-col items-stretch border-b sm:flex-row">
-          <div className="sm:!py-0 flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3">
+        <CardHeader className="p-0! flex flex-col items-stretch border-b sm:flex-row">
+          <div className="sm:py-0! flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3">
             <CardTitle>Hourly Activity Overview</CardTitle>
             <CardDescription>
               Total joins & leaves for each hour across all days (UTC)
@@ -76,7 +84,7 @@ export function TotalStatsGraph({ chartData }) {
         </CardHeader>
         <CardContent className="px-2 sm:p-6">
           <ChartContainer
-            className="aspect-auto h-[250px] w-full"
+            className="aspect-auto h-62.5 w-full"
             config={chartConfig}
           >
             <BarChart
@@ -99,7 +107,7 @@ export function TotalStatsGraph({ chartData }) {
               <ChartTooltip
                 content={
                   <ChartTooltipContent
-                    className="w-[180px]"
+                    className="w-45"
                     formatter={(value, name) => (
                       <div className="flex items-center gap-2">
                         <div
@@ -112,7 +120,7 @@ export function TotalStatsGraph({ chartData }) {
                         />
                         <span className="capitalize">{name}:</span>
                         <span className="font-bold">
-                          {name === "net" && value > 0 ? "+" : ""}
+                          {name === "net" && typeof value === "number" && value > 0 ? "+" : ""}
                           {value}
                         </span>
                       </div>
@@ -135,7 +143,7 @@ export function TotalStatsGraph({ chartData }) {
     return (
       <Card className="py-0">
         <CardHeader className="p-5">
-          <div className="sm:!py-0 flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3">
+          <div className="sm:py-0! flex flex-1 flex-col justify-center gap-1 px-6 pt-4 pb-3">
             <CardTitle>Hourly Activity Overview</CardTitle>
             <CardDescription>
               Total joins & leaves for each hour across all days (UTC)

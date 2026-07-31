@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/card";
 import { handleThemeChange } from "./_logic/setThemeFunction";
 import SignOut from "./_logic/signOutHandler";
+import AccountManagementCard from "@/components/settings/accountManagement";
 
 export default function SettingsPage() {
   const router = useRouter();
@@ -47,15 +48,14 @@ export default function SettingsPage() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch("/api/cially/eraseDatabase", {
-        method: "DELETE",
-      });
+      const { eraseDatabaseAction } =
+        await import("@/components/actions/eraseDatabase");
+      const result = await eraseDatabaseAction();
 
-      if (response.ok) {
+      if (result.code === "Success") {
         router.push("/");
       } else {
-        const errorData = await response.json();
-        console.log(errorData);
+        console.log(result);
       }
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -70,6 +70,11 @@ export default function SettingsPage() {
     } catch (error) {
       console.error("Error signing out:", error);
     }
+  };
+
+  const handleThemeUpdate = async (theme: string) => {
+    await handleThemeChange(theme);
+    router.refresh();
   };
 
   return (
@@ -95,28 +100,28 @@ export default function SettingsPage() {
         <CardContent>
           <div className="grid grid-cols-3 gap-x-5 gap-y-5 place-self-center sm:grid-cols-6 sm:gap-x-10 sm:gap-y-0">
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("blue")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-blue-950 via-blue-600 to-blue-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("blue")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("pink")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-pink-950 via-pink-600 to-pink-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("pink")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("gray")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-gray-950 via-gray-600 to-gray-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("gray")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("brown")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-yellow-950 via-yellow-600 to-yellow-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("brown")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("purple")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-purple-950 via-purple-600 to-purple-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("purple")}
             />
             <div
-              className="h-15 w-15 rounded-full bg-gradient-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
-              onClick={() => handleThemeChange("red")}
+              className="h-15 w-15 hover:cursor-pointer rounded-full bg-linear-to-br from-red-950 via-red-600 to-red-850 outline-3 outline-transparent transition-all hover:outline-gray-500/40"
+              onClick={() => handleThemeUpdate("red")}
             />
           </div>
         </CardContent>
@@ -124,83 +129,59 @@ export default function SettingsPage() {
       {isGuest ? (
         <div className="hidden" />
       ) : (
-        <div className="grid sm:grid-cols-2">
-          <GuestToggleCard />
+        <div>
+          <AccountManagementCard />
+          <div className="grid sm:grid-cols-2">
+            <GuestToggleCard />
 
-          <Card className="mx-3 mt-7 flex flex-col border-[1px] border-red-500/40">
-            <CardHeader>
-              <CardTitle>
-                <DatabaseBackup className="-translate-y-0.5 mr-2 inline w-5" />{" "}
-                Erase Database
-              </CardTitle>
-              <CardDescription>
-                Click the button bellow to erase all the data in your database.
-                This action is irreversible!
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="mt-auto flex justify-center pb-0">
-              <AlertDialog>
-                <AlertDialogTrigger asChild>
-                  <Button
-                    className=" cursor-pointer place-self-center outline-0 outline-amber-950 transition-all hover:outline-1"
-                    variant="destructive"
-                  >
-                    Erase
-                  </Button>
-                </AlertDialogTrigger>
-                <AlertDialogContent>
-                  <AlertDialogHeader>
-                    <AlertDialogTitle>
-                      Are you absolutely sure?
-                    </AlertDialogTitle>
-                    <AlertDialogDescription>
-                      This is a permanent action. Confirming will erase all
-                      server data, and this process cannot be reversed. Ensure
-                      you understand the implications before proceeding.
-                    </AlertDialogDescription>
-                  </AlertDialogHeader>
-                  <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                    <AlertDialogAction
-                      className="bg-red-600 text-white transition hover:bg-red-800"
-                      onClick={() => handleDelete()}
+            <Card className="mx-3 mt-7 flex flex-col border border-red-500/40">
+              <CardHeader>
+                <CardTitle>
+                  <DatabaseBackup className="-translate-y-0.5 mr-2 inline w-5" />{" "}
+                  Erase Database
+                </CardTitle>
+                <CardDescription>
+                  Click the button bellow to erase all the data in your
+                  database. This action is irreversible!
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="mt-auto flex justify-center pb-0">
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button
+                      className=" cursor-pointer place-self-center outline-0 outline-amber-950 transition-all hover:outline-1"
+                      variant="destructive"
                     >
-                      Confirm
-                    </AlertDialogAction>
-                  </AlertDialogFooter>
-                </AlertDialogContent>
-              </AlertDialog>
-            </CardContent>
-          </Card>
+                      Erase
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>
+                        Are you absolutely sure?
+                      </AlertDialogTitle>
+                      <AlertDialogDescription>
+                        This is a permanent action. Confirming will erase all
+                        server data, and this process cannot be reversed. Ensure
+                        you understand the implications before proceeding.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
+                      <AlertDialogAction
+                        className="bg-red-600 text-white transition hover:bg-red-800"
+                        onClick={() => handleDelete()}
+                      >
+                        Confirm
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       )}
-
-      <Card className="mx-3 mt-7">
-        <CardHeader>
-          <CardTitle>
-            <Heart className="-translate-y-0.5 mr-2 inline w-5" /> Support Cially
-          </CardTitle>
-          <CardDescription>
-            If you find Cially helpful and want to support its development,
-            consider making a donation. Your support helps keep the project
-            alive and growing!
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="flex justify-center sm:justify-start">
-          <a
-            href="https://ko-fi.com/skellgreco"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            <Button
-              className="bg-pink-600 text-white transition-all hover:cursor-pointer hover:bg-pink-600/70"
-              variant={"outline"}
-            >
-              Donate
-            </Button>
-          </a>
-        </CardContent>
-      </Card>
 
       <Card className="mx-3 mt-7">
         <CardHeader>
@@ -228,7 +209,11 @@ export default function SettingsPage() {
       </Card>
 
       <div className="mt-5 place-self-center">
-        <Button onClick={() => handleSignOut()} variant={"outline"}>
+        <Button
+          className="hover:cursor-pointer"
+          onClick={() => handleSignOut()}
+          variant={"outline"}
+        >
           Log Out
         </Button>
       </div>

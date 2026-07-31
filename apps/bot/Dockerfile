@@ -1,29 +1,45 @@
 # ---- Base image ----
-FROM node:lts-alpine AS base
+FROM node:22-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+ENV CI=true
+RUN corepack enable && corepack prepare pnpm@11.13.1 --activate
 
 # ---- Install dependencies ----
 FROM base AS deps
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY apps/bot/package.json apps/bot/
+COPY apps/web/package.json apps/web/
+COPY packages/types/package.json packages/types/
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # ---- Build ----
 FROM deps AS build
 WORKDIR /app
 COPY . .
-RUN pnpm deploy --filter=bot --prod /prod/bot
+# 1. Compile TypeScript source code into dist/
+RUN pnpm --filter=@cially/bot build
+# 2. Deploy isolated production bundle to /prod/bot
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm deploy --filter=@cially/bot --prod /prod/bot
 
 # ---- bot image ----
 FROM base AS bot
 WORKDIR /app
+
+# Install dumb-init for proper PID 1 signal handling
+RUN apk add --no-cache dumb-init
+
 RUN addgroup --system cially && adduser --system --ingroup cially cially
-COPY --from=build /prod/bot .
+COPY --chown=cially:cially --from=build /prod/bot .
+COPY --chown=cially:cially --from=build /app/apps/bot/dist ./dist
+
 USER cially
 EXPOSE 3001
+
 ENV NODE_ENV=production
 ENV PORT=3001
-CMD ["node", "index.js"]
+ENV API_PORT=3001
+
+ENTRYPOINT ["/usr/bin/dumb-init", "--"]
+CMD ["node", "dist/index.js"]

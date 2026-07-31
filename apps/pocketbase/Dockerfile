@@ -1,28 +1,30 @@
 # ╔═════════════════════════════════════════════════════╗
 # ║                       BUILD                         ║
 # ╚═════════════════════════════════════════════════════╝
-FROM golang:1.24.4-alpine AS build
+FROM golang:1.25-alpine AS build
 
 WORKDIR /app
 
-# Download Go modules
-COPY go.mod go.sum ./
-RUN go mod download
+# Download CA certs
+RUN apk add --no-cache ca-certificates && update-ca-certificates
 
-# Copy source files
+# Specify PocketBase target version
+ARG POCKETBASE_VERSION=0.39.10
+
+# Copy Go manifests & source files
+COPY go.mod go.sum ./
 COPY main.go ./
 COPY migrations ./migrations
 
-RUN apk add --no-cache \
-    unzip \
-    ca-certificates
+# Fetch requested PocketBase version and update dependencies
+RUN go get github.com/pocketbase/pocketbase@v${POCKETBASE_VERSION} && go mod tidy
 
-RUN update-ca-certificates
-
-# Build
+# Build static binary with Go cache mounts
 ARG TARGETOS TARGETARCH
-RUN CGO_ENABLED=0 GOGC=75 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -ldflags "-w -s" -o /pocketbase .
- 
+RUN --mount=type=cache,target=/go/pkg/mod \
+    --mount=type=cache,target=/root/.cache/go-build \
+    CGO_ENABLED=0 GOGC=75 GOOS=$TARGETOS GOARCH=$TARGETARCH go build -ldflags "-w -s" -o /pocketbase .
+
 # ╔═════════════════════════════════════════════════════╗
 # ║                       IMAGE                         ║
 # ╚═════════════════════════════════════════════════════╝
@@ -30,9 +32,16 @@ FROM scratch
 
 WORKDIR /pb
 
+# Copy binary & SSL certificates
 COPY --from=build /pocketbase /pb/
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
+# Copy PocketBase JS hooks AND JS migrations
 COPY pb_hooks /pb/pb_hooks
+COPY pb_migrations /pb/pb_migrations
+
+# Declare data directory volume for database persistence
+VOLUME ["/pb/pb_data"]
 
 EXPOSE 8090
 

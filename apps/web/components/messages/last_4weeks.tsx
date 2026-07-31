@@ -17,7 +17,22 @@ import {
 } from "@/components/ui/chart";
 import { Skeleton } from "@/components/ui/skeleton";
 
-export default function Last4Weeks({ chartData }) {
+interface Last4WeeksProps {
+  chartData?: {
+    factor: string;
+    starting_date: {
+      startingDate_formatted: string;
+      startingDate_ms: number;
+    };
+    finishing_date: {
+      endingDate_formatted: string;
+      endingDate_ms: number;
+    };
+    amount: number;
+  }[];
+}
+
+export default function Last4Weeks({ chartData }: Last4WeeksProps) {
   const chartConfig = {
     amount: {
       label: "amount",
@@ -35,13 +50,13 @@ export default function Last4Weeks({ chartData }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
+          <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
         </CardContent>
         <CardFooter>
           <div className="flex w-full items-start gap-2 text-sm">
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium leading-none">
-                <Skeleton className="h-[10px] w-20 place-self-center rounded-xl" />
+                <Skeleton className="h-2.5 w-20 place-self-center rounded-xl" />
               </div>
             </div>
           </div>
@@ -101,7 +116,7 @@ export default function Last4Weeks({ chartData }) {
                 dataKey="factor"
                 interval={0}
                 tick={{
-                  angle: -30,
+                  angle: -30, // Ignore the error. This works anyways
                   fontSize: 10,
                   dx: -5,
                   dy: 5,

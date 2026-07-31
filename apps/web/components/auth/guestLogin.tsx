@@ -12,8 +12,9 @@ export default function GuestLogin() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const guestResponse = await fetch("/api/cially/checkForGuestAccount");
-        const guestData = await guestResponse.json();
+        const { checkForGuestAccountAction } =
+          await import("@/components/actions/checkForGuestAccount");
+        const guestData = await checkForGuestAccountAction();
 
         if (guestData?.account) {
           setGuestStatus(true);

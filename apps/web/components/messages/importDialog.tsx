@@ -21,29 +21,29 @@ export default function ImportDialogCard({
   guildID,
   isGuest,
 }: {
-  guildID: { guildID: string };
+  guildID: string | null;
   isGuest: boolean;
 }) {
   const router = useRouter();
 
-  if (isGuest) {
+  if (isGuest || !guildID) {
     return null;
   }
 
-  const handleSumbit = async (guildID: { guildID: string }) => {
+  const handleSumbit = async (guildID: string) => {
     try {
       toast.success(
-        "Scraping has started! Restart your bot if you want it to stop!"
+        "Scraping has started! Restart your bot if you want it to stop!",
       );
-      const response = await fetch(`/api/server/${guildID}/scrapeMessages`);
-      // console.log(guildID);
+      const { scrapeMessagesAction } =
+        await import("@/components/actions/scrapeMessages");
+      const result = await scrapeMessagesAction(guildID);
 
-      if (response.ok) {
+      if (result === "success") {
         router.push("/");
         console.log("Succesfull Response from /");
       } else {
-        const errorData = await response.json();
-        console.log(errorData);
+        console.log(result);
       }
     } catch (error) {
       console.error("Error deleting item:", error);
@@ -86,14 +86,12 @@ export default function ImportDialogCard({
                   <br />
                   Please proceed once you've made sure that nothing can cause a
                   downtime to your bot. Also make sure to enable debugging if
-                  you want to see details regarding the scraping procedure
+                  you want to see details of the scraping procedure
                   <br />
                   <br />
-                  While Cially is respecting Discord's TOS regarding API
-                  requests, if Discord decides to ratelimit your bot for any
+                  If Discord decides to ratelimit your bot for any
                   reason, the procedure will stop automatically. We advise you
-                  to not re-run the scrape if done so, and wait for 24 hours
-                  first
+                  to not re-run the scrape if done so.
                   <br />
                   <br />
                   If there is an ongoing scrape going on, clicking the button

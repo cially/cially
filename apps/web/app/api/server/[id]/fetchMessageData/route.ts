@@ -16,8 +16,8 @@ export async function GET(
     await pb
       .collection("_superusers")
       .authWithPassword(
-        process.env.POCKETBASE_ADMIN_EMAIL,
-        process.env.POCKETBASE_ADMIN_PASSWORD
+        String(process.env.POCKETBASE_ADMIN_EMAIL),
+        String(process.env.POCKETBASE_ADMIN_PASSWORD)
       );
 
     const guild = await pb
@@ -135,28 +135,26 @@ export async function GET(
         total_attachments: guild.total_attachments,
       });
 
-      const finalData = [];
-      finalData.push({
+      const messagesData = [];
+      messagesData.push({
         HourData: hourData,
         WeekData: weekData,
         FourWeekData: fourWeekData,
         GeneralData: generalDataArray,
       });
 
-      return Response.json({ finalData });
+      return Response.json({ data: messagesData, responseCode: 200 });
     } catch (err) {
-      const notFound = [{ errorCode: 404 }];
-      console.log(err);
-      return Response.json({ notFound });
+      // Error while processing the data
+      return Response.json({ data: null, responseCode: 404, errorMessage: String(err) });
     }
-  } catch (err) {
+
+  } catch (err: any) {
     if (err.status === 400) {
-      const notFound = [{ errorCode: 404 }];
-      console.log(err);
-      return Response.json({ notFound });
+      // Guild Doesnt Exist in Pocketbase
+      return Response.json({ data: null, responseCode: 404, errorMessage: String(err) });
     }
-    const serverError = [{ errorCode: 500 }];
-    console.log(err);
-    return Response.json({ serverError });
+    // Faulty communication with Pocketbase
+    return Response.json({ data: null, responseCode: 500, errorMessage: String(err) });
   }
 }

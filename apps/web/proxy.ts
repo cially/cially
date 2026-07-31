@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import PocketBase from "pocketbase";
 
 // paths that do NOT require authentication
-const PUBLIC_PATHS = ["/login", "/register"];
+const PUBLIC_PATHS = ["/login", "/register", "/logo-webp.webp"];
 
 // paths where the guest cookie logic is specifically needed
 const GUEST_CHECK_PATHS = ["dashboard"];

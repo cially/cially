@@ -7,11 +7,23 @@ import MemberBlock from "@/components/info/member-card";
 import MessagesBlock from "@/components/info/messages-card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface GuildData {
+export interface GuildData {
+  discordID: string;
   name: string;
-  id: string;
-  icon: string;
-  in_db: boolean;
+  members: number;
+  available: string;
+  discord_partner: string;
+  creation_date: string;
+  channels: number;
+  roles: number;
+  bans: number;
+  owner_username: string;
+  icon_url: string | undefined;
+  description: string | null;
+  vanity_url: string | null;
+  vanity_uses: number | null;
+  today_msg: number;
+  msg_day_difference: number;
 }
 
 function DashboardClientComponent() {
@@ -28,7 +40,12 @@ function DashboardClientComponent() {
           throw new Error(`Error fetching guild data: ${API_REQ.statusText}`);
         }
         const data = await API_REQ.json();
-        setGuildData(data.guildFound[0] as GuildData);
+
+        if ((await data.responseCode) === 200) {
+          setGuildData(data.guildData[0]);
+        } else {
+          throw new Error("Failed to fetch Guild Data from the API");
+        }
       } catch (err: unknown) {
         if (err instanceof Error) {
           setError(err.message);
@@ -94,10 +111,10 @@ function DashboardClientComponent() {
               Currently viewing {guildData.name}
             </div>
           </div>
-          <div className="mr-0 sm:col-span-2 sm:col-start-5 sm:mr-4">
+          <div className="mr-0 sm:col-span-2 sm:col-start-5 sm:mr-4 h-full">
             <MemberBlock guild={guildData} />
           </div>
-          <div className="mr-0 sm:col-span-2 sm:col-start-7 sm:mr-4">
+          <div className="mr-0 sm:col-span-2 sm:col-start-7 sm:mr-4 h-full">
             <MessagesBlock guild={guildData} />
           </div>
         </div>

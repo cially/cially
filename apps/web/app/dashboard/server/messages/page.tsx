@@ -18,19 +18,52 @@ export default function MessagesActivityPage() {
   );
 }
 
+interface ApiRequest {
+  data: {
+    HourData: {
+      hour: string;
+      amount: number;
+    }[];
+    WeekData: {
+      date: string;
+      amount: number;
+    }[];
+    FourWeekData: {
+      factor: string;
+      starting_date: {
+        startingDate_formatted: string;
+        startingDate_ms: number;
+      };
+      finishing_date: {
+        endingDate_formatted: string;
+        endingDate_ms: number;
+      };
+      amount: number;
+    }[];
+    GeneralData: {
+      total_messages: number;
+      message_deletions: number;
+      message_edits: number;
+      total_attachments: number;
+    }[];
+  }[] | null;
+  responseCode: number;
+  errorMessage?: string;
+}
+
 function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
-  const [chartData, setChartData] = useState(null);
+  const [apiRequest, setApiRequest] = useState<ApiRequest | null>(null);
   const [isGuest, setGuestStatus] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
-      const chartDataReceived = await fetch(
+      const apiRequestReceived = await fetch(
         `/api/server/${guildID}/fetchMessageData`
       );
-      const json = await chartDataReceived.json();
-      setChartData(json);
+      const json = await apiRequestReceived.json();
+      setApiRequest(json);
     }
     fetchData();
   }, [guildID]);
@@ -48,10 +81,10 @@ function ClientComponent() {
     getGuestCookie();
   }, []);
 
-  if (chartData?.notFound) {
+  if (apiRequest?.responseCode === 404) {
     return <GuildNotFound />;
   }
-  if (!chartData?.finalData) {
+  if (!apiRequest?.data) {
     return (
       <>
         <div className="mt-10 ml-10 text-2xl">Messages Analytics</div>
@@ -74,10 +107,10 @@ function ClientComponent() {
     );
   }
 
-  const data_24h = chartData.finalData[0].HourData;
-  const data_7d = chartData.finalData[0].WeekData;
-  const data_4w = chartData.finalData[0].FourWeekData;
-  const data_general = chartData.finalData[0].GeneralData;
+  const data_24h = apiRequest.data[0].HourData;
+  const data_7d = apiRequest.data[0].WeekData;
+  const data_4w = apiRequest.data[0].FourWeekData;
+  const data_general = apiRequest.data[0].GeneralData;
   console.log(data_7d);
   return (
     <>

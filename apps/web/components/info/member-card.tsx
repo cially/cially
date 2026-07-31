@@ -5,10 +5,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { GuildData } from "@/app/dashboard/server/info/page";
 
-export default function MemberBlock({ guild }: { guild: { members: number } }) {
+export default function MemberBlock({ guild }: { guild: GuildData }) {
   return (
-    <Card className="">
+    <Card className="h-full">
       <CardHeader>
         <CardTitle className="text-sm">
           <UsersRound className="-translate-y-0.5 mr-2 inline" />

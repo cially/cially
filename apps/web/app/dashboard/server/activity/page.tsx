@@ -17,10 +17,20 @@ export default function MessagesDashboard() {
   );
 }
 
+interface ActivityData {
+  notFound?: { errorCode: number }[];
+  finalData?: {
+    ChannelData: { channel: string; originalId: string; amount: number }[];
+    ActiveUsersData: { author: string; originalId: string; amount: number }[];
+    ActiveHourData: { hour: string; amount: number }[];
+    GeneralData: { online: number; idle: number; offline: number; total: number }[];
+  }[];
+}
+
 function ClientComponent() {
   const searchParams = useSearchParams();
   const guildID = searchParams.get("guildID");
-  const [chartData, setChartData] = useState(null);
+  const [chartData, setChartData] = useState<ActivityData | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,8 +54,8 @@ function ClientComponent() {
         <div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
         <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
 
-        <div className="mx-5 h-[100%]">
-          <div className="mt-10 grid w-[100%] grid-cols-1 gap-5 sm:grid-cols-2">
+        <div className="mx-5 h-full">
+          <div className="mt-10 grid w-full grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <ActiveChannels />
             </div>
@@ -54,7 +64,7 @@ function ClientComponent() {
             </div>
           </div>
 
-          <div className=" mt-5 w-[100%]">
+          <div className=" mt-5 w-full">
             <ActiveHours />
 
             <div className="mt-5">
@@ -70,18 +80,18 @@ function ClientComponent() {
     );
   }
 
-  const data_channels = chartData.finalData[0].ChannelData;
-  const data_users = chartData.finalData[0].ActiveUsersData;
-  const data_hours = chartData.finalData[0].ActiveHourData;
-  const data_general = chartData.finalData[0].GeneralData;
+  const data_channels = chartData?.finalData?.[0]?.ChannelData;
+  const data_users = chartData?.finalData?.[0]?.ActiveUsersData;
+  const data_hours = chartData?.finalData?.[0]?.ActiveHourData;
+  const data_general = chartData?.finalData?.[0]?.GeneralData;
 
   return (
     <>
       <div className="mt-10 ml-10 text-2xl">Activity Analytics</div>
       <hr className="mt-2 mr-5 ml-5 w-50 sm:w-dvh" />
       <ScrapeNotification />
-      <div className="mx-5 h-[100%]">
-        <div className="mt-10 grid w-[100%] grid-cols-1 gap-5 sm:grid-cols-2">
+      <div className="mx-5 h-full">
+        <div className="mt-10 grid w-full grid-cols-1 gap-5 sm:grid-cols-2">
           <div>
             <ActiveChannels chartData={data_channels} />
           </div>
@@ -90,7 +100,7 @@ function ClientComponent() {
           </div>
         </div>
 
-        <div className=" mt-5 w-[100%]">
+        <div className="mt-5 w-full">
           <ActiveHours chartData={data_hours} />
 
           <div className="mt-5">

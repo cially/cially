@@ -1,28 +1,32 @@
 import PocketBase from "pocketbase";
+import { getSystemErrorMessage } from "util";
 
 const url = process.env.POCKETBASE_URL;
 const pb = new PocketBase(url);
 const guild_collection_name = "guilds";
 
+// Fetches General Data about an existing guild
 export async function GET(
   _request: Request,
   { params }: { params: Promise<{ id: string }> }
 ) {
+
   const { id } = await params;
+
   try {
     const API_REQ = await fetch(`${process.env.API_URL}/syncGuild/${id}`);
     const data = await API_REQ.json();
-    const code = data.code;
+    const code = data.responseCode;
     const date = `${new Date().getUTCFullYear()}-${(new Date().getUTCMonth() + 1).toString().padStart(2, "0")}-${new Date().getUTCDate().toString().padStart(2, "0")}`;
     const previous_date = `${new Date().getUTCFullYear()}-${(new Date().getUTCMonth() + 1).toString().padStart(2, "0")}-${(new Date().getUTCDate() - 1).toString().padStart(2, "0")}`;
 
-    if (code === "success") {
+    if (code === 200) {
       try {
         await pb
           .collection("_superusers")
           .authWithPassword(
-            process.env.POCKETBASE_ADMIN_EMAIL,
-            process.env.POCKETBASE_ADMIN_PASSWORD
+            String(process.env.POCKETBASE_ADMIN_EMAIL),
+            String(process.env.POCKETBASE_ADMIN_PASSWORD)
           );
 
         const guild = await pb
@@ -57,7 +61,7 @@ export async function GET(
 
         const msg_day_difference = today_msgs - yesterday_msgs;
 
-        const guildFound = [
+        const guildData = [
           {
             discordID: guild.discordID,
             name: guild.name,
@@ -77,22 +81,18 @@ export async function GET(
             msg_day_difference,
           },
         ];
-        return Response.json({ guildFound });
-      } catch (err) {
+        return Response.json({ guildData: guildData, responseCode: 200 });
+      } catch (err: any) {
         if (err.status === 400) {
           console.log(err);
-          const notFound = [{ errorCode: 404 }];
-          return Response.json({ notFound });
+          return Response.json({ guildData: null, responseCode: 404, errorMessage: "Guild not found in the database." });
         }
       }
     } else {
-      const notFound = [{ errorCode: 404 }];
-
-      return Response.json({ notFound });
+      return Response.json({ guildData: null, responseCode: 501, errorMessage: "Discord Bot failed to fetch Guild Data" });
     }
   } catch (err) {
     console.log(err);
-    const notFound = [{ errorCode: 404 }];
-    return Response.json({ notFound });
+    return Response.json({ guildData: null, responseCode: 501, errorMessage: "Read your console for more information" });
   }
 }

@@ -5,7 +5,9 @@
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "dev": "tsx watch index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "check": "biome check .",
     "check:fix": "biome check --write ."
   },
@@ -27,6 +29,12 @@
     "winston": "catalog:"
   },
   "devDependencies": {
-    "@biomejs/biome": "catalog:dev"
+    "@biomejs/biome": "catalog:dev",
+    "@types/body-parser": "catalog:",
+    "@types/cron": "catalog:",
+    "@types/express": "catalog:",
+    "@types/node": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   }
 }

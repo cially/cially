@@ -18,48 +18,26 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { GuildData } from "@/app/dashboard/server/info/page";
 
-const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
+interface StatCardParams {
+  icon: React.ElementType;
+  label: String;
+  value: any;
+}
+
+const StatCard = ({ icon: Icon, label, value }: StatCardParams) => (
   <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
       <div className="text-white/60 text-xs">{label}</div>
-      <div
-        className={`font-semibold text-sm ${
-          isNetGrowth
-            ? value.toString().startsWith("+")
-              ? "text-green-400"
-              : value.toString().startsWith("-")
-                ? "text-red-400"
-                : "text-white"
-            : "text-white"
-        }`}
-      >
-        {value}
-      </div>
+      {value}
     </div>
   </div>
 );
 
-export default function BottomCard({
-  guild,
-}: {
-  guild: {
-    creation_date: string;
-    available: string;
-    discord_partner: string;
-    description: string;
-    vanity_url: string;
-    vanity_uses: number;
-    icon_url: string;
-    owner_username: string;
-    name: string;
-    members: number;
-    channels: number;
-    roles: number;
-    bans: number;
-  };
-}) {
+export default function BottomCard({ guild }: { guild: GuildData }) {
+  // Format the received data before showing them to the UI
   const correct_date =
     guild.creation_date.slice(0, 4) +
     "/" +

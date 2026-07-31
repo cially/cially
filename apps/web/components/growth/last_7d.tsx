@@ -28,7 +28,14 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export default function Last7d({ chartData }) {
+interface DayGrowthData {
+  date: string;
+  joins: number;
+  leaves: number;
+  unique_users: number;
+}
+
+export default function Last7d({ chartData }: { chartData?: DayGrowthData[] }) {
   if (!chartData) {
     return (
       <Card>
@@ -39,13 +46,13 @@ export default function Last7d({ chartData }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
+          <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
         </CardContent>
         <CardFooter>
           <div className="flex w-full items-start gap-2 text-sm">
             <div className="grid gap-2">
               <div className="flex items-center gap-2 font-medium leading-none">
-                <Skeleton className="h-[10px] w-20 place-self-center rounded-xl" />
+                <Skeleton className="h-2.5 w-20 place-self-center rounded-xl" />
               </div>
             </div>
           </div>

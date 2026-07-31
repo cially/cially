@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "next lint",
     "check": "biome check .",
@@ -11,7 +11,10 @@
     "check:unsafe": "biome check --write --unsafe ."
   },
   "dependencies": {
+    "@ai-sdk/groq": "catalog:",
+    "@ai-sdk/react": "catalog:",
     "@hookform/resolvers": "catalog:",
+    "ai": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "lucide-react": "catalog:",
@@ -23,6 +26,7 @@
     "react": "catalog:",
     "react-dom": "catalog:",
     "react-hook-form": "catalog:",
+    "react-markdown": "catalog:",
     "recharts": "catalog:",
     "sonner": "catalog:",
     "tailwind-merge": "catalog:",

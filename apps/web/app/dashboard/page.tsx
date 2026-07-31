@@ -21,14 +21,27 @@ export default function MessagesDashboard() {
   );
 }
 
+interface GuildData {
+  AvailableGuilds: Array<Guild> | null;
+  responseCode: number;
+}
+
+interface Guild {
+  name: string;
+  id: number;
+  icon: string;
+  in_db: boolean;
+}
+
 function ClientComponent() {
-  const [guildData, setGuildData] = useState(null);
+  const [guildData, setGuildData] = useState<GuildData>();
 
   useEffect(() => {
     async function fetchData() {
-      const DataReceived = await fetch("/api/fetchGuilds");
-      const json = await DataReceived.json();
-      setGuildData(json.data);
+      const { fetchGuildsAction } =
+        await import("@/components/actions/fetchGuilds");
+      const json = await fetchGuildsAction();
+      setGuildData(json.data as any);
       console.log(json);
     }
     fetchData();
@@ -55,9 +68,9 @@ function ClientComponent() {
           <div className="mb-10" />
 
           <div className="mx-10 grid grid-cols-1 gap-y-5 sm:grid-cols-3">
-            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
-            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
-            <Skeleton className="h-[150px] w-[250px] place-self-center rounded-xl" />
+            <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
+            <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
+            <Skeleton className="h-37.5 w-62.5 place-self-center rounded-xl" />
           </div>
 
           <div className="mt-10 self-center">
@@ -105,8 +118,8 @@ function ClientComponent() {
 
     const guildCards = guildDataArray.map((guild) =>
       guild.in_db === true ? (
-        <a href={`/dashboard/fetchGuild?guildID=${guild.id}`} key={guild.id}>
-          <Card className="transition-all hover:bg-white/2 sm:mx-5 ">
+        <a href={`/dashboard/server/info?guildID=${guild.id}`} key={guild.id}>
+          <Card className="transition-all duration-150 hover:bg-white/2 sm:mx-5 ">
             <CardHeader className="place-items-center">
               <Avatar className=" h-20 w-20">
                 <AvatarImage src={guild.icon} />
@@ -138,7 +151,7 @@ function ClientComponent() {
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      )
+      ),
     );
 
     return (
@@ -195,7 +208,7 @@ function ClientComponent() {
         </div>
       </>
     );
-  } catch (err) {
+  } catch (err: any) {
     const error = err.toString();
     console.log(err);
     return (

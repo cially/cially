@@ -9,21 +9,29 @@ import {
 import { Card } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
+import { LucideIcon } from "lucide-react";
+
+interface StatCardProps {
+  icon: LucideIcon;
+  label: string;
+  value: number | string;
+  isNetGrowth?: boolean;
+}
+
+const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }: StatCardProps) => (
   <div className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 p-3">
     <Icon className="h-4 w-4 text-white" />
     <div className="flex-1">
       <div className="text-white/60 text-xs">{label}</div>
       <div
-        className={`font-semibold ${
-          isNetGrowth
+        className={`font-semibold ${isNetGrowth
             ? value.toString().startsWith("+")
               ? "text-green-400"
               : value.toString().startsWith("-")
                 ? "text-red-400"
                 : "text-white"
             : "text-white"
-        }`}
+          }`}
       >
         {value}
       </div>
@@ -31,7 +39,16 @@ const StatCard = ({ icon: Icon, label, value, isNetGrowth = false }) => (
   </div>
 );
 
-export default function GeneralMessageDataCard({ chartData }) {
+interface GeneralDataProps {
+  chartData?: {
+    total_messages: number;
+    message_deletions: number;
+    message_edits: number;
+    total_attachments: number;
+  }[];
+}
+
+export default function GeneralMessageDataCard({ chartData }: GeneralDataProps) {
   if (!chartData) {
     return (
       <Card className="mt-10 grid auto-rows-auto px-10 sm:min-w-dvh">
