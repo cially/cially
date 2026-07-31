@@ -14,7 +14,7 @@
     "up": "taze -r -I",
     "lefthook": "lefthook install",
     "start-web": "cd apps/web && pnpm run dev",
-    "start-bot": "cd apps/bot && node .",
+    "start-bot": "cd apps/bot && pnpm run dev",
     "start-pb": "cd apps/pocketbase && ./pocketbase serve",
     "start-all": "concurrently \"pnpm run start-web\" \"pnpm run start-bot\" \"pnpm run start-pb\""
   },
