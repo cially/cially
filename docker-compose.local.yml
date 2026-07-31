@@ -1,0 +1,60 @@
+services:
+  cially-bot:
+    build:
+      context: .
+      dockerfile: apps/bot/Dockerfile
+    image: cially-bot:local
+    container_name: cially-bot
+    restart: unless-stopped
+    env_file:
+      - ./docker/.env
+    ports:
+      - "3001:3001"
+    depends_on:
+      - pocketbase
+    networks:
+      - cially-network
+
+  cially-web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        POCKETBASE_URL: ${POCKETBASE_URL}
+        API_URL: ${API_URL}
+    image: cially-web:local
+    container_name: cially-web
+    restart: unless-stopped
+    env_file:
+      - ./docker/.env
+    ports:
+      - "3000:3000"
+    depends_on:
+      - pocketbase
+    networks:
+      - cially-network
+
+  pocketbase:
+    build:
+      context: ./apps/pocketbase
+      dockerfile: Dockerfile
+      args:
+        POCKETBASE_VERSION: 0.39.10
+    image: cially-pocketbase:local
+    container_name: cially-pocketbase
+    restart: unless-stopped
+    env_file:
+      - ./docker/.env
+    volumes:
+      - pocketbase-data:/pb/pb_data
+    ports:
+      - "8090:8090"
+    networks:
+      - cially-network
+
+networks:
+  cially-network:
+    driver: bridge
+
+volumes:
+  pocketbase-data:
