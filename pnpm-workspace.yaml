@@ -9,7 +9,7 @@ allowBuilds:
 
 catalog:
   '@ai-sdk/groq': ^4.0.12
-  '@ai-sdk/react': 3.0.170
+  '@ai-sdk/react': 4.0.47
   '@biomejs/biome': 2.5.0
   '@discordjs/rest': ^2.6.2
   '@hookform/resolvers': ^5.4.0
