@@ -31,7 +31,6 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:dev",
     "@types/body-parser": "catalog:",
-    "@types/cron": "catalog:",
     "@types/express": "catalog:",
     "@types/node": "catalog:",
     "tsx": "catalog:",

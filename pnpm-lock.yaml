@@ -7,12 +7,6 @@ settings:
 
 catalogs:
   default:
-    '@ai-sdk/groq':
-      specifier: ^4.0.12
-      version: 4.0.12
-    '@ai-sdk/react':
-      specifier: 3.0.170
-      version: 3.0.170
     '@biomejs/biome':
       specifier: 2.5.0
       version: 2.5.0
@@ -28,9 +22,6 @@ catalogs:
     '@types/body-parser':
       specifier: ^1.19.6
       version: 1.19.6
-    '@types/cron':
-      specifier: ^2.4.3
-      version: 2.4.3
     '@types/express':
       specifier: ^5.0.6
       version: 5.0.6
@@ -43,9 +34,6 @@ catalogs:
     '@types/react-dom':
       specifier: 19.2.3
       version: 19.2.3
-    ai:
-      specifier: 6.0.168
-      version: 6.0.168
     body-parser:
       specifier: ^2.3.0
       version: 2.3.0
@@ -172,6 +160,7 @@ overrides:
   postcss: ^8.5.19
   qs: ^6.15.3
   ws: ^8.21.1
+  undici: ^6.28.0
 
 importers:
 
@@ -257,9 +246,6 @@ importers:
       '@types/body-parser':
         specifier: 'catalog:'
         version: 1.19.6
-      '@types/cron':
-        specifier: 'catalog:'
-        version: 2.4.3
       '@types/express':
         specifier: 'catalog:'
         version: 5.0.6
@@ -275,18 +261,9 @@ importers:
 
   apps/web:
     dependencies:
-      '@ai-sdk/groq':
-        specifier: 'catalog:'
-        version: 4.0.12(zod@4.4.3)
-      '@ai-sdk/react':
-        specifier: 'catalog:'
-        version: 3.0.170(react@19.2.7)(zod@4.4.3)
       '@hookform/resolvers':
         specifier: 'catalog:'
         version: 5.4.0(react-hook-form@7.81.0(react@19.2.7))
-      ai:
-        specifier: 'catalog:'
-        version: 6.0.168(zod@4.4.3)
       class-variance-authority:
         specifier: 'catalog:'
         version: 0.7.1
@@ -368,44 +345,6 @@ importers:
         version: 0.22.14(tsx@4.23.1)(typescript@7.0.2)
 
 packages:
-
-  '@ai-sdk/gateway@3.0.104':
-    resolution: {integrity: sha512-ZKX5n74io8VIRlhIMSLWVlvT3sXC8Z7cZ9GHuWBWZDVi96+62AIsWuLGvMfcBA1STYuSoDrp6rIziZmvrTq0TA==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/groq@4.0.12':
-    resolution: {integrity: sha512-iL6gEr+InuuEQImWruGWLG7LCTAzHD0xcvbpsK3zK31vlbummYEX6vI46E2mRXWaUUjoY5QH71FFNHhmNUuMTw==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/provider-utils@4.0.23':
-    resolution: {integrity: sha512-z8GlDaCmRSDlqkMF2f4/RFgWxdarvIbyuk+m6WXT1LYgsnGiXRJGTD2Z1+SDl3LqtFuRtGX1aghYvQLoHL/9pg==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/provider-utils@5.0.11':
-    resolution: {integrity: sha512-7/96wE+ZsKB35iS9ASyllrE4Ym/EolXEB7AkuJ5FI++fmS85BVTAs77890C+1Z2jwHfBKjBQSBmsliOsAh0iFQ==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
-
-  '@ai-sdk/provider@3.0.8':
-    resolution: {integrity: sha512-oGMAgGoQdBXbZqNG0Ze56CHjDZ1IDYOwGYxYjO5KLSlz5HiNQ9udIXsPZ61VWaHGZ5XW/jyjmr6t2xz2jGVwbQ==}
-    engines: {node: '>=18'}
-
-  '@ai-sdk/provider@4.0.3':
-    resolution: {integrity: sha512-e0CpNWJUY7OxAFAnCZkw+ri9QOHWwTs1tXP42782KFGCU07qt8NiXCrCVowyCB5dP2r5/Uls+g2oPd8kOJn9dw==}
-    engines: {node: '>=22'}
-
-  '@ai-sdk/react@3.0.170':
-    resolution: {integrity: sha512-YUDn+mK0c8iUz14rCBf1A0zg6SV5b5aSVUz+azF1bdBd1SFXVI19dKYR+PQSpZY+0+z+zs252AAsacUqiO98Kw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      react: ^18 || ~19.0.1 || ~19.1.2 || ^19.2.1
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1905,10 +1844,6 @@ packages:
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
 
-  '@types/cron@2.4.3':
-    resolution: {integrity: sha512-ViRBkoZD9Rk0hGeMdd2GHGaOaZuH9mDmwsE5/Zo53Ftwcvh7h9VJc8lIt2wdgEwS4EW5lbtTX6vlE0idCLPOyA==}
-    deprecated: This is a stub types definition. cron provides its own type definitions, so you do not need this installed.
-
   '@types/d3-array@3.2.2':
     resolution: {integrity: sha512-hOLWVbm7uRza0BYXpIIW5pxfrKe0W+D5lrFiAEYR+pb6w3N2SwSMaJbXdUfSEv+dT4MfHBLtn5js0LAWaO6otw==}
 
@@ -2127,16 +2062,9 @@ packages:
   '@ungap/structured-clone@1.3.1':
     resolution: {integrity: sha512-mUFwbeTqrVgDQxFveS+df2yfap6iuP20NAKAsBt5jDEoOTDew+zwLAOilHCeQJOVSvmgCX4ogqIrA0mnyr08yQ==}
 
-  '@vercel/oidc@3.2.0':
-    resolution: {integrity: sha512-UycprH3T6n3jH0k44NHMa7pnFHGu/N05MjojYr+Mc6I7obkoLIJujSWwin1pCvdy/eOxrI/l3uDLQsmcrOb4ug==}
-    engines: {node: '>= 20'}
-
   '@vladfrangu/async_event_emitter@2.4.7':
     resolution: {integrity: sha512-Xfe6rpCTxSxfbswi/W/Pz7zp1WWSNn4A0eW4mLkQUewCrXXtMj31lCg+iQyTkh/CkusZSq9eDflu7tjEDXUY6g==}
     engines: {node: '>=v14.0.0', npm: '>=7.0.0'}
-
-  '@workflow/serde@4.1.0':
-    resolution: {integrity: sha512-pav4F2BoirECWR7Nf1TKt+2eETcBj7jj4cBefQ8VXQCA6NPkaKeLfj/zMgi+3zYV5ZIBT4GuUiphsj0/b9hPQQ==}
 
   '@yuku-codegen/binding-darwin-arm64@0.8.0':
     resolution: {integrity: sha512-7cSJH6PaKLRBdCfiB4pM6EukvgOk5xV4tyuLOIOEqrHsbnV7brtyff7CjhZbeGozdIHoOnKOi5R7rrmCWN3QSw==}
@@ -2266,12 +2194,6 @@ packages:
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
     engines: {node: '>= 0.6'}
-
-  ai@6.0.168:
-    resolution: {integrity: sha512-2HqCJuO+1V2aV7vfYs5LFEUfxbkGX+5oa54q/gCCTL7KLTdbxcCu5D7TdLA5kwsrs3Szgjah9q6D9tpjHM3hUQ==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      zod: ^3.25.76 || ^4.1.8
 
   ansi-regex@6.2.2:
     resolution: {integrity: sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==}
@@ -2633,10 +2555,6 @@ packages:
   eventemitter3@5.0.4:
     resolution: {integrity: sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==}
 
-  eventsource-parser@3.1.0:
-    resolution: {integrity: sha512-kJezFj9YFAMLeORyi7aCLxLbD5/qWMQnoMVlVPyHIll7lgRJCc3JVln9Vgl9nwQi0YkMnhdGTMNn7CkRRAptMg==}
-    engines: {node: '>=18.0.0'}
-
   express-rate-limit@8.5.2:
     resolution: {integrity: sha512-5Kb34ipNX694DH48vN9irak1Qx30nb0PLYHXfJgw4YEjiC3ZEmZJhwOp+VfiCYwFzvFTdB9QkArYS5kXa2cx2A==}
     engines: {node: '>= 16'}
@@ -2848,9 +2766,6 @@ packages:
   jiti@2.7.0:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
-
-  json-schema@0.4.0:
-    resolution: {integrity: sha512-es94M3nTIfsEPisRafak+HDLfHXnKBhV3vU5eqPcS3flIWqcxJWgXHXiey3YrpaNsanY5ei1VoYEbOzijuq9BA==}
 
   jsonc-parser@3.3.1:
     resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
@@ -3601,11 +3516,6 @@ packages:
     resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
     engines: {node: '>=10'}
 
-  swr@2.4.1:
-    resolution: {integrity: sha512-2CC6CiKQtEwaEeNiqWTAw9PGykW8SR5zZX8MZk6TeAvEAnVS7Visz8WzphqgtQ8v2xz/4Q5K+j+SeMaKXeeQIA==}
-    peerDependencies:
-      react: ^16.11.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
   tailwind-merge@3.6.0:
     resolution: {integrity: sha512-uxL7qAVQriqRQPAyK3pj66VqskWqoZ37PW94jwOTwNfq/z9oyu1V+eqrZqtR2+fCiXdYOZe/Modt8GtvqNzu+w==}
 
@@ -3622,10 +3532,6 @@ packages:
 
   text-hex@1.0.0:
     resolution: {integrity: sha512-uuVGNWzgJ4yhRaNSiubPY7OjISw4sw4E5Uv0wbjp+OzcbmVU/rsT8ujgcXJhn9ypzsgr5vlzpPqP+MBBKcGvbg==}
-
-  throttleit@2.1.0:
-    resolution: {integrity: sha512-nt6AMGKW1p/70DF/hGBdJB57B8Tspmbp5gfJ8ilhLnt7kkr2ye7hzD6NVG8GGErk2HWF34igrL2CXmNIkzKqKw==}
-    engines: {node: '>=18'}
 
   tiny-invariant@1.3.3:
     resolution: {integrity: sha512-+FbBPE1o9QAYvviau/qC5SE3caw21q3xkvWKBtja5vgqOWIHHJ3ioaq1VPfn/Szqctz2bU/oYeKd9/z5BL+PVg==}
@@ -3752,10 +3658,6 @@ packages:
 
   undici-types@7.24.6:
     resolution: {integrity: sha512-WRNW+sJgj5OBN4/0JpHFqtqzhpbnV0GuB+OozA9gCL7a993SmU+1JBZCzLNxYsbMfIeDL+lTsphD5jN5N+n0zg==}
-
-  undici@6.24.1:
-    resolution: {integrity: sha512-sC+b0tB1whOCzbtlx20fx3WgCXwkW627p4EA9uM+/tNNPkSS+eSEld6pAs9nDv7WbY1UUljBMYPtu9BCOrCWKA==}
-    engines: {node: '>=18.17'}
 
   undici@6.28.0:
     resolution: {integrity: sha512-LIY910g9TI13YS95lrMFrs8Rm/u/irgHeTWoKCoteeJ04CUJ92eEfj0rVn+7VKMPBpUPiUoBKfhNyLI23EE/KA==}
@@ -3903,52 +3805,6 @@ packages:
 
 snapshots:
 
-  '@ai-sdk/gateway@3.0.104(zod@4.4.3)':
-    dependencies:
-      '@ai-sdk/provider': 3.0.8
-      '@ai-sdk/provider-utils': 4.0.23(zod@4.4.3)
-      '@vercel/oidc': 3.2.0
-      zod: 4.4.3
-
-  '@ai-sdk/groq@4.0.12(zod@4.4.3)':
-    dependencies:
-      '@ai-sdk/provider': 4.0.3
-      '@ai-sdk/provider-utils': 5.0.11(zod@4.4.3)
-      zod: 4.4.3
-
-  '@ai-sdk/provider-utils@4.0.23(zod@4.4.3)':
-    dependencies:
-      '@ai-sdk/provider': 3.0.8
-      '@standard-schema/spec': 1.1.0
-      eventsource-parser: 3.1.0
-      zod: 4.4.3
-
-  '@ai-sdk/provider-utils@5.0.11(zod@4.4.3)':
-    dependencies:
-      '@ai-sdk/provider': 4.0.3
-      '@standard-schema/spec': 1.1.0
-      '@workflow/serde': 4.1.0
-      eventsource-parser: 3.1.0
-      zod: 4.4.3
-
-  '@ai-sdk/provider@3.0.8':
-    dependencies:
-      json-schema: 0.4.0
-
-  '@ai-sdk/provider@4.0.3':
-    dependencies:
-      json-schema: 0.4.0
-
-  '@ai-sdk/react@3.0.170(react@19.2.7)(zod@4.4.3)':
-    dependencies:
-      '@ai-sdk/provider-utils': 4.0.23(zod@4.4.3)
-      ai: 6.0.168(zod@4.4.3)
-      react: 19.2.7
-      swr: 2.4.1(react@19.2.7)
-      throttleit: 2.1.0
-    transitivePeerDependencies:
-      - zod
-
   '@alloc/quick-lru@5.2.0': {}
 
   '@antfu/ni@30.1.0':
@@ -4041,7 +3897,7 @@ snapshots:
       discord-api-types: 0.38.48
       magic-bytes.js: 1.13.0
       tslib: 2.8.1
-      undici: 6.24.1
+      undici: 6.28.0
 
   '@discordjs/rest@2.6.2':
     dependencies:
@@ -4346,7 +4202,8 @@ snapshots:
   '@next/swc-win32-x64-msvc@16.2.12':
     optional: true
 
-  '@opentelemetry/api@1.9.0': {}
+  '@opentelemetry/api@1.9.0':
+    optional: true
 
   '@oxc-project/types@0.140.0': {}
 
@@ -5286,10 +5143,6 @@ snapshots:
     dependencies:
       '@types/node': 25.9.3
 
-  '@types/cron@2.4.3':
-    dependencies:
-      cron: 4.4.0
-
   '@types/d3-array@3.2.2': {}
 
   '@types/d3-color@3.1.3': {}
@@ -5450,11 +5303,7 @@ snapshots:
 
   '@ungap/structured-clone@1.3.1': {}
 
-  '@vercel/oidc@3.2.0': {}
-
   '@vladfrangu/async_event_emitter@2.4.7': {}
-
-  '@workflow/serde@4.1.0': {}
 
   '@yuku-codegen/binding-darwin-arm64@0.8.0':
     optional: true
@@ -5528,14 +5377,6 @@ snapshots:
     dependencies:
       mime-types: 3.0.2
       negotiator: 1.0.0
-
-  ai@6.0.168(zod@4.4.3):
-    dependencies:
-      '@ai-sdk/gateway': 3.0.104(zod@4.4.3)
-      '@ai-sdk/provider': 3.0.8
-      '@ai-sdk/provider-utils': 4.0.23(zod@4.4.3)
-      '@opentelemetry/api': 1.9.0
-      zod: 4.4.3
 
   ansi-regex@6.2.2: {}
 
@@ -5863,8 +5704,6 @@ snapshots:
 
   eventemitter3@5.0.4: {}
 
-  eventsource-parser@3.1.0: {}
-
   express-rate-limit@8.5.2(express@5.2.1):
     dependencies:
       express: 5.2.1
@@ -6095,8 +5934,6 @@ snapshots:
   isexe@2.0.0: {}
 
   jiti@2.7.0: {}
-
-  json-schema@0.4.0: {}
 
   jsonc-parser@3.3.1: {}
 
@@ -7042,12 +6879,6 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  swr@2.4.1(react@19.2.7):
-    dependencies:
-      dequal: 2.0.3
-      react: 19.2.7
-      use-sync-external-store: 1.6.0(react@19.2.7)
-
   tailwind-merge@3.6.0: {}
 
   tailwindcss@4.3.3: {}
@@ -7070,8 +6901,6 @@ snapshots:
       yaml: 2.9.0
 
   text-hex@1.0.0: {}
-
-  throttleit@2.1.0: {}
 
   tiny-invariant@1.3.3: {}
 
@@ -7206,8 +7035,6 @@ snapshots:
       unconfig-core: 7.5.0
 
   undici-types@7.24.6: {}
-
-  undici@6.24.1: {}
 
   undici@6.28.0: {}
 

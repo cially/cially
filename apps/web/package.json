@@ -11,10 +11,7 @@
     "check:unsafe": "biome check --write --unsafe ."
   },
   "dependencies": {
-    "@ai-sdk/groq": "catalog:",
-    "@ai-sdk/react": "catalog:",
     "@hookform/resolvers": "catalog:",
-    "ai": "catalog:",
     "class-variance-authority": "catalog:",
     "clsx": "catalog:",
     "lucide-react": "catalog:",
