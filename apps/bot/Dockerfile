@@ -2,13 +2,16 @@
 FROM node:22-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+ENV CI=true
+RUN corepack enable && corepack prepare pnpm@11.13.1 --activate
 
 # ---- Install dependencies ----
 FROM base AS deps
 WORKDIR /app
 COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
 COPY apps/bot/package.json apps/bot/
+COPY apps/web/package.json apps/web/
+COPY packages/types/package.json packages/types/
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # ---- Build ----
@@ -29,6 +32,7 @@ RUN apk add --no-cache dumb-init
 
 RUN addgroup --system cially && adduser --system --ingroup cially cially
 COPY --chown=cially:cially --from=build /prod/bot .
+COPY --chown=cially:cially --from=build /app/apps/bot/dist ./dist
 
 USER cially
 EXPOSE 3001

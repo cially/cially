@@ -1,5 +1,4 @@
 import { handleError } from "@/components/errorHandler";
-import { handler } from "next/dist/server/route-modules/pages/builtin/_error";
 
 const currentVersion = "v2.0.0";
 

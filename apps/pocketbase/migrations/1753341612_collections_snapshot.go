@@ -162,8 +162,8 @@ func init() {
       }
     ],
     "indexes": [
-      "CREATE UNIQUE INDEX `idx_tokenKey__pb_users_auth_` ON `users` (`tokenKey`)",
-      "CREATE UNIQUE INDEX `idx_email__pb_users_auth_` ON `users` (`email`) WHERE `email` != ''"
+      "CREATE UNIQUE INDEX idx_tokenKey__pb_users_auth_ ON users (tokenKey)",
+      "CREATE UNIQUE INDEX idx_email__pb_users_auth_ ON users (email) WHERE email != ''"
     ],
     "system": false,
     "authRule": "",
@@ -340,8 +340,8 @@ func init() {
       }
     ],
     "indexes": [
-      "CREATE UNIQUE INDEX `idx_tokenKey_pbc_3142635823` ON `_superusers` (`tokenKey`)",
-      "CREATE UNIQUE INDEX `idx_email_pbc_3142635823` ON `_superusers` (`email`) WHERE `email` != ''"
+      "CREATE UNIQUE INDEX idx_tokenKey_pbc_3142635823 ON _superusers (tokenKey)",
+      "CREATE UNIQUE INDEX idx_email_pbc_3142635823 ON _superusers (email) WHERE email != ''"
     ],
     "system": true,
     "authRule": "",
@@ -1601,7 +1601,7 @@ func init() {
       }
     ],
     "indexes": [
-      "CREATE UNIQUE INDEX `idx_authOrigins_unique_pairs` ON `_authOrigins` (collectionRef, recordRef, fingerprint)"
+      "CREATE UNIQUE INDEX idx_authOrigins_unique_pairs ON _authOrigins (collectionRef, recordRef, fingerprint)"
     ],
     "system": true
   },
@@ -1712,8 +1712,8 @@ func init() {
       }
     ],
     "indexes": [
-      "CREATE UNIQUE INDEX `idx_externalAuths_record_provider` ON `_externalAuths` (collectionRef, recordRef, provider)",
-      "CREATE UNIQUE INDEX `idx_externalAuths_collection_provider` ON `_externalAuths` (collectionRef, provider, providerId)"
+      "CREATE UNIQUE INDEX idx_externalAuths_record_provider ON _externalAuths (collectionRef, recordRef, provider)",
+      "CREATE UNIQUE INDEX idx_externalAuths_collection_provider ON _externalAuths (collectionRef, provider, providerId)"
     ],
     "system": true
   },
@@ -1809,7 +1809,7 @@ func init() {
       }
     ],
     "indexes": [
-      "CREATE INDEX `idx_mfas_collectionRef_recordRef` ON `_mfas` (collectionRef,recordRef)"
+      "CREATE INDEX idx_mfas_collectionRef_recordRef ON _mfas (collectionRef,recordRef)"
     ],
     "system": true
   },
@@ -1919,7 +1919,7 @@ func init() {
       }
     ],
     "indexes": [
-      "CREATE INDEX `idx_otps_collectionRef_recordRef` ON `_otps` (collectionRef, recordRef)"
+      "CREATE INDEX idx_otps_collectionRef_recordRef ON _otps (collectionRef, recordRef)"
     ],
     "system": true
   }

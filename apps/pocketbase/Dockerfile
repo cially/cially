@@ -1,7 +1,7 @@
 # ╔═════════════════════════════════════════════════════╗
 # ║                       BUILD                         ║
 # ╚═════════════════════════════════════════════════════╝
-FROM golang:1.24.4-alpine AS build
+FROM golang:1.25-alpine AS build
 
 WORKDIR /app
 
@@ -9,17 +9,15 @@ WORKDIR /app
 RUN apk add --no-cache ca-certificates && update-ca-certificates
 
 # Specify PocketBase target version
-ARG POCKETBASE_VERSION=0.39.8
+ARG POCKETBASE_VERSION=0.39.10
 
-# Copy Go manifests
+# Copy Go manifests & source files
 COPY go.mod go.sum ./
-
-# Fetch requested PocketBase version
-RUN go get github.com/pocketbase/pocketbase@v${POCKETBASE_VERSION} && go mod download
-
-# Copy source files
 COPY main.go ./
 COPY migrations ./migrations
+
+# Fetch requested PocketBase version and update dependencies
+RUN go get github.com/pocketbase/pocketbase@v${POCKETBASE_VERSION} && go mod tidy
 
 # Build static binary with Go cache mounts
 ARG TARGETOS TARGETARCH
