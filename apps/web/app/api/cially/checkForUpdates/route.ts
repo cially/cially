@@ -1,6 +1,6 @@
 import { handleError } from "@/components/errorHandler";
 
-const currentVersion = "v2.0.0";
+const currentVersion = "v2.0.1";
 
 export async function GET() {
   try {
