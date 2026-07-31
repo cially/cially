@@ -24,7 +24,7 @@ async function syncCommands(client: Client) {
     for (const file of commandFiles) {
       const filePath = path.join(commandsPath, file);
       try {
-        const command = await import(filePath + "?update=" + Date.now());
+        const command = await import(filePath);
         if (command && "data" in command && "execute" in command) {
           localCommands.push({
             name: command.data.name,
