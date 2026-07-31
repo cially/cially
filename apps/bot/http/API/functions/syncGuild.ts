@@ -129,7 +129,7 @@ export async function syncGuild(req: Request, res: Response, client: Client): Pr
       }
     } catch (err) {
       error({ text: `Failed to fetch guild: \n${err}` });
-      return res.status(500).json(err);
+      return res.status(500)
     }
   }
 
