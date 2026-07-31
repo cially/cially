@@ -21,7 +21,7 @@ catalog:
   dotenv: ^17.4.2
   express: ^5.2.1
   express-rate-limit: 8.5.2
-  ky: ^1.14.3
+  ky: ^2.0.2
   lefthook: 2.1.9
   lucide-react: ^0.575.0
   multer: ^2.1.1
