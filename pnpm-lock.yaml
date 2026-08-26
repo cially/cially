@@ -150,8 +150,8 @@ catalogs:
       specifier: 2.5.8
       version: 2.5.8
     taze:
-      specifier: ^19.17.2
-      version: 19.17.2
+      specifier: ^21.1.0
+      version: 21.1.0
 
 overrides:
   ip-address: ^10.5.0
@@ -186,7 +186,7 @@ importers:
         version: 2.1.10
       taze:
         specifier: catalog:dev
-        version: 19.17.2
+        version: 21.1.0
       turbo:
         specifier: 'catalog:'
         version: 2.10.10
@@ -3747,8 +3747,8 @@ packages:
     resolution: {integrity: sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A==}
     engines: {node: '>=6'}
 
-  taze@19.17.2:
-    resolution: {integrity: sha512-1WH+LUf5H0R07EF606fuP5TuHPVvtrMIPpn69EkqaOVJYg0foL8xnD+lEs0s19Zfmplul5nRd3TpbbF0twXCkw==}
+  taze@21.1.0:
+    resolution: {integrity: sha512-NkFkadmqqpaVZ9x3bV4cul1xQnUknhs1HzE3Q/VXHKS7np2Kg7ZNL7nNsEsBXKsafmgepa+aZNtzoegDgsymPw==}
     hasBin: true
 
   text-hex@1.0.0:
@@ -7284,7 +7284,7 @@ snapshots:
 
   tapable@2.3.3: {}
 
-  taze@19.17.2:
+  taze@21.1.0:
     dependencies:
       '@antfu/ni': 30.5.0
       '@henrygd/queue': 1.2.0
