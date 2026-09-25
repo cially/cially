@@ -26,7 +26,7 @@ catalog:
   cron: ^4.4.0
   discord-api-types: 0.38.55
   discord.js: ^14.27.0
-  dotenv: ^17.4.2
+  dotenv: ^18.0.4
   express: ^5.2.1
   express-rate-limit: 8.7.0
   ky: ^2.1.0
