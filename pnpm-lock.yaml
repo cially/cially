@@ -160,7 +160,7 @@ overrides:
   postcss: ^8.5.28
   qs: ^6.16.0
   ws: ^8.22.0
-  undici: ^6.29.0
+  undici: ^8.11.2
   sharp: ^0.35.5
   shell-quote: ^1.12.0
 
@@ -3929,9 +3929,9 @@ packages:
   undici-types@8.9.0:
     resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
-  undici@6.29.0:
-    resolution: {integrity: sha512-R+RODBqp6i2pPflGdq+xIOUkl+RNfGgHwoinecKu/JCuf2uO06cOKoDbI2P7Dn6KcswdKwrczbU6IYJ6K8X+wg==}
-    engines: {node: '>=18.17'}
+  undici@8.11.2:
+    resolution: {integrity: sha512-u4UB2/IrKdU6lFxumHmmo1a3fCQO5tzQllRorfoRS63txhrB7xTpSn1PftwC4qEHkOaqP95fCWW4lJzwErwzhQ==}
+    engines: {node: '>=22.19.0'}
 
   unicorn-magic@0.3.0:
     resolution: {integrity: sha512-+QBBXBCvifc56fsbuxZQ6Sic3wqqc3WWaqxs58gvJrcOuN83HGTCwz3oS5phzU9LthRNE9VrJCFCLUgHeeFnfA==}
@@ -4201,7 +4201,7 @@ snapshots:
       discord-api-types: 0.38.56
       magic-bytes.js: 1.13.0
       tslib: 2.8.1
-      undici: 6.29.0
+      undici: 8.11.2
 
   '@discordjs/util@1.2.0':
     dependencies:
@@ -5923,7 +5923,7 @@ snapshots:
       lodash.snakecase: 4.1.1
       magic-bytes.js: 1.13.0
       tslib: 2.8.1
-      undici: 6.29.0
+      undici: 8.11.2
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -7479,7 +7479,7 @@ snapshots:
 
   undici-types@8.9.0: {}
 
-  undici@6.29.0: {}
+  undici@8.11.2: {}
 
   unicorn-magic@0.3.0: {}
 
