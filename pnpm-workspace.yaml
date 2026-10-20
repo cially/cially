@@ -90,7 +90,7 @@ overrides:
   postcss: ^8.5.30
   qs: ^6.16.1
   ws: ^8.22.0
-  undici: ^6.29.1
+  undici: ^8.12.3
   sharp: ^0.35.5
   shell-quote: ^1.12.0
 
