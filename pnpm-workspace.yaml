@@ -10,7 +10,7 @@ allowBuilds:
 catalog:
   '@biomejs/biome': 2.6.3
   '@discordjs/rest': ^2.6.3
-  '@hookform/resolvers': ^5.9.2
+  '@hookform/resolvers': ^6.0.2
   '@tailwindcss/postcss': ^4.3.3
   '@types/body-parser': ^1.19.6
   '@types/express': ^5.0.6
