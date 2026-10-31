@@ -8,7 +8,7 @@ allowBuilds:
   sharp: true
 
 catalog:
-  '@biomejs/biome': 2.6.3
+  '@biomejs/biome': 2.6.4
   '@discordjs/rest': ^2.6.3
   '@hookform/resolvers': ^5.9.2
   '@tailwindcss/postcss': ^4.3.3
@@ -25,13 +25,13 @@ catalog:
   concurrently: ^10.0.6
   cron: ^4.4.0
   discord-api-types: 0.38.57
-  discord.js: ^14.27.0
+  discord.js: ^14.28.0
   dotenv: ^17.4.2
   express: ^5.3.0
-  express-rate-limit: 8.7.1
+  express-rate-limit: 8.7.2
   ky: ^2.2.0
   lefthook: 2.2.2
-  lucide-react: ^1.61.0
+  lucide-react: ^1.66.0
   multer: ^2.5.0
   next: ^16.4.3
   next-themes: ^0.4.6
@@ -60,14 +60,14 @@ catalogMode: prefer
 
 catalogs:
   dev:
-    '@biomejs/biome': 2.6.3
+    '@biomejs/biome': 2.6.4
     '@tailwindcss/postcss': ^4.3.3
     lefthook: ^2.2.2
     tailwindcss: ^4.3.3
     taze: ^19.17.2
     typescript: ^5.9.3
   types:
-    '@types/node': ^26.6.5
+    '@types/node': ^26.6.6
     '@types/react': 19.3.0
     '@types/react-dom': 19.3.0
 
@@ -87,9 +87,9 @@ overrides:
   ip-address: ^10.7.5
   lodash: ^4.18.1
   path-to-regexp: ^8.4.2
-  postcss: ^8.5.31
-  qs: ^6.16.1
-  ws: ^8.22.0
+  postcss: ^8.5.32
+  qs: ^6.17.1
+  ws: ^8.22.1
   undici: ^6.29.1
   sharp: ^0.35.5
   shell-quote: ^1.12.0
