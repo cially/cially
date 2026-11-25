@@ -20,8 +20,8 @@ catalogs:
       specifier: ^4.3.5
       version: 4.3.5
     '@types/body-parser':
-      specifier: ^1.19.6
-      version: 1.19.6
+      specifier: ^2.2.0
+      version: 2.2.0
     '@types/express':
       specifier: ^5.0.6
       version: 5.0.6
@@ -247,7 +247,7 @@ importers:
         version: 2.6.8
       '@types/body-parser':
         specifier: 'catalog:'
-        version: 1.19.6
+        version: 2.2.0
       '@types/express':
         specifier: 'catalog:'
         version: 5.0.6
@@ -1978,6 +1978,9 @@ packages:
 
   '@types/body-parser@1.19.6':
     resolution: {integrity: sha512-HLFeCYgz89uk22N5Qg3dvGvsv46B8GLvKKo1zKG4NybA8U2DiEO3w9lqGg29t/tfLRJpJ6iQxnVw4OnB7MoM9g==}
+
+  '@types/body-parser@2.2.0':
+    resolution: {integrity: sha512-2xqOfKcCjEVvPzOqRa3Db4+CzY45+urO0ib+EvtV5G8z2SRhjVsEI8C6fXZjd0gLEszk27Z3UTpSgTI5Nh5QTg==}
 
   '@types/connect@3.4.38':
     resolution: {integrity: sha512-K6uROf1LD88uDQqJCktA4yzL1YYAK6NgfsI0v/mTgyPKWsX1CnJ0XPSDhViejru1GcRkLWb8RlzFYJRqGUbaug==}
@@ -5298,6 +5301,11 @@ snapshots:
     dependencies:
       '@types/connect': 3.4.38
       '@types/node': 26.6.3
+
+  '@types/body-parser@2.2.0':
+    dependencies:
+      '@types/connect': 3.4.38
+      '@types/node': 25.9.9
 
   '@types/connect@3.4.38':
     dependencies:
