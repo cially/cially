@@ -8,14 +8,14 @@ allowBuilds:
   sharp: true
 
 catalog:
-  '@biomejs/biome': 2.6.8
+  '@biomejs/biome': 2.6.9
   '@discordjs/rest': ^2.6.3
   '@hookform/resolvers': ^5.9.2
   '@tailwindcss/postcss': ^4.3.5
   '@types/body-parser': ^1.19.6
   '@types/express': ^5.0.6
-  '@types/node': 25.9.9
-  '@types/react': 19.3.0
+  '@types/node': 25.9.12
+  '@types/react': 19.3.3
   '@types/react-dom': 19.3.0
   body-parser: ^2.4.0
   cfonts: ^3.3.1
@@ -23,15 +23,15 @@ catalog:
   clsx: ^2.1.1
   colors: ^1.4.0
   concurrently: ^10.0.7
-  cron: ^4.4.1
+  cron: ^4.4.2
   discord-api-types: 0.38.60
   discord.js: ^14.28.0
   dotenv: ^17.4.2
   express: ^5.3.0
   express-rate-limit: 8.7.5
   ky: ^2.2.0
-  lefthook: 2.2.2
-  lucide-react: ^1.77.0
+  lefthook: 2.2.4
+  lucide-react: ^1.83.0
   multer: ^2.5.0
   next: ^16.4.6
   next-themes: ^0.4.6
@@ -42,7 +42,7 @@ catalog:
   react-dom: ^19.3.1
   react-hook-form: ^7.92.0
   react-markdown: ^10.1.0
-  recharts: ^3.11.0
+  recharts: ^3.11.2
   simple-get: ^4.0.1
   sonner: ^2.0.8
   tailwind-merge: ^3.7.1
@@ -60,15 +60,15 @@ catalogMode: prefer
 
 catalogs:
   dev:
-    '@biomejs/biome': 2.6.8
+    '@biomejs/biome': 2.6.9
     '@tailwindcss/postcss': ^4.3.5
-    lefthook: ^2.2.2
+    lefthook: ^2.2.4
     tailwindcss: ^4.3.5
     taze: ^19.17.2
     typescript: ^5.9.3
   types:
-    '@types/node': ^26.6.6
-    '@types/react': 19.3.0
+    '@types/node': ^26.6.11
+    '@types/react': 19.3.3
     '@types/react-dom': 19.3.0
 
 injectWorkspacePackages: true
@@ -84,12 +84,12 @@ onlyBuiltDependencies:
   - sharp
 
 overrides:
-  ip-address: ^10.7.6
+  ip-address: ^10.7.7
   lodash: ^4.18.1
   path-to-regexp: ^8.4.2
-  postcss: ^8.5.33
+  postcss: ^8.5.34
   qs: ^6.17.1
-  ws: ^8.23.0
+  ws: ^8.23.1
   undici: ^6.29.1
   sharp: ^0.35.5
   shell-quote: ^1.12.0
